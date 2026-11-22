@@ -1,0 +1,725 @@
+{
+  "ReportVersion": "2019.3.1",
+  "ReportGuid": "5412948a7a287e3cf0a37b3d1cba9eb5",
+  "ReportName": "Report",
+  "ReportAlias": "销售员雷达图",
+  "ReportFile": "D:\\xampp\\www\\crm\\templatePrintFile\\reports\\yinshua_salesmanradar.mrt",
+  "ReportCreated": "/Date(144000000+0800)/",
+  "ReportChanged": "/Date(144000000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Dictionary": {
+    "Variables": {
+      "0": {
+        "Value": "DateSerial(Year(Today),1,1)",
+        "Name": "start_date",
+        "Alias": "起始日期",
+        "Type": "System.DateTime",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      },
+      "1": {
+        "Name": "smowner",
+        "DialogInfo": {
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "list_users.listid",
+          "ValuesColumn": "list_users.listvalue",
+          "AllowUserValues": false
+        },
+        "Alias": "业务员",
+        "Type": "System.String",
+        "RequestFromUser": true
+      },
+      "2": {
+        "Value": "Today",
+        "Name": "end_date",
+        "Alias": "截止日期",
+        "Type": "System.DateTime",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      }
+    },
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "lab",
+        "Alias": "lab",
+        "Columns": {
+          "0": {
+            "Name": "LAB1",
+            "Index": -1,
+            "NameInSource": "LAB1",
+            "Alias": "LAB1",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "crm",
+        "SqlCommand": "SELECT\r\n\tCASE\r\n\t\tWHEN '{smowner}'='' THEN\r\n\t\t\t(\r\n\t\t\t\tSELECT\r\n\t\t\t\t\tb.last_name\r\n\t\t\t\tFROM (\r\n\t\t\t\t\tSELECT\r\n\t\t\t\t\t\ta.smownerid\r\n\t\t\t\t\tFROM ld_contactrecords a\r\n\t\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\t\tGROUP BY a.smownerid\r\n\t\t\t\t) a\r\n\t\t\t\tLEFT JOIN ld_users b ON a.smownerid=b.id\r\n\t\t\t\tORDER BY CONVERT(b.last_name USING GBK) LIMIT 1\r\n\t\t\t)\r\n\t\tELSE (SELECT last_name FROM ld_users WHERE id='{smowner}')\r\n\tEND AS LAB1"
+      },
+      "1": {
+        "Ident": "StiMySqlSource",
+        "Name": "list_users",
+        "Alias": "list_users",
+        "Columns": {
+          "0": {
+            "Name": "listid",
+            "Index": -1,
+            "NameInSource": "listid",
+            "Alias": "listid",
+            "Type": "System.Int32"
+          },
+          "1": {
+            "Name": "listvalue",
+            "Index": -1,
+            "NameInSource": "listvalue",
+            "Alias": "listvalue",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "crm",
+        "SqlCommand": "SELECT\r\n\ta.smownerid AS listid,\r\n\tb.last_name AS listvalue\r\nFROM (\r\n\tSELECT\r\n\t\ta.smownerid\r\n\tFROM ld_contactrecords a\r\n\tWHERE a.deleted=0\r\n\t\tAND a.approvestatus<>'已拒绝'\r\n\tGROUP BY a.smownerid\r\n) a\r\nLEFT JOIN ld_users b ON a.smownerid=b.id\r\nORDER BY CONVERT(b.last_name USING GBK)"
+      },
+      "2": {
+        "Ident": "StiMySqlSource",
+        "Name": "t",
+        "Alias": "t",
+        "Columns": {
+          "0": {
+            "Name": "argument",
+            "Index": -1,
+            "NameInSource": "argument",
+            "Alias": "argument",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "last_name",
+            "Index": -1,
+            "NameInSource": "last_name",
+            "Alias": "last_name",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "qty",
+            "Index": -1,
+            "NameInSource": "qty",
+            "Alias": "qty",
+            "Type": "System.Int32"
+          },
+          "3": {
+            "Name": "qty_rate",
+            "Index": -1,
+            "NameInSource": "qty_rate",
+            "Alias": "qty_rate",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "crm",
+        "Type": "Table",
+        "SqlCommand": "SELECT\r\n\t(SELECT last_name FROM ld_users WHERE id='{smowner}') AS last_name,\r\n\targument,\r\n\tqty AS qty,\r\n\tROUND(qty*100/b.total) AS qty_rate\r\nFROM (\r\n\tSELECT\r\n\t\t'主动开发型' AS argument,\r\n\t\tCOUNT(b.contactrecordid) AS qty\r\n\tFROM ld_contactrecords a \r\n\tLEFT JOIN ld_contactrecordscf b ON b.contactrecordid=a.contactrecordID \r\n\tWHERE a.deleted=0 \r\n\t\tAND a.approvestatus<>'已拒绝'\r\n\t\tAND a.contactdate BETWEEN DATE_FORMAT('{start_date}','%Y-%m-%d') AND DATE_FORMAT('{end_date}','%Y-%m-%d')\r\n\t\tAND a.follow_type='主动开发型'\r\n\t\tAND (\r\n\t\t\tCASE\r\n\t\t\t\tWHEN '{smowner}'='' THEN\r\n\t\t\t\t\ta.smownerid=(\r\n\t\t\t\t\t\tSELECT\r\n\t\t\t\t\t\t\ta.smownerid\r\n\t\t\t\t\t\tFROM (\r\n\t\t\t\t\t\t\tSELECT\r\n\t\t\t\t\t\t\t\ta.smownerid\r\n\t\t\t\t\t\t\tFROM ld_contactrecords a\r\n\t\t\t\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\t\t\t\tGROUP BY a.smownerid\r\n\t\t\t\t\t\t) a\r\n\t\t\t\t\t\tLEFT JOIN ld_users b ON a.smownerid=b.id\r\n\t\t\t\t\t\tORDER BY CONVERT(b.last_name USING GBK) LIMIT 1\r\n\t\t\t\t\t)\r\n\t\t\t\tELSE a.smownerid='{smowner}'\r\n\t\t\tEND)\r\n\tUNION ALL\r\n\tSELECT\r\n\t\t'被动开发型' AS argument,\r\n\t\tCOUNT(b.contactrecordid) AS qty\r\n\tFROM ld_contactrecords a \r\n\tLEFT JOIN ld_contactrecordscf b ON b.contactrecordid=a.contactrecordID \r\n\tWHERE a.deleted=0 \r\n\t\tAND a.approvestatus<>'已拒绝'\r\n\t\tAND a.contactdate BETWEEN DATE_FORMAT('{start_date}','%Y-%m-%d') AND DATE_FORMAT('{end_date}','%Y-%m-%d')\r\n\t\tAND a.follow_type='被动开发型'\r\n\t\tAND (\r\n\t\t\tCASE\r\n\t\t\t\tWHEN '{smowner}'='' THEN\r\n\t\t\t\t\ta.smownerid=(\r\n\t\t\t\t\t\tSELECT\r\n\t\t\t\t\t\t\ta.smownerid\r\n\t\t\t\t\t\tFROM (\r\n\t\t\t\t\t\t\tSELECT\r\n\t\t\t\t\t\t\t\ta.smownerid\r\n\t\t\t\t\t\t\tFROM ld_contactrecords a\r\n\t\t\t\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\t\t\t\tGROUP BY a.smownerid\r\n\t\t\t\t\t\t) a\r\n\t\t\t\t\t\tLEFT JOIN ld_users b ON a.smownerid=b.id\r\n\t\t\t\t\t\tORDER BY CONVERT(b.last_name USING GBK) LIMIT 1\r\n\t\t\t\t\t)\r\n\t\t\t\tELSE a.smownerid='{smowner}'\r\n\t\t\tEND)\r\n\tUNION ALL\r\n\tSELECT\r\n\t\t'主动事务型' AS argument,\r\n\t\tCOUNT(b.contactrecordid) AS qty\r\n\tFROM ld_contactrecords a \r\n\tLEFT JOIN ld_contactrecordscf b ON b.contactrecordid=a.contactrecordID \r\n\tWHERE a.deleted=0 \r\n\t\tAND a.approvestatus<>'已拒绝'\r\n\t\tAND a.contactdate BETWEEN DATE_FORMAT('{start_date}','%Y-%m-%d') AND DATE_FORMAT('{end_date}','%Y-%m-%d')\r\n\t\tAND a.follow_type='主动事务型'\r\n\t\tAND (\r\n\t\t\tCASE\r\n\t\t\t\tWHEN '{smowner}'='' THEN\r\n\t\t\t\t\ta.smownerid=(\r\n\t\t\t\t\t\tSELECT\r\n\t\t\t\t\t\t\ta.smownerid\r\n\t\t\t\t\t\tFROM (\r\n\t\t\t\t\t\t\tSELECT\r\n\t\t\t\t\t\t\t\ta.smownerid\r\n\t\t\t\t\t\t\tFROM ld_contactrecords a\r\n\t\t\t\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\t\t\t\tGROUP BY a.smownerid\r\n\t\t\t\t\t\t) a\r\n\t\t\t\t\t\tLEFT JOIN ld_users b ON a.smownerid=b.id\r\n\t\t\t\t\t\tORDER BY CONVERT(b.last_name USING GBK) LIMIT 1\r\n\t\t\t\t\t)\r\n\t\t\t\tELSE a.smownerid='{smowner}'\r\n\t\t\tEND)\r\n\tUNION ALL\r\n\tSELECT\r\n\t\t'被动事务型' AS argument,\r\n\t\tCOUNT(b.contactrecordid) AS qty\r\n\tFROM ld_contactrecords a \r\n\tLEFT JOIN ld_contactrecordscf b ON b.contactrecordid=a.contactrecordID \r\n\tWHERE a.deleted=0 \r\n\t\tAND a.approvestatus<>'已拒绝'\r\n\t\tAND a.contactdate BETWEEN DATE_FORMAT('{start_date}','%Y-%m-%d') AND DATE_FORMAT('{end_date}','%Y-%m-%d')\r\n\t\tAND a.follow_type='被动事务型'\r\n\t\tAND (\r\n\t\t\tCASE\r\n\t\t\t\tWHEN '{smowner}'='' THEN\r\n\t\t\t\t\ta.smownerid=(\r\n\t\t\t\t\t\tSELECT\r\n\t\t\t\t\t\t\ta.smownerid\r\n\t\t\t\t\t\tFROM (\r\n\t\t\t\t\t\t\tSELECT\r\n\t\t\t\t\t\t\t\ta.smownerid\r\n\t\t\t\t\t\t\tFROM ld_contactrecords a\r\n\t\t\t\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\t\t\t\tGROUP BY a.smownerid\r\n\t\t\t\t\t\t) a\r\n\t\t\t\t\t\tLEFT JOIN ld_users b ON a.smownerid=b.id\r\n\t\t\t\t\t\tORDER BY CONVERT(b.last_name USING GBK) LIMIT 1\r\n\t\t\t\t\t)\r\n\t\t\t\tELSE a.smownerid='{smowner}'\r\n\t\t\tEND)\r\n) a\r\nCROSS JOIN (\r\n\tSELECT\r\n\t\tCOUNT(b.contactrecordid) AS total\r\n\tFROM ld_contactrecords a \r\n\tLEFT JOIN ld_contactrecordscf b ON b.contactrecordid=a.contactrecordID \r\n\tWHERE a.deleted=0 \r\n\t\tAND a.approvestatus<>'已拒绝'\r\n\t\tAND a.contactdate BETWEEN DATE_FORMAT('{start_date}','%Y-%m-%d') AND DATE_FORMAT('{end_date}','%Y-%m-%d')\r\n\t\tAND a.follow_type IN ('主动开发型','被动开发型','主动事务型','被动事务型')\r\n\t\tAND (\r\n\t\t\tCASE\r\n\t\t\t\tWHEN '{smowner}'='' THEN\r\n\t\t\t\t\ta.smownerid=(\r\n\t\t\t\t\t\tSELECT\r\n\t\t\t\t\t\t\ta.smownerid\r\n\t\t\t\t\t\tFROM (\r\n\t\t\t\t\t\t\tSELECT\r\n\t\t\t\t\t\t\t\ta.smownerid\r\n\t\t\t\t\t\t\tFROM ld_contactrecords a\r\n\t\t\t\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\t\t\t\tGROUP BY a.smownerid\r\n\t\t\t\t\t\t) a\r\n\t\t\t\t\t\tLEFT JOIN ld_users b ON a.smownerid=b.id\r\n\t\t\t\t\t\tORDER BY CONVERT(b.last_name USING GBK) LIMIT 1\r\n\t\t\t\t\t)\r\n\t\t\t\tELSE a.smownerid='{smowner}'\r\n\t\t\tEND)\r\n) b\r\nORDER BY FIELD(argument,'主动开发型','被动开发型','被动事务型','主动事务型')"
+      },
+      "3": {
+        "Ident": "StiMySqlSource",
+        "Name": "t1",
+        "Alias": "t1",
+        "Columns": {
+          "0": {
+            "Name": "accountname",
+            "Index": -1,
+            "NameInSource": "accountname",
+            "Alias": "accountname",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "argument",
+            "Index": -1,
+            "NameInSource": "argument",
+            "Alias": "argument",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "coninfo",
+            "Index": -1,
+            "NameInSource": "coninfo",
+            "Alias": "coninfo",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "content",
+            "Index": -1,
+            "NameInSource": "content",
+            "Alias": "content",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "crm",
+        "SqlCommand": "SELECT\r\n\t'主动开发型' AS argument,\r\n\ta.contactrecord_no AS coninfo,\r\n\tc.accountname,\r\n\ta.content\r\nFROM ld_contactrecords a \r\nLEFT JOIN ld_contactrecordscf b ON b.contactrecordid=a.contactrecordID\r\nLEFT JOIN ld_account c ON c.accountid=a.accountid\r\nWHERE a.deleted=0 \r\n\tAND a.approvestatus<>'已拒绝'\r\n\tAND a.contactdate BETWEEN DATE_FORMAT('{start_date}','%Y-%m-%d') AND DATE_FORMAT('{end_date}','%Y-%m-%d')\r\n\tAND a.follow_type='主动开发型'\r\n\tAND (\r\n\t\tCASE\r\n\t\t\tWHEN '{smowner}'='' THEN\r\n\t\t\t\ta.smownerid=(\r\n\t\t\t\t\tSELECT\r\n\t\t\t\t\t\ta.smownerid\r\n\t\t\t\t\tFROM (\r\n\t\t\t\t\t\tSELECT\r\n\t\t\t\t\t\t\ta.smownerid\r\n\t\t\t\t\t\tFROM ld_contactrecords a\r\n\t\t\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\t\t\tGROUP BY a.smownerid\r\n\t\t\t\t\t) a\r\n\t\t\t\t\tLEFT JOIN ld_users b ON a.smownerid=b.id\r\n\t\t\t\t\tORDER BY CONVERT(b.last_name USING GBK) LIMIT 1\r\n\t\t\t\t)\r\n\t\t\tELSE a.smownerid='{smowner}'\r\n\t\tEND)\r\nUNION ALL\r\nSELECT\r\n\t'被动开发型' AS argument,\r\n\ta.contactrecord_no AS coninfo,\r\n\tc.accountname,\r\n\ta.content\r\nFROM ld_contactrecords a \r\nLEFT JOIN ld_contactrecordscf b ON b.contactrecordid=a.contactrecordID\r\nLEFT JOIN ld_account c ON c.accountid=a.accountid\r\nWHERE a.deleted=0 \r\n\tAND a.approvestatus<>'已拒绝'\r\n\tAND a.contactdate BETWEEN DATE_FORMAT('{start_date}','%Y-%m-%d') AND DATE_FORMAT('{end_date}','%Y-%m-%d')\r\n\tAND a.follow_type='被动开发型'\r\n\tAND (\r\n\t\tCASE\r\n\t\t\tWHEN '{smowner}'='' THEN\r\n\t\t\t\ta.smownerid=(\r\n\t\t\t\t\tSELECT\r\n\t\t\t\t\t\ta.smownerid\r\n\t\t\t\t\tFROM (\r\n\t\t\t\t\t\tSELECT\r\n\t\t\t\t\t\t\ta.smownerid\r\n\t\t\t\t\t\tFROM ld_contactrecords a\r\n\t\t\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\t\t\tGROUP BY a.smownerid\r\n\t\t\t\t\t) a\r\n\t\t\t\t\tLEFT JOIN ld_users b ON a.smownerid=b.id\r\n\t\t\t\t\tORDER BY CONVERT(b.last_name USING GBK) LIMIT 1\r\n\t\t\t\t)\r\n\t\t\tELSE a.smownerid='{smowner}'\r\n\t\tEND)\r\nUNION ALL\r\nSELECT\r\n\t'主动事务型' AS argument,\r\n\ta.contactrecord_no AS coninfo,\r\n\tc.accountname,\r\n\ta.content\r\nFROM ld_contactrecords a \r\nLEFT JOIN ld_contactrecordscf b ON b.contactrecordid=a.contactrecordID\r\nLEFT JOIN ld_account c ON c.accountid=a.accountid\r\nWHERE a.deleted=0 \r\n\tAND a.approvestatus<>'已拒绝'\r\n\tAND a.contactdate BETWEEN DATE_FORMAT('{start_date}','%Y-%m-%d') AND DATE_FORMAT('{end_date}','%Y-%m-%d')\r\n\tAND a.follow_type='主动事务型'\r\n\tAND (\r\n\t\tCASE\r\n\t\t\tWHEN '{smowner}'='' THEN\r\n\t\t\t\ta.smownerid=(\r\n\t\t\t\t\tSELECT\r\n\t\t\t\t\t\ta.smownerid\r\n\t\t\t\t\tFROM (\r\n\t\t\t\t\t\tSELECT\r\n\t\t\t\t\t\t\ta.smownerid\r\n\t\t\t\t\t\tFROM ld_contactrecords a\r\n\t\t\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\t\t\tGROUP BY a.smownerid\r\n\t\t\t\t\t) a\r\n\t\t\t\t\tLEFT JOIN ld_users b ON a.smownerid=b.id\r\n\t\t\t\t\tORDER BY CONVERT(b.last_name USING GBK) LIMIT 1\r\n\t\t\t\t)\r\n\t\t\tELSE a.smownerid='{smowner}'\r\n\t\tEND)\r\nUNION ALL\r\nSELECT\r\n\t'被动事务型' AS argument,\r\n\ta.contactrecord_no AS coninfo,\r\n\tc.accountname,\r\n\ta.content\r\nFROM ld_contactrecords a \r\nLEFT JOIN ld_contactrecordscf b ON b.contactrecordid=a.contactrecordID\r\nLEFT JOIN ld_account c ON c.accountid=a.accountid\r\nWHERE a.deleted=0 \r\n\tAND a.approvestatus<>'已拒绝'\r\n\tAND a.contactdate BETWEEN DATE_FORMAT('{start_date}','%Y-%m-%d') AND DATE_FORMAT('{end_date}','%Y-%m-%d')\r\n\tAND a.follow_type='被动事务型'\r\n\tAND (\r\n\t\tCASE\r\n\t\t\tWHEN '{smowner}'='' THEN\r\n\t\t\t\ta.smownerid=(\r\n\t\t\t\t\tSELECT\r\n\t\t\t\t\t\ta.smownerid\r\n\t\t\t\t\tFROM (\r\n\t\t\t\t\t\tSELECT\r\n\t\t\t\t\t\t\ta.smownerid\r\n\t\t\t\t\t\tFROM ld_contactrecords a\r\n\t\t\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\t\t\tGROUP BY a.smownerid\r\n\t\t\t\t\t) a\r\n\t\t\t\t\tLEFT JOIN ld_users b ON a.smownerid=b.id\r\n\t\t\t\t\tORDER BY CONVERT(b.last_name USING GBK) LIMIT 1\r\n\t\t\t\t)\r\n\t\t\tELSE a.smownerid='{smowner}'\r\n\t\tEND)"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "crm",
+        "Alias": "crm",
+        "ConnectionStringEncrypted": "9NBlAsMbc91ieO306lxq58LSf2BCWQGkbBP9jecQ416N3HGK5nxD+UFbqYFjAPYPg25hw1loS51FUayA4lxkKoBe9UjnCRm8ZVycDOoRJWLewFXCVlHTeUYbpNxLWHUvxECtYOgDaYzhfaU="
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "Page1",
+      "Guid": "7d79c6e6dad9160fa1dfc0ce4ad3fe1b",
+      "Alias": "销售员雷达图",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiReportTitleBand",
+          "Name": "ReportTitleBand1",
+          "ClientRectangle": "0,0.4,23,11.4",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text1",
+              "Guid": "c809904b9e95530db6fae90681e16e5b",
+              "ClientRectangle": "0,0,23,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{lab.LAB1}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": ";20;Bold;",
+              "Border": ";;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiChart",
+              "Name": "Chart1",
+              "ClientRectangle": "0,1.2,23,10",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Border": ";;;;;;;solid:Black",
+              "Brush": "solid:255,255,255",
+              "Series": {
+                "0": {
+                  "Ident": "StiRadarAreaSeries",
+                  "AllowApplyStyle": false,
+                  "ShowSeriesLabels": "FromSeries",
+                  "ShowShadow": false,
+                  "SeriesLabels": {
+                    "Ident": "StiCenterAxisLabels",
+                    "MarkerSize": {
+                      "Width": 8,
+                      "Height": 6
+                    },
+                    "ValueTypeSeparator": "-",
+                    "Visible": false,
+                    "LabelColor": "50,58,69",
+                    "BorderColor": "Transparent",
+                    "Brush": "solid:Transparent",
+                    "Font": ";10;;"
+                  },
+                  "ValueDataColumn": "t.qty",
+                  "ArgumentDataColumn": "t.argument",
+                  "Title": {
+                    "Value": "Series 1"
+                  },
+                  "Marker": {
+                    "Visible": false,
+                    "Brush": "solid:152,252,255",
+                    "BorderColor": "0,52,119"
+                  },
+                  "LineColor": "112,173,71",
+                  "Lighting": false,
+                  "Brush": "solid:112,173,71"
+                }
+              },
+              "Area": {
+                "Ident": "StiRadarAreaArea",
+                "BorderColor": "171,172,173",
+                "Brush": "empty",
+                "InterlacingHor": {
+                  "InterlacedBrush": "solid:10,155,155,155",
+                  "Area": true
+                },
+                "InterlacingVert": {
+                  "InterlacedBrush": "solid:10,155,155,155",
+                  "Area": true
+                },
+                "GridLinesHor": {
+                  "Color": "100,105,105,105",
+                  "Area": true
+                },
+                "GridLinesVert": {
+                  "Color": "100,105,105,105",
+                  "Area": true
+                },
+                "XAxis": {
+                  "Area": true,
+                  "Labels": {
+                    "Color": "50,58,69",
+                    "Brush": "empty"
+                  }
+                },
+                "YAxis": {
+                  "Area": true,
+                  "Labels": {
+                    "Color": "140,140,140"
+                  },
+                  "LineColor": "140,140,140"
+                }
+              },
+              "Table": {
+                "GridLineColor": "225,225,225",
+                "Header": {
+                  "Brush": "solid:White"
+                },
+                "DataCells": {
+                  "TextColor": "140,140,140"
+                }
+              },
+              "SeriesLabels": {
+                "Ident": "StiNoneLabels",
+                "MarkerSize": {
+                  "Width": 8,
+                  "Height": 6
+                },
+                "ValueTypeSeparator": "-"
+              },
+              "Legend": {
+                "ShowShadow": false,
+                "BorderColor": "225,225,225",
+                "Brush": "solid:255,255,255",
+                "TitleColor": "105,105,105",
+                "LabelsColor": "140,140,140",
+                "Visible": false,
+                "MarkerSize": {
+                  "Width": 10,
+                  "Height": 10
+                },
+                "Columns": 0,
+                "Size": "0,0"
+              },
+              "Title": {
+                "Brush": "solid:140,140,140"
+              },
+              "Style": {
+                "Ident": "StiStyle29"
+              }
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiReportTitleBand",
+          "Name": "ReportTitleBand2",
+          "ClientRectangle": "0,12.6,23,1",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text9",
+              "Guid": "ec558ed82c27c6701badf7a9eb38b1af",
+              "ClientRectangle": "5.6,0,6.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "客户名称"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;Bold;",
+              "Border": "All;92,92,92;;;;;;solid:Black",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 4,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text2",
+              "Guid": "95f914373f1fb0965d7174a237ad88fb",
+              "ClientRectangle": "0,0,2.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "跟进内容类别"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;Bold;",
+              "Border": "All;92,92,92;;;;;;solid:Black",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 4,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text4",
+              "Guid": "4a97f69d1a9135cf3a00f2fc813f6bea",
+              "ClientRectangle": "12.4,0,10.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "跟进内容"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;Bold;",
+              "Border": "All;92,92,92;;;;;;solid:Black",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 4,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text6",
+              "Guid": "0404d01193b19bd9a2f80a676ed20d0c",
+              "ClientRectangle": "2.8,0,2.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "跟进记录编号"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;Bold;",
+              "Border": "All;92,92,92;;;;;;solid:Black",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 4,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            }
+          }
+        },
+        "2": {
+          "Ident": "StiGroupHeaderBand",
+          "Name": "GroupHeaderBand1",
+          "ClientRectangle": "0,14.4,23,0",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Condition": {
+            "Value": "{t1.argument}"
+          }
+        },
+        "3": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand1",
+          "Guid": "b799bd5f5f4d1702b5c76d73d530b588",
+          "ClientRectangle": "0,15.2,23,0.8",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text8",
+              "Guid": "289e51368ad15eef5cccdafca3b1832c",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "5.6,0,6.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{t1.accountname}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;92,92,92;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text3",
+              "Guid": "4f82cb7d409b67f17a562058614010b4",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{t1.argument}"
+              },
+              "ProcessingDuplicates": "BasedOnTagMerge",
+              "Text": {
+                "Value": "{t1.argument}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;92,92,92;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text5",
+              "Guid": "35d8d2680812cddb04f6c34e7e0d0c60",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "12.4,0,10.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{t1.content}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;92,92,92;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text7",
+              "Guid": "cc8098987edbe369eb8b4527f564974f",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "2.8,0,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{t1.coninfo}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;92,92,92;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "t1",
+          "EvenStyle": "even",
+          "OddStyle": "odd"
+        },
+        "4": {
+          "Ident": "StiGroupFooterBand",
+          "Name": "GroupFooterBand1",
+          "ClientRectangle": "0,16.8,23,0.8",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text10",
+              "Guid": "00a78d9fbf72b7695afee717be29c474",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "5.6,0,6.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;92,92,92;;;;;;solid:Black",
+              "Brush": "solid:238,238,238",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text11",
+              "Guid": "9455d525201f4b05979caf50f4f58538",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{t1.argument}"
+              },
+              "ProcessingDuplicates": "BasedOnTagMerge",
+              "Text": {
+                "Value": "{t1.argument}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;92,92,92;;;;;;solid:Black",
+              "Brush": "solid:238,238,238",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text12",
+              "Guid": "1d7078d8afd967a6eb4338acea6cdf74",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "12.4,0,10.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;92,92,92;;;;;;solid:Black",
+              "Brush": "solid:238,238,238",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text13",
+              "Guid": "ab7802874682769618a5f2fbf390c348",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "2.8,0,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Count(DataBand1)} 个"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;92,92,92;;;;;;solid:Black",
+              "Brush": "solid:238,238,238",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Totals"
+            }
+          }
+        }
+      },
+      "PageWidth": 25,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    }
+  }
+}

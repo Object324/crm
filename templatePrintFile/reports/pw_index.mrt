@@ -1,0 +1,755 @@
+{
+  "ReportVersion": "2019.4.1",
+  "ReportGuid": "d2d3de1b4056f9d1fc6c1eb53052cf29",
+  "ReportName": "Report",
+  "ReportAlias": "铺位全景",
+  "ReportFile": "pw_index.mrt",
+  "ReportCreated": "/Date(1577165847000+0800)/",
+  "ReportChanged": "/Date(1577165847000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Dictionary": {
+    "Variables": {
+      "0": {
+        "Value": "1",
+        "Name": "color_type",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime"
+        },
+        "Alias": "颜色显示方式",
+        "Type": "System.String",
+        "ReadOnly": true,
+        "InitBy": "Expression"
+      }
+    },
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "list_color",
+        "Alias": "list_color",
+        "Columns": {
+          "0": {
+            "Name": "listid",
+            "Index": -1,
+            "NameInSource": "listid",
+            "Alias": "listid",
+            "Type": "System.Int32"
+          },
+          "1": {
+            "Name": "listvalue",
+            "Index": -1,
+            "NameInSource": "listvalue",
+            "Alias": "listvalue",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT 1 AS listid,'铺位状态' AS listvalue\r\nUNION\r\nSELECT 2 AS listid,'基准单价' AS listvalue"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "ldcrm",
+        "Alias": "ldcrm",
+        "ConnectionStringEncrypted": "41bRCUh8S81GRym9xJzjXovS+ythCkGJYhWhzOIJYWeQWtnrYUxDCcwbqNjoePZn3tyNSMYJUZTCE/mAZBR3boN4zcJPA1GQbU3QgMs="
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "Page1",
+      "Guid": "6115addc99035067918fcd134bd0c6b2",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiText",
+          "Name": "Text1",
+          "Guid": "a458272365bf20433a229f419f3a82aa",
+          "ClientRectangle": "6.8,12.8,4,1",
+          "Interaction": {
+            "Ident": "StiInteraction",
+            "DrillDownEnabled": true
+          },
+          "Hyperlink": {
+            "Value": "index.php?crm_report_key=pw_west2FJ.mrt&default_report=1&pagezoom=50&report_name=%E8%A5%BF%E5%8C%BA%E7%B2%BE%E4%BA%8C%E5%B1%82"
+          },
+          "Text": {
+            "Value": "精二层"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;16;;",
+          "Border": "All;165,165,165;;;;;;solid:0,0,0",
+          "Brush": "solid:0,255,255,255",
+          "TextBrush": "solid:0,0,0",
+          "Type": "Expression"
+        },
+        "1": {
+          "Ident": "StiText",
+          "Name": "Text143",
+          "Guid": "80641a0acd20e4ce0ba191b5689eb2e3",
+          "ClientRectangle": "16.8,2.4,10,1",
+          "Interaction": {
+            "Ident": "StiInteraction",
+            "DrillDownEnabled": true
+          },
+          "Hyperlink": {
+            "Value": "index.php?crm_report_key=pw_num21.mrt&default_report=1&pagezoom=50&report_name=%E9%A4%90%E9%A5%AE%E8%A1%9721%E5%8F%B7%E6%A5%BC"
+          },
+          "Text": {
+            "Value": "21号楼"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;16;;",
+          "Border": "All;165,165,165;;;;;;solid:0,0,0",
+          "Brush": "solid:0,255,255,255",
+          "TextBrush": "solid:0,0,0",
+          "Type": "Expression"
+        },
+        "2": {
+          "Ident": "StiText",
+          "Name": "Text144",
+          "Guid": "a5825a125df1642959bec5ddf5caa2d8",
+          "ClientRectangle": "0.8,2.4,10,1",
+          "Interaction": {
+            "Ident": "StiInteraction",
+            "DrillDownEnabled": true
+          },
+          "Hyperlink": {
+            "Value": "index.php?crm_report_key=pw_num22.mrt&default_report=1&pagezoom=50&report_name=%E9%A4%90%E9%A5%AE%E8%A1%9722%E5%8F%B7%E6%A5%BC"
+          },
+          "Text": {
+            "Value": "22号楼"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;16;;",
+          "Border": "All;165,165,165;;;;;;solid:0,0,0",
+          "Brush": "solid:0,255,255,255",
+          "TextBrush": "solid:0,0,0",
+          "Type": "Expression"
+        },
+        "3": {
+          "Ident": "StiText",
+          "Name": "Text145",
+          "Guid": "3bc6d1ac614ad1d2922d0a127bd07665",
+          "ClientRectangle": "0.8,4.2,10,1",
+          "Interaction": {
+            "Ident": "StiInteraction",
+            "DrillDownEnabled": true
+          },
+          "Hyperlink": {
+            "Value": "index.php?crm_report_key=pw_west6F.mrt&default_report=1&pagezoom=50&report_name=%E8%A5%BF%E5%8C%BA6F"
+          },
+          "Text": {
+            "Value": "西区 6F"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;16;;",
+          "Border": "All;165,165,165;;;;;;solid:0,0,0",
+          "Brush": "solid:0,255,255,255",
+          "TextBrush": "solid:0,0,0",
+          "Type": "Expression"
+        },
+        "4": {
+          "Ident": "StiText",
+          "Name": "Text146",
+          "Guid": "7ac8167e4d2db34104028a8e7898bd9c",
+          "ClientRectangle": "0.8,6,10,1",
+          "Interaction": {
+            "Ident": "StiInteraction",
+            "DrillDownEnabled": true
+          },
+          "Hyperlink": {
+            "Value": "index.php?crm_report_key=pw_west5F.mrt&default_report=1&pagezoom=50&report_name=%E8%A5%BF%E5%8C%BA5F"
+          },
+          "Text": {
+            "Value": "西区 5F"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;16;;",
+          "Border": "All;165,165,165;;;;;;solid:0,0,0",
+          "Brush": "solid:0,255,255,255",
+          "TextBrush": "solid:0,0,0",
+          "Type": "Expression"
+        },
+        "5": {
+          "Ident": "StiText",
+          "Name": "Text150",
+          "Guid": "4c291e32803a5f5aaea049d4370bd745",
+          "ClientRectangle": "0.8,7.8,10,1",
+          "Interaction": {
+            "Ident": "StiInteraction",
+            "DrillDownEnabled": true
+          },
+          "Hyperlink": {
+            "Value": "index.php?crm_report_key=pw_west4F.mrt&default_report=1&pagezoom=33&report_name=%E8%A5%BF%E5%8C%BA4F"
+          },
+          "Text": {
+            "Value": "西区 4F"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;16;;",
+          "Border": "All;165,165,165;;;;;;solid:0,0,0",
+          "Brush": "solid:0,255,255,255",
+          "TextBrush": "solid:0,0,0",
+          "Type": "Expression"
+        },
+        "6": {
+          "Ident": "StiText",
+          "Name": "Text151",
+          "Guid": "e21609894fba79f408691a10b907467e",
+          "ClientRectangle": "0.8,9.6,10,1",
+          "Interaction": {
+            "Ident": "StiInteraction",
+            "DrillDownEnabled": true
+          },
+          "Hyperlink": {
+            "Value": "index.php?crm_report_key=pw_west3F.mrt&default_report=1&pagezoom=50&report_name=%E8%A5%BF%E5%8C%BA3F"
+          },
+          "Text": {
+            "Value": "西区 3F"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;16;;",
+          "Border": "All;165,165,165;;;;;;solid:0,0,0",
+          "Brush": "solid:0,255,255,255",
+          "TextBrush": "solid:0,0,0",
+          "Type": "Expression"
+        },
+        "7": {
+          "Ident": "StiText",
+          "Name": "Text152",
+          "Guid": "15b9ca400d27d743f51f8c5b72c3b0f6",
+          "ClientRectangle": "0.8,12,4,1",
+          "Interaction": {
+            "Ident": "StiInteraction",
+            "DrillDownEnabled": true,
+            "DrillDownParameter1": {
+              "Name": "map",
+              "Expression": {
+                "Value": "\"西区2F\""
+              }
+            }
+          },
+          "Hyperlink": {
+            "Value": "index.php?crm_report_key=pw_west2F.mrt&default_report=1&pagezoom=50&report_name=%E8%A5%BF%E5%8C%BA2F"
+          },
+          "Text": {
+            "Value": "西区 2F"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;16;;",
+          "Border": "All;165,165,165;;;;;;solid:0,0,0",
+          "Brush": "solid:0,255,255,255",
+          "TextBrush": "solid:0,0,0",
+          "Type": "Expression"
+        },
+        "8": {
+          "Ident": "StiText",
+          "Name": "Text153",
+          "Guid": "6164d6e1daf925f179e77efc731c9a3e",
+          "ClientRectangle": "0.8,14.6,10,1",
+          "Interaction": {
+            "Ident": "StiInteraction",
+            "DrillDownEnabled": true
+          },
+          "Hyperlink": {
+            "Value": "index.php?crm_report_key=pw_west1F.mrt&default_report=1&pagezoom=50&report_name=%E8%A5%BF%E5%8C%BA1F"
+          },
+          "Text": {
+            "Value": "西区 1F"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;16;;",
+          "Border": "All;165,165,165;;;;;;solid:0,0,0",
+          "Brush": "solid:0,255,255,255",
+          "TextBrush": "solid:0,0,0",
+          "Type": "Expression"
+        },
+        "9": {
+          "Ident": "StiText",
+          "Name": "Text154",
+          "Guid": "c5b398ffbed41733762d37d3bdf343bd",
+          "ClientRectangle": "0.8,16.4,10,1",
+          "Interaction": {
+            "Ident": "StiInteraction",
+            "DrillDownEnabled": true,
+            "DrillDownParameter1": {
+              "Name": "map",
+              "Expression": {
+                "Value": "\"西区B1\""
+              }
+            }
+          },
+          "Hyperlink": {
+            "Value": "index.php?crm_report_key=pw_westB1F.mrt&default_report=1&pagezoom=50&report_name=%E8%A5%BF%E5%8C%BAB1"
+          },
+          "Text": {
+            "Value": "西区 B1"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;16;;",
+          "Border": "All;165,165,165;;;;;;solid:0,0,0",
+          "Brush": "solid:0,255,255,255",
+          "TextBrush": "solid:0,0,0",
+          "Type": "Expression"
+        },
+        "10": {
+          "Ident": "StiText",
+          "Name": "Text155",
+          "Guid": "fc5b532febea06cf0af3de99be7482b0",
+          "ClientRectangle": "0.8,18.2,10,1",
+          "Interaction": {
+            "Ident": "StiInteraction",
+            "DrillDownEnabled": true
+          },
+          "Hyperlink": {
+            "Value": "index.php?crm_report_key=pw_westB2F.mrt&default_report=1&pagezoom=50&report_name=%E8%A5%BF%E5%8C%BAB2"
+          },
+          "Text": {
+            "Value": "西区 B2"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;16;;",
+          "Border": "All;165,165,165;;;;;;solid:0,0,0",
+          "Brush": "solid:0,255,255,255",
+          "TextBrush": "solid:0,0,0",
+          "Type": "Expression"
+        },
+        "11": {
+          "Ident": "StiText",
+          "Name": "Text156",
+          "Guid": "d1d3cc396d7f03b3b0b5e417876f946d",
+          "ClientRectangle": "6.8,11.4,4,1",
+          "Interaction": {
+            "Ident": "StiInteraction",
+            "DrillDownEnabled": true,
+            "DrillDownParameter1": {
+              "Name": "map",
+              "Expression": {
+                "Value": "\"西区大二层\""
+              }
+            }
+          },
+          "Hyperlink": {
+            "Value": "index.php?crm_report_key=pw_west2FD.mrt&default_report=1&pagezoom=50&report_name=%E8%A5%BF%E5%8C%BA%E5%A4%A7%E4%BA%8C%E5%B1%82"
+          },
+          "Text": {
+            "Value": "大二层"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;16;;",
+          "Border": "All;165,165,165;;;;;;solid:0,0,0",
+          "Brush": "solid:0,255,255,255",
+          "TextBrush": "solid:0,0,0",
+          "Type": "Expression"
+        },
+        "12": {
+          "Ident": "StiText",
+          "Name": "Text158",
+          "Guid": "7d89696c9c1c679facc71d1bba6b6323",
+          "ClientRectangle": "16.8,9.6,10,1",
+          "Interaction": {
+            "Ident": "StiInteraction",
+            "DrillDownEnabled": true
+          },
+          "Hyperlink": {
+            "Value": "index.php?crm_report_key=pw_east3F.mrt&default_report=1&pagezoom=50&report_name=%E4%B8%9C%E5%8C%BA3F"
+          },
+          "Text": {
+            "Value": "东区 3F"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;16;;",
+          "Border": "All;165,165,165;;;;;;solid:0,0,0",
+          "Brush": "solid:0,255,255,255",
+          "TextBrush": "solid:0,0,0",
+          "Type": "Expression"
+        },
+        "13": {
+          "Ident": "StiText",
+          "Name": "Text159",
+          "Guid": "139c099310b0f458147e95ae8d21b7b3",
+          "ClientRectangle": "16.8,12,10,1",
+          "Interaction": {
+            "Ident": "StiInteraction",
+            "DrillDownEnabled": true
+          },
+          "Hyperlink": {
+            "Value": "index.php?crm_report_key=pw_east2F.mrt&default_report=1&pagezoom=50&report_name=%E4%B8%9C%E5%8C%BA2F"
+          },
+          "Text": {
+            "Value": "东区 2F"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;16;;",
+          "Border": "All;165,165,165;;;;;;solid:0,0,0",
+          "Brush": "solid:0,255,255,255",
+          "TextBrush": "solid:0,0,0",
+          "Type": "Expression"
+        },
+        "14": {
+          "Ident": "StiText",
+          "Name": "Text160",
+          "Guid": "a9647dafd13c676f695cb6029ac37280",
+          "ClientRectangle": "16.8,14.6,10,1",
+          "Interaction": {
+            "Ident": "StiInteraction",
+            "DrillDownEnabled": true
+          },
+          "Hyperlink": {
+            "Value": "index.php?crm_report_key=pw_east1F.mrt&default_report=1&pagezoom=50&report_name=%E4%B8%9C%E5%8C%BA1F"
+          },
+          "Text": {
+            "Value": "东区 1F"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;16;;",
+          "Border": "All;165,165,165;;;;;;solid:0,0,0",
+          "Brush": "solid:0,255,255,255",
+          "TextBrush": "solid:0,0,0",
+          "Type": "Expression"
+        },
+        "15": {
+          "Ident": "StiText",
+          "Name": "Text161",
+          "Guid": "8e9a1d232031891e9164deec02f7f70e",
+          "ClientRectangle": "16.8,16.4,4,1",
+          "Interaction": {
+            "Ident": "StiInteraction",
+            "DrillDownEnabled": true
+          },
+          "Hyperlink": {
+            "Value": "index.php?crm_report_key=pw_eastB1F.mrt&default_report=1&pagezoom=75&report_name=%E4%B8%9C%E5%8C%BAB1F"
+          },
+          "Text": {
+            "Value": "东区 B1"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;16;;",
+          "Border": "All;165,165,165;;;;;;solid:0,0,0",
+          "Brush": "solid:0,255,255,255",
+          "TextBrush": "solid:0,0,0",
+          "Type": "Expression"
+        },
+        "16": {
+          "Ident": "StiText",
+          "Name": "Text162",
+          "Guid": "a68294e1992d86b809fee9175d9534ab",
+          "ClientRectangle": "16.8,18.2,10,1",
+          "Interaction": {
+            "Ident": "StiInteraction",
+            "DrillDownEnabled": true
+          },
+          "Hyperlink": {
+            "Value": "index.php?crm_report_key=pw_eastB2F.mrt&default_report=1&pagezoom=50&report_name=%E4%B8%9C%E5%8C%BAB2F"
+          },
+          "Text": {
+            "Value": "东区 B2"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;16;;",
+          "Border": "All;165,165,165;;;;;;solid:0,0,0",
+          "Brush": "solid:0,255,255,255",
+          "TextBrush": "solid:0,0,0",
+          "Type": "Expression"
+        },
+        "17": {
+          "Ident": "StiText",
+          "Name": "Text5",
+          "Guid": "9e6c35ce9a7d85ea50270238f93c8b9d",
+          "ClientRectangle": "0.2,19.6,13.4,1.2",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Text": {
+            "Value": "西区"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;16;;",
+          "Border": ";;;;;;;solid:0,0,0",
+          "Brush": "solid:52,135,226",
+          "TextBrush": "solid:255,255,255",
+          "Type": "Expression"
+        },
+        "18": {
+          "Ident": "StiText",
+          "Name": "Text6",
+          "Guid": "a38c479afe7ff27c9c4239be00c5daae",
+          "ClientRectangle": "13.8,19.6,13.8,1.2",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Text": {
+            "Value": "东区"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;16;;",
+          "Border": ";;;;;;;solid:0,0,0",
+          "Brush": "solid:52,135,226",
+          "TextBrush": "solid:255,255,255",
+          "Type": "Expression"
+        },
+        "19": {
+          "Ident": "StiText",
+          "Name": "Text4",
+          "ClientRectangle": "13.6,2.4,0.2,18.4",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:52,135,226",
+          "TextBrush": "solid:Black"
+        },
+        "20": {
+          "Ident": "StiText",
+          "Name": "Text157",
+          "Guid": "be50ecfccab5c4f2c93d14150a779134",
+          "ClientRectangle": "11.8,12,4,1",
+          "Interaction": {
+            "Ident": "StiInteraction",
+            "DrillDownEnabled": true
+          },
+          "Hyperlink": {
+            "Value": "index.php?crm_report_key=pw_west2FZ.mrt&default_report=1&pagezoom=50&pagezoom=50&report_name=%E8%A5%BF%E5%8C%BA%E4%B8%AD%E4%BA%8C%E5%B1%82"
+          },
+          "Text": {
+            "Value": "中二 层"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;16;;",
+          "Border": "All;165,165,165;;;;;;solid:0,0,0",
+          "Brush": "solid:0,255,255,255",
+          "TextBrush": "solid:0,0,0",
+          "Type": "Expression"
+        },
+        "21": {
+          "Ident": "StiText",
+          "Name": "Text3",
+          "Guid": "5a32112d930c7b7a19a649ca2eb44562",
+          "ClientRectangle": "11.8,16.4,4,1",
+          "Interaction": {
+            "Ident": "StiInteraction",
+            "DrillDownEnabled": true
+          },
+          "Hyperlink": {
+            "Value": "index.php?crm_report_key=pw_mid.mrt&default_report=1&pagezoom=50&report_name=%E4%B8%AD%E8%BD%B4"
+          },
+          "Text": {
+            "Value": "中轴"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;16;;",
+          "Border": "All;165,165,165;;;;;;solid:0,0,0",
+          "Brush": "solid:0,255,255,255",
+          "TextBrush": "solid:0,0,0",
+          "Type": "Expression"
+        },
+        "22": {
+          "Ident": "StiText",
+          "Name": "Text7",
+          "Guid": "e850023829bd62de0cc4ec7de6ab35aa",
+          "ClientRectangle": "22.8,16.4,4,1",
+          "Interaction": {
+            "Ident": "StiInteraction",
+            "DrillDownEnabled": true
+          },
+          "Hyperlink": {
+            "Value": "index.php?crm_report_key=pw_eastB1_S2F.mrt&default_report=1&pagezoom=50&report_name=%E4%B8%9C%E5%8C%BAB1%20-%20%E5%8D%97%E4%BE%A72F"
+          },
+          "Text": {
+            "Value": " B1 - 南侧2F"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;16;;",
+          "Border": "All;165,165,165;;;;;;solid:0,0,0",
+          "Brush": "solid:0,255,255,255",
+          "TextBrush": "solid:0,0,0",
+          "Type": "Expression"
+        },
+        "23": {
+          "Ident": "StiReportTitleBand",
+          "Name": "ReportTitleBand1",
+          "ClientRectangle": "0,0.4,27.6,1.6",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text2",
+              "Guid": "aa19dafd4f409cbe5ddeab592ef28559",
+              "ClientRectangle": "0,0,27.6,1.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "东贸国际服装城铺位全景图"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;28;Bold;",
+              "Border": ";;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:255,0,0",
+              "Type": "Expression"
+            }
+          }
+        },
+        "24": {
+          "Ident": "StiHorizontalLinePrimitive",
+          "Name": "HorizontalLinePrimitive1",
+          "ClientRectangle": "0.6,17.8,26.4,0.0254",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Style": "Dot",
+          "Color": "191,191,191",
+          "Size": 2,
+          "StartCap": ";;;",
+          "EndCap": ";;;"
+        },
+        "25": {
+          "Ident": "StiHorizontalLinePrimitive",
+          "Name": "HorizontalLinePrimitive3",
+          "Guid": "0e15f42e74bb38adec7548031ac89926",
+          "ClientRectangle": "0.6,5.6,13,0.0254",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Style": "Dot",
+          "Color": "191,191,191",
+          "Size": 2,
+          "StartCap": ";;;",
+          "EndCap": ";;;"
+        },
+        "26": {
+          "Ident": "StiHorizontalLinePrimitive",
+          "Name": "HorizontalLinePrimitive2",
+          "Guid": "04b1f8492a766c84d1cce2054306ad0e",
+          "ClientRectangle": "0.6,9.2,13,0.0254",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Style": "Dot",
+          "Color": "191,191,191",
+          "Size": 2,
+          "StartCap": ";;;",
+          "EndCap": ";;;"
+        },
+        "27": {
+          "Ident": "StiHorizontalLinePrimitive",
+          "Name": "HorizontalLinePrimitive4",
+          "Guid": "d461243a17911b5441dbeb4cf421bb8b",
+          "ClientRectangle": "0.6,7.4,13,0.0254",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Style": "Dot",
+          "Color": "191,191,191",
+          "Size": 2,
+          "StartCap": ";;;",
+          "EndCap": ";;;"
+        },
+        "28": {
+          "Ident": "StiHorizontalLinePrimitive",
+          "Name": "HorizontalLinePrimitive5",
+          "Guid": "a70e57a84905f55722d2d77196dc9885",
+          "ClientRectangle": "0.6,11,26.4,0.0254",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Style": "Dot",
+          "Color": "191,191,191",
+          "Size": 2,
+          "StartCap": ";;;",
+          "EndCap": ";;;"
+        },
+        "29": {
+          "Ident": "StiHorizontalLinePrimitive",
+          "Name": "HorizontalLinePrimitive6",
+          "Guid": "b6402886f0df2dbdfb53e75830537d9f",
+          "ClientRectangle": "0.6,14.2,26.4,0.0254",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Style": "Dot",
+          "Color": "191,191,191",
+          "Size": 2,
+          "StartCap": ";;;",
+          "EndCap": ";;;"
+        },
+        "30": {
+          "Ident": "StiHorizontalLinePrimitive",
+          "Name": "HorizontalLinePrimitive7",
+          "Guid": "a3d333042382fc5e4d52f10ff25eb40c",
+          "ClientRectangle": "0.6,16,26.4,0.0254",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Style": "Dot",
+          "Color": "191,191,191",
+          "Size": 2,
+          "StartCap": ";;;",
+          "EndCap": ";;;"
+        },
+        "31": {
+          "Ident": "StiHorizontalLinePrimitive",
+          "Name": "HorizontalLinePrimitive8",
+          "Guid": "d76401ac69691f22ef1b0a21a6788384",
+          "ClientRectangle": "0.6,3.8,26.4,0.0254",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Style": "Dot",
+          "Color": "191,191,191",
+          "Size": 2,
+          "StartCap": ";;;",
+          "EndCap": ";;;"
+        }
+      },
+      "PageWidth": 29.6,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    }
+  }
+}

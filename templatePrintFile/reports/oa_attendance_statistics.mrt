@@ -1,0 +1,1918 @@
+{
+  "ReportVersion": "2019.3.1",
+  "ReportGuid": "3645b3f7747aecbf6f6a8cc13738156f",
+  "ReportName": "Report",
+  "ReportAlias": "员工考勤统计表",
+  "ReportFile": "oa_attendance_statistics.mrt",
+  "ReportCreated": "/Date(0+0800)/",
+  "ReportChanged": "/Date(0+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Styles": {
+    "0": {
+      "Ident": "StiStyle",
+      "Name": "column_odd",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:255,255,255",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    },
+    "1": {
+      "Ident": "StiStyle",
+      "Name": "column_even",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:252,252,252",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    }
+  },
+  "Dictionary": {
+    "Variables": {
+      "0": {
+        "Value": "Year(Today)",
+        "Name": "nian",
+        "DialogInfo": {
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "list_nian.nian",
+          "ValuesColumn": "list_nian.nian"
+        },
+        "Alias": "年度",
+        "Type": "System.Int32",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      },
+      "1": {
+        "Value": "Month(Today)",
+        "Name": "yue",
+        "DialogInfo": {
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "list_yue.yue",
+          "ValuesColumn": "list_yue.yue"
+        },
+        "Alias": "月份",
+        "Type": "System.Int32",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      },
+      "2": {
+        "Value": "true",
+        "Name": "shenpi",
+        "Alias": "只统计审批通过的单据",
+        "Type": "System.Boolean",
+        "RequestFromUser": true
+      },
+      "3": {
+        "Name": "data_range",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime",
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "list_user.id",
+          "ValuesColumn": "list_user.last_name",
+          "AllowUserValues": false
+        },
+        "Alias": "查看范围",
+        "Type": "Stimulsoft.Report.StringList",
+        "RequestFromUser": true
+      }
+    },
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "list_nian",
+        "Alias": "list_nian",
+        "Columns": {
+          "0": {
+            "Name": "nian",
+            "Index": -1,
+            "NameInSource": "nian",
+            "Alias": "nian",
+            "Type": "System.Int32"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT\r\n\t*\r\nFROM (\r\n\tSELECT YEAR(CURDATE()) AS nian\r\n\tUNION SELECT YEAR(CURDATE())-1\r\n\tUNION SELECT YEAR(CURDATE())-2\r\n\tUNION SELECT YEAR(CURDATE())-3\r\n\tUNION SELECT YEAR(CURDATE())-4\r\n\tUNION SELECT YEAR(CURDATE())-5\r\n\tUNION SELECT YEAR(CURDATE())-6\r\n\tUNION SELECT YEAR(CURDATE())-7\r\n\tUNION SELECT YEAR(CURDATE())-8\r\n\tUNION SELECT YEAR(CURDATE())-9\r\n) a\r\nWHERE nian>=2017\r\nORDER BY nian DESC"
+      },
+      "1": {
+        "Ident": "StiMySqlSource",
+        "Name": "list_yue",
+        "Alias": "list_yue",
+        "Columns": {
+          "0": {
+            "Name": "yue",
+            "Index": -1,
+            "NameInSource": "yue",
+            "Alias": "yue",
+            "Type": "System.Int32"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT 1 as yue\r\n\tUNION SELECT 2\r\n\tUNION SELECT 3\r\n\tUNION SELECT 4\r\n\tUNION SELECT 5\r\n\tUNION SELECT 6\r\n\tUNION SELECT 7\r\n\tUNION SELECT 8\r\n\tUNION SELECT 9\r\n\tUNION SELECT 10\r\n\tUNION SELECT 11\r\n\tUNION SELECT 12"
+      },
+      "2": {
+        "Ident": "StiMySqlSource",
+        "Name": "list_user",
+        "Alias": "list_user",
+        "Columns": {
+          "0": {
+            "Name": "id",
+            "Index": -1,
+            "NameInSource": "id",
+            "Alias": "id",
+            "Type": "System.Int32"
+          },
+          "1": {
+            "Name": "last_name",
+            "Index": -1,
+            "NameInSource": "last_name",
+            "Alias": "last_name",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT\r\n\ta.id,\r\n\ta.last_name\r\nFROM ld_users a\r\nLEFT JOIN ld_usersscf b ON a.id=b.id\r\nINNER JOIN (\r\n\tSELECT DISTINCT\r\n\t\tuserid \r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tld_users.id AS userid \r\n\t\tFROM ld_users\r\n\t\tWHERE EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename='ReportAnalysis' AND scopeauthority=1 AND userid='[uuid]')\r\n\t\tUNION\r\n\t\tSELECT \r\n\t\t\tviewid\r\n\t\tFROM ld_scoperhigher\r\n\t\tWHERE userid='[uuid]' AND modulename='ReportAnalysis' AND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE userid='[uuid]' AND scopeauthority=2 AND modulename='ReportAnalysis')\t\t\t\r\n\t\tUNION\r\n\t\tSELECT DISTINCT \r\n\t\t\tld_users2group.userid AS userid \r\n\t\tFROM ld_scoperhigher \r\n\t\tINNER JOIN ld_groups ON ld_groups.groupid=ld_scoperhigher.viewid\r\n\t\tINNER JOIN ld_users2group ON ld_users2group.groupid=ld_groups.groupid\r\n\t\tWHERE ld_scoperhigher.userid='[uuid]'\r\n\t\t\tAND ld_scoperhigher.modulename='ReportAnalysis'\r\n\t\t\tAND ld_scoperhigher.scopeauthority=3 \r\n\t\t\tAND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename='ReportAnalysis' AND scopeauthority=3 AND userid='[uuid]')\r\n\t\tUNION \r\n\t\tSELECT \r\n\t\t\tid\r\n\t\tFROM ld_users  \r\n\t\tWHERE EXISTS(SELECT 1 FROM ld_users WHERE id='[uuid]' AND is_admin='on')\r\n\t\tUNION\r\n\t\tSELECT '[uuid]') AS vw_users\r\n\t) AS tmp_users ON tmp_users.userid=a.id\r\nWHERE a.`status`='Active'\r\nORDER BY CONVERT(a.last_name USING gbk)"
+      },
+      "3": {
+        "Ident": "StiMySqlSource",
+        "Name": "vw_attendance",
+        "Alias": "vw_attendance",
+        "Columns": {
+          "0": {
+            "Name": "id",
+            "Index": -1,
+            "NameInSource": "id",
+            "Alias": "id",
+            "Type": "System.Int32"
+          },
+          "1": {
+            "Name": "last_name",
+            "Index": -1,
+            "NameInSource": "last_name",
+            "Alias": "last_name",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "tips",
+            "Index": -1,
+            "NameInSource": "tips",
+            "Alias": "tips",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "yuechu_sy_nj",
+            "Index": -1,
+            "NameInSource": "yuechu_sy_nj",
+            "Alias": "yuechu_sy_nj",
+            "Type": "System.Decimal"
+          },
+          "4": {
+            "Name": "yuechu_sy_tx",
+            "Index": -1,
+            "NameInSource": "yuechu_sy_tx",
+            "Alias": "yuechu_sy_tx",
+            "Type": "System.Decimal"
+          },
+          "5": {
+            "Name": "this_nianjia",
+            "Index": -1,
+            "NameInSource": "this_nianjia",
+            "Alias": "this_nianjia",
+            "Type": "System.Decimal"
+          },
+          "6": {
+            "Name": "this_tiaoxiu",
+            "Index": -1,
+            "NameInSource": "this_tiaoxiu",
+            "Alias": "this_tiaoxiu",
+            "Type": "System.Decimal"
+          },
+          "7": {
+            "Name": "this_jiaban",
+            "Index": -1,
+            "NameInSource": "this_jiaban",
+            "Alias": "this_jiaban",
+            "Type": "System.Decimal"
+          },
+          "8": {
+            "Name": "this_shijia",
+            "Index": -1,
+            "NameInSource": "this_shijia",
+            "Alias": "this_shijia",
+            "Type": "System.Decimal"
+          },
+          "9": {
+            "Name": "this_qita",
+            "Index": -1,
+            "NameInSource": "this_qita",
+            "Alias": "this_qita",
+            "Type": "System.Decimal"
+          },
+          "10": {
+            "Name": "this_baozhong",
+            "Index": -1,
+            "NameInSource": "this_baozhong",
+            "Alias": "this_baozhong",
+            "Type": "System.String"
+          },
+          "11": {
+            "Name": "this_chidaozaotui",
+            "Index": -1,
+            "NameInSource": "this_chidaozaotui",
+            "Alias": "this_chidaozaotui",
+            "Type": "System.String"
+          },
+          "12": {
+            "Name": "yuemo_sy_nj",
+            "Index": -1,
+            "NameInSource": "yuemo_sy_nj",
+            "Alias": "yuemo_sy_nj",
+            "Type": "System.Decimal"
+          },
+          "13": {
+            "Name": "yuemo_sy_tx",
+            "Index": -1,
+            "NameInSource": "yuemo_sy_tx",
+            "Alias": "yuemo_sy_tx",
+            "Type": "System.Decimal"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT\r\n\tid,\r\n\tlast_name,\r\n\tCONCAT('员工姓名：',last_name,'\r\n','入职日期：',hire_date,'\r\n','所在部门：',groupname) AS tips,\r\n\tyuechu_nianjia_total-yuechu_nianjia_used AS yuechu_sy_nj,\r\n\tyuechu_sy_tx,\r\n\tthis_nianjia,\r\n\tthis_tiaoxiu,\r\n\tthis_jiaban,\r\n\tthis_shijia,\r\n\tthis_qita,\r\n\tthis_baozhong,\r\n\tthis_chidaozaotui,\r\n\tyuemo_nianjia_total-yuemo_nianjia_used AS yuemo_sy_nj,\r\n\tyuemo_sy_tx\r\nFROM (\r\n\tSELECT\r\n\t\ta.id,\r\n\t\ta.last_name,\r\n\t\ta.hire_date,\r\n\t\ta.groupname,\r\n\t\tCASE\r\n\t\t\tWHEN a.hire_date='--' OR YEAR(a.chaxunqishiri_nianjiaqishiri)-YEAR(a.hire_date)<1 THEN 0\r\n\t\t\tWHEN YEAR(a.chaxunqishiri_nianjiaqishiri)-YEAR(a.hire_date)>=1 AND YEAR(a.chaxunqishiri_nianjiaqishiri)-YEAR(a.hire_date)<10 THEN 40\r\n\t\t\tWHEN YEAR(a.chaxunqishiri_nianjiaqishiri)-YEAR(a.hire_date)>=10 AND YEAR(a.chaxunqishiri_nianjiaqishiri)-YEAR(a.hire_date)<20 THEN 80\r\n\t\t\tWHEN YEAR(a.chaxunqishiri_nianjiaqishiri)-YEAR(a.hire_date)>=20 THEN 120\r\n\t\tEND AS yuechu_nianjia_total,\r\n\t\tIFNULL((\r\n\t\t\tSELECT\r\n\t\t\t\tSUM(n.costtime)\r\n\t\t\tFROM ld_minusjobbill m\r\n\t\t\tLEFT JOIN ld_minusjobbilldetail n ON m.minusjobbillid=n.id\r\n\t\t\tWHERE m.deleted=0\r\n\t\t\t\tAND IFNULL(m.approvestatus,'')<>'已拒绝' \r\n\t\t\t\tAND n.minusjobtype='年假'\r\n\t\t\t\tAND (CASE WHEN '{shenpi}'='false' THEN 1=1 ELSE m.approvestatus='已批准' END)\r\n\t\t\t\tAND m.smownerid=a.id\r\n\t\t\t\tAND DATE_FORMAT(n.starttime,'%Y-%m-%d')>=a.chaxunqishiri_nianjiaqishiri\r\n\t\t\t\tAND DATE_FORMAT(n.starttime,'%Y-%m-%d')<DATE_FORMAT(CONCAT('{nian}','-','{yue}','-1'),'%Y-%m-%d')\r\n\t\t),0) AS yuechu_nianjia_used,\r\n\t\tIFNULL(d.jiaban,0)-IFNULL(e.tiaoxiu,0)-IFNULL(b.jiaban,0)+IFNULL(c.tiaoxiu,0) AS yuechu_sy_tx,\r\n\t\tc.nianjia AS this_nianjia,\r\n\t\tc.tiaoxiu AS this_tiaoxiu,\r\n\t\tb.jiaban AS this_jiaban,\r\n\t\tc.shijia AS this_shijia,\r\n\t\tc.qita AS this_qita,\r\n\t\tCASE\r\n\t\t\tWHEN c.baozhong>0 THEN CONCAT(c.baozhong,'次')\r\n\t\t\tELSE ''\r\n\t\tEND AS this_baozhong,\r\n\t\tCASE\r\n\t\t\tWHEN c.chidaozaotui>0 THEN CONCAT(c.chidaozaotui,'次')\r\n\t\t\tELSE ''\r\n\t\tEND AS this_chidaozaotui,\r\n\t\tCASE\r\n\t\t\tWHEN a.hire_date='--' OR YEAR(a.chaxunjiezhiri_nianjiaqishiri)-YEAR(a.hire_date)<1 THEN 0\r\n\t\t\tWHEN YEAR(a.chaxunjiezhiri_nianjiaqishiri)-YEAR(a.hire_date)>=1 AND YEAR(a.chaxunjiezhiri_nianjiaqishiri)-YEAR(a.hire_date)<10 THEN 40\r\n\t\t\tWHEN YEAR(a.chaxunjiezhiri_nianjiaqishiri)-YEAR(a.hire_date)>=10 AND YEAR(a.chaxunjiezhiri_nianjiaqishiri)-YEAR(a.hire_date)<20 THEN 80\r\n\t\t\tWHEN YEAR(a.chaxunjiezhiri_nianjiaqishiri)-YEAR(a.hire_date)>=20 THEN 120\r\n\t\tEND AS yuemo_nianjia_total,\r\n\t\tIFNULL((\r\n\t\t\tSELECT\r\n\t\t\t\tSUM(n.costtime)\r\n\t\t\tFROM ld_minusjobbill m\r\n\t\t\tLEFT JOIN ld_minusjobbilldetail n ON m.minusjobbillid=n.id\r\n\t\t\tWHERE m.deleted=0\r\n\t\t\t\tAND IFNULL(m.approvestatus,'')<>'已拒绝' \r\n\t\t\t\tAND n.minusjobtype='年假'\r\n\t\t\t\tAND (CASE WHEN '{shenpi}'='false' THEN 1=1 ELSE m.approvestatus='已批准' END)\r\n\t\t\t\tAND m.smownerid=a.id\r\n\t\t\t\tAND DATE_FORMAT(n.starttime,'%Y-%m-%d')>=a.chaxunjiezhiri_nianjiaqishiri\r\n\t\t\t\tAND DATE_FORMAT(n.starttime,'%Y-%m-%d')<=LAST_DAY(CONCAT('{nian}','-','{yue}','-1'))\r\n\t\t),0) AS yuemo_nianjia_used,\r\n\t\tIFNULL(d.jiaban,0)-IFNULL(e.tiaoxiu,0) AS yuemo_sy_tx\r\n\tFROM (\r\n\t\tSELECT\r\n\t\t\ta.id,\r\n\t\t\ta.last_name,\r\n\t\t\tGROUP_CONCAT(DISTINCT c.groupname SEPARATOR '/') AS groupname,\r\n\t\t\t0 AS extra_tx,\r\n\t\t\t0 AS extra_nj,\r\n\t\t\tCASE\r\n\t\t\t\tWHEN IFNULL(a.hire_date,'')='' OR a.hire_date='0000-00-00' THEN NULL\r\n\t\t\t\tELSE DATE_ADD(a.hire_date,INTERVAL 2017-YEAR(a.hire_date) YEAR)\r\n\t\t\tEND AS extra_nj_enddate,\r\n\t\t\tIFNULL(a.hire_date,'--') AS hire_date,\r\n\t\t\tCASE\r\n\t\t\t\tWHEN IFNULL(a.hire_date,'')='' OR a.hire_date='0000-00-00' THEN NULL\r\n\t\t\t\tWHEN DATE_ADD(a.hire_date,INTERVAL '{nian}'-YEAR(a.hire_date) YEAR)<=DATE_FORMAT(CONCAT('{nian}','-','{yue}','-1'),'%Y-%m-%d') THEN DATE_ADD(a.hire_date,INTERVAL '{nian}'-YEAR(a.hire_date) YEAR)\r\n\t\t\t\tELSE DATE_ADD(a.hire_date,INTERVAL '{nian}'-YEAR(a.hire_date)-1 YEAR)\r\n\t\t\tEND AS chaxunqishiri_nianjiaqishiri,\r\n\t\t\tCASE\r\n\t\t\t\tWHEN IFNULL(a.hire_date,'')='' OR a.hire_date='0000-00-00' THEN NULL\r\n\t\t\t\tWHEN DATE_ADD(a.hire_date,INTERVAL '{nian}'-YEAR(a.hire_date) YEAR)<=LAST_DAY(CONCAT('{nian}','-','{yue}','-1')) THEN DATE_ADD(a.hire_date,INTERVAL '{nian}'-YEAR(a.hire_date) YEAR)\r\n\t\t\t\tELSE DATE_ADD(a.hire_date,INTERVAL '{nian}'-YEAR(a.hire_date)-1 YEAR)\r\n\t\t\tEND AS chaxunjiezhiri_nianjiaqishiri\r\n\t\tFROM ld_users a\r\n\t\tLEFT JOIN ld_users2group b ON a.id=b.userid\r\n\t\tLEFT JOIN ld_groups c ON c.groupid=b.groupid\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND a.`status`='Active'\r\n\t\tGROUP BY a.id\r\n\t) a\r\n\tLEFT JOIN (\r\n\t\tSELECT\r\n\t\t\ta.smownerid,\r\n\t\t\tSUM(b.costtime) AS jiaban\r\n\t\tFROM ld_addjobbill a\r\n\t\tLEFT JOIN ld_addjobbilldetail b ON a.addjobbillid=b.id\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND IFNULL(a.approvestatus,'')<>'已拒绝'\r\n\t\t\tAND (CASE WHEN '{shenpi}'='false' THEN 1=1 ELSE a.approvestatus='已批准' END)\r\n\t\t\tAND YEAR(b.starttime)='{nian}' \r\n\t\t\tAND MONTH(b.starttime)='{yue}'\r\n\t\tGROUP BY a.smownerid\r\n\t) b ON b.smownerid=a.id\r\n\tLEFT JOIN (\r\n\t\tSELECT\r\n\t\t\tsmownerid,\r\n\t\t\tSUM(nianjia) AS nianjia,\r\n\t\t\tSUM(tiaoxiu) AS tiaoxiu,\r\n\t\t\tSUM(shijia) AS shijia,\r\n\t\t\tSUM(qita) AS qita,\r\n\t\t\tSUM(chidaozaotui) AS chidaozaotui,\r\n\t\t\tSUM(baozhong) AS baozhong\r\n\t\tFROM (\r\n\t\tSELECT\r\n\t\t\ta.smownerid,\r\n\t\t\tCASE \r\n\t\t\t\tWHEN b.minusjobtype='年假' THEN b.costtime\r\n\t\t\t\tELSE 0\r\n\t\t\tEND AS nianjia,\r\n\t\t\tCASE \r\n\t\t\t\tWHEN b.minusjobtype='调休' THEN b.costtime\r\n\t\t\t\tELSE 0\r\n\t\t\tEND AS tiaoxiu,\r\n\t\t\tCASE \r\n\t\t\t\tWHEN b.minusjobtype='事假' THEN b.costtime\r\n\t\t\t\tELSE 0\r\n\t\t\tEND AS shijia,\r\n\t\t\tCASE \r\n\t\t\t\tWHEN b.minusjobtype NOT IN ('年假','调休','事假','迟到','早退','特殊报钟') THEN b.costtime\r\n\t\t\t\tELSE 0\r\n\t\t\tEND AS qita,\r\n\t\t\tCASE \r\n\t\t\t\tWHEN b.minusjobtype IN ('迟到','早退') THEN 1 \r\n\t\t\t\tELSE 0\r\n\t\t\tEND AS chidaozaotui,\r\n\t\t\tCASE \r\n\t\t\t\tWHEN b.minusjobtype='特殊报钟' THEN 1 \r\n\t\t\t\tELSE 0\r\n\t\t\tEND AS baozhong\r\n\t\tFROM ld_minusjobbill a\r\n\t\tLEFT JOIN ld_minusjobbilldetail b ON a.minusjobbillid=b.id\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND IFNULL(a.approvestatus,'')<>'已拒绝' \r\n\t\t\tAND (CASE WHEN '{shenpi}'='false' THEN 1=1 ELSE a.approvestatus='已批准' END)\r\n\t\t\tAND YEAR(b.starttime)='{nian}' \r\n\t\t\tAND MONTH(b.starttime)='{yue}' \r\n\t\t) a\r\n\t\tGROUP BY a.smownerid\r\n\t) c ON c.smownerid=a.id\r\n\tLEFT JOIN (\r\n\t\tSELECT\r\n\t\t\ta.smownerid,\r\n\t\t\tSUM(b.costtime) AS jiaban\r\n\t\tFROM ld_addjobbill a\r\n\t\tLEFT JOIN ld_addjobbilldetail b ON a.addjobbillid=b.id\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND IFNULL(a.approvestatus,'')<>'已拒绝'\r\n\t\t\tAND (CASE WHEN '{shenpi}'='false' THEN 1=1 ELSE a.approvestatus='已批准' END)\r\n\t\t\tAND DATE_FORMAT(b.starttime,'%Y-%m-%d')<= LAST_DAY(CONCAT('{nian}','-','{yue}','-1'))\r\n\t\tGROUP BY a.smownerid\r\n\t) d ON d.smownerid=a.id\r\n\tLEFT JOIN (\r\n\t\tSELECT\r\n\t\t\ta.smownerid,\r\n\t\t\tSUM(b.costtime) AS tiaoxiu\r\n\t\tFROM ld_minusjobbill a\r\n\t\tLEFT JOIN ld_minusjobbilldetail b ON a.minusjobbillid=b.id\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND IFNULL(a.approvestatus,'')<>'已拒绝' \r\n\t\t\tAND b.minusjobtype='调休'\r\n\t\t\tAND (CASE WHEN '{shenpi}'='false' THEN 1=1 ELSE a.approvestatus='已批准' END)\r\n\t\t\tAND DATE_FORMAT(b.starttime,'%Y-%m-%d')<= LAST_DAY(CONCAT('{nian}','-','{yue}','-1'))\r\n\t\tGROUP BY a.smownerid\r\n\t) e ON e.smownerid=a.id\r\n) tmp\r\nWHERE 1=1\r\n\tAND (\r\n\t\tCASE\r\n\t\t\tWHEN '{data_range}'='' THEN\r\n\t\t\t\tFIND_IN_SET(id,(\r\n\t\t\t\t\tSELECT\r\n\t\t\t\t\t\tGROUP_CONCAT(a.id)\r\n\t\t\t\t\tFROM ld_users a\r\n\t\t\t\t\tINNER JOIN (\r\n\t\t\t\t\t\tSELECT DISTINCT\r\n\t\t\t\t\t\t\tuserid \r\n\t\t\t\t\t\tFROM (\r\n\t\t\t\t\t\t\tSELECT \r\n\t\t\t\t\t\t\t\tld_users.id AS userid \r\n\t\t\t\t\t\t\tFROM ld_users\r\n\t\t\t\t\t\t\tWHERE EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename='ReportAnalysis' and scopeauthority=1 AND userid='[uuid]')\r\n\t\t\t\t\t\t\tUNION\r\n\t\t\t\t\t\t\tSELECT \r\n\t\t\t\t\t\t\t\tviewid AS userid \r\n\t\t\t\t\t\t\tFROM ld_scoperhigher\r\n\t\t\t\t\t\t\tWHERE userid='[uuid]' AND modulename='ReportAnalysis' AND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE userid='[uuid]' AND scopeauthority=2 AND modulename='ReportAnalysis')\t\t\t\r\n\t\t\t\t\t\t\tUNION\r\n\t\t\t\t\t\t\tSELECT DISTINCT \r\n\t\t\t\t\t\t\t\tld_users2group.userid AS userid \r\n\t\t\t\t\t\t\tFROM ld_scoperhigher \r\n\t\t\t\t\t\t\tINNER JOIN ld_groups ON ld_groups.groupid=ld_scoperhigher.viewid\r\n\t\t\t\t\t\t\tINNER JOIN ld_users2group ON ld_users2group.groupid=ld_groups.groupid\r\n\t\t\t\t\t\t\tWHERE ld_scoperhigher.userid='[uuid]' \r\n\t\t\t\t\t\t\t\tAND ld_scoperhigher.modulename='ReportAnalysis'\r\n\t\t\t\t\t\t\t\tAND ld_scoperhigher.scopeauthority=3 \r\n\t\t\t\t\t\t\t\tAND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename='ReportAnalysis' AND scopeauthority=3 AND userid='[uuid]')\r\n\t\t\t\t\t\t\tUNION \r\n\t\t\t\t\t\t\tSELECT \r\n\t\t\t\t\t\t\t\tid AS userid \r\n\t\t\t\t\t\t\tFROM ld_users  \r\n\t\t\t\t\t\t\tWHERE EXISTS(SELECT 1 FROM ld_users WHERE id='[uuid]' AND is_admin='on')\r\n\t\t\t\t\t\t\tUNION\r\n\t\t\t\t\t\t\tSELECT '[uuid]') AS vw_users\r\n\t\t\t\t\t) AS tmp_users ON tmp_users.userid=a.id\r\n\t\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\t\tAND a.`status`='Active'\r\n\t\t\t\t))\r\n\t\t\tELSE FIND_IN_SET(id,'{data_range}')\r\n\t\tEND)\r\nORDER BY CONVERT(last_name USING GBK)"
+      },
+      "4": {
+        "Ident": "StiMySqlSource",
+        "Name": "vw_tx",
+        "Alias": "vw_tx",
+        "Columns": {
+          "0": {
+            "Name": "last_name",
+            "Index": -1,
+            "NameInSource": "last_name",
+            "Alias": "last_name",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "yuechu_sy_tx",
+            "Index": -1,
+            "NameInSource": "yuechu_sy_tx",
+            "Alias": "yuechu_sy_tx",
+            "Type": "System.Decimal"
+          },
+          "2": {
+            "Name": "this_jb",
+            "Index": -1,
+            "NameInSource": "this_jb",
+            "Alias": "this_jb",
+            "Type": "System.Decimal"
+          },
+          "3": {
+            "Name": "this_tx",
+            "Index": -1,
+            "NameInSource": "this_tx",
+            "Alias": "this_tx",
+            "Type": "System.Decimal"
+          },
+          "4": {
+            "Name": "yuemo_sy_tx",
+            "Index": -1,
+            "NameInSource": "yuemo_sy_tx",
+            "Alias": "yuemo_sy_tx",
+            "Type": "System.Decimal"
+          },
+          "5": {
+            "Name": "total_sy_tx",
+            "Index": -1,
+            "NameInSource": "total_sy_tx",
+            "Alias": "total_sy_tx",
+            "Type": "System.Decimal"
+          },
+          "6": {
+            "Name": "yuechu_sy_nj",
+            "Index": -1,
+            "NameInSource": "yuechu_sy_nj",
+            "Alias": "yuechu_sy_nj",
+            "Type": "System.Decimal"
+          },
+          "7": {
+            "Name": "this_nj",
+            "Index": -1,
+            "NameInSource": "this_nj",
+            "Alias": "this_nj",
+            "Type": "System.Decimal"
+          },
+          "8": {
+            "Name": "yuemo_sy_nj",
+            "Index": -1,
+            "NameInSource": "yuemo_sy_nj",
+            "Alias": "yuemo_sy_nj",
+            "Type": "System.Decimal"
+          },
+          "9": {
+            "Name": "total_sy_nj",
+            "Index": -1,
+            "NameInSource": "total_sy_nj",
+            "Alias": "total_sy_nj",
+            "Type": "System.Decimal"
+          },
+          "10": {
+            "Name": "nj_description",
+            "Index": -1,
+            "NameInSource": "nj_description",
+            "Alias": "nj_description",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT\r\n\tt.last_name,\r\n\tt.yuechu_sy_tx,\r\n\tIFNULL(t.this_jiaban,0) AS this_jb,\r\n\tIFNULL(t.this_tiaoxiu,0) AS this_tx,\r\n\tIFNULL(t.yuemo_sy_tx,0) AS yuemo_sy_tx,\r\n\tIFNULL(d.jiaban,0)-IFNULL(e.tiaoxiu,0) AS total_sy_tx,\r\n\tt.yuechu_sy_nj,\r\n\tIFNULL(t.this_nianjia,0) AS this_nj,\r\n\tIFNULL(t.yuemo_sy_nj,0) AS yuemo_sy_nj,\r\n\tcur_sy_nj AS total_sy_nj,\r\n\tcurnj_description AS nj_description\r\nFROM (\r\n\tSELECT\r\n\t\tid,\r\n\t\tlast_name,\r\n\t\tyuechu_nianjia_total-yuechu_nianjia_used AS yuechu_sy_nj,\r\n\t\tyuechu_sy_tx,\r\n\t\tthis_nianjia,\r\n\t\tthis_tiaoxiu,\r\n\t\tthis_jiaban,\r\n\t\tthis_shijia,\r\n\t\tthis_qita,\r\n\t\tthis_baozhong,\r\n\t\tthis_chidaozaotui,\r\n\t\tyuemo_nianjia_total-yuemo_nianjia_used AS yuemo_sy_nj,\r\n\t\tyuemo_sy_tx,\r\n\t\tcur_nianjia_total-cur_nianjia_used AS cur_sy_nj,\r\n\t\tcurnj_description\r\n\tFROM (\r\n\t\tSELECT\r\n\t\t\ta.id,\r\n\t\t\ta.last_name,\r\n\t\t\ta.groupname,\r\n\t\t\ta.hire_date,\r\n\t\t\tCASE\r\n\t\t\t\tWHEN a.hire_date='--' OR YEAR(CURDATE())-YEAR(a.hire_date)<1 THEN 0\r\n\t\t\t\tWHEN YEAR(CURDATE())-YEAR(a.hire_date)>=1 AND YEAR(CURDATE())-YEAR(a.hire_date)<10 THEN 40\r\n\t\t\t\tWHEN YEAR(CURDATE())-YEAR(a.hire_date)>=10 AND YEAR(CURDATE())-YEAR(a.hire_date)<20 THEN 80\r\n\t\t\t\tWHEN YEAR(CURDATE())-YEAR(a.hire_date)>=20 THEN 120\r\n\t\t\tEND AS cur_nianjia_total,\r\n\t\t\tCASE\r\n\t\t\t\tWHEN a.hire_date='--' THEN '未填写入职日期，年假无法计算'\r\n\t\t\t\tWHEN YEAR(CURDATE())-YEAR(a.hire_date)<1 THEN CONCAT('入职日期：',a.hire_date,'，至今不满一年，没有年假')\r\n\t\t\t\tWHEN YEAR(CURDATE())-YEAR(a.hire_date)>=1 AND YEAR(CURDATE())-YEAR(a.hire_date)<10 THEN CONCAT('入职日期：',a.hire_date,'，至今不满十年，年假5天')\r\n\t\t\t\tWHEN YEAR(CURDATE())-YEAR(a.hire_date)>=10 AND YEAR(CURDATE())-YEAR(a.hire_date)<20 THEN CONCAT('入职日期：',a.hire_date,'，至今已满10年、不满20年，年假10天')\r\n\t\t\t\tWHEN YEAR(CURDATE())-YEAR(a.hire_date)>=20 THEN CONCAT('入职日期：',a.hire_date,'，至今已满20年，年假15天')\r\n\t\t\tEND AS curnj_description,\r\n\t\t\tCASE\r\n\t\t\t\tWHEN a.hire_date='--' OR YEAR(a.chaxunqishiri_nianjiaqishiri)-YEAR(a.hire_date)<1 THEN 0\r\n\t\t\t\tWHEN YEAR(a.chaxunqishiri_nianjiaqishiri)-YEAR(a.hire_date)>=1 AND YEAR(a.chaxunqishiri_nianjiaqishiri)-YEAR(a.hire_date)<10 THEN 40\r\n\t\t\t\tWHEN YEAR(a.chaxunqishiri_nianjiaqishiri)-YEAR(a.hire_date)>=10 AND YEAR(a.chaxunqishiri_nianjiaqishiri)-YEAR(a.hire_date)<20 THEN 80\r\n\t\t\t\tWHEN YEAR(a.chaxunqishiri_nianjiaqishiri)-YEAR(a.hire_date)>=20 THEN 120\r\n\t\t\tEND AS yuechu_nianjia_total,\r\n\t\t\tIFNULL((\r\n\t\t\t\tSELECT\r\n\t\t\t\t\tSUM(n.costtime)\r\n\t\t\t\tFROM ld_minusjobbill m\r\n\t\t\t\tLEFT JOIN ld_minusjobbilldetail n ON m.minusjobbillid=n.id\r\n\t\t\t\tWHERE m.deleted=0\r\n\t\t\t\t\tAND IFNULL(m.approvestatus,'')<>'已拒绝' \r\n\t\t\t\t\tAND n.minusjobtype='年假'\r\n\t\t\t\t\tAND (CASE WHEN '{shenpi}'='false' THEN 1=1 ELSE m.approvestatus='已批准' END)\r\n\t\t\t\t\tAND m.smownerid=a.id\r\n\t\t\t\t\tAND DATE_FORMAT(n.starttime,'%Y-%m-%d')>=a.cur_nj_startdate\r\n\t\t\t),0) AS cur_nianjia_used,\r\n\t\t\tIFNULL((\r\n\t\t\t\tSELECT\r\n\t\t\t\t\tSUM(n.costtime)\r\n\t\t\t\tFROM ld_minusjobbill m\r\n\t\t\t\tLEFT JOIN ld_minusjobbilldetail n ON m.minusjobbillid=n.id\r\n\t\t\t\tWHERE m.deleted=0\r\n\t\t\t\t\tAND IFNULL(m.approvestatus,'')<>'已拒绝' \r\n\t\t\t\t\tAND n.minusjobtype='年假'\r\n\t\t\t\t\tAND (CASE WHEN '{shenpi}'='false' THEN 1=1 ELSE m.approvestatus='已批准' END)\r\n\t\t\t\t\tAND m.smownerid=a.id\r\n\t\t\t\t\tAND DATE_FORMAT(n.starttime,'%Y-%m-%d')>=a.chaxunqishiri_nianjiaqishiri\r\n\t\t\t\t\tAND DATE_FORMAT(n.starttime,'%Y-%m-%d')<DATE_FORMAT(CONCAT('{nian}','-','{yue}','-1'),'%Y-%m-%d')\r\n\t\t\t),0) AS yuechu_nianjia_used,\r\n\t\t\tIFNULL(d.jiaban,0)-IFNULL(e.tiaoxiu,0)-IFNULL(b.jiaban,0)+IFNULL(c.tiaoxiu,0) AS yuechu_sy_tx,\r\n\t\t\tc.nianjia AS this_nianjia,\r\n\t\t\tc.tiaoxiu AS this_tiaoxiu,\r\n\t\t\tb.jiaban AS this_jiaban,\r\n\t\t\tc.shijia AS this_shijia,\r\n\t\t\tc.qita AS this_qita,\r\n\t\t\tCASE\r\n\t\t\t\tWHEN c.baozhong>0 THEN CONCAT(c.baozhong,'次')\r\n\t\t\t\tELSE ''\r\n\t\t\tEND AS this_baozhong,\r\n\t\t\tCASE\r\n\t\t\t\tWHEN c.chidaozaotui>0 THEN CONCAT(c.chidaozaotui,'次')\r\n\t\t\t\tELSE ''\r\n\t\t\tEND AS this_chidaozaotui,\r\n\t\t\tCASE\r\n\t\t\t\tWHEN a.hire_date='--' OR YEAR(a.chaxunjiezhiri_nianjiaqishiri)-YEAR(a.hire_date)<1 THEN 0\r\n\t\t\t\tWHEN YEAR(a.chaxunjiezhiri_nianjiaqishiri)-YEAR(a.hire_date)>=1 AND YEAR(a.chaxunjiezhiri_nianjiaqishiri)-YEAR(a.hire_date)<10 THEN 40\r\n\t\t\t\tWHEN YEAR(a.chaxunjiezhiri_nianjiaqishiri)-YEAR(a.hire_date)>=10 AND YEAR(a.chaxunjiezhiri_nianjiaqishiri)-YEAR(a.hire_date)<20 THEN 80\r\n\t\t\t\tWHEN YEAR(a.chaxunjiezhiri_nianjiaqishiri)-YEAR(a.hire_date)>=20 THEN 120\r\n\t\t\tEND AS yuemo_nianjia_total,\r\n\t\t\tIFNULL((\r\n\t\t\t\tSELECT\r\n\t\t\t\t\tSUM(n.costtime)\r\n\t\t\t\tFROM ld_minusjobbill m\r\n\t\t\t\tLEFT JOIN ld_minusjobbilldetail n ON m.minusjobbillid=n.id\r\n\t\t\t\tWHERE m.deleted=0\r\n\t\t\t\t\tAND IFNULL(m.approvestatus,'')<>'已拒绝' \r\n\t\t\t\t\tAND n.minusjobtype='年假'\r\n\t\t\t\t\tAND (CASE WHEN '{shenpi}'='false' THEN 1=1 ELSE m.approvestatus='已批准' END)\r\n\t\t\t\t\tAND m.smownerid=a.id\r\n\t\t\t\t\tAND DATE_FORMAT(n.starttime,'%Y-%m-%d')>=a.chaxunjiezhiri_nianjiaqishiri\r\n\t\t\t\t\tAND DATE_FORMAT(n.starttime,'%Y-%m-%d')<=LAST_DAY(CONCAT('{nian}','-','{yue}','-1'))\r\n\t\t\t),0) AS yuemo_nianjia_used,\r\n\t\t\tIFNULL(d.jiaban,0)-IFNULL(e.tiaoxiu,0) AS yuemo_sy_tx\r\n\t\tFROM (\r\n\t\t\tSELECT\r\n\t\t\t\ta.id,\r\n\t\t\t\ta.last_name,\r\n\t\t\t\tGROUP_CONCAT(DISTINCT c.groupname SEPARATOR '/') AS groupname,\r\n\t\t\t\t0 AS extra_tx,\r\n\t\t\t\t0 AS extra_nj,\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN IFNULL(a.hire_date,'')='' OR a.hire_date='0000-00-00' THEN NULL\r\n\t\t\t\t\tELSE DATE_ADD(a.hire_date,INTERVAL 2017-YEAR(a.hire_date) YEAR)\r\n\t\t\t\tEND AS extra_nj_enddate,\r\n\t\t\t\tIFNULL(a.hire_date,'--') AS hire_date,\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN IFNULL(a.hire_date,'')='' OR a.hire_date='0000-00-00' THEN NULL\r\n\t\t\t\t\tWHEN DATE_ADD(a.hire_date,INTERVAL YEAR(CURDATE())-YEAR(a.hire_date) YEAR)<=CURDATE() THEN DATE_ADD(a.hire_date,INTERVAL YEAR(CURDATE())-YEAR(a.hire_date) YEAR)\r\n\t\t\t\t\tELSE DATE_ADD(a.hire_date,INTERVAL YEAR(CURDATE())-YEAR(a.hire_date)-1 YEAR)\r\n\t\t\t\tEND AS cur_nj_startdate,\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN IFNULL(a.hire_date,'')='' OR a.hire_date='0000-00-00' THEN NULL\r\n\t\t\t\t\tWHEN DATE_ADD(a.hire_date,INTERVAL '{nian}'-YEAR(a.hire_date) YEAR)<=DATE_FORMAT(CONCAT('{nian}','-','{yue}','-1'),'%Y-%m-%d') THEN DATE_ADD(a.hire_date,INTERVAL '{nian}'-YEAR(a.hire_date) YEAR)\r\n\t\t\t\t\tELSE DATE_ADD(a.hire_date,INTERVAL '{nian}'-YEAR(a.hire_date)-1 YEAR)\r\n\t\t\t\tEND AS chaxunqishiri_nianjiaqishiri,\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN IFNULL(a.hire_date,'')='' OR a.hire_date='0000-00-00' THEN NULL\r\n\t\t\t\t\tWHEN DATE_ADD(a.hire_date,INTERVAL '{nian}'-YEAR(a.hire_date) YEAR)<=LAST_DAY(CONCAT('{nian}','-','{yue}','-1')) THEN DATE_ADD(a.hire_date,INTERVAL '{nian}'-YEAR(a.hire_date) YEAR)\r\n\t\t\t\t\tELSE DATE_ADD(a.hire_date,INTERVAL '{nian}'-YEAR(a.hire_date)-1 YEAR)\r\n\t\t\t\tEND AS chaxunjiezhiri_nianjiaqishiri\r\n\t\t\tFROM ld_users a\r\n\t\t\tLEFT JOIN ld_users2group b ON a.id=b.userid\r\n\t\t\tLEFT JOIN ld_groups c ON c.groupid=b.groupid\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND a.`status`='Active'\r\n\t\t\tGROUP BY a.id\r\n\t\t) a\r\n\t\tLEFT JOIN (\r\n\t\t\tSELECT\r\n\t\t\t\ta.smownerid,\r\n\t\t\t\tSUM(b.costtime) AS jiaban\r\n\t\t\tFROM ld_addjobbill a\r\n\t\t\tLEFT JOIN ld_addjobbilldetail b ON a.addjobbillid=b.id\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND IFNULL(a.approvestatus,'')<>'已拒绝'\r\n\t\t\t\tAND (CASE WHEN '{shenpi}'='false' THEN 1=1 ELSE a.approvestatus='已批准' END)\r\n\t\t\t\tAND YEAR(b.starttime)='{nian}' \r\n\t\t\t\tAND MONTH(b.starttime)='{yue}'\r\n\t\t\tGROUP BY a.smownerid\r\n\t\t) b ON b.smownerid=a.id\r\n\t\tLEFT JOIN (\r\n\t\t\tSELECT\r\n\t\t\t\tsmownerid,\r\n\t\t\t\tSUM(nianjia) AS nianjia,\r\n\t\t\t\tSUM(tiaoxiu) AS tiaoxiu,\r\n\t\t\t\tSUM(shijia) AS shijia,\r\n\t\t\t\tSUM(qita) AS qita,\r\n\t\t\t\tSUM(chidaozaotui) AS chidaozaotui,\r\n\t\t\t\tSUM(baozhong) AS baozhong\r\n\t\t\tFROM (\r\n\t\t\tSELECT\r\n\t\t\t\ta.smownerid,\r\n\t\t\t\tCASE \r\n\t\t\t\t\tWHEN b.minusjobtype='年假' THEN b.costtime\r\n\t\t\t\t\tELSE 0\r\n\t\t\t\tEND AS nianjia,\r\n\t\t\t\tCASE \r\n\t\t\t\t\tWHEN b.minusjobtype='调休' THEN b.costtime\r\n\t\t\t\t\tELSE 0\r\n\t\t\t\tEND AS tiaoxiu,\r\n\t\t\t\tCASE \r\n\t\t\t\t\tWHEN b.minusjobtype='事假' THEN b.costtime\r\n\t\t\t\t\tELSE 0\r\n\t\t\t\tEND AS shijia,\r\n\t\t\t\tCASE \r\n\t\t\t\t\tWHEN b.minusjobtype NOT IN ('年假','调休','事假','迟到','早退','特殊报钟') THEN b.costtime\r\n\t\t\t\t\tELSE 0\r\n\t\t\t\tEND AS qita,\r\n\t\t\t\tCASE \r\n\t\t\t\t\tWHEN b.minusjobtype IN ('迟到','早退') THEN 1 \r\n\t\t\t\t\tELSE 0\r\n\t\t\t\tEND AS chidaozaotui,\r\n\t\t\t\tCASE \r\n\t\t\t\t\tWHEN b.minusjobtype='特殊报钟' THEN 1 \r\n\t\t\t\t\tELSE 0\r\n\t\t\t\tEND AS baozhong\r\n\t\t\tFROM ld_minusjobbill a\r\n\t\t\tLEFT JOIN ld_minusjobbilldetail b ON a.minusjobbillid=b.id\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND IFNULL(a.approvestatus,'')<>'已拒绝' \r\n\t\t\t\tAND (CASE WHEN '{shenpi}'='false' THEN 1=1 ELSE a.approvestatus='已批准' END)\r\n\t\t\t\tAND YEAR(b.starttime)='{nian}' \r\n\t\t\t\tAND MONTH(b.starttime)='{yue}' \r\n\t\t\t) a\r\n\t\t\tGROUP BY a.smownerid\r\n\t\t) c ON c.smownerid=a.id\r\n\t\tLEFT JOIN (\r\n\t\t\tSELECT\r\n\t\t\t\ta.smownerid,\r\n\t\t\t\tSUM(b.costtime) AS jiaban\r\n\t\t\tFROM ld_addjobbill a\r\n\t\t\tLEFT JOIN ld_addjobbilldetail b ON a.addjobbillid=b.id\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND IFNULL(a.approvestatus,'')<>'已拒绝'\r\n\t\t\t\tAND (CASE WHEN '{shenpi}'='false' THEN 1=1 ELSE a.approvestatus='已批准' END)\r\n\t\t\t\tAND DATE_FORMAT(b.starttime,'%Y-%m-%d')<= LAST_DAY(CONCAT('{nian}','-','{yue}','-1'))\r\n\t\t\tGROUP BY a.smownerid\r\n\t\t) d ON d.smownerid=a.id\r\n\t\tLEFT JOIN (\r\n\t\t\tSELECT\r\n\t\t\t\ta.smownerid,\r\n\t\t\t\tSUM(b.costtime) AS tiaoxiu\r\n\t\t\tFROM ld_minusjobbill a\r\n\t\t\tLEFT JOIN ld_minusjobbilldetail b ON a.minusjobbillid=b.id\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND IFNULL(a.approvestatus,'')<>'已拒绝' \r\n\t\t\t\tAND b.minusjobtype='调休'\r\n\t\t\t\tAND (CASE WHEN '{shenpi}'='false' THEN 1=1 ELSE a.approvestatus='已批准' END)\r\n\t\t\t\tAND DATE_FORMAT(b.starttime,'%Y-%m-%d')<= LAST_DAY(CONCAT('{nian}','-','{yue}','-1'))\r\n\t\t\tGROUP BY a.smownerid\r\n\t\t) e ON e.smownerid=a.id\r\n\t) tmp\r\n\tWHERE id='{this[\"userid\"]}'\r\n) t\r\nLEFT JOIN (\r\n\tSELECT\r\n\t\ta.smownerid,\r\n\t\tSUM(b.costtime) AS jiaban\r\n\tFROM ld_addjobbill a\r\n\tLEFT JOIN ld_addjobbilldetail b ON a.addjobbillid=b.id\r\n\tWHERE a.deleted=0\r\n\t\tAND IFNULL(a.approvestatus,'')<>'已拒绝'\r\n\t\tAND (CASE WHEN '{shenpi}'='false' THEN 1=1 ELSE a.approvestatus='已批准' END)\r\n\tGROUP BY a.smownerid\r\n) d ON d.smownerid=t.id\r\nLEFT JOIN (\r\n\tSELECT\r\n\t\ta.smownerid,\r\n\t\tSUM(b.costtime) AS tiaoxiu\r\n\tFROM ld_minusjobbill a\r\n\tLEFT JOIN ld_minusjobbilldetail b ON a.minusjobbillid=b.id\r\n\tWHERE a.deleted=0\r\n\t\tAND IFNULL(a.approvestatus,'')<>'已拒绝' \r\n\t\tAND b.minusjobtype='调休'\r\n\t\tAND (CASE WHEN '{shenpi}'='false' THEN 1=1 ELSE a.approvestatus='已批准' END)\r\n\tGROUP BY a.smownerid\r\n) e ON e.smownerid=t.id"
+      },
+      "5": {
+        "Ident": "StiMySqlSource",
+        "Name": "vw_this",
+        "Alias": "vw_this",
+        "Columns": {
+          "0": {
+            "Name": "last_name",
+            "Index": -1,
+            "NameInSource": "last_name",
+            "Alias": "last_name",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "type",
+            "Index": -1,
+            "NameInSource": "type",
+            "Alias": "type",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "total",
+            "Index": -1,
+            "NameInSource": "total",
+            "Alias": "total",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "description",
+            "Index": -1,
+            "NameInSource": "description",
+            "Alias": "description",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT\r\n\t(SELECT last_name FROM ld_users WHERE id=t.smownerid) AS last_name,\r\n\tt.type,\r\n\tz.total,\r\n\tt.description\r\nFROM (\r\n\tSELECT\r\n\t\ta.smownerid,\r\n\t\t'加班' AS type,\r\n\t\tCASE \r\n\t\t\tWHEN IFNULL(b.description,'')='' THEN\r\n\t\t\t\tCONCAT('时间:',IFNULL(DATE_FORMAT(b.starttime,'%Y-%m-%d'),'')  ,'至',IFNULL(DATE_FORMAT(b.endtime,'%Y-%m-%d'),''),'  时长:',IF(b.costtime=ROUND(b.costtime,0),ROUND(b.costtime,0),ROUND(b.costtime,1)),'小时')\r\n\t\t\tELSE\r\n\t\t\t\tCONCAT('时间:',IFNULL(DATE_FORMAT(b.starttime,'%Y-%m-%d'),'')  ,'至',IFNULL(DATE_FORMAT(b.endtime,'%Y-%m-%d'),''),'  时长:',IF(b.costtime=ROUND(b.costtime,0),ROUND(b.costtime,0),ROUND(b.costtime,1)),'小时','  备注:',b.description)\r\n\t\tEND AS description\r\n\tFROM ld_addjobbill a\r\n\tLEFT JOIN ld_addjobbilldetail b ON a.addjobbillid=b.id\r\n\tWHERE a.deleted=0\r\n\t\tAND IFNULL(a.approvestatus,'')<>'已拒绝'\r\n\t\tAND (CASE WHEN '{shenpi}'='false' THEN 1=1 ELSE a.approvestatus='已批准' END)\r\n\t\tAND smownerid='{this[\"userid\"]}' \r\n\t\tAND DATE_FORMAT(b.starttime,'%Y-%m-%d')>= DATE_FORMAT(CONCAT('{nian}','-','{yue}','-1'),'%Y-%m-%d')\r\n\t\tAND DATE_FORMAT(b.starttime,'%Y-%m-%d')<= LAST_DAY(CONCAT('{nian}','-','{yue}','-1'))\r\n\tUNION ALL\r\n\tSELECT\r\n\t\ta.smownerid,\r\n\t\tb.minusjobtype AS type,\r\n\t\tCASE \r\n\t\t\tWHEN IFNULL(b.description,'')='' THEN\r\n\t\t\t\tCONCAT('时间:',IFNULL(DATE_FORMAT(b.starttime,'%Y-%m-%d'),'')  ,'至',IFNULL(DATE_FORMAT(b.endtime,'%Y-%m-%d'),''),'  时长:',IF(b.costtime=ROUND(b.costtime,0),ROUND(b.costtime,0),ROUND(b.costtime,1)),'小时')\r\n\t\t\tELSE\r\n\t\t\t\tCONCAT('时间:',IFNULL(DATE_FORMAT(b.starttime,'%Y-%m-%d'),'')  ,'至',IFNULL(DATE_FORMAT(b.endtime,'%Y-%m-%d'),''),'  时长:',IF(b.costtime=ROUND(b.costtime,0),ROUND(b.costtime,0),ROUND(b.costtime,1)),'小时','  备注:',b.description)\r\n\t\tEND AS description\r\n\tFROM ld_minusjobbill a\r\n\tLEFT JOIN ld_minusjobbilldetail b ON a.minusjobbillid=b.id\r\n\tWHERE a.deleted=0\r\n\t\tAND IFNULL(a.approvestatus,'')<>'已拒绝' \r\n\t\tAND (CASE WHEN '{shenpi}'='false' THEN 1=1 ELSE a.approvestatus='已批准' END)\r\n\t\tAND smownerid='{this[\"userid\"]}' \r\n\t\tAND DATE_FORMAT(b.starttime,'%Y-%m-%d')>= DATE_FORMAT(CONCAT('{nian}','-','{yue}','-1'),'%Y-%m-%d')\r\n\t\tAND DATE_FORMAT(b.starttime,'%Y-%m-%d')<= LAST_DAY(CONCAT('{nian}','-','{yue}','-1'))\r\n) t\r\nLEFT JOIN (\r\n\tSELECT\r\n\t\tsmownerid,\r\n\t\ttype,\r\n\t\tCASE\r\n\t\t\tWHEN type IN ('迟到','早退','特殊报钟') THEN CONCAT(COUNT(a.smownerid),'次')\r\n\t\t\tELSE CONCAT(IFNULL(SUM(total),0),'小时')\r\n\t\tEND AS total\r\n\tFROM (\r\n\t\tSELECT\r\n\t\t\t\ta.smownerid,\r\n\t\t\t\t'加班' AS type,\r\n\t\t\t\tb.costtime AS total\r\n\t\t\tFROM ld_addjobbill a\r\n\t\t\tLEFT JOIN ld_addjobbilldetail b ON a.addjobbillid=b.id\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND IFNULL(a.approvestatus,'')<>'已拒绝'\r\n\t\t\t\tAND (CASE WHEN '{shenpi}'='false' THEN 1=1 ELSE a.approvestatus='已批准' END)\r\n\t\t\t\tAND smownerid='{this[\"userid\"]}' \r\n\t\t\t\tAND DATE_FORMAT(b.starttime,'%Y-%m-%d')>= DATE_FORMAT(CONCAT('{nian}','-','{yue}','-1'),'%Y-%m-%d')\r\n\t\t\t\tAND DATE_FORMAT(b.starttime,'%Y-%m-%d')<= LAST_DAY(CONCAT('{nian}','-','{yue}','-1'))\r\n\t\t\tUNION ALL\r\n\t\t\tSELECT\r\n\t\t\t\ta.smownerid,\r\n\t\t\t\tb.minusjobtype AS type,\r\n\t\t\t\tb.costtime AS total\r\n\t\t\tFROM ld_minusjobbill a\r\n\t\t\tLEFT JOIN ld_minusjobbilldetail b ON a.minusjobbillid=b.id\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND IFNULL(a.approvestatus,'')<>'已拒绝' \r\n\t\t\t\tAND (CASE WHEN '{shenpi}'='false' THEN 1=1 ELSE a.approvestatus='已批准' END)\r\n\t\t\t\tAND smownerid='{this[\"userid\"]}' \r\n\t\t\t\tAND DATE_FORMAT(b.starttime,'%Y-%m-%d')>= DATE_FORMAT(CONCAT('{nian}','-','{yue}','-1'),'%Y-%m-%d')\r\n\t\t\t\tAND DATE_FORMAT(b.starttime,'%Y-%m-%d')<= LAST_DAY(CONCAT('{nian}','-','{yue}','-1'))\r\n\t) a\r\n\tGROUP BY type\r\n) z ON t.smownerid=z.smownerid AND z.type=t.type\r\nORDER BY (CASE WHEN t.type IN ('加班','调休','年假','事假','迟到','早退','特殊报钟') THEN 1 ELSE 100 END),FIELD(t.type,'加班','调休','年假','事假','迟到','早退','特殊报钟')"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "ldcrm",
+        "Alias": "ldcrm",
+        "ConnectionStringEncrypted": "9Gx168ZcS1nhR9Wl6iV1n8JsaWBhT1mFQhWxkOkl9i/CYNfKTV1ClEZ4uYhjXK17gshxYMhtut1AReWN6oz1KtVgc+NWBdN1YkmsgOo9NEbJxHNIRlyp+UZbqLw="
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "Page1",
+      "Guid": "515ec5ca31f42b2a3efc367ef4dd6a0d",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiHeaderBand",
+          "Name": "HeaderBand1",
+          "ClientRectangle": "0,0.4,26.6,3.2",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text1",
+              "Guid": "a2e1b6a4f838c39e904c90d3121dd778",
+              "ClientRectangle": "0,0,26.6,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "员工考勤表-{yue}月"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;18;;",
+              "Border": ";153,153,153;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text89",
+              "Guid": "6ab4d6b9ff4281490bba5aa993cd2469",
+              "ClientRectangle": "1.2,1.2,3.4,2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "姓名"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text79",
+              "Guid": "0f9898cade081918786a5aa993cd409d",
+              "ClientRectangle": "4.6,2.2,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "剩余年假"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:52,135,226",
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text81",
+              "Guid": "7a765a48ebd1637af04d5aa993cdbcb5",
+              "ClientRectangle": "6.6,2.2,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "剩余调休"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:52,135,226",
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text42",
+              "Guid": "a8df14877d2f50d0cb003705656ab8a3",
+              "ClientRectangle": "8.6,2.2,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "使用年假"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:153,50,204",
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text43",
+              "Guid": "fadd600b145098129e173706142da586",
+              "ClientRectangle": "10.6,2.2,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "使用调休"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:153,50,204",
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text45",
+              "Guid": "489a1b33efc5f7357ed63a21efed1883",
+              "ClientRectangle": "12.6,2.2,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "累计加班"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:153,50,204",
+              "Type": "Expression"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text47",
+              "Guid": "a8c2ac4d85b846fd899d6a4286058317",
+              "ClientRectangle": "4.6,1.2,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "月初结余"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:52,135,226",
+              "Type": "Expression"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text120",
+              "Guid": "307f914642723a4b99586a4df65a326d",
+              "ClientRectangle": "8.6,1.2,14,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "本月考勤合计"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:153,50,204",
+              "Type": "Expression"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text9",
+              "Guid": "902370f9c9ed6e2651eb67f0a6ced5f4",
+              "ClientRectangle": "0,1.2,1.2,2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "#"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "10": {
+              "Ident": "StiText",
+              "Name": "Text52",
+              "Guid": "3e6f69300fde6b693dfba609f3c9d0db",
+              "ClientRectangle": "14.6,2.2,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "累计事假"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:153,50,204",
+              "Type": "Expression"
+            },
+            "11": {
+              "Ident": "StiText",
+              "Name": "Text46",
+              "Guid": "944a29c66ca2a321bf7359a862c3e2ab",
+              "ClientRectangle": "18.6,2.2,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "特殊报钟"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:153,50,204",
+              "Type": "Expression"
+            },
+            "12": {
+              "Ident": "StiText",
+              "Name": "Text44",
+              "Guid": "1520954c66a8b6a6d30d37063e0c0f1f",
+              "ClientRectangle": "16.6,2.2,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "其他假别"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:153,50,204",
+              "Type": "Expression"
+            },
+            "13": {
+              "Ident": "StiText",
+              "Name": "Text51",
+              "Guid": "79d525fc59bfc12ee26c6a4bb2454695",
+              "ClientRectangle": "22.6,2.2,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "剩余年假"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:255,0,0",
+              "Type": "Expression"
+            },
+            "14": {
+              "Ident": "StiText",
+              "Name": "Text115",
+              "Guid": "032d05137851cc65680e6a4bbe3b6146",
+              "ClientRectangle": "24.6,2.2,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "剩余调休"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:255,0,0",
+              "Type": "Expression"
+            },
+            "15": {
+              "Ident": "StiText",
+              "Name": "Text116",
+              "Guid": "c4f799ea348a003b69f36a4c7e1a36c4",
+              "ClientRectangle": "22.6,1.2,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "月末结余"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:255,0,0",
+              "Type": "Expression"
+            },
+            "16": {
+              "Ident": "StiText",
+              "Name": "Text38",
+              "Guid": "5328e276fca907b64f8ca60985daa6b6",
+              "ClientRectangle": "20.6,2.2,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "迟到/早退"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:153,50,204",
+              "Type": "Expression"
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand1",
+          "ClientRectangle": "0,4.4,26.6,1",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": "All;153,153,153;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text8",
+              "Guid": "2abbe68ce301ded91d2c36e7f77de892",
+              "ClientRectangle": "6.6,0,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownEnabled": true,
+                "DrillDownPageGuid": "3255532ec0983d36c93d5e30d1318381",
+                "DrillDownParameter1": {
+                  "Name": "userid",
+                  "Expression": {
+                    "Value": "vw_attendance.id"
+                  }
+                }
+              },
+              "Text": {
+                "Value": "{vw_attendance.yuechu_sy_tx}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:52,135,226",
+              "NullValue": "0",
+              "Type": "DataColumn"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text113",
+              "Guid": "8a4b78f8f56f5d26ecc45f506a8c7e5a",
+              "ClientRectangle": "4.6,0,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownEnabled": true,
+                "DrillDownPageGuid": "3255532ec0983d36c93d5e30d1318381",
+                "DrillDownParameter1": {
+                  "Name": "userid",
+                  "Expression": {
+                    "Value": "vw_attendance.id"
+                  }
+                }
+              },
+              "Text": {
+                "Value": "{vw_attendance.yuechu_sy_nj}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:52,135,226",
+              "NullValue": "0",
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text114",
+              "Guid": "20a6a4ed9920c98574865f50e42229ae",
+              "ClientRectangle": "1.2,0,3.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownEnabled": true,
+                "DrillDownPageGuid": "3255532ec0983d36c93d5e30d1318381",
+                "DrillDownParameter1": {
+                  "Name": "userid",
+                  "Expression": {
+                    "Value": "vw_attendance.id"
+                  }
+                }
+              },
+              "ToolTip": {
+                "Value": "{vw_attendance.tips}"
+              },
+              "Text": {
+                "Value": "{vw_attendance.last_name}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text4",
+              "Guid": "b5a52dc9f41fbb8614995f51a1e987b1",
+              "ClientRectangle": "8.6,0,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownEnabled": true,
+                "DrillDownPageGuid": "3255532ec0983d36c93d5e30d1318381",
+                "DrillDownParameter1": {
+                  "Name": "userid",
+                  "Expression": {
+                    "Value": "vw_attendance.id"
+                  }
+                }
+              },
+              "Text": {
+                "Value": "{vw_attendance.this_nianjia}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:153,50,204",
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text22",
+              "Guid": "ab00e481300193614def5f54477f2e32",
+              "ClientRectangle": "10.6,0,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownEnabled": true,
+                "DrillDownPageGuid": "3255532ec0983d36c93d5e30d1318381",
+                "DrillDownParameter1": {
+                  "Name": "userid",
+                  "Expression": {
+                    "Value": "vw_attendance.id"
+                  }
+                }
+              },
+              "Text": {
+                "Value": "{vw_attendance.this_tiaoxiu}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:153,50,204",
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text117",
+              "Guid": "c64e9a6d51addc583d865f54e36f9f53",
+              "ClientRectangle": "18.6,0,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownEnabled": true,
+                "DrillDownPageGuid": "3255532ec0983d36c93d5e30d1318381",
+                "DrillDownParameter1": {
+                  "Name": "userid",
+                  "Expression": {
+                    "Value": "vw_attendance.id"
+                  }
+                }
+              },
+              "Text": {
+                "Value": "{vw_attendance.this_baozhong}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:153,50,204",
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text49",
+              "Guid": "0a02a8a3ab21f45134c6606018b3f5cb",
+              "ClientRectangle": "12.6,0,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownEnabled": true,
+                "DrillDownPageGuid": "3255532ec0983d36c93d5e30d1318381",
+                "DrillDownParameter1": {
+                  "Name": "userid",
+                  "Expression": {
+                    "Value": "vw_attendance.id"
+                  }
+                }
+              },
+              "Text": {
+                "Value": "{vw_attendance.this_jiaban}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:153,50,204",
+              "Type": "Expression"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text50",
+              "Guid": "e4a18d652049b5bafc3960606c98a359",
+              "ClientRectangle": "16.6,0,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownEnabled": true,
+                "DrillDownPageGuid": "3255532ec0983d36c93d5e30d1318381",
+                "DrillDownParameter1": {
+                  "Name": "userid",
+                  "Expression": {
+                    "Value": "vw_attendance.id"
+                  }
+                }
+              },
+              "Text": {
+                "Value": "{vw_attendance.this_qita}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:153,50,204",
+              "Type": "Expression"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text118",
+              "Guid": "a5dcd93acbabb123bda76a4d01060f06",
+              "ClientRectangle": "24.6,0,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownEnabled": true,
+                "DrillDownPageGuid": "3255532ec0983d36c93d5e30d1318381",
+                "DrillDownParameter1": {
+                  "Name": "userid",
+                  "Expression": {
+                    "Value": "vw_attendance.id"
+                  }
+                }
+              },
+              "Text": {
+                "Value": "{vw_attendance.yuemo_sy_tx}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:255,0,0",
+              "NullValue": "0",
+              "Type": "DataColumn"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text119",
+              "Guid": "116359d1b9a13f9c1e5b6a4d0106568d",
+              "ClientRectangle": "22.6,0,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownEnabled": true,
+                "DrillDownPageGuid": "3255532ec0983d36c93d5e30d1318381",
+                "DrillDownParameter1": {
+                  "Name": "userid",
+                  "Expression": {
+                    "Value": "vw_attendance.id"
+                  }
+                }
+              },
+              "Text": {
+                "Value": "{vw_attendance.yuemo_sy_nj}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:255,0,0",
+              "NullValue": "0",
+              "Type": "Expression"
+            },
+            "10": {
+              "Ident": "StiText",
+              "Name": "Text12",
+              "Guid": "47c741dc3b581b8647ed67f0f3080998",
+              "ClientRectangle": "0,0,1.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownEnabled": true,
+                "DrillDownPageGuid": "3255532ec0983d36c93d5e30d1318381",
+                "DrillDownParameter1": {
+                  "Name": "userid",
+                  "Expression": {
+                    "Value": "vw_attendance.id"
+                  }
+                }
+              },
+              "ToolTip": {
+                "Value": "{vw_attendance.tips}"
+              },
+              "Text": {
+                "Value": "{Line}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "SystemVariables"
+            },
+            "11": {
+              "Ident": "StiText",
+              "Name": "Text41",
+              "Guid": "205c2325c9fe430e22a4a609b1674b04",
+              "ClientRectangle": "20.6,0,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownEnabled": true,
+                "DrillDownPageGuid": "3255532ec0983d36c93d5e30d1318381",
+                "DrillDownParameter1": {
+                  "Name": "userid",
+                  "Expression": {
+                    "Value": "vw_attendance.id"
+                  }
+                }
+              },
+              "Text": {
+                "Value": "{vw_attendance.this_chidaozaotui}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:153,50,204",
+              "Type": "Expression"
+            },
+            "12": {
+              "Ident": "StiText",
+              "Name": "Text35",
+              "Guid": "4eec8f25fb83a0edd817a609f3c98477",
+              "ClientRectangle": "14.6,0,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownEnabled": true,
+                "DrillDownPageGuid": "3255532ec0983d36c93d5e30d1318381",
+                "DrillDownParameter1": {
+                  "Name": "userid",
+                  "Expression": {
+                    "Value": "vw_attendance.id"
+                  }
+                }
+              },
+              "Text": {
+                "Value": "{vw_attendance.this_shijia}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:153,50,204",
+              "Type": "Expression"
+            }
+          },
+          "DataSourceName": "vw_attendance",
+          "EvenStyle": "column_even",
+          "OddStyle": "column_odd"
+        }
+      },
+      "PageWidth": 28.6,
+      "PageHeight": 30,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    },
+    "1": {
+      "Ident": "StiPage",
+      "Name": "Page2",
+      "Guid": "3255532ec0983d36c93d5e30d1318381",
+      "Alias": "员工考勤明细",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiHeaderBand",
+          "Name": "HeaderBand2",
+          "ClientRectangle": "0,0.4,29,1.2",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text5",
+              "Guid": "e06dd8cbf87291fc2c9a5e5e41eb6d25",
+              "ClientRectangle": "0,0,29,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{vw_tx.last_name}在{yue}月份的考勤明细"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;Bold;",
+              "Border": ";153,153,153;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiGroupHeaderBand",
+          "Name": "GroupHeaderBand1",
+          "ClientRectangle": "0,2.4,29,2",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": "All;221,221,221;;;;;;solid:0,0,0",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text6",
+              "Guid": "ac6c94bad7b2e44a91375e60cd60bc28",
+              "ClientRectangle": "0,0,29,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "1.{vw_tx.last_name}的剩余调休"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text10",
+              "Guid": "8dd30026a0e3253334ca5e634e110e43",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,1,2.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "月初结余(h)"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text11",
+              "Guid": "47c8a76c397addab2f395e63f45c7858",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "2.6,1,2.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "本月加班(h)"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text14",
+              "Guid": "10ae1ce1fb7bfeb90bfb5e644379ef3c",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "10.8,1,3,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "当前剩余调休(h)"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text18",
+              "Guid": "0a082cd2883d73cd54f986d678a0e51f",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "5.4,1,2.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "本月调休(h)"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text33",
+              "Guid": "5eacb8a137c95a5bc3d386d6a78939e0",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "8.2,1,2.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "月末结余(h)"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            }
+          }
+        },
+        "2": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand2",
+          "ClientRectangle": "0,5.2,29,1",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": "All;221,221,221;;;;;;solid:0,0,0",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text15",
+              "Guid": "a5f0c8a61c34f6dad2fc5e6631f0c60a",
+              "ClientRectangle": "0,0,2.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{vw_tx.yuechu_sy_tx}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "NullValue": "0",
+              "Type": "DataColumn"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text17",
+              "Guid": "0c63da71dee73f59ec775e674642b86c",
+              "ClientRectangle": "2.6,0,2.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{vw_tx.this_jb}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "NullValue": "0",
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text19",
+              "Guid": "f7bb4c2fa7a55e8d837c5e689f40efef",
+              "ClientRectangle": "10.8,0,3,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{vw_tx.total_sy_tx}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "NullValue": "0",
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text3",
+              "Guid": "fbe8daebcd0056b0535086d678a0863b",
+              "ClientRectangle": "5.4,0,2.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{vw_tx.this_tx}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "NullValue": "0",
+              "Type": "DataColumn"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text34",
+              "Guid": "6a4a79bb8f8fe76c25e786d6cb00d32e",
+              "ClientRectangle": "8.2,0,2.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{vw_tx.yuemo_sy_tx}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "NullValue": "0",
+              "Type": "Expression"
+            }
+          },
+          "DataSourceName": "vw_tx"
+        },
+        "3": {
+          "Ident": "StiGroupHeaderBand",
+          "Name": "GroupHeaderBand2",
+          "ClientRectangle": "0,7,29,2.4",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": "All;221,221,221;;;;;;solid:0,0,0",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text20",
+              "Guid": "8cf2255a84e2efa3d87b5e6cf0407b78",
+              "ClientRectangle": "0,0.4,29,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "2.{vw_tx.last_name}的剩余年假"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text2",
+              "Guid": "d019456543e44ff74cfc5e6d2b66b609",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,1.4,2.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "月初结余(h)"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text23",
+              "Guid": "5a89333fd41d2c2dc11f5e6d2b661f07",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "2.6,1.4,2.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "本月使用(h)"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text21",
+              "Guid": "8b2dab6e884ead4f1e965e6d2b663183",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "10.8,1.4,18.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "年假来源"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text30",
+              "Guid": "f71394c18ddc5c14194386d8d2ac0a5d",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "5.4,1.4,2.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "月末结余(h)"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text36",
+              "Guid": "530c5b3cd2e05ee25e0c86d90b597cec",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "8,1.4,2.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "当前剩余年假(h)"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            }
+          }
+        },
+        "4": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand3",
+          "ClientRectangle": "0,10.2,29,1",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": "All;153,153,153;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text24",
+              "Guid": "25cb90c7566b2a518a295e70a18b814e",
+              "ClientRectangle": "0,0,2.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{vw_nj.last_name}"
+              },
+              "ProcessingDuplicates": "BasedOnTagMerge",
+              "Text": {
+                "Value": "{vw_tx.yuechu_sy_nj}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "NullValue": "0",
+              "Type": "DataColumn"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text28",
+              "Guid": "6c3695952422c1d61f395e71420e4612",
+              "ClientRectangle": "2.6,0,2.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{vw_nj.last_name}"
+              },
+              "ProcessingDuplicates": "BasedOnTagMerge",
+              "Text": {
+                "Value": "{vw_tx.this_nj}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "NullValue": "0",
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text27",
+              "Guid": "78bca73bcd7f5ea974a55e70d915cc69",
+              "ClientRectangle": "10.8,0,18.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{vw_nj.last_name}"
+              },
+              "ProcessingDuplicates": "BasedOnTagMerge",
+              "Text": {
+                "Value": "{vw_tx.nj_description}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text13",
+              "Guid": "0be665cfa60d7e7e9e6386d8d2ac1222",
+              "ClientRectangle": "5.4,0,2.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{vw_nj.last_name}"
+              },
+              "ProcessingDuplicates": "BasedOnTagMerge",
+              "Text": {
+                "Value": "{vw_tx.yuemo_sy_nj}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "NullValue": "0",
+              "Type": "DataColumn"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text29",
+              "Guid": "7693d294d1f9cef8811f86d90b59f87a",
+              "ClientRectangle": "8,0,2.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{vw_tx.total_sy_nj}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "NullValue": "0",
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "vw_nj"
+        },
+        "5": {
+          "Ident": "StiGroupHeaderBand",
+          "Name": "GroupHeaderBand3",
+          "ClientRectangle": "0,12,29,2.4",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": "All;221,221,221;;;;;;solid:0,0,0",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text31",
+              "Guid": "7cbb626f306233b227745e86b33ec543",
+              "ClientRectangle": "0,0.4,29,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "3.{vw_tx.last_name}在{nian}年{yue}月份的考勤明细"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text37",
+              "Guid": "22c02790849c098921f65ec1dde9d4dc",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,1.4,2.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "考勤类别"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text39",
+              "Guid": "b7f43850bab2c9d210e35ec250ffbb98",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "2.6,1.4,2.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "考勤结果"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text40",
+              "Guid": "9a20f444849c54c83e235ec27451eaab",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "5.4,1.4,23.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "考勤详细信息"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            }
+          }
+        },
+        "6": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand4",
+          "ClientRectangle": "0,15.2,29,1",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";153,153,153;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text110",
+              "Guid": "601569f1ab169ddfcaf95ec2f026417a",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,2.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{vw_this.type}"
+              },
+              "ProcessingDuplicates": "BasedOnTagMerge",
+              "Text": {
+                "Value": "{vw_this.type}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "DataColumn"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text111",
+              "Guid": "7836094e1aba61b8a05e5ec7975ee001",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "2.6,0,2.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{vw_this.type}"
+              },
+              "ProcessingDuplicates": "BasedOnTagMerge",
+              "Text": {
+                "Value": "{vw_this.total}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text112",
+              "Guid": "33a63400e45ca008cc435ef55ccf2776",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "5.4,0,23.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{vw_this.description}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "vw_this"
+        }
+      },
+      "PageWidth": 31,
+      "PageHeight": 35,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    }
+  }
+}

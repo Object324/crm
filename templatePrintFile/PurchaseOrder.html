@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><html>
+<meta http-equiv="Content-Type" Content="text/html; charset=utf-8"/>
+<head></head><body><p><span>[var.company_logoname_company]</span></p>
+<h1 style="text-align: center">
+	[var.company_organizationname_company]销售合同</h1>
+<hr />
+<p>&nbsp;</p>
+<table border="0" cellpadding="3" cellspacing="0" style="width: 100%">
+	<tbody>
+		<tr>
+			<td style="width: 12%">合同编号</td>
+			<td style="width: 38%">[var.purchaseorder_purchaseorder_no_PurchaseOrder]</td>
+			<td style="width: 12%">交付日期</td>
+			<td style="width: 38%">[var.purchaseorder_duedate_PurchaseOrder]</td>
+		</tr>
+		<tr>
+			<td>供方</td>
+			<td>[var.purchaseorder_vendor_id_PurchaseOrder]</td>
+			<td>需方</td>
+			<td>[var.company_organizationname_company]</td>
+		</tr>
+		<tr>
+			<td>传真</td>
+			<td>[var.vendor_fax_Vendors]</td>
+			<td>传真</td>
+			<td>[var.company_fax_company]</td>
+		</tr>
+		<tr>
+			<td>电话</td>
+			<td>[var.vendor_phone_Vendors]</td>
+			<td>电话</td>
+			<td>[var.company_phone_company]</td>
+		</tr>
+		<tr>
+			<td>供方代表</td>
+			<td>[var.purchaseorder_contact_id_PurchaseOrder]</td>
+			<td>需方代表</td>
+			<td>[var.users_last_name_users]</td>
+		</tr>
+	</tbody>
+</table>
+<table border="1" bordercolor="#000000" cellpadding="3" cellspacing="0" style="width: 100%; margin-top:2mm">
+	<tbody>
+		<tr>
+			<td style="text-align: center; width: 7%"><strong>序号</strong></td>
+			<td style="text-align: center; width: 20%"><strong>产品名称</strong></td>
+			<td style="text-align: center; width: 9%"><strong>型号</strong></td>
+			<td style="text-align: center; width: 9%"><strong>单位</strong></td>
+			<td style="text-align: center; width: 12%"><strong>源单编号</strong></td>
+			<td style="text-align: center; width: 12%"><strong>数量</strong></td>
+			<td style="text-align: center; width: 12%"><strong>含税单价</strong></td>
+
+			<td style="text-align: center; width: 15%"><strong>价税合计</strong></td>
+		</tr>
+		<tr>
+			<td style="text-align: center">[var.productdetails_#_products]</td>
+			<td style="text-align: center">[var.productdetails_productname_products]</td>
+			<td style="text-align: center">[var.productdetails_productsheet_products]</td>
+			<td style="text-align: center">[var.productdetails_usageunit_products]</td>
+			<td style="text-align: center">[var.productdetails_entitysubject_products]</td>
+			<td style="text-align: right">[var.productdetails_quantity_products]</td>
+			<td style="text-align: right">[var.productdetails_taxprice_products]</td>
+			<td style="text-align: right">[var.productdetails_tax_amount_products]</td>
+		</tr>
+		<tr>
+			<td colspan="7" style="text-align: right">总计</td>
+			<td style="text-align: right">[var.table_total_table]</td>
+		</tr>
+		<tr>
+			<td colspan="8" style="text-align: right">总计大写：[var.table_total_big_table]</td>
+		</tr>
+		<tr>
+			<td colspan="8"><p>条款与条件：[var.purchaseorder_terms_conditions_PurchaseOrder]</p></td>
+		</tr>
+	</tbody>
+</table>
+</body>
+</html>

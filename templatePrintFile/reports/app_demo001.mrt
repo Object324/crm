@@ -1,0 +1,295 @@
+{
+  "ReportVersion": "2019.3.1",
+  "ReportGuid": "2153411d69712e86a912d35ae48b91af",
+  "ReportName": "Report",
+  "ReportAlias": "数据决策系统",
+  "ReportFile": "app_demo001.mrt",
+  "ReportCreated": "/Date(1575537090000+0800)/",
+  "ReportChanged": "/Date(1575537090000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Dictionary": {
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "ordertotal",
+        "Alias": "ordertotal",
+        "Key": "67850c4b897cfbf25cdde89ac048f6e6",
+        "Columns": {
+          "0": {
+            "Name": "qianyue_done",
+            "Index": -1,
+            "NameInSource": "qianyue_done",
+            "Alias": "qianyue_done",
+            "Type": "System.Decimal"
+          },
+          "1": {
+            "Name": "qianyue_target",
+            "Index": -1,
+            "NameInSource": "qianyue_target",
+            "Alias": "qianyue_target",
+            "Type": "System.Decimal"
+          }
+        },
+        "NameInSource": "crm",
+        "SqlCommand": "SELECT \r\n\t(\r\n\t\tSELECT\r\n\t\t\tSUM(contractamount)\r\n\t\tFROM ld_salestarget a\r\n\t\tWHERE a.targetyear=YEAR(NOW())\r\n\t\t\tAND a.targetmouth=MONTH(NOW())\r\n\t) AS qianyue_target,\r\n\t(\r\n\t\tSELECT\r\n\t\tSUM(ROUND(a.total/IFNULL(a.conversion_rate,1),2)) AS total\r\n\tFROM ld_salesorder a\r\n\tWHERE a.deleted=0\r\n\t\tAND a.approvestatus<>'已拒绝'\r\n\t) AS qianyue_done"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "crm",
+        "Alias": "crm",
+        "ConnectionStringEncrypted": "41bRCUh8S81GRym9xJzjXovS+ythCkGJYhWhzOIJYWeQWtnrYUxDCcwbqNjoePZn3tyNSMYJUZTCE/mAZBR3boN4zcJPA1GQbU3QgMs="
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "Page1",
+      "Guid": "17e88c8eb8d23bb6c613db123890a15d",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiChart",
+          "Name": "Chart1",
+          "ClientRectangle": "1.6,2.4,8.8,7.4",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:255,255,255",
+          "Series": {
+            "0": {
+              "Ident": "StiFullStackedBarSeries",
+              "ShowShadow": false,
+              "SeriesLabels": {
+                "Ident": "StiCenterAxisLabels",
+                "MarkerSize": {
+                  "Width": 8,
+                  "Height": 6
+                },
+                "ValueTypeSeparator": "-",
+                "LabelColor": "50,58,69",
+                "BorderColor": "Transparent",
+                "Brush": "solid:Transparent",
+                "Font": ";10;;"
+              },
+              "Title": {
+                "Value": "序列 1"
+              },
+              "BorderColor": "Transparent",
+              "Brush": "solid:52,152,219",
+              "BrushNegative": "solid:Firebrick"
+            }
+          },
+          "Area": {
+            "Ident": "StiFullStackedBarArea",
+            "BorderColor": "171,172,173",
+            "Brush": "solid:255,255,255",
+            "InterlacingHor": {
+              "InterlacedBrush": "solid:10,155,155,155",
+              "Area": true
+            },
+            "InterlacingVert": {
+              "InterlacedBrush": "solid:10,155,155,155",
+              "Area": true
+            },
+            "GridLinesHor": {
+              "Color": "100,105,105,105",
+              "MinorColor": "100,105,105,105",
+              "Area": true
+            },
+            "GridLinesHorRight": {
+              "Visible": false,
+              "Area": true
+            },
+            "GridLinesVert": {
+              "Color": "100,105,105,105",
+              "MinorColor": "100,105,105,105",
+              "Area": true
+            },
+            "YAxis": {
+              "Ident": "StiYLeftAxis",
+              "Labels": {
+                "Color": "140,140,140"
+              },
+              "LineColor": "140,140,140",
+              "Title": {
+                "Color": "140,140,140",
+                "Direction": "BottomToTop"
+              }
+            },
+            "YRightAxis": {
+              "Ident": "StiYRightAxis",
+              "Labels": {
+                "Color": "140,140,140",
+                "TextAlignment": "Left"
+              },
+              "LineColor": "140,140,140",
+              "Title": {
+                "Color": "140,140,140",
+                "Direction": "TopToBottom"
+              }
+            },
+            "XAxis": {
+              "Ident": "StiXBottomAxis",
+              "Labels": {
+                "Color": "140,140,140"
+              },
+              "LineColor": "140,140,140",
+              "Title": {
+                "Color": "140,140,140"
+              }
+            },
+            "XTopAxis": {
+              "Ident": "StiXTopAxis",
+              "Labels": {
+                "Color": "140,140,140"
+              },
+              "LineColor": "140,140,140",
+              "Title": {
+                "Color": "140,140,140"
+              }
+            }
+          },
+          "Table": {
+            "GridLineColor": "225,225,225",
+            "Header": {
+              "Brush": "solid:White"
+            },
+            "DataCells": {
+              "TextColor": "140,140,140"
+            }
+          },
+          "SeriesLabels": {
+            "Ident": "StiCenterAxisLabels",
+            "MarkerSize": {
+              "Width": 8,
+              "Height": 6
+            },
+            "ValueTypeSeparator": "-",
+            "LabelColor": "50,58,69",
+            "BorderColor": "Transparent",
+            "Brush": "solid:Transparent",
+            "Font": ";10;;"
+          },
+          "Legend": {
+            "ShowShadow": false,
+            "BorderColor": "225,225,225",
+            "Brush": "solid:255,255,255",
+            "TitleColor": "105,105,105",
+            "LabelsColor": "140,140,140",
+            "MarkerSize": {
+              "Width": 10,
+              "Height": 10
+            },
+            "Columns": 0,
+            "Size": "0,0"
+          },
+          "Title": {
+            "Brush": "solid:140,140,140"
+          },
+          "Style": {
+            "Ident": "StiStyle29"
+          }
+        }
+      },
+      "PageWidth": 21,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    },
+    "1": {
+      "Ident": "StiDashboard",
+      "Name": "Dashboard1",
+      "Guid": "a53a80f87583c30622dc7192b3b03731",
+      "Alias": "销售总监面板",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiPanelElement",
+          "Name": "PanelElement1",
+          "Guid": "c8b0a8b784b98f67336e657c657bcada",
+          "ClientRectangle": "3,0,400,150",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiProgressElement",
+              "Name": "ProgressElement1",
+              "Guid": "468b8cc12056f47f5cf25f5a9b48bffa",
+              "ClientRectangle": "0,50,400,100",
+              "Alias": "销售目标",
+              "Enabled": false,
+              "Padding": {
+                "Left": 0,
+                "Top": 0,
+                "Right": 0,
+                "Bottom": 0
+              },
+              "Border": ";0,0,0;;;",
+              "TopN": {
+                "Mode": "None"
+              },
+              "Value": {
+                "Ident": "ValueProgressMeter",
+                "Expression": "Sum(ordertotal.qianyue_done)",
+                "Label": "qianyue_done"
+              },
+              "Target": {
+                "Ident": "TargetProgressMeter",
+                "Expression": "Sum(ordertotal.qianyue_target)",
+                "Label": "qianyue_target"
+              },
+              "Title": {
+                "Text": "进程",
+                "Visible": false,
+                "Font": "Microsoft YaHei;;;"
+              },
+              "Font": "Microsoft YaHei;14;Bold;",
+              "Mode": "DataBars",
+              "Style": "Orange",
+              "Group": "本月",
+              "ColorEach": true
+            },
+            "1": {
+              "Ident": "StiTextElement",
+              "Name": "TextElement1",
+              "Guid": "0dbb3b7457afe8c0dbbd15809f4f293d",
+              "ClientRectangle": "4,10,180,22",
+              "Padding": {
+                "Left": 4,
+                "Top": 0,
+                "Right": 0,
+                "Bottom": 0
+              },
+              "Border": "2;255,0,0;3;;",
+              "Text": "<font face=\"Microsoft YaHei\" size=\"12\"><text-align=\"Left\">销售目标</text-align></font>",
+              "Title": {
+                "Text": "文本",
+                "Visible": false
+              }
+            }
+          },
+          "Border": ";0,0,0;;;"
+        }
+      },
+      "Width": 400,
+      "Border": ";;2;;;;;solid:Black"
+    }
+  }
+}

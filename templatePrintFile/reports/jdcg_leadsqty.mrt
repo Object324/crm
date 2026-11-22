@@ -1,0 +1,1356 @@
+{
+  "ReportVersion": "2019.4.1",
+  "ReportGuid": "2887843c33537cd3a7355fe188d24add",
+  "ReportName": "Report",
+  "ReportAlias": "线索存量数据分析",
+  "ReportFile": "jdcg_leadsqty.mrt",
+  "ReportCreated": "/Date(1574199447000+0800)/",
+  "ReportChanged": "/Date(1574199447000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Styles": {
+    "0": {
+      "Ident": "StiStyle",
+      "Name": "column_odd",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:255,255,255",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    },
+    "1": {
+      "Ident": "StiStyle",
+      "Name": "column_even",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:252,252,252",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    }
+  },
+  "Dictionary": {
+    "Variables": {
+      "0": {
+        "Value": "DateSerial(Year(Today),Month(Today),1)",
+        "Name": "start_date",
+        "Alias": "起始日期",
+        "Type": "System.DateTime",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      },
+      "1": {
+        "Value": "2",
+        "Name": "weidu",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime",
+          "AllowUserValues": false,
+          "Keys": {
+            "0": "1",
+            "1": "2",
+            "2": "3",
+            "3": "4",
+            "4": "5"
+          },
+          "Values": {
+            "0": "客户经理/市场专员",
+            "1": "片区",
+            "2": "大区",
+            "3": "公司整体",
+            "4": "产品线"
+          }
+        },
+        "Alias": "维度",
+        "Type": "System.String",
+        "RequestFromUser": true
+      },
+      "2": {
+        "Value": "DateSerial(Year(Today),Month(Today)+1,0)",
+        "Name": "end_date",
+        "Alias": "截止日期",
+        "Type": "System.DateTime",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      }
+    },
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "a",
+        "Alias": "a",
+        "Columns": {
+          "0": {
+            "Name": "chart_type",
+            "Index": -1,
+            "NameInSource": "chart_type",
+            "Alias": "chart_type",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "crm",
+        "SqlCommand": "SELECT \r\n\tCASE\r\n\t\tWHEN '{weidu}'=1 THEN '客户经理/市场专员'\r\n\t\tWHEN '{weidu}'=2 THEN '片区'\r\n\t\tWHEN '{weidu}'=3 THEN '大区'\r\n\t\tWHEN '{weidu}'=4 THEN '公司整体'\r\n\t\tELSE '产品线'\r\n\tEND AS chart_type"
+      },
+      "1": {
+        "Ident": "StiMySqlSource",
+        "Name": "b",
+        "Alias": "b",
+        "Columns": {
+          "0": {
+            "Name": "all_total",
+            "Index": -1,
+            "NameInSource": "all_total",
+            "Alias": "all_total",
+            "Type": "System.Decimal"
+          },
+          "1": {
+            "Name": "chart_type",
+            "Index": -1,
+            "NameInSource": "chart_type",
+            "Alias": "chart_type",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "this_total",
+            "Index": -1,
+            "NameInSource": "this_total",
+            "Alias": "this_total",
+            "Type": "System.Decimal"
+          },
+          "3": {
+            "Name": "xiansuo_all_leng",
+            "Index": -1,
+            "NameInSource": "xiansuo_all_leng",
+            "Alias": "xiansuo_all_leng",
+            "Type": "System.Decimal"
+          },
+          "4": {
+            "Name": "xiansuo_all_re",
+            "Index": -1,
+            "NameInSource": "xiansuo_all_re",
+            "Alias": "xiansuo_all_re",
+            "Type": "System.Decimal"
+          },
+          "5": {
+            "Name": "xiansuo_all_wen",
+            "Index": -1,
+            "NameInSource": "xiansuo_all_wen",
+            "Alias": "xiansuo_all_wen",
+            "Type": "System.Decimal"
+          },
+          "6": {
+            "Name": "xiansuo_all_wuxiao",
+            "Index": -1,
+            "NameInSource": "xiansuo_all_wuxiao",
+            "Alias": "xiansuo_all_wuxiao",
+            "Type": "System.Decimal"
+          },
+          "7": {
+            "Name": "xiansuo_this_leng",
+            "Index": -1,
+            "NameInSource": "xiansuo_this_leng",
+            "Alias": "xiansuo_this_leng",
+            "Type": "System.Decimal"
+          },
+          "8": {
+            "Name": "xiansuo_this_re",
+            "Index": -1,
+            "NameInSource": "xiansuo_this_re",
+            "Alias": "xiansuo_this_re",
+            "Type": "System.Decimal"
+          },
+          "9": {
+            "Name": "xiansuo_this_wen",
+            "Index": -1,
+            "NameInSource": "xiansuo_this_wen",
+            "Alias": "xiansuo_this_wen",
+            "Type": "System.Decimal"
+          },
+          "10": {
+            "Name": "xiansuo_this_wuxiao",
+            "Index": -1,
+            "NameInSource": "xiansuo_this_wuxiao",
+            "Alias": "xiansuo_this_wuxiao",
+            "Type": "System.Decimal"
+          }
+        },
+        "NameInSource": "crm",
+        "Type": "Table",
+        "SqlCommand": "SELECT\r\n\tchart_type,\r\n\tSUM(xiansuo_this_re) AS xiansuo_this_re,\r\n\tSUM(xiansuo_this_wen) AS xiansuo_this_wen,\r\n\tSUM(xiansuo_this_leng) AS xiansuo_this_leng,\r\n\tSUM(xiansuo_this_wuxiao) AS xiansuo_this_wuxiao,\r\n\tSUM(xiansuo_all_re) AS xiansuo_all_re,\r\n\tSUM(xiansuo_all_wen) AS xiansuo_all_wen,\r\n\tSUM(xiansuo_all_leng) AS xiansuo_all_leng,\r\n\tSUM(xiansuo_all_wuxiao) AS xiansuo_all_wuxiao,\r\n\tSUM(xiansuo_this_re)+SUM(xiansuo_this_wen)+SUM(xiansuo_this_leng)+SUM(xiansuo_this_wuxiao) AS this_total,\r\n\tSUM(xiansuo_all_re)+SUM(xiansuo_all_wen)+SUM(xiansuo_all_leng)+SUM(xiansuo_all_wuxiao) AS all_total\r\nFROM (\r\n\tSELECT\r\n\t\ta.chart_type,\r\n\t\tSUM(a.xiansuo_this_re) AS xiansuo_this_re,\r\n\t\tSUM(a.xiansuo_this_wen) AS xiansuo_this_wen,\r\n\t\tSUM(a.xiansuo_this_leng) AS xiansuo_this_leng,\r\n\t\tSUM(a.xiansuo_this_wuxiao) AS xiansuo_this_wuxiao,\r\n\t\t0 AS xiansuo_all_re,\r\n\t\t0 AS xiansuo_all_wen,\r\n\t\t0 AS xiansuo_all_leng,\r\n\t\t0 AS xiansuo_all_wuxiao\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tCASE\r\n\t\t\t\tWHEN '{weidu}'=1 THEN u.last_name\r\n\t\t\t\tWHEN '{weidu}'=2 THEN u.user_pianqu\r\n\t\t\t\tWHEN '{weidu}'=3 THEN u.user_daqu\r\n\t\t\t\tWHEN '{weidu}'=5 THEN b.cf_3935\r\n\t\t\t\tELSE '公司整体'\r\n\t\t\tEND AS chart_type,\r\n\t\t\tCASE WHEN b.cf_3955='热线索' THEN 1 ELSE 0 END AS xiansuo_this_re,\r\n\t\t\tCASE WHEN b.cf_3955='温线索' THEN 1 ELSE 0 END AS xiansuo_this_wen,\r\n\t\t\tCASE WHEN b.cf_3955='冷线索' THEN 1 ELSE 0 END AS xiansuo_this_leng,\r\n\t\t\tCASE WHEN b.cf_3955='无效线索' THEN 1 ELSE 0 END AS xiansuo_this_wuxiao\r\n\t\tFROM (\r\n\t\t\tSELECT\r\n\t\t\t\ta.*\r\n\t\t\tFROM ld_customform53 a\r\n\t\t\tLEFT JOIN ld_customform53scf b ON b.customform53id=a.customform53id\r\n\t\t\tINNER JOIN (\r\n\t\t\t\tSELECT DISTINCT\r\n\t\t\t\t\tuserid \r\n\t\t\t\tFROM (\r\n\t\t\t\t\tSELECT \r\n\t\t\t\t\t\tld_users.id AS userid \r\n\t\t\t\t\tFROM ld_users\r\n\t\t\t\t\tWHERE EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='CustomForm53' and scopeauthority=1 AND userid='[uuid]')\r\n\t\t\t\t\tUNION\r\n\t\t\t\t\tSELECT \r\n\t\t\t\t\t\tviewid AS userid \r\n\t\t\t\t\tFROM ld_scoperhigher\r\n\t\t\t\t\tWHERE userid='[uuid]' AND modulename ='CustomForm53' AND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE userid='[uuid]' AND scopeauthority=2 AND modulename ='CustomForm53')\t\t\t\r\n\t\t\t\t\tUNION\r\n\t\t\t\t\tSELECT DISTINCT \r\n\t\t\t\t\t\tld_users2group.userid AS userid \r\n\t\t\t\t\tFROM ld_scoperhigher \r\n\t\t\t\t\tINNER JOIN ld_groups ON ld_groups.groupid=ld_scoperhigher.viewid\r\n\t\t\t\t\tINNER JOIN ld_users2group ON ld_users2group.groupid=ld_groups.groupid\r\n\t\t\t\t\tWHERE ld_scoperhigher.userid='[uuid]' \r\n\t\t\t\t\t\tAND ld_scoperhigher.modulename ='CustomForm53'\r\n\t\t\t\t\t\tAND ld_scoperhigher.scopeauthority=3 \r\n\t\t\t\t\t\tAND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='CustomForm53' AND scopeauthority=3 AND userid='[uuid]')\r\n\t\t\t\t\tUNION \r\n\t\t\t\t\tSELECT \r\n\t\t\t\t\t\tid AS userid \r\n\t\t\t\t\tFROM ld_users  \r\n\t\t\t\t\tWHERE EXISTS(SELECT 1 FROM ld_users WHERE id='[uuid]' AND is_admin='on')\r\n\t\t\t\t\tUNION\r\n\t\t\t\t\tSELECT '[uuid]') AS vw_users\r\n\t\t\t) AS tmp_users ON tmp_users.userid=a.smownerid\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\tAND b.cf_3955 IN ('热线索','温线索','冷线索','无效线索')\r\n\t\t\t\tAND a.createdtime BETWEEN DATE_FORMAT('{start_date}','%Y-%m-%d 00:00:00') AND DATE_FORMAT('{end_date}','%Y-%m-%d 23:59:59')\r\n\t\t\tUNION\r\n\t\t\tSELECT\r\n\t\t\t\ta.*\r\n\t\t\tFROM ld_customform53 a\r\n\t\t\tLEFT JOIN ld_customform53scf b ON b.customform53id=a.customform53id\r\n\t\t\tINNER JOIN ld_tabshare s ON s.crmid=a.customform53id\r\n\t\t\tWHERE s.viewuserid='[uuid]'\r\n\t\t\t\tAND a.deleted=0\r\n\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\tAND b.cf_3955 IN ('热线索','温线索','冷线索','无效线索')\r\n\t\t\t\tAND a.createdtime BETWEEN DATE_FORMAT('{start_date}','%Y-%m-%d 00:00:00') AND DATE_FORMAT('{end_date}','%Y-%m-%d 23:59:59')\r\n\t\t) a\r\n\t\tLEFT JOIN ld_customform53scf b ON b.customform53id=a.customform53id\r\n\t\tLEFT JOIN ld_users u ON u.id=a.smownerid\r\n\t\tINNER JOIN ld_users2group e ON e.userid=u.id\r\n\t\tINNER JOIN ld_groups f ON f.groupid=e.groupid\r\n\t\tINNER JOIN (\r\n\t\t\tSELECT DISTINCT\r\n\t\t\t\tuserid \r\n\t\t\tFROM (\r\n\t\t\t\tSELECT \r\n\t\t\t\t\tld_users.id AS userid \r\n\t\t\t\tFROM ld_users\r\n\t\t\t\tWHERE EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='CustomForm53' and scopeauthority=1 AND userid='[uuid]')\r\n\t\t\t\tUNION\r\n\t\t\t\tSELECT \r\n\t\t\t\t\tviewid AS userid \r\n\t\t\t\tFROM ld_scoperhigher\r\n\t\t\t\tWHERE userid='[uuid]' AND modulename ='CustomForm53' AND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE userid='[uuid]' AND scopeauthority=2 AND modulename ='CustomForm53')\t\t\t\r\n\t\t\t\tUNION\r\n\t\t\t\tSELECT DISTINCT \r\n\t\t\t\t\tld_users2group.userid AS userid \r\n\t\t\t\tFROM ld_scoperhigher \r\n\t\t\t\tINNER JOIN ld_groups ON ld_groups.groupid=ld_scoperhigher.viewid\r\n\t\t\t\tINNER JOIN ld_users2group ON ld_users2group.groupid=ld_groups.groupid\r\n\t\t\t\tWHERE ld_scoperhigher.userid='[uuid]' \r\n\t\t\t\t\tAND ld_scoperhigher.modulename ='CustomForm53'\r\n\t\t\t\t\tAND ld_scoperhigher.scopeauthority=3 \r\n\t\t\t\t\tAND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='CustomForm53' AND scopeauthority=3 AND userid='[uuid]')\r\n\t\t\t\tUNION \r\n\t\t\t\tSELECT \r\n\t\t\t\t\tid AS userid \r\n\t\t\t\tFROM ld_users  \r\n\t\t\t\tWHERE EXISTS(SELECT 1 FROM ld_users WHERE id='[uuid]' AND is_admin='on')\r\n\t\t\t\tUNION\r\n\t\t\t\tSELECT '[uuid]') AS vw_users\r\n\t\t) AS tmp_users ON tmp_users.userid=a.smownerid\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND a.approvestatus='已批准'\r\n\t\t\tAND (f.groupid=2 OR f.parentgroup LIKE '1::2::%')\r\n\t\t\tAND u.profileid IN (64,65)\r\n\t\t\tAND b.cf_3955 IN ('热线索','温线索','冷线索','无效线索')\r\n\t\t\tAND a.createdtime BETWEEN DATE_FORMAT('{start_date}','%Y-%m-%d 00:00:00') AND DATE_FORMAT('{end_date}','%Y-%m-%d 23:59:59')\r\n\t) a\r\n\tWHERE IFNULL(a.chart_type,'')<>''\r\n\tGROUP BY a.chart_type\r\n\tUNION ALL\r\n\tSELECT\r\n\t\ta.chart_type,\r\n\t\t0 AS xiansuo_this_re,\r\n\t\t0 AS xiansuo_this_wen,\r\n\t\t0 AS xiansuo_this_leng,\r\n\t\t0 AS xiansuo_this_wuxiao,\r\n\t\tSUM(a.xiansuo_all_re) AS xiansuo_all_re,\r\n\t\tSUM(a.xiansuo_all_wen) AS xiansuo_all_wen,\r\n\t\tSUM(a.xiansuo_all_leng) AS xiansuo_all_leng,\r\n\t\tSUM(a.xiansuo_all_wuxiao) AS xiansuo_all_wuxiao\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tCASE\r\n\t\t\t\tWHEN '{weidu}'=1 THEN u.last_name\r\n\t\t\t\tWHEN '{weidu}'=2 THEN u.user_pianqu\r\n\t\t\t\tWHEN '{weidu}'=3 THEN u.user_daqu\r\n\t\t\t\tWHEN '{weidu}'=5 THEN b.cf_3935\r\n\t\t\t\tELSE '公司整体'\r\n\t\t\tEND AS chart_type,\r\n\t\t\tCASE WHEN b.cf_3955='热线索' THEN 1 ELSE 0 END AS xiansuo_all_re,\r\n\t\t\tCASE WHEN b.cf_3955='温线索' THEN 1 ELSE 0 END AS xiansuo_all_wen,\r\n\t\t\tCASE WHEN b.cf_3955='冷线索' THEN 1 ELSE 0 END AS xiansuo_all_leng,\r\n\t\t\tCASE WHEN b.cf_3955='无效线索' THEN 1 ELSE 0 END AS xiansuo_all_wuxiao\r\n\t\tFROM ld_customform53 a\r\n\t\tLEFT JOIN ld_customform53scf b ON b.customform53id=a.customform53id\r\n\t\tLEFT JOIN ld_users u ON u.id=a.smownerid\r\n\t\tINNER JOIN ld_users2group e ON e.userid=u.id\r\n\t\tINNER JOIN ld_groups f ON f.groupid=e.groupid\r\n\t\tINNER JOIN (\r\n\t\t\tSELECT DISTINCT\r\n\t\t\t\tuserid \r\n\t\t\tFROM (\r\n\t\t\t\tSELECT \r\n\t\t\t\t\tld_users.id AS userid \r\n\t\t\t\tFROM ld_users\r\n\t\t\t\tWHERE EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='CustomForm53' and scopeauthority=1 AND userid='[uuid]')\r\n\t\t\t\tUNION\r\n\t\t\t\tSELECT \r\n\t\t\t\t\tviewid AS userid \r\n\t\t\t\tFROM ld_scoperhigher\r\n\t\t\t\tWHERE userid='[uuid]' AND modulename ='CustomForm53' AND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE userid='[uuid]' AND scopeauthority=2 AND modulename ='CustomForm53')\t\t\t\r\n\t\t\t\tUNION\r\n\t\t\t\tSELECT DISTINCT \r\n\t\t\t\t\tld_users2group.userid AS userid \r\n\t\t\t\tFROM ld_scoperhigher \r\n\t\t\t\tINNER JOIN ld_groups ON ld_groups.groupid=ld_scoperhigher.viewid\r\n\t\t\t\tINNER JOIN ld_users2group ON ld_users2group.groupid=ld_groups.groupid\r\n\t\t\t\tWHERE ld_scoperhigher.userid='[uuid]' \r\n\t\t\t\t\tAND ld_scoperhigher.modulename ='CustomForm53'\r\n\t\t\t\t\tAND ld_scoperhigher.scopeauthority=3 \r\n\t\t\t\t\tAND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='CustomForm53' AND scopeauthority=3 AND userid='[uuid]')\r\n\t\t\t\tUNION \r\n\t\t\t\tSELECT \r\n\t\t\t\t\tid AS userid \r\n\t\t\t\tFROM ld_users  \r\n\t\t\t\tWHERE EXISTS(SELECT 1 FROM ld_users WHERE id='[uuid]' AND is_admin='on')\r\n\t\t\t\tUNION\r\n\t\t\t\tSELECT '[uuid]') AS vw_users\r\n\t\t) AS tmp_users ON tmp_users.userid=a.smownerid\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND a.approvestatus='已批准'\r\n\t\t\tAND (f.groupid=2 OR f.parentgroup LIKE '1::2::%')\r\n\t\t\tAND u.profileid IN (64,65)\r\n\t\t\tAND b.cf_3955 IN ('热线索','温线索','冷线索','无效线索')\r\n\t) a\r\n\tWHERE IFNULL(a.chart_type,'')<>''\r\n\tGROUP BY a.chart_type\r\n) t\r\nGROUP BY chart_type\r\nORDER BY (CASE WHEN '{weidu}'=5 THEN FIELD(chart_type,'文旅科技','体验馆','应急安全','运营类','文旅规划类','多媒体解决方案','数字内容','其他') ELSE CONVERT(chart_type USING GBK) END)"
+      },
+      "2": {
+        "Ident": "StiMySqlSource",
+        "Name": "c",
+        "Alias": "c",
+        "Columns": {
+          "0": {
+            "Name": "chart_type",
+            "Index": -1,
+            "NameInSource": "chart_type",
+            "Alias": "chart_type",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "chart_value",
+            "Index": -1,
+            "NameInSource": "chart_value",
+            "Alias": "chart_value",
+            "Type": "System.Int32"
+          }
+        },
+        "NameInSource": "crm",
+        "SqlCommand": "SELECT\r\n\tchart_type,\r\n\tCOUNT(1) chart_value\r\nFROM (\r\nSELECT \r\n\tCASE\r\n\t\tWHEN '{weidu}'=1 THEN u.last_name\r\n\t\tWHEN '{weidu}'=2 THEN u.user_pianqu\r\n\t\tWHEN '{weidu}'=3 THEN u.user_daqu\r\n\t\tWHEN '{weidu}'=5 THEN b.cf_3935\r\n\t\tELSE '公司整体'\r\n\tEND AS chart_type\r\nFROM ld_customform53 a\r\nLEFT JOIN ld_customform53scf b ON b.customform53id=a.customform53id\r\nLEFT JOIN ld_users u ON u.id=a.smownerid\r\nINNER JOIN ld_users2group e ON e.userid=u.id\r\nINNER JOIN ld_groups f ON f.groupid=e.groupid\r\nINNER JOIN (\r\n\tSELECT DISTINCT\r\n\t\tuserid \r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tld_users.id AS userid \r\n\t\tFROM ld_users\r\n\t\tWHERE EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='CustomForm53' and scopeauthority=1 AND userid='[uuid]')\r\n\t\tUNION\r\n\t\tSELECT \r\n\t\t\tviewid AS userid \r\n\t\tFROM ld_scoperhigher\r\n\t\tWHERE userid='[uuid]' AND modulename ='CustomForm53' AND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE userid='[uuid]' AND scopeauthority=2 AND modulename ='CustomForm53')\t\t\t\r\n\t\tUNION\r\n\t\tSELECT DISTINCT \r\n\t\t\tld_users2group.userid AS userid \r\n\t\tFROM ld_scoperhigher \r\n\t\tINNER JOIN ld_groups ON ld_groups.groupid=ld_scoperhigher.viewid\r\n\t\tINNER JOIN ld_users2group ON ld_users2group.groupid=ld_groups.groupid\r\n\t\tWHERE ld_scoperhigher.userid='[uuid]' \r\n\t\t\tAND ld_scoperhigher.modulename ='CustomForm53'\r\n\t\t\tAND ld_scoperhigher.scopeauthority=3 \r\n\t\t\tAND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='CustomForm53' AND scopeauthority=3 AND userid='[uuid]')\r\n\t\tUNION \r\n\t\tSELECT \r\n\t\t\tid AS userid \r\n\t\tFROM ld_users  \r\n\t\tWHERE EXISTS(SELECT 1 FROM ld_users WHERE id='[uuid]' AND is_admin='on')\r\n\t\tUNION\r\n\t\tSELECT '[uuid]') AS vw_users\r\n) AS tmp_users ON tmp_users.userid=a.smownerid\r\nWHERE a.deleted=0\r\n\tAND a.approvestatus='已批准'\r\n\tAND (f.groupid=2 OR f.parentgroup LIKE '1::2::%')\r\n\tAND u.profileid IN (64,65)\r\n\tAND b.cf_3955 IN ('热线索','温线索','冷线索','无效线索')\r\n\tAND a.createdtime BETWEEN DATE_FORMAT('{start_date}','%Y-%m-%d 00:00:00') AND DATE_FORMAT('{end_date}','%Y-%m-%d 23:59:59')\r\n) a\r\nWHERE IFNULL(chart_type,'')<>''\r\nGROUP BY chart_type"
+      },
+      "3": {
+        "Ident": "StiMySqlSource",
+        "Name": "d",
+        "Alias": "d",
+        "Columns": {
+          "0": {
+            "Name": "chart_type",
+            "Index": -1,
+            "NameInSource": "chart_type",
+            "Alias": "chart_type",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "chart_value",
+            "Index": -1,
+            "NameInSource": "chart_value",
+            "Alias": "chart_value",
+            "Type": "System.Int32"
+          }
+        },
+        "NameInSource": "crm",
+        "SqlCommand": "SELECT\r\n\tchart_type,\r\n\tCOUNT(1) chart_value\r\nFROM (\r\nSELECT \r\n\tCASE\r\n\t\tWHEN '{weidu}'=1 THEN u.last_name\r\n\t\tWHEN '{weidu}'=2 THEN u.user_pianqu\r\n\t\tWHEN '{weidu}'=3 THEN u.user_daqu\r\n\t\tWHEN '{weidu}'=5 THEN b.cf_3935\r\n\t\tELSE '公司整体'\r\n\tEND AS chart_type\r\nFROM ld_customform53 a\r\nLEFT JOIN ld_customform53scf b ON b.customform53id=a.customform53id\r\nLEFT JOIN ld_users u ON u.id=a.smownerid\r\nINNER JOIN ld_users2group e ON e.userid=u.id\r\nINNER JOIN ld_groups f ON f.groupid=e.groupid\r\nINNER JOIN (\r\n\tSELECT DISTINCT\r\n\t\tuserid \r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tld_users.id AS userid \r\n\t\tFROM ld_users\r\n\t\tWHERE EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='CustomForm53' and scopeauthority=1 AND userid='[uuid]')\r\n\t\tUNION\r\n\t\tSELECT \r\n\t\t\tviewid AS userid \r\n\t\tFROM ld_scoperhigher\r\n\t\tWHERE userid='[uuid]' AND modulename ='CustomForm53' AND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE userid='[uuid]' AND scopeauthority=2 AND modulename ='CustomForm53')\t\t\t\r\n\t\tUNION\r\n\t\tSELECT DISTINCT \r\n\t\t\tld_users2group.userid AS userid \r\n\t\tFROM ld_scoperhigher \r\n\t\tINNER JOIN ld_groups ON ld_groups.groupid=ld_scoperhigher.viewid\r\n\t\tINNER JOIN ld_users2group ON ld_users2group.groupid=ld_groups.groupid\r\n\t\tWHERE ld_scoperhigher.userid='[uuid]' \r\n\t\t\tAND ld_scoperhigher.modulename ='CustomForm53'\r\n\t\t\tAND ld_scoperhigher.scopeauthority=3 \r\n\t\t\tAND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='CustomForm53' AND scopeauthority=3 AND userid='[uuid]')\r\n\t\tUNION \r\n\t\tSELECT \r\n\t\t\tid AS userid \r\n\t\tFROM ld_users  \r\n\t\tWHERE EXISTS(SELECT 1 FROM ld_users WHERE id='[uuid]' AND is_admin='on')\r\n\t\tUNION\r\n\t\tSELECT '[uuid]') AS vw_users\r\n) AS tmp_users ON tmp_users.userid=a.smownerid\r\nWHERE a.deleted=0\r\n\tAND a.approvestatus='已批准'\r\n\tAND (f.groupid=2 OR f.parentgroup LIKE '1::2::%')\r\n\tAND profileid IN (64,65)\r\n\tAND b.cf_3955 IN ('热线索','温线索','冷线索','无效线索')\r\n) a\r\nWHERE IFNULL(chart_type,'')<>''\r\nGROUP BY chart_type\r\nORDER BY (CASE WHEN '{weidu}'=5 THEN FIELD(chart_type,'文旅科技','体验馆','应急安全','运营类','文旅规划类','多媒体解决方案','数字内容','其他') ELSE CONVERT(chart_type USING GBK) END)"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "crm",
+        "Alias": "crm",
+        "ConnectionStringEncrypted": "42zRCUhMMbxGRymFS0kibtXWzcPGWVntYluhzGFxt17C0PUCTAj7gcNNVcxiEPR3xMRlAkZXSYjMbISYSwkya41W96POZ3KZQB6EheGIdwOH"
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "Page1",
+      "Guid": "5d4b27b46a74e040391803bfd0a0787f",
+      "Alias": "线索存量数据分析",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiReportTitleBand",
+          "Name": "ReportTitleBand1",
+          "ClientRectangle": "0,0.4,30,1",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text34",
+              "Guid": "a8570fe6fc0f54ccd9080050334a75cb",
+              "ClientRectangle": "0,0,30,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "线索存量分析表"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;12;;",
+              "Border": ";221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiReportTitleBand",
+          "Name": "ReportTitleBand2",
+          "ClientRectangle": "0,2.2,30,9.8",
+          "Conditions": {
+            "0": {
+              "Ident": "StiCondition",
+              "Item": "Expression",
+              "Expression": {
+                "Value": "{a.chart_type == \"客户经理/市场专员\"}"
+              },
+              "Enabled": false,
+              "BorderSides": "None"
+            }
+          },
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiChart",
+              "Name": "Chart1",
+              "ClientRectangle": "0,0,15,9.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Border": ";;;;;;;solid:Black",
+              "Brush": "solid:255,255,255",
+              "Series": {
+                "0": {
+                  "Ident": "StiPieSeries",
+                  "ShowShadow": false,
+                  "SeriesLabels": {
+                    "Ident": "StiCenterAxisLabels",
+                    "MarkerSize": {
+                      "Width": 8,
+                      "Height": 6
+                    },
+                    "ValueTypeSeparator": "-",
+                    "LabelColor": "50,58,69",
+                    "BorderColor": "Transparent",
+                    "Brush": "solid:Transparent",
+                    "Font": ";10;;"
+                  },
+                  "ValueDataColumn": "c.chart_value",
+                  "ArgumentDataColumn": "c.chart_type",
+                  "Title": {
+                    "Value": "Series 1"
+                  },
+                  "BorderColor": "Transparent",
+                  "Brush": "solid:52,152,219",
+                  "Lighting": false
+                }
+              },
+              "Area": {
+                "Ident": "StiPieArea",
+                "BorderColor": "171,172,173",
+                "Brush": "solid:255,255,255"
+              },
+              "Table": {
+                "GridLineColor": "225,225,225",
+                "Header": {
+                  "Brush": "solid:White"
+                },
+                "DataCells": {
+                  "TextColor": "140,140,140"
+                }
+              },
+              "SeriesLabels": {
+                "Ident": "StiOutsidePieLabels",
+                "AllowApplyStyle": false,
+                "MarkerSize": {
+                  "Width": 8,
+                  "Height": 6
+                },
+                "ValueType": "ArgumentValue",
+                "ValueTypeSeparator": "-",
+                "LegendValueType": "Argument",
+                "LabelColor": "50,58,69",
+                "BorderColor": "Transparent",
+                "Brush": "solid:Transparent",
+                "Font": ";10;;",
+                "LineLength": 5,
+                "LineColor": "127,127,127"
+              },
+              "Legend": {
+                "AllowApplyStyle": false,
+                "ShowShadow": false,
+                "BorderColor": "0,255,255,255",
+                "Brush": "solid:255,255,255",
+                "TitleColor": "105,105,105",
+                "LabelsColor": "140,140,140",
+                "HorAlignment": "Center",
+                "VertAlignment": "BottomOutside",
+                "MarkerSize": {
+                  "Width": 10,
+                  "Height": 10
+                },
+                "Columns": 0,
+                "Size": "0,0"
+              },
+              "Title": {
+                "AllowApplyStyle": false,
+                "Font": "Microsoft YaHei;10;;",
+                "Text": "月度新增",
+                "Brush": "solid:0,0,0",
+                "Alignment": "Near",
+                "Visible": true
+              },
+              "Style": {
+                "Ident": "StiStyle29"
+              }
+            },
+            "1": {
+              "Ident": "StiChart",
+              "Name": "Chart2",
+              "Guid": "a3855874a6de2e44c9c73eda10ad4a1e",
+              "ClientRectangle": "15,0,15,9.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Border": ";;;;;;;solid:Black",
+              "Brush": "solid:255,255,255",
+              "Series": {
+                "0": {
+                  "Ident": "StiPieSeries",
+                  "ShowShadow": false,
+                  "SeriesLabels": {
+                    "Ident": "StiCenterAxisLabels",
+                    "MarkerSize": {
+                      "Width": 8,
+                      "Height": 6
+                    },
+                    "ValueTypeSeparator": "-",
+                    "LabelColor": "50,58,69",
+                    "BorderColor": "Transparent",
+                    "Brush": "solid:Transparent",
+                    "Font": ";10;;"
+                  },
+                  "ValueDataColumn": "d.chart_value",
+                  "ArgumentDataColumn": "d.chart_type",
+                  "Title": {
+                    "Value": "Series 1"
+                  },
+                  "BorderColor": "Transparent",
+                  "Brush": "solid:52,152,219",
+                  "Lighting": false
+                }
+              },
+              "Area": {
+                "Ident": "StiPieArea",
+                "BorderColor": "171,172,173",
+                "Brush": "solid:255,255,255"
+              },
+              "Table": {
+                "GridLineColor": "225,225,225",
+                "Header": {
+                  "Brush": "solid:White"
+                },
+                "DataCells": {
+                  "TextColor": "140,140,140"
+                }
+              },
+              "SeriesLabels": {
+                "Ident": "StiOutsidePieLabels",
+                "AllowApplyStyle": false,
+                "MarkerSize": {
+                  "Width": 8,
+                  "Height": 6
+                },
+                "ValueType": "ArgumentValue",
+                "ValueTypeSeparator": "-",
+                "LegendValueType": "Argument",
+                "LabelColor": "50,58,69",
+                "BorderColor": "Transparent",
+                "Brush": "solid:Transparent",
+                "Font": ";10;;",
+                "LineLength": 5,
+                "LineColor": "127,127,127"
+              },
+              "Legend": {
+                "AllowApplyStyle": false,
+                "ShowShadow": false,
+                "BorderColor": "0,255,255,255",
+                "Brush": "solid:255,255,255",
+                "TitleColor": "105,105,105",
+                "LabelsColor": "140,140,140",
+                "HorAlignment": "Center",
+                "VertAlignment": "BottomOutside",
+                "MarkerSize": {
+                  "Width": 10,
+                  "Height": 10
+                },
+                "Columns": 0,
+                "Size": "0,0"
+              },
+              "Title": {
+                "AllowApplyStyle": false,
+                "Font": "Microsoft YaHei;10;;",
+                "Text": "累计存量",
+                "Brush": "solid:0,0,0",
+                "Alignment": "Near",
+                "Visible": true
+              },
+              "Style": {
+                "Ident": "StiStyle29"
+              }
+            }
+          }
+        },
+        "2": {
+          "Ident": "StiReportTitleBand",
+          "Name": "ReportTitleBand3",
+          "ClientRectangle": "0,12.8,30,0.8",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text5",
+              "Guid": "433d90074c19f296397c887823534359",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,3.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{a.chart_type}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text7",
+              "Guid": "c05c3d2f115194b641aae9d54d3c3bed",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "3.6,0,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "本期热线索新增"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text3",
+              "Guid": "944d9e56858d4f1a6881d7db7afd8a95",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "6.4,0,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "热线索存量"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text6",
+              "Guid": "daffe8d6d0fadbea5e4fbb8789c249ed",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "9.2,0,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "本期温线索新增"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text8",
+              "Guid": "aade7a3d6bcbaa3e37a7a5602d16438a",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "12,0,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "温线索存量"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text11",
+              "Guid": "eb863a3650b9783e15605e6f6dfc7631",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "14.8,0,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "本期冷线索新增"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text12",
+              "Guid": "14cfad4f49ad964977a5b96dec812ca6",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "17.6,0,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "冷线索存量"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text15",
+              "Guid": "5922500f894330c60a8d01e9502b900e",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "20.4,0,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "本期无效线索"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text16",
+              "Guid": "db5151dd4237a8b4c49106c0d0a8a32e",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "23.2,0,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "无效线索合计"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text19",
+              "Guid": "4baebb8b36de6be59c96adc88349241a",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "26,0,2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "本期合计"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "10": {
+              "Ident": "StiText",
+              "Name": "Text31",
+              "Guid": "78be01c06896214e0670eb3afa95e76f",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "28,0,2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "存量合计"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            }
+          }
+        },
+        "3": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand1",
+          "ClientRectangle": "0,14.4,30,0.8",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text1",
+              "Guid": "4b9a99fdb7da534dd87756e240dbc301",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,3.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.chart_type}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text2",
+              "Guid": "bcfb0ec193128b3febec6edc4ddeff36",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "3.6,0,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.xiansuo_this_re}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text4",
+              "Guid": "052a4380884e5bbb1d833bc56b8a00d9",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "6.4,0,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.xiansuo_all_re}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text9",
+              "Guid": "06fed8c46551a852079a1a46c72aea61",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "9.2,0,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.xiansuo_this_wen}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text10",
+              "Guid": "04d1880f9f6dade2a7ab0979c8d5bbda",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "12,0,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.xiansuo_all_wen}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text13",
+              "Guid": "22caa7f4dfbdcead604f21e9a1a085e6",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "14.8,0,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.xiansuo_this_leng}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text14",
+              "Guid": "e9a5a4501a327d0c49b76d06f6d24ed7",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "17.6,0,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.xiansuo_all_leng}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text17",
+              "Guid": "226438b0769626f1644a399d8546b533",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "20.4,0,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.xiansuo_this_wuxiao}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text18",
+              "Guid": "f3347251934537eadc1ca7b5cf794c41",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "23.2,0,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.xiansuo_all_wuxiao}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text20",
+              "Guid": "07cc88a561f248a4478d4be20c9b5b8c",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "26,0,2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.this_total}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "10": {
+              "Ident": "StiText",
+              "Name": "Text32",
+              "Guid": "5facfc6c1e40aaf7579ebb86fe1cbe9b",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "28,0,2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.all_total}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "b"
+        },
+        "4": {
+          "Ident": "StiReportSummaryBand",
+          "Name": "ReportSummaryBand1",
+          "ClientRectangle": "0,16,30,0.8",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text21",
+              "Guid": "4f2a8f5508804b772f026734e472588e",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,3.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "合计"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text22",
+              "Guid": "797ac2a8e860ce590c349df86cb73f9a",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "3.6,0,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Sum(DataBand1,b.xiansuo_this_re)}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Totals"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text23",
+              "Guid": "aecbd3a696a839338e800dfcf2180d2b",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "6.4,0,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Sum(DataBand1,b.xiansuo_all_re)}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Totals"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text24",
+              "Guid": "6bfbdf04214b1d2af2e74bd7911142a1",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "9.2,0,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Sum(DataBand1,b.xiansuo_this_wen)}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Totals"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text25",
+              "Guid": "a874a3c726fabf7b45d4d08386433294",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "12,0,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Sum(DataBand1,b.xiansuo_all_wen)}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Totals"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text26",
+              "Guid": "e94056b95d7fec6da776ace81bb702ef",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "14.8,0,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Sum(DataBand1,b.xiansuo_this_leng)}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Totals"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text27",
+              "Guid": "b9f77e301320927fec56a0d4384c1c50",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "17.6,0,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Sum(DataBand1,b.xiansuo_all_leng)}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Totals"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text28",
+              "Guid": "913fb36a44074be215f4bf42a468916d",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "20.4,0,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Sum(DataBand1,b.xiansuo_this_wuxiao)}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Totals"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text29",
+              "Guid": "0680af3c111da20c5c21a660a650dd75",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "23.2,0,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Sum(DataBand1,b.xiansuo_all_wuxiao)}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Totals"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text30",
+              "Guid": "5568a70d0bc34b98ac530caaa43395f8",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "26,0,2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Sum(DataBand1,b.this_total)}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Totals"
+            },
+            "10": {
+              "Ident": "StiText",
+              "Name": "Text33",
+              "Guid": "53d2b31011e56abfab772e391c0294f5",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "28,0,2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Sum(DataBand1,b.all_total)}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Totals"
+            }
+          }
+        }
+      },
+      "PageWidth": 32,
+      "PageHeight": 29.69,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    }
+  }
+}

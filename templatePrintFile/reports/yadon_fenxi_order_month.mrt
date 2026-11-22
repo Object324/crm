@@ -1,0 +1,727 @@
+{
+  "ReportVersion": "2019.4.1",
+  "ReportGuid": "7f6706d16c63255c464ff4d6dc5efd9e",
+  "ReportName": "Report",
+  "ReportAlias": "新增订单分析表（按月）",
+  "ReportFile": "yadon_fenxi_order_month.mrt",
+  "ReportCreated": "/Date(-28800000+0800)/",
+  "ReportChanged": "/Date(-28800000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Styles": {
+    "0": {
+      "Ident": "StiStyle",
+      "Name": "odd",
+      "Font": "微软雅黑;9;;",
+      "Border": ";;;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "TextBrush": "solid:Black",
+      "NegativeTextBrush": "solid:Red"
+    },
+    "1": {
+      "Ident": "StiStyle",
+      "Name": "even",
+      "Font": "微软雅黑;9;;",
+      "Border": ";;;;;;;solid:Black",
+      "Brush": "solid:WhiteSmoke",
+      "TextBrush": "solid:Black",
+      "NegativeTextBrush": "solid:Red"
+    }
+  },
+  "Dictionary": {
+    "Variables": {
+      "0": {
+        "Value": "1",
+        "Name": "start_yue",
+        "DialogInfo": {
+          "AllowUserValues": false,
+          "Keys": {
+            "0": "1",
+            "1": "2",
+            "2": "3",
+            "3": "4",
+            "4": "5",
+            "5": "6",
+            "6": "7",
+            "7": "8",
+            "8": "9",
+            "9": "10",
+            "10": "11",
+            "11": "12"
+          },
+          "Values": {
+            "0": "1",
+            "1": "2",
+            "2": "3",
+            "3": "4",
+            "4": "5",
+            "5": "6",
+            "6": "7",
+            "7": "8",
+            "8": "9",
+            "9": "10",
+            "10": "11",
+            "11": "12"
+          }
+        },
+        "Alias": "起始月份",
+        "Type": "System.String",
+        "RequestFromUser": true
+      },
+      "1": {
+        "Value": "Year(Today)",
+        "Name": "nian",
+        "DialogInfo": {
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "list_nian.list_value",
+          "ValuesColumn": "list_nian.list_value",
+          "AllowUserValues": false
+        },
+        "Alias": "起始年度",
+        "Type": "System.String",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      },
+      "2": {
+        "Name": "quyu",
+        "DialogInfo": {
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "list_quyu.listvalue",
+          "ValuesColumn": "list_quyu.listvalue",
+          "AllowUserValues": false
+        },
+        "Alias": "区域",
+        "Type": "Stimulsoft.Report.StringList",
+        "RequestFromUser": true
+      },
+      "3": {
+        "Value": "全部",
+        "Name": "cpxl",
+        "DialogInfo": {
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "list_xilie.listvalue",
+          "ValuesColumn": "list_xilie.listvalue"
+        },
+        "Alias": "系列",
+        "Type": "System.String",
+        "RequestFromUser": true
+      },
+      "4": {
+        "Value": "Month(Today)",
+        "Name": "end_yue",
+        "DialogInfo": {
+          "AllowUserValues": false,
+          "Keys": {
+            "0": "1",
+            "1": "2",
+            "2": "3",
+            "3": "4",
+            "4": "5",
+            "5": "6",
+            "6": "7",
+            "7": "8",
+            "8": "9",
+            "9": "10",
+            "10": "11",
+            "11": "12"
+          },
+          "Values": {
+            "0": "1",
+            "1": "2",
+            "2": "3",
+            "3": "4",
+            "4": "5",
+            "5": "6",
+            "6": "7",
+            "7": "8",
+            "8": "9",
+            "9": "10",
+            "10": "11",
+            "11": "12"
+          }
+        },
+        "Alias": "截止月份",
+        "Type": "System.String",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      },
+      "5": {
+        "Value": "-1",
+        "Name": "users",
+        "DialogInfo": {
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "list_user.id",
+          "ValuesColumn": "list_user.last_name",
+          "AllowUserValues": false
+        },
+        "Alias": "销售员",
+        "Type": "System.String",
+        "RequestFromUser": true
+      },
+      "6": {
+        "Value": "全部",
+        "Name": "shiyebu",
+        "DialogInfo": {
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "list_syb.listvalue",
+          "ValuesColumn": "list_syb.listvalue",
+          "AllowUserValues": false
+        },
+        "Alias": "事业部",
+        "Type": "System.String",
+        "RequestFromUser": true
+      }
+    },
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "list_nian",
+        "Alias": "list_nian",
+        "Columns": {
+          "0": {
+            "Name": "list_value",
+            "Index": -1,
+            "NameInSource": "list_value",
+            "Alias": "list_value",
+            "Type": "System.Int32"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT YEAR(CURDATE()) AS list_value\r\nUNION\r\nSELECT YEAR(CURDATE())-1\r\nUNION\r\nSELECT YEAR(CURDATE())-2\r\nUNION\r\nSELECT YEAR(CURDATE())-3\r\nUNION\r\nSELECT YEAR(CURDATE())-4\r\nUNION\r\nSELECT YEAR(CURDATE())-5\r\nUNION\r\nSELECT YEAR(CURDATE())-6"
+      },
+      "1": {
+        "Ident": "StiMySqlSource",
+        "Name": "list_quyu",
+        "Alias": "list_quyu",
+        "Columns": {
+          "0": {
+            "Name": "listvalue",
+            "Index": -1,
+            "NameInSource": "listvalue",
+            "Alias": "listvalue",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "sequence",
+            "Index": -1,
+            "NameInSource": "sequence",
+            "Alias": "sequence",
+            "Type": "System.Int32"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT\r\n\tCASE\r\n\t\tWHEN a.groupname IN (SELECT listvalue FROM ld_picklist_values WHERE listid=135) THEN groupname\r\n\t\tELSE '其他'\r\n\tEND AS listvalue,\r\n\tCASE\r\n\t\tWHEN a.groupname IN (SELECT listvalue FROM ld_picklist_values WHERE listid=135) THEN (SELECT sequence FROM ld_picklist_values WHERE listid=135 AND listvalue=a.groupname LIMIT 1)\r\n\t\tELSE 1000\r\n\tEND AS sequence\r\nFROM (\r\n\tSELECT\r\n\t\ta.id,\r\n\t\ta.last_name,\r\n\t\tCASE\r\n\t\t\tWHEN (SELECT COUNT(1) FROM ld_users2group WHERE userid=a.id)>1 AND EXISTS (SELECT 1 FROM ld_groups WHERE FIND_IN_SET(groupid,(SELECT GROUP_CONCAT(groupid) FROM ld_users2group WHERE userid=a.id)) AND groupname IN (SELECT listvalue FROM ld_picklist_values WHERE listid=135)) THEN\r\n\t\t\t\t(SELECT groupname FROM ld_groups WHERE FIND_IN_SET(groupid,(SELECT GROUP_CONCAT(groupid) FROM ld_users2group WHERE userid=a.id)) AND groupname IN (SELECT listvalue FROM ld_picklist_values WHERE listid=135) LIMIT 1)\r\n\t\t\tELSE \r\n\t\t\t\td.groupname\r\n\t\tEND AS groupname\r\n\tFROM ld_users a\r\n\tLEFT JOIN ld_profile b ON a.profileid=b.profileid\r\n\tLEFT JOIN ld_users2group c ON c.userid=a.id\r\n\tLEFT JOIN ld_groups d ON d.groupid=c.groupid\r\n\tINNER JOIN (\r\n\t\tSELECT DISTINCT\r\n\t\t\tuserid \r\n\t\tFROM (\r\n\t\t\tSELECT \r\n\t\t\t\tld_users.id AS userid \r\n\t\t\tFROM ld_users\r\n\t\t\tWHERE EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename='SalesOrder' and scopeauthority=1 AND userid='[uuid]')\r\n\t\t\tUNION\r\n\t\t\tSELECT \r\n\t\t\t\tviewid AS userid \r\n\t\t\tFROM ld_scoperhigher\r\n\t\t\tWHERE userid='[uuid]' AND modulename='SalesOrder' AND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE userid='[uuid]' AND scopeauthority=2 AND modulename='SalesOrder')\t\t\t\r\n\t\t\tUNION\r\n\t\t\tSELECT DISTINCT \r\n\t\t\t\tld_users2group.userid AS userid \r\n\t\t\tFROM ld_scoperhigher \r\n\t\t\tINNER JOIN ld_groups ON ld_groups.groupid=ld_scoperhigher.viewid\r\n\t\t\tINNER JOIN ld_users2group ON ld_users2group.groupid=ld_groups.groupid\r\n\t\t\tWHERE ld_scoperhigher.userid='[uuid]' \r\n\t\t\t\tAND ld_scoperhigher.modulename='SalesOrder'\r\n\t\t\t\tAND ld_scoperhigher.scopeauthority=3 \r\n\t\t\t\tAND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename='SalesOrder' AND scopeauthority=3 AND userid='[uuid]')\r\n\t\t\tUNION \r\n\t\t\tSELECT \r\n\t\t\t\tid AS userid \r\n\t\t\tFROM ld_users  \r\n\t\t\tWHERE EXISTS(SELECT 1 FROM ld_users WHERE id='[uuid]' AND is_admin='on')\r\n\t\t\tUNION\r\n\t\t\tSELECT '[uuid]') AS vw_users\r\n\t) AS tmp_users ON tmp_users.userid=a.id\r\n\tWHERE a.deleted=0\r\n\tGROUP BY a.id\r\n) a\r\nGROUP BY listvalue\r\nORDER BY sequence"
+      },
+      "2": {
+        "Ident": "StiMySqlSource",
+        "Name": "list_user",
+        "Alias": "list_user",
+        "Columns": {
+          "0": {
+            "Name": "id",
+            "Index": -1,
+            "NameInSource": "id",
+            "Alias": "id",
+            "Type": "System.Int32"
+          },
+          "1": {
+            "Name": "last_name",
+            "Index": -1,
+            "NameInSource": "last_name",
+            "Alias": "last_name",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT -1 AS id,'全部' AS last_name\r\nUNION (\r\n\tSELECT\r\n\t\ta.id,\r\n\t\ta.last_name\r\n\tFROM ld_users a\r\n\tLEFT JOIN ld_profile b ON a.profileid=b.profileid\r\n\tINNER JOIN (\r\n\t\tSELECT DISTINCT\r\n\t\t\tuserid \r\n\t\tFROM (\r\n\t\t\tSELECT \r\n\t\t\t\tld_users.id AS userid \r\n\t\t\tFROM ld_users\r\n\t\t\tWHERE EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename='SalesOrder' and scopeauthority=1 AND userid='[uuid]')\r\n\t\t\tUNION\r\n\t\t\tSELECT \r\n\t\t\t\tviewid AS userid \r\n\t\t\tFROM ld_scoperhigher\r\n\t\t\tWHERE userid='[uuid]' AND modulename='SalesOrder' AND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE userid='[uuid]' AND scopeauthority=2 AND modulename='SalesOrder')\t\t\t\r\n\t\t\tUNION\r\n\t\t\tSELECT DISTINCT \r\n\t\t\t\tld_users2group.userid AS userid \r\n\t\t\tFROM ld_scoperhigher \r\n\t\t\tINNER JOIN ld_groups ON ld_groups.groupid=ld_scoperhigher.viewid\r\n\t\t\tINNER JOIN ld_users2group ON ld_users2group.groupid=ld_groups.groupid\r\n\t\t\tWHERE ld_scoperhigher.userid='[uuid]' \r\n\t\t\t\tAND ld_scoperhigher.modulename='SalesOrder'\r\n\t\t\t\tAND ld_scoperhigher.scopeauthority=3 \r\n\t\t\t\tAND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename='SalesOrder' AND scopeauthority=3 AND userid='[uuid]')\r\n\t\t\tUNION \r\n\t\t\tSELECT \r\n\t\t\t\tid AS userid \r\n\t\t\tFROM ld_users  \r\n\t\t\tWHERE EXISTS(SELECT 1 FROM ld_users WHERE id='[uuid]' AND is_admin='on')\r\n\t\t\tUNION\r\n\t\t\tSELECT '[uuid]') AS vw_users\r\n\t) AS tmp_users ON tmp_users.userid=a.id\r\n\tWHERE a.deleted=0\r\n\tGROUP BY a.id\r\n\tORDER BY CONVERT(a.last_name USING GBK)\r\n)"
+      },
+      "3": {
+        "Ident": "StiMySqlSource",
+        "Name": "list_syb",
+        "Alias": "list_syb",
+        "Columns": {
+          "0": {
+            "Name": "listvalue",
+            "Index": -1,
+            "NameInSource": "listvalue",
+            "Alias": "listvalue",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT '全部' AS listvalue\r\nUNION (\r\n\tSELECT\r\n\t\tlistvalue\r\n\tFROM ld_picklist_set a\r\n\tLEFT JOIN ld_picklist_values b ON a.listid=b.listid\r\n\tWHERE a.listname='cf_2307'\r\n\tORDER BY sequence)"
+      },
+      "4": {
+        "Ident": "StiMySqlSource",
+        "Name": "list_xilie",
+        "Alias": "list_xilie",
+        "Columns": {
+          "0": {
+            "Name": "listvalue",
+            "Index": -1,
+            "NameInSource": "listvalue",
+            "Alias": "listvalue",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT '全部' AS listvalue\r\nUNION (\r\n\tSELECT\r\n\t\tlistvalue\r\n\tFROM ld_picklist_set a\r\n\tLEFT JOIN ld_picklist_values b ON a.listid=b.listid\r\n\tWHERE a.listname='cf_2320'\r\n\t\tAND a.relatetable='ld_field'\r\n\tORDER BY sequence)"
+      },
+      "5": {
+        "Ident": "StiMySqlSource",
+        "Name": "bb",
+        "Alias": "bb",
+        "Columns": {
+          "0": {
+            "Name": "all_total",
+            "Index": -1,
+            "NameInSource": "all_total",
+            "Alias": "all_total",
+            "Type": "System.Decimal"
+          },
+          "1": {
+            "Name": "argument",
+            "Index": -1,
+            "NameInSource": "argument",
+            "Alias": "argument",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "avg_total",
+            "Index": -1,
+            "NameInSource": "avg_total",
+            "Alias": "avg_total",
+            "Type": "System.Decimal"
+          },
+          "3": {
+            "Name": "tips",
+            "Index": -1,
+            "NameInSource": "tips",
+            "Alias": "tips",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "xs_total",
+            "Index": -1,
+            "NameInSource": "xs_total",
+            "Alias": "xs_total",
+            "Type": "System.Decimal"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "Type": "Table",
+        "SqlCommand": "CALL yangduan_getorderinfo_dingdanfenxi_yue('{start_yue}','{end_yue}','{nian}','{users}','{quyu}','{shiyebu}','{cpxl}','[uuid]',1)"
+      },
+      "6": {
+        "Ident": "StiMySqlSource",
+        "Name": "dd",
+        "Alias": "dd",
+        "Columns": {
+          "0": {
+            "Name": "argument",
+            "Index": -1,
+            "NameInSource": "argument",
+            "Alias": "argument",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "cnt",
+            "Index": -1,
+            "NameInSource": "cnt",
+            "Alias": "cnt",
+            "Type": "System.Int32"
+          },
+          "2": {
+            "Name": "xs_total",
+            "Index": -1,
+            "NameInSource": "xs_total",
+            "Alias": "xs_total",
+            "Type": "System.Decimal"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "Type": "Table",
+        "SqlCommand": "CALL yangduan_getorderinfo_dingdanfenxi_yue('{start_yue}','{end_yue}','{nian}','{users}','{quyu}','{shiyebu}','{cpxl}','[uuid]',2)"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "ldcrm",
+        "Alias": "ldcrm",
+        "ConnectionStringEncrypted": "9Gx168YJS1nhR9WR6iV1n8JsdaNhT1m8YhWxkOkldS/CWmXKTV3z8EZMoYhjXGI/3shxg+8Ius1yBpzAYow1Z4tgc0NJBVqk4X20vWf0NUbjek8K10FL+WIZpczq"
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "Page1",
+      "Guid": "7a63ece74acd9b16d3cef16f83d3c036",
+      "Alias": "订单分析（按周）",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;true;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiReportTitleBand",
+          "Name": "ReportTitleBand1",
+          "ClientRectangle": "0,0.4,30,11.8",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiChart",
+              "Name": "Chart1",
+              "ShiftMode": "IncreasingSize, OnlyInWidthOfComponent",
+              "ClientRectangle": "0,0.8,30,10",
+              "Alias": "新增订单分析表（按月）",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "FilterOn": false,
+              "Border": ";;;;;;true;solid:White",
+              "Brush": "solid:255,255,255",
+              "DataSourceName": "bb",
+              "HorSpacing": 0,
+              "VertSpacing": 0,
+              "Series": {
+                "0": {
+                  "Ident": "StiLineSeries",
+                  "ShowShadow": false,
+                  "SeriesLabels": {
+                    "Ident": "StiCenterAxisLabels",
+                    "ShowZeros": true,
+                    "MarkerSize": {
+                      "Width": 8,
+                      "Height": 6
+                    },
+                    "ValueTypeSeparator": "-",
+                    "LabelColor": "51,71,91",
+                    "BorderColor": "Transparent",
+                    "Brush": "solid:Transparent",
+                    "Font": ";10;;"
+                  },
+                  "TrendLine": {
+                    "Ident": "StiTrendLineNone",
+                    "ShowShadow": true,
+                    "Position": "LeftBottom"
+                  },
+                  "ValueDataColumn": "bb.avg_total",
+                  "ArgumentDataColumn": "bb.argument",
+                  "Title": {
+                    "Value": "月任务金额"
+                  },
+                  "Marker": {
+                    "Brush": "solid:212,255,171",
+                    "BorderColor": "12,73,0"
+                  },
+                  "LineMarker": {
+                    "Brush": "solid:162,223,121",
+                    "BorderColor": "0,23,0"
+                  },
+                  "LineColor": "112,173,71",
+                  "LineStyle": "Dash",
+                  "Lighting": false
+                },
+                "1": {
+                  "Ident": "StiLineSeries",
+                  "ShowShadow": false,
+                  "SeriesLabels": {
+                    "Ident": "StiOutsideEndAxisLabels",
+                    "MarkerSize": {
+                      "Width": 10,
+                      "Height": 8
+                    },
+                    "ValueTypeSeparator": "-",
+                    "LabelColor": "51,71,91",
+                    "BorderColor": "Transparent",
+                    "Brush": "solid:Transparent",
+                    "Font": ";10;;"
+                  },
+                  "TrendLine": {
+                    "Ident": "StiTrendLineNone",
+                    "ShowShadow": true,
+                    "Position": "LeftBottom"
+                  },
+                  "ValueDataColumn": "bb.xs_total",
+                  "ArgumentDataColumn": "bb.argument",
+                  "ToolTipDataColumn": "bb.tips",
+                  "TagDataColumn": "bb.tips",
+                  "Title": {
+                    "Value": "业绩金额"
+                  },
+                  "Marker": {
+                    "Brush": "solid:168,214,255",
+                    "BorderColor": "0,14,96",
+                    "Size": 4
+                  },
+                  "LineMarker": {
+                    "Brush": "solid:118,164,246",
+                    "BorderColor": "0,0,46"
+                  },
+                  "LineColor": "68,114,196",
+                  "Lighting": false
+                },
+                "2": {
+                  "Ident": "StiLineSeries",
+                  "ShowInLegend": false,
+                  "ShowShadow": false,
+                  "SeriesLabels": {
+                    "Ident": "StiCenterAxisLabels",
+                    "MarkerSize": {
+                      "Width": 8,
+                      "Height": 6
+                    },
+                    "ValueTypeSeparator": "-",
+                    "Visible": false,
+                    "LabelColor": "51,71,91",
+                    "BorderColor": "Transparent",
+                    "Brush": "solid:Transparent",
+                    "Font": ";10;;"
+                  },
+                  "TrendLine": {
+                    "Ident": "StiTrendLineNone",
+                    "ShowShadow": true,
+                    "Position": "LeftBottom"
+                  },
+                  "ValueDataColumn": "dd.xs_total",
+                  "ArgumentDataColumn": "dd.argument",
+                  "Title": {
+                    "Value": "Series 1"
+                  },
+                  "Marker": {
+                    "Brush": "solid:255,255,100",
+                    "BorderColor": "155,92,0"
+                  },
+                  "LineMarker": {
+                    "Brush": "solid:255,242,50",
+                    "BorderColor": "105,42,0"
+                  },
+                  "LineColor": "255,192,0",
+                  "LineStyle": "None",
+                  "Lighting": false,
+                  "LineWidth": 1
+                }
+              },
+              "Area": {
+                "Ident": "StiClusteredColumnArea",
+                "AllowApplyStyle": false,
+                "BorderColor": "Transparent",
+                "Brush": "solid:255,255,255",
+                "InterlacingHor": {
+                  "InterlacedBrush": "solid:10,155,155,155",
+                  "Visible": false,
+                  "Area": true
+                },
+                "InterlacingVert": {
+                  "InterlacedBrush": "solid:10,155,155,155",
+                  "Visible": false,
+                  "Area": true
+                },
+                "GridLinesHor": {
+                  "Color": "100,105,105,105",
+                  "MinorColor": "100,105,105,105",
+                  "Visible": false,
+                  "Area": true
+                },
+                "GridLinesHorRight": {
+                  "Visible": false,
+                  "Area": true
+                },
+                "GridLinesVert": {
+                  "Color": "100,105,105,105",
+                  "MinorColor": "100,105,105,105",
+                  "Visible": false,
+                  "Area": true
+                },
+                "YAxis": {
+                  "Ident": "StiYLeftAxis",
+                  "AllowApplyStyle": false,
+                  "Labels": {
+                    "AllowApplyStyle": false,
+                    "Font": "微软雅黑;12;Bold;"
+                  },
+                  "ArrowStyle": "Triangle",
+                  "LineStyle": "Dash",
+                  "LineColor": "Black",
+                  "LineWidth": 3,
+                  "Title": {
+                    "Font": "微软雅黑;;;",
+                    "Text": "金额（万元）",
+                    "Alignment": "Far",
+                    "Direction": "BottomToTop"
+                  },
+                  "Ticks": {
+                    "MinorVisible": true
+                  }
+                },
+                "YRightAxis": {
+                  "Ident": "StiYRightAxis",
+                  "Labels": {
+                    "Color": "140,140,140",
+                    "TextAlignment": "Left"
+                  },
+                  "LineColor": "140,140,140",
+                  "Title": {
+                    "Color": "140,140,140",
+                    "Direction": "TopToBottom"
+                  }
+                },
+                "XAxis": {
+                  "Ident": "StiXBottomAxis",
+                  "AllowApplyStyle": false,
+                  "Labels": {
+                    "AllowApplyStyle": false,
+                    "Angle": 45,
+                    "Font": "微软雅黑;10;;",
+                    "Antialiasing": false,
+                    "Step": 1
+                  },
+                  "ArrowStyle": "Triangle",
+                  "LineStyle": "Dash",
+                  "LineColor": "Black",
+                  "LineWidth": 3,
+                  "Title": {
+                    "Font": "微软雅黑;;;",
+                    "Alignment": "Far",
+                    "Direction": "LeftToRight"
+                  },
+                  "ShowXAxis": "Bottom"
+                },
+                "XTopAxis": {
+                  "Ident": "StiXTopAxis",
+                  "AllowApplyStyle": false,
+                  "StartFromZero": false,
+                  "Labels": {
+                    "Color": "140,140,140"
+                  },
+                  "LineColor": "140,140,140",
+                  "LineWidth": 0,
+                  "Title": {
+                    "Color": "140,140,140",
+                    "Direction": "LeftToRight"
+                  },
+                  "Ticks": {
+                    "Visible": false
+                  }
+                }
+              },
+              "Table": {
+                "AllowApplyStyle": false,
+                "GridLineColor": "225,225,225",
+                "GridLinesVert": false,
+                "Header": {
+                  "Brush": "glass::true:1",
+                  "Font": "微软雅黑;12;;",
+                  "TextColor": "Black"
+                },
+                "DataCells": {
+                  "Font": "微软雅黑;12;;",
+                  "TextColor": "140,140,140"
+                }
+              },
+              "SeriesLabels": {
+                "Ident": "StiOutsideEndAxisLabels",
+                "ShowZeros": true,
+                "MarkerSize": {
+                  "Width": 6,
+                  "Height": 4
+                },
+                "ValueType": "Tag",
+                "ValueTypeSeparator": "-",
+                "Antialiasing": false,
+                "DrawBorder": false,
+                "LabelColor": "51,71,91",
+                "BorderColor": "Transparent",
+                "Brush": "solid:Transparent",
+                "Font": ";10;;"
+              },
+              "Legend": {
+                "ShowShadow": false,
+                "BorderColor": "225,225,225",
+                "Brush": "solid:255,255,255",
+                "TitleColor": "105,105,105",
+                "LabelsColor": "140,140,140",
+                "VertAlignment": "TopOutside",
+                "MarkerSize": {
+                  "Width": 10,
+                  "Height": 10
+                },
+                "Columns": 1,
+                "Size": "0,0"
+              },
+              "Title": {
+                "AllowApplyStyle": false,
+                "Font": "微软雅黑;14;;",
+                "Text": "新增订单分析表（按月）",
+                "Brush": "solid:Black",
+                "Antialiasing": false,
+                "Spacing": 0
+              },
+              "AllowApplyStyle": false,
+              "Style": {
+                "Ident": "StiStyle25"
+              }
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text3",
+              "Guid": "3701ce1b1d146786bbe1f6aa3a9a541d",
+              "ClientRectangle": "0,0,30,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "新增订单分析表（按月）"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;14;Bold;",
+              "Border": ";;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text1",
+              "Guid": "e11ecbdbfd4b8a41648452e7e5210a6d",
+              "ClientRectangle": "2,11.2,28,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "注释：横坐标下方的数字为所选期间内截止当前月的累积金额数（单位：万元），月任务金额：{bb.avg_total}  万元"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": ";;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:255,0,0",
+              "Type": "Expression"
+            }
+          }
+        }
+      },
+      "PageWidth": 32,
+      "PageHeight": 15,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    }
+  }
+}

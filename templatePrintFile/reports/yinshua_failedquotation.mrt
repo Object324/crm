@@ -1,0 +1,755 @@
+{
+  "ReportVersion": "2019.3.1",
+  "ReportGuid": "58933eb67202dbd018d945764b3640ec",
+  "ReportName": "Report",
+  "ReportAlias": "报价失败原因分析",
+  "ReportFile": "D:\\xampp\\www\\crm\\templatePrintFile\\reports\\yinshua_failedquotation.mrt",
+  "ReportCreated": "/Date(-57600000+0800)/",
+  "ReportChanged": "/Date(-57600000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Styles": {
+    "0": {
+      "Ident": "StiStyle",
+      "Name": "odd",
+      "Font": "微软雅黑;9;;",
+      "Border": ";;;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "TextBrush": "solid:Black",
+      "NegativeTextBrush": "solid:Red"
+    },
+    "1": {
+      "Ident": "StiStyle",
+      "Name": "even",
+      "Font": "微软雅黑;9;;",
+      "Border": ";;;;;;;solid:Black",
+      "Brush": "solid:WhiteSmoke",
+      "TextBrush": "solid:Black",
+      "NegativeTextBrush": "solid:Red"
+    }
+  },
+  "Dictionary": {
+    "Variables": {
+      "0": {
+        "Value": "DateSerial(Year(Today),1,1)",
+        "Name": "start_date",
+        "Alias": "起始日期",
+        "Type": "System.DateTime",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      },
+      "1": {
+        "Value": "DateSerial(Year(Today),Month(Today),Day(Today))",
+        "Name": "end_date",
+        "Alias": "截止日期",
+        "Type": "System.DateTime",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      },
+      "2": {
+        "Value": "1",
+        "Name": "smowner",
+        "DialogInfo": {
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "list_user.listid",
+          "ValuesColumn": "list_user.listvalue",
+          "AllowUserValues": false
+        },
+        "Alias": "业务员",
+        "Type": "Stimulsoft.Report.StringList",
+        "RequestFromUser": true
+      }
+    },
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "list_user",
+        "Alias": "list_user",
+        "Columns": {
+          "0": {
+            "Name": "listid",
+            "Index": -1,
+            "NameInSource": "listid",
+            "Alias": "listid",
+            "Type": "System.Int32"
+          },
+          "1": {
+            "Name": "listvalue",
+            "Index": -1,
+            "NameInSource": "listvalue",
+            "Alias": "listvalue",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "yinshua",
+        "Type": "Table",
+        "SqlCommand": "SELECT\r\n\ta.smownerid AS listid,\r\n\tb.last_name AS listvalue\r\nFROM (\r\n\tSELECT\r\n\t\ta.smownerid\r\n\tFROM ld_quotes a\r\n\tWHERE a.deleted=0\r\n\t\tAND a.approvestatus<>'已拒绝'\r\n\tGROUP BY a.smownerid\r\n) a\r\nLEFT JOIN ld_users b ON a.smownerid=b.id\r\nORDER BY CONVERT(b.last_name USING GBK)"
+      },
+      "1": {
+        "Ident": "StiMySqlSource",
+        "Name": "T",
+        "Alias": "T",
+        "Columns": {
+          "0": {
+            "Name": "argument",
+            "Index": -1,
+            "NameInSource": "argument",
+            "Alias": "argument",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "qty",
+            "Index": -1,
+            "NameInSource": "qty",
+            "Alias": "qty",
+            "Type": "System.Int32"
+          },
+          "2": {
+            "Name": "tips",
+            "Index": -1,
+            "NameInSource": "tips",
+            "Alias": "tips",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "yinshua",
+        "Type": "Table",
+        "SqlCommand": "SELECT\r\n\ta.argument,\r\n\ta.qty,\r\n\tCONCAT(a.argument,'\r\n',SPACE(CHAR_LENGTH(a.argument)-2),ROUND(a.qty*100/a.total_qty),'%') AS tips\r\nFROM (\r\n\tSELECT\r\n\t\tb.cf_2973 AS argument,\r\n\t\tCOUNT(a.quoteid) AS qty,\r\n\t\t(SELECT COUNT(a.quoteid) FROM ld_quotes a LEFT JOIN ld_quotescf b ON b.quoteid=a.quoteid WHERE a.deleted=0 AND IFNULL(b.cf_2973,'')<>'') AS total_qty\r\n\tFROM ld_quotes a\r\n\tLEFT JOIN ld_quotescf b ON b.quoteid=a.quoteid\r\n\tINNER JOIN (\r\n\t\tSELECT\r\n\t\t\ta.smownerid AS listid,\r\n\t\t\tb.last_name AS listvalue\r\n\t\tFROM (\r\n\t\t\tSELECT\r\n\t\t\t\ta.smownerid\r\n\t\t\tFROM ld_quotes a\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\tAND a.createdtime BETWEEN DATE_FORMAT('{start_date}','%Y-%m-%d 00:00:00') AND DATE_FORMAT('{end_date}','%Y-%m-%d 23:59:59')\r\n\t\t\tGROUP BY a.smownerid\r\n\t\t) a\r\n\t\tLEFT JOIN ld_users b ON a.smownerid=b.id\r\n\t) u ON u.listid=a.smownerid\r\n\tWHERE a.deleted=0\r\n\t\tAND IFNULL(b.cf_2973,'')<>''\r\n\t\tAND a.createdtime BETWEEN DATE_FORMAT('{start_date}','%Y-%m-%d 00:00:00') AND DATE_FORMAT('{end_date}','%Y-%m-%d 23:59:59')\r\n\t\tAND (\r\n\t\t\tCASE\r\n\t\t\t\tWHEN '{smowner}'='' THEN 1=1\r\n\t\t\t\tELSE FIND_IN_SET(smownerid,'{smowner}')\t\r\n\t\t\tEND)\r\n\tGROUP BY b.cf_2973\r\n) a\r\nLEFT JOIN (SELECT listvalue,sequence FROM ld_picklist_values WHERE listid=135) b ON a.argument=b.listvalue\r\nORDER BY IFNULL(b.sequence,1000)"
+      },
+      "2": {
+        "Ident": "StiMySqlSource",
+        "Name": "d",
+        "Alias": "d",
+        "Columns": {
+          "0": {
+            "Name": "quoteid",
+            "Index": -1,
+            "NameInSource": "quoteid",
+            "Alias": "quoteid",
+            "Type": "System.Int32"
+          },
+          "1": {
+            "Name": "quote_no",
+            "Index": -1,
+            "NameInSource": "quote_no",
+            "Alias": "quote_no",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "quotestage",
+            "Index": -1,
+            "NameInSource": "quotestage",
+            "Alias": "quotestage",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "validtill",
+            "Index": -1,
+            "NameInSource": "validtill",
+            "Alias": "validtill",
+            "Type": "System.DateTime"
+          },
+          "4": {
+            "Name": "accountid",
+            "Index": -1,
+            "NameInSource": "accountid",
+            "Alias": "accountid",
+            "Type": "System.Int32"
+          },
+          "5": {
+            "Name": "accountname",
+            "Index": -1,
+            "NameInSource": "accountname",
+            "Alias": "accountname",
+            "Type": "System.String"
+          },
+          "6": {
+            "Name": "last_name",
+            "Index": -1,
+            "NameInSource": "last_name",
+            "Alias": "last_name",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "yinshua",
+        "Type": "Table",
+        "SqlCommand": "SELECT\r\n\ta.quoteid,\r\n\ta.quote_no,\r\n\ta.quotestage,\r\n\ta.validtill,\r\n\ta.accountid,\r\n\tc.accountname,\r\n\tu.last_name\r\nFROM ld_quotes a\r\nLEFT JOIN ld_quotescf b ON b.quoteid=a.quoteid\r\nLEFT JOIN ld_account c ON c.accountid=a.accountid\r\nINNER JOIN (\r\n\tSELECT\r\n\t\ta.smownerid AS listid,\r\n\t\tb.last_name\r\n\tFROM (\r\n\t\tSELECT\r\n\t\t\ta.smownerid\r\n\t\tFROM ld_quotes a\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\tAND a.createdtime BETWEEN DATE_FORMAT('{start_date}','%Y-%m-%d 00:00:00') AND DATE_FORMAT('{end_date}','%Y-%m-%d 23:59:59')\r\n\t\tGROUP BY a.smownerid\r\n\t) a\r\n\tLEFT JOIN ld_users b ON a.smownerid=b.id\r\n) u ON u.listid=a.smownerid\r\nWHERE a.deleted=0\r\n\tAND a.createdtime BETWEEN DATE_FORMAT('{start_date}','%Y-%m-%d 00:00:00') AND DATE_FORMAT('{end_date}','%Y-%m-%d 23:59:59')\r\n\tAND (\r\n\t\tCASE\r\n\t\t\tWHEN '{smowner}'='' THEN 1=1\r\n\t\t\tELSE FIND_IN_SET(a.smownerid,'{smowner}')\r\n\t\tEND)\r\n\tAND b.cf_2973='{this[\"SeriesArgument\"]}'"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "yinshua",
+        "Alias": "yinshua",
+        "ConnectionStringEncrypted": "9NBlAsMbc91ieO306lxq58LSf2BCWQGkbBP9jecQ416N3HGK5nxD+UFbqYFjAPYPg25hw1loS51FUayA4lxkKoBe9UjnCRm8ZVycDOoRJWLewFXCVlHTeUYbpNxLWHUvxECtYOgDaYzhfaU="
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "Page1",
+      "Guid": "8d71fc83c7b45f1c10eea4217dec5741",
+      "Alias": "报价失败原因分析",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiText",
+          "Name": "Text7",
+          "Guid": "8fe7b4f5963d1eec47e6dcbf601f08d4",
+          "ClientRectangle": "1,0.2,26,0.8",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Text": {
+            "Value": "报价失败原因分析"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "宋体;16;Bold;",
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "TextBrush": "solid:92,92,92",
+          "Type": "Expression"
+        },
+        "1": {
+          "Ident": "StiChart",
+          "Name": "Chart1",
+          "ClientRectangle": "0,0,34,15",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "ToolTip": {
+            "Value": "{T.tips}"
+          },
+          "Border": "All;0,206,209;2;;;;;solid:Black",
+          "Brush": "solid:255,255,255",
+          "Series": {
+            "0": {
+              "Ident": "StiPieSeries",
+              "ShowInLegend": false,
+              "ShowShadow": false,
+              "SeriesLabels": {
+                "Ident": "StiOutsidePieLabels",
+                "AllowApplyStyle": false,
+                "MarkerSize": {
+                  "Width": 8,
+                  "Height": 6
+                },
+                "ValueType": "Tag",
+                "ValueTypeSeparator": "-",
+                "LabelColor": "DimGray",
+                "BorderColor": "Transparent",
+                "Brush": "solid:White",
+                "Font": "宋体;8;;",
+                "WordWrap": true,
+                "LineLength": 50,
+                "LineColor": "Silver"
+              },
+              "ValueDataColumn": "T.qty",
+              "ArgumentDataColumn": "T.argument",
+              "ToolTipDataColumn": "T.tips",
+              "TagDataColumn": "T.tips",
+              "DrillDownEnabled": true,
+              "DrillDownPageGuid": "6cf1ac34f175213a93f4df11bfa2065f",
+              "Interaction": {
+                "DrillDownPageGuid": "6cf1ac34f175213a93f4df11bfa2065f"
+              },
+              "Title": {
+                "Value": "失败原因分析"
+              },
+              "AllowApplyBorderColor": false,
+              "BorderColor": "255,255,255",
+              "Brush": "solid:112,173,71",
+              "Lighting": false,
+              "Distance": 5
+            }
+          },
+          "Area": {
+            "Ident": "StiPieArea",
+            "AllowApplyStyle": false,
+            "BorderColor": "Transparent",
+            "Brush": "solid:255,255,255"
+          },
+          "Table": {
+            "GridLineColor": "225,225,225",
+            "Header": {
+              "Brush": "solid:White"
+            },
+            "DataCells": {
+              "Font": "Tahoma;;;",
+              "TextColor": "140,140,140"
+            }
+          },
+          "SeriesLabels": {
+            "Ident": "StiOutsidePieLabels",
+            "AllowApplyStyle": false,
+            "MarkerSize": {
+              "Width": 8,
+              "Height": 6
+            },
+            "ValueType": "Tag",
+            "ValueTypeSeparator": "-",
+            "Format": "P2",
+            "LabelColor": "DimGray",
+            "BorderColor": "Transparent",
+            "Brush": "solid:Transparent",
+            "Font": "宋体;8;;",
+            "WordWrap": true,
+            "ShowInPercent": true,
+            "LineLength": 40,
+            "LineColor": "Silver"
+          },
+          "Legend": {
+            "ShowShadow": false,
+            "BorderColor": "225,225,225",
+            "Brush": "solid:255,255,255",
+            "TitleColor": "105,105,105",
+            "LabelsColor": "140,140,140",
+            "MarkerSize": {
+              "Width": 10,
+              "Height": 10
+            },
+            "Columns": 0,
+            "Size": "0,0"
+          },
+          "Title": {
+            "AllowApplyStyle": false,
+            "Font": "Microsoft YaHei;16;Regular;",
+            "Text": "报价失败原因分析",
+            "Brush": "solid:140,140,140",
+            "Spacing": 50,
+            "Visible": true
+          },
+          "Style": {
+            "Ident": "StiStyle25"
+          }
+        }
+      },
+      "PageWidth": 36,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    },
+    "1": {
+      "Ident": "StiPage",
+      "Name": "Page3",
+      "Guid": "6cf1ac34f175213a93f4df11bfa2065f",
+      "Alias": "报价失败明细",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand5",
+          "Guid": "70d898e784289b22e180df1241725fa3",
+          "ClientRectangle": "0,0.4,25,2",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text8",
+              "Guid": "5c0d7fb0d7672ec19685df12417260a5",
+              "ClientRectangle": "0,0,25,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "报价失败明细：{this[\"SeriesArgument\"]}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;11;;",
+              "Border": ";153,153,153;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text16",
+              "Guid": "6e36aa13fff7da0ec92bdf124172a658",
+              "ClientRectangle": "6,1,8.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "客户名称"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;Bold;",
+              "Border": "All;153,153,153;;;;;;solid:Black",
+              "Brush": "solid:230,230,230",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text10",
+              "Guid": "1dde81e48fa60735ecb5df124172c008",
+              "ClientRectangle": "14.4,1,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "报价单状态"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;Bold;",
+              "Border": "All;153,153,153;;;;;;solid:Black",
+              "Brush": "solid:230,230,230",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text11",
+              "Guid": "0ef7c94147afa850d7e3df124172b3b5",
+              "ClientRectangle": "22,1,3,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "销售负责人"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;Bold;",
+              "Border": "All;153,153,153;;;;;;solid:Black",
+              "Brush": "solid:230,230,230",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text3",
+              "Guid": "dd456c708272de023b5cdf28f24a9ad4",
+              "ClientRectangle": "0,1,0.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "#"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;Bold;",
+              "Border": "All;153,153,153;;;;;;solid:Black",
+              "Brush": "solid:230,230,230",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text5",
+              "Guid": "59750f63066309866995df2986859e0f",
+              "ClientRectangle": "0.8,1,5.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "报价单编号"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;Bold;",
+              "Border": "All;153,153,153;;;;;;solid:Black",
+              "Brush": "solid:230,230,230",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text9",
+              "Guid": "e10da3336b355077cf1edf2a616c35cc",
+              "ClientRectangle": "18.4,1,3.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "有效期至"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;Bold;",
+              "Border": "All;153,153,153;;;;;;solid:Black",
+              "Brush": "solid:230,230,230",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand1",
+          "ClientRectangle": "0,3.2,25,0.8",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text12",
+              "Guid": "6791072d04bd4f9ff1b4df1241725651",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "14.4,0,4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownPageGuid": "120344421470ab46beeb9fb072024306",
+                "DrillDownParameter1": {
+                  "Name": "zyname",
+                  "Expression": {
+                    "Value": "Y.listvalue"
+                  }
+                }
+              },
+              "Text": {
+                "Value": "{d.quotestage}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": "All;153,153,153;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text13",
+              "Guid": "a66df53eaf91b5153152df124172abee",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "22,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownPageGuid": "120344421470ab46beeb9fb072024306",
+                "DrillDownParameter1": {
+                  "Name": "zyname",
+                  "Expression": {
+                    "Value": "Y.listvalue"
+                  }
+                }
+              },
+              "Text": {
+                "Value": "{d.last_name}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": "All;153,153,153;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text14",
+              "Guid": "97ed2e638dbc90eaa98fdf124172fd08",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "6,0,8.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownEnabled": true,
+                "DrillDownParameter1": {
+                  "Name": "id",
+                  "Expression": {
+                    "Value": "d.accountid"
+                  }
+                }
+              },
+              "ToolTip": {
+                "Value": "查看明细"
+              },
+              "Hyperlink": {
+                "Value": "viewdetail.php?id={d.accountid}"
+              },
+              "Text": {
+                "Value": "{d.accountname}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": "All;153,153,153;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:65,105,225",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text1",
+              "Guid": "14a5b440a269b77089c7df28f24a146a",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,0.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownPageGuid": "120344421470ab46beeb9fb072024306",
+                "DrillDownParameter1": {
+                  "Name": "zyname",
+                  "Expression": {
+                    "Value": "Y.listvalue"
+                  }
+                }
+              },
+              "Text": {
+                "Value": "{LineThrough}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": "All;153,153,153;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text4",
+              "Guid": "e82943307217f7421dbbdf2a616c42fb",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "18.4,0,3.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownPageGuid": "120344421470ab46beeb9fb072024306",
+                "DrillDownParameter1": {
+                  "Name": "zyname",
+                  "Expression": {
+                    "Value": "Y.listvalue"
+                  }
+                }
+              },
+              "Text": {
+                "Value": "{d.validtill}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": "All;153,153,153;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiCustomFormatService",
+                "StringFormat": "yyyy-MM-dd"
+              },
+              "Type": "DataColumn"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text6",
+              "Guid": "0460a8abbedbc3a59127df2d95fd8c47",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0.8,0,5.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownEnabled": true
+              },
+              "ToolTip": {
+                "Value": "查看明细"
+              },
+              "Hyperlink": {
+                "Value": "viewdetail.php?id={d.quoteid}"
+              },
+              "Text": {
+                "Value": "{d.quote_no}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": "All;153,153,153;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:65,105,225",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "d"
+        }
+      },
+      "PageWidth": 27,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    }
+  }
+}

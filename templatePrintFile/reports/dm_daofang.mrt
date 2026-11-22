@@ -1,0 +1,268 @@
+{
+  "ReportVersion": "2019.4.1",
+  "ReportGuid": "3e101823a1ff64e323604d9b70ee9d46",
+  "ReportName": "Report",
+  "ReportAlias": "Report",
+  "ReportFile": "dm_daofang.mrt",
+  "ReportCreated": "/Date(1635042753000+0800)/",
+  "ReportChanged": "/Date(1635042753000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Dictionary": {
+    "Variables": {
+      "0": {
+        "Name": "aa",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime"
+        },
+        "Alias": "aa",
+        "Type": "System.String",
+        "ReadOnly": true
+      }
+    },
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "b",
+        "Alias": "b",
+        "Columns": {
+          "0": {
+            "Name": "id",
+            "Index": -1,
+            "NameInSource": "id",
+            "Alias": "id",
+            "Type": "System.Int32"
+          },
+          "1": {
+            "Name": "in_date",
+            "Index": -1,
+            "NameInSource": "in_date",
+            "Alias": "in_date",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "laiyuan",
+            "Index": -1,
+            "NameInSource": "laiyuan",
+            "Alias": "laiyuan",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "lastname",
+            "Index": -1,
+            "NameInSource": "lastname",
+            "Alias": "lastname",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "remark",
+            "Index": -1,
+            "NameInSource": "remark",
+            "Alias": "remark",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "crm",
+        "Type": "Table",
+        "SqlCommand": "SELECT\r\n\ta.lastname,\r\n\ta.in_date,\r\n\ta.laiyuan,\r\n\ta.remark,\r\n\ta.id\r\nFROM (\r\n\tSELECT\r\n\t\td.lastname,\r\n\t\tDATE_FORMAT(c.sf293,'%Y-%m-%d %h:%i') AS in_date,\r\n\t\t'大巴车签到审批表' AS laiyuan,\r\n\t\tCONCAT('单据编号：',a.customform21_no) AS remark,\r\n\t\ta.customform21id AS id\r\n\tFROM ld_customform21 a\r\n\tLEFT JOIN ld_customform21detail b ON b.id=a.customform21id\r\n\tLEFT JOIN ld_customform21detailscf c ON c.lineitem_id=b.lineitem_id\r\n\tLEFT JOIN ld_contactdetails d ON d.contactid=b.line_contacts_id\r\n\tWHERE a.deleted=0\r\n\t\tAND a.approvestatus='已批准'\r\n\t\tAND d.contactid>0\r\n\t\tAND d.contactid='[related_ldcrmid]'\r\n\tUNION ALL\r\n\tSELECT\r\n\t\ta.lastname,\r\n\t\tDATE_FORMAT(c.intime,'%Y-%m-%d %h:%i' ) AS in_date,\r\n\t\tCONCAT('自驾-',cardtype,'：',b.lxr_carnum) AS laiyuan,\r\n\t\tNULL AS remark,\r\n\t\tNULL AS id\r\n\tFROM ld_contactdetails a\r\n\tLEFT JOIN ld_contactscf b ON b.contactid=a.contactid\r\n\tINNER JOIN ld_parkoutlog c ON c.platenum=b.lxr_carnum\r\n\tWHERE a.deleted=0\r\n\t\tAND a.contactid>0\r\n\t\tAND IFNULL(b.lxr_carnum,'')<>''\r\n\t\tAND c.intime>'1900-01-01'\r\n\t\tAND a.contactid='[related_ldcrmid]'\r\n\tGROUP BY a.contactid,DATE_FORMAT(c.intime,'%Y-%m-%d %h:%i' ),b.lxr_carnum\r\n\tUNION ALL\r\n\tSELECT \r\n\t\td.lastname,\r\n\t\tDATE_FORMAT(c.intime,'%Y-%m-%d %h:%i' ) AS in_date,\r\n\t\t'自驾' AS laiyuan,\r\n\t\tCONCAT(c.cardtype,'：',a.car_no) AS remark,\r\n\t\tNULL AS id\r\n\tFROM ld_customform100 a\r\n\tLEFT JOIN ld_contactdetails d ON d.contactid=a.contactid\r\n\tINNER JOIN ld_parkoutlog c ON c.platenum=a.car_no\r\n\tWHERE a.deleted=0\r\n\t\tAND IFNULL(a.car_no,'')<>''\r\n\t\tAND d.contactid>0\r\n\t\tAND d.contactid='[related_ldcrmid]'\r\n\tGROUP BY a.contactid,DATE_FORMAT(c.intime,'%Y-%m-%d %h:%i'),a.car_no\r\n\tUNION ALL\r\n\tSELECT\r\n\t\td.lastname,\r\n\t\tDATE_FORMAT(a.createdtime,'%Y-%m-%d %h:%i' ) AS in_date,\r\n\t\t'活动参与记录' AS laiyuan,\r\n\t\tCONCAT('单据编号：',a.customform98_no,'（',c.activity_name,'）') AS remark,\r\n\t\ta.customform98id AS id\r\n\tFROM ld_customform98 a\r\n\tLEFT JOIN ld_contactdetails d ON d.contactid=a.contactid\r\n\tLEFT JOIN ld_customform99 c ON c.customform99id=a.customform99_id\r\n\tWHERE a.deleted=0\r\n\t\tAND a.approvestatus='已批准'\r\n\t\tAND d.contactid>0\r\n\t\tAND d.contactid='[related_ldcrmid]'\r\n\tUNION ALL\r\n\tSELECT\r\n\t\td.lastname,\r\n\t\tDATE_FORMAT(a.createdtime,'%Y-%m-%d %h:%i' ) AS in_date,\r\n\t\t'优惠券发放记录' AS laiyuan,\r\n\t\tCASE \r\n\t\t\tWHEN IFNULL(c.cf_5089,'')='' THEN CONCAT('单据编号：',a.customform96_no,'（',a.coupon_no,'）')\r\n\t\t\tELSE CONCAT('单据编号：',a.customform96_no,'（',a.coupon_no,'，',c.cf_5089,'）')\r\n\t\tEND AS remark,\r\n\t\ta.customform96id AS id\r\n\tFROM ld_customform96 a\r\n\tLEFT JOIN ld_contactdetails d ON d.contactid=a.contactid\r\n\tLEFT JOIN ld_customform96scf c ON c.customform96id=a.customform96id\r\n\tWHERE a.deleted=0\r\n\t\tAND a.approvestatus<>'已拒绝'\r\n\t\tAND d.contactid>0\r\n\t\tAND d.contactid='[related_ldcrmid]'\r\n\tUNION ALL\r\n\tSELECT\r\n\t\td.lastname,\r\n\t\tDATE_FORMAT(a.createdtime,'%Y-%m-%d %h:%i' ) AS in_date,\r\n\t\t'优惠券核销记录' AS laiyuan,\r\n\t\tCASE \r\n\t\t\tWHEN IFNULL(c.cf_5099,'')='' THEN CONCAT('单据编号：',a.customform95_no,'（',a.coupon_no,'）')\r\n\t\t\tELSE CONCAT('单据编号：',a.customform95_no,'（',a.coupon_no,'，',c.cf_5099,'）')\r\n\t\tEND AS remark,\r\n\t\ta.customform95id AS id\r\n\tFROM ld_customform95 a\r\n\tLEFT JOIN ld_contactdetails d ON d.contactid=a.contactid\r\n\tLEFT JOIN ld_customform95scf c ON c.customform95id=a.customform95id\r\n\tWHERE a.deleted=0\r\n\t\tAND a.approvestatus='已批准'\r\n\t\tAND d.contactid>0\r\n\t\tAND d.contactid='[related_ldcrmid]'\r\n) a\r\nORDER BY a.in_date,FIELD(a.laiyuan,'自驾','大巴车签到审批表','活动参与记录','优惠券发放记录','优惠券核销记录')"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "crm",
+        "Alias": "crm",
+        "ConnectionStringEncrypted": "41bRCUh8S81GRym9xJzjXovS+ythCkGJYhWhzOIJYWeQWtnrYUxDCcwbqNjoePZn3tyNSMYJUZTCE/mAZBR3boN4zcJPA1GQbU3QgMs="
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "Page1",
+      "Guid": "0e960b94e7e368b40eb4c9ed84b15fa8",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiReportTitleBand",
+          "Name": "ReportTitleBand1",
+          "ClientRectangle": "0,0.4,19,1.2",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text1",
+              "Guid": "94f614e7aa8e87403d4d0813f2416ecb",
+              "ClientRectangle": "0,0,3.4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "到访时间"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text3",
+              "Guid": "96da364a9a48eff4dad4b425c54ed8a1",
+              "ClientRectangle": "3.4,0,8,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "到访方式"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text5",
+              "Guid": "04df9b4dc85f30dab6187c186cffd2d2",
+              "ClientRectangle": "11.4,0,7.6,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "备注"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand1",
+          "ClientRectangle": "0,2.4,19,1",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text2",
+              "Guid": "3af28953a104971a8d8e2c216a05cce4",
+              "ClientRectangle": "0,0,3.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.in_date}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "DataColumn"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text4",
+              "Guid": "536c386faf765cf4d016e4df7c6f2463",
+              "ClientRectangle": "3.4,0,8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.laiyuan}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text6",
+              "Guid": "fad34806780755eff9998ec02a5e7935",
+              "ClientRectangle": "11.4,0,7.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Hyperlink": {
+                "Value": "viewdetails.php?id={b.id}"
+              },
+              "Text": {
+                "Value": "{b.remark}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:52,135,226",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "b"
+        }
+      },
+      "PageWidth": 21,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    }
+  }
+}

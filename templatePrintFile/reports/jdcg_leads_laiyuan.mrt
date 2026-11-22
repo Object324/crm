@@ -1,0 +1,1420 @@
+{
+  "ReportVersion": "2019.4.1",
+  "ReportGuid": "661b04fe0d2f395b2bc86e155d91799f",
+  "ReportName": "Report",
+  "ReportAlias": "Report",
+  "ReportFile": "jdcg_leads_laiyuan.mrt",
+  "ReportCreated": "/Date(1574314647000+0800)/",
+  "ReportChanged": "/Date(1574314647000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Styles": {
+    "0": {
+      "Ident": "StiStyle",
+      "Name": "column_odd",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:255,255,255",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    },
+    "1": {
+      "Ident": "StiStyle",
+      "Name": "column_even",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:252,252,252",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    }
+  },
+  "Dictionary": {
+    "Variables": {
+      "0": {
+        "Value": "DateSerial(Year(Today),Month(Today),1)",
+        "Name": "start_date",
+        "Alias": "起始日期",
+        "Type": "System.DateTime",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      },
+      "1": {
+        "Value": "DateSerial(Year(Today),Month(Today)+1,0)",
+        "Name": "end_date",
+        "Alias": "截止日期",
+        "Type": "System.DateTime",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      }
+    },
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "b",
+        "Alias": "b",
+        "Columns": {
+          "0": {
+            "Name": "laiyuan",
+            "Index": -1,
+            "NameInSource": "laiyuan",
+            "Alias": "laiyuan",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "qty_re",
+            "Index": -1,
+            "NameInSource": "qty_re",
+            "Alias": "qty_re",
+            "Type": "System.Decimal"
+          },
+          "2": {
+            "Name": "qty_wuxiao",
+            "Index": -1,
+            "NameInSource": "qty_wuxiao",
+            "Alias": "qty_wuxiao",
+            "Type": "System.Decimal"
+          },
+          "3": {
+            "Name": "qty_xiansuo",
+            "Index": -1,
+            "NameInSource": "qty_xiansuo",
+            "Alias": "qty_xiansuo",
+            "Type": "System.Int32"
+          },
+          "4": {
+            "Name": "total_re",
+            "Index": -1,
+            "NameInSource": "total_re",
+            "Alias": "total_re",
+            "Type": "System.Decimal"
+          }
+        },
+        "NameInSource": "crm",
+        "Type": "Table",
+        "SqlCommand": "SELECT\r\n\tlaiyuan,\r\n\tCOUNT(1) AS qty_xiansuo,\r\n\tSUM(qty_wuxiao) AS qty_wuxiao,\r\n\tSUM(qty_re) AS qty_re,\r\n\tROUND(IFNULL(SUM(total_re),0),0) AS total_re\r\nFROM (\r\n\tSELECT\r\n\t\ta.customform53id,\r\n\t\tb.cf_3932 AS laiyuan,\r\n\t\tCASE WHEN b.cf_3955='无效线索' THEN 1 ELSE 0 END AS qty_wuxiao,\r\n\t\tCASE WHEN b.cf_3955='热线索' THEN 1 ELSE 0 END AS qty_re,\r\n\t\tCASE WHEN b.cf_3955='热线索' THEN c.total ELSE 0 END AS total_re\r\n\tFROM (\r\n\t\tSELECT\r\n\t\t\ta.*\r\n\t\tFROM ld_customform53 a\r\n\t\tLEFT JOIN ld_customform53scf b ON b.customform53id=a.customform53id\r\n\t\tINNER JOIN (\r\n\t\t\tSELECT DISTINCT\r\n\t\t\t\tuserid \r\n\t\t\tFROM (\r\n\t\t\t\tSELECT \r\n\t\t\t\t\tld_users.id AS userid \r\n\t\t\t\tFROM ld_users\r\n\t\t\t\tWHERE EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='CustomForm53' and scopeauthority=1 AND userid='[uuid]')\r\n\t\t\t\tUNION\r\n\t\t\t\tSELECT \r\n\t\t\t\t\tviewid AS userid \r\n\t\t\t\tFROM ld_scoperhigher\r\n\t\t\t\tWHERE userid='[uuid]' AND modulename ='CustomForm53' AND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE userid='[uuid]' AND scopeauthority=2 AND modulename ='CustomForm53')\t\t\t\r\n\t\t\t\tUNION\r\n\t\t\t\tSELECT DISTINCT \r\n\t\t\t\t\tld_users2group.userid AS userid \r\n\t\t\t\tFROM ld_scoperhigher \r\n\t\t\t\tINNER JOIN ld_groups ON ld_groups.groupid=ld_scoperhigher.viewid\r\n\t\t\t\tINNER JOIN ld_users2group ON ld_users2group.groupid=ld_groups.groupid\r\n\t\t\t\tWHERE ld_scoperhigher.userid='[uuid]' \r\n\t\t\t\t\tAND ld_scoperhigher.modulename ='CustomForm53'\r\n\t\t\t\t\tAND ld_scoperhigher.scopeauthority=3 \r\n\t\t\t\t\tAND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='CustomForm53' AND scopeauthority=3 AND userid='[uuid]')\r\n\t\t\t\tUNION \r\n\t\t\t\tSELECT \r\n\t\t\t\t\tid AS userid \r\n\t\t\t\tFROM ld_users  \r\n\t\t\t\tWHERE EXISTS(SELECT 1 FROM ld_users WHERE id='[uuid]' AND is_admin='on')\r\n\t\t\t\tUNION\r\n\t\t\t\tSELECT '[uuid]') AS vw_users\r\n\t\t) AS tmp_users ON tmp_users.userid=a.smownerid\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\tAND IFNULL(b.cf_3932,'')<>''\r\n\t\t\tAND a.createdtime BETWEEN DATE_FORMAT('{start_date}','%Y-%m-%d %H:%i:%s') AND DATE_FORMAT('{end_date}','%Y-%m-%d %H:%i:%s')\r\n\t\tUNION\r\n\t\tSELECT\r\n\t\t\ta.*\r\n\t\tFROM ld_customform53 a\r\n\t\tLEFT JOIN ld_customform53scf b ON b.customform53id=a.customform53id\r\n\t\tINNER JOIN ld_tabshare s ON s.crmid=a.customform53id\r\n\t\tWHERE s.viewuserid='[uuid]'\r\n\t\t\tAND a.deleted=0\r\n\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\tAND IFNULL(b.cf_3932,'')<>''\r\n\t\t\tAND a.createdtime BETWEEN DATE_FORMAT('{start_date}','%Y-%m-%d %H:%i:%s') AND DATE_FORMAT('{end_date}','%Y-%m-%d %H:%i:%s')\r\n\t) a\r\n\tLEFT JOIN ld_customform53scf b ON b.customform53id=a.customform53id\r\n\tLEFT JOIN (\r\n\t\tSELECT\r\n\t\t\tb.customform53_id,\r\n\t\t\tSUM(a.total/IFNULL(a.conversion_rate,1)) AS total \r\n\t\tFROM ld_servicecontracts a\r\n\t\tLEFT JOIN ld_potential b ON b.potentialid=a.potentialid\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\tAND b.customform53_id>0\r\n\t\tGROUP BY b.customform53_id\r\n\t) c ON c.customform53_id=a.customform53id\r\n) a\r\nLEFT JOIN ld_picklist_values b ON b.listid=178 AND b.listvalue=a.laiyuan\r\nGROUP BY laiyuan\r\nORDER BY b.sequence"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "crm",
+        "Alias": "crm",
+        "ConnectionStringEncrypted": "42zRCUhMMbxGRymFS0kibtXWzcPGWVntYluhzGFxt17C0PUCTAj7gcNNVcxiEPR3xMRlAkZXSYjMbISYSwkya41W96POZ3KZQB6EheGIdwOH"
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "Page1",
+      "Guid": "5d4b27b46a74e040391803bfd0a0787f",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiReportTitleBand",
+          "Name": "ReportTitleBand1",
+          "ClientRectangle": "0,0.4,34,1",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text34",
+              "Guid": "a8570fe6fc0f54ccd9080050334a75cb",
+              "ClientRectangle": "0,0,34,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "线索数量分析表"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;12;;",
+              "Border": ";221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiReportTitleBand",
+          "Name": "ReportTitleBand3",
+          "ClientRectangle": "0,2.2,34,0.8",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text5",
+              "Guid": "433d90074c19f296397c887823534359",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "线索来源"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text7",
+              "Guid": "c05c3d2f115194b641aae9d54d3c3bed",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "5.4,0,4.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "线索占比（%）"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text3",
+              "Guid": "3ee04e646673379fe615789195525ff3",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "13.4,0,4.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "无效线索占比（%）"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text6",
+              "Guid": "fd0f26f4e7717f0598fe86634704d85b",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "21.4,0,4.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "热线索占比（%）"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text8",
+              "Guid": "f96931bf478b0349f876d362d74c5452",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "30.2,0,3.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "渠道成交金额占比（%）"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text12",
+              "Guid": "e33daae6bfce5016507a5fad407daaef",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "2,0,3.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "线索数量"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text11",
+              "Guid": "4b67e63dd99417f0cb3ad19d8454798f",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "10,0,3.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "无效线索数量"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text15",
+              "Guid": "949c4ff2194472adcd62db5ec907444d",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "18,0,3.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "热线索数量"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text17",
+              "Guid": "b51534e3cb715334ccbb8a1e219d9f4a",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "26,0,4.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "渠道成交金额"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            }
+          }
+        },
+        "2": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand1",
+          "ClientRectangle": "0,3.8,34,0.8",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text1",
+              "Guid": "4b9a99fdb7da534dd87756e240dbc301",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.laiyuan}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text2",
+              "Guid": "bcfb0ec193128b3febec6edc4ddeff36",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "5.4,0,4.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.qty_xiansuo/(Sum(DataBand1,b.qty_xiansuo)+0.000000001)}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiPercentageFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ",",
+                "PositivePattern": 1,
+                "Symbol": "%"
+              },
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text4",
+              "Guid": "0a69b8d99fb1649e535b30345b1bf508",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "13.4,0,4.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.qty_wuxiao/(Sum(DataBand1,b.qty_wuxiao)+0.000000001)}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiPercentageFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ",",
+                "PositivePattern": 1,
+                "Symbol": "%"
+              },
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text9",
+              "Guid": "8e8b3895f84ece9f5a7cb4f2a6bbb07e",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "21.4,0,4.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.qty_re/(Sum(DataBand1,b.qty_re)+0.000000001)}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiPercentageFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ",",
+                "PositivePattern": 1,
+                "Symbol": "%"
+              },
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text10",
+              "Guid": "17bd1180e09e4f4b90aa77f8c5a237ee",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "30.2,0,3.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.total_re/(Sum(DataBand1,b.total_re)+0.000000001)}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiPercentageFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ",",
+                "PositivePattern": 1,
+                "Symbol": "%"
+              },
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text13",
+              "Guid": "12ee07a15741046508c98099839898d9",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "2,0,3.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.qty_xiansuo}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "UseLocalSetting": false
+              },
+              "Type": "DataColumn"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text14",
+              "Guid": "8fb0997a5112d408c3e9b146f1ac045d",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "10,0,3.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.qty_wuxiao}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "UseLocalSetting": false
+              },
+              "Type": "DataColumn"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text16",
+              "Guid": "d097dfbbd89267c4c4b389429e68a1fd",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "18,0,3.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.qty_re}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "UseLocalSetting": false
+              },
+              "Type": "DataColumn"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text18",
+              "Guid": "db98e55e73a8d04041d7fc22129402dd",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "26,0,4.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.total_re}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "b"
+        },
+        "3": {
+          "Ident": "StiReportSummaryBand",
+          "Name": "ReportSummaryBand2",
+          "ClientRectangle": "0,5.4,34,0.8",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text20",
+              "Guid": "3a61b8e065aeb376071bc741880e50f1",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "合计"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:255,255,0",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text22",
+              "Guid": "cc551164724fe72e36ffb889270772f6",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "5.4,0,4.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "1"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:255,255,0",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiPercentageFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ",",
+                "PositivePattern": 1,
+                "Symbol": "%"
+              },
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text23",
+              "Guid": "6cbc48e7333738018b565bfc34b0b238",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "13.4,0,4.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "1"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:255,255,0",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiPercentageFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ",",
+                "PositivePattern": 1,
+                "Symbol": "%"
+              },
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text24",
+              "Guid": "d24166ad8b9b58338710069a819542b0",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "21.4,0,4.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "1"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:255,255,0",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiPercentageFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ",",
+                "PositivePattern": 1,
+                "Symbol": "%"
+              },
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text25",
+              "Guid": "1c9089cef83c32d0b03e4c806b1d8d4a",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "30.2,0,3.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "1"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:255,255,0",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiPercentageFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ",",
+                "PositivePattern": 1,
+                "Symbol": "%"
+              },
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text26",
+              "Guid": "318c666546f7cb8118a8db2e99a85f50",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "2,0,3.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Sum(DataBand1,b.qty_xiansuo)}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:255,255,0",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "UseLocalSetting": false
+              },
+              "Type": "Totals"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text27",
+              "Guid": "bce44eabe01e4c0866fa05f92e2faa2e",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "10,0,3.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Sum(DataBand1,b.qty_wuxiao)}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:255,255,0",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "UseLocalSetting": false
+              },
+              "Type": "Totals"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text28",
+              "Guid": "50c3524b91c877057ce64d3b0fe116be",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "18,0,3.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Sum(DataBand1,b.qty_re)}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:255,255,0",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "UseLocalSetting": false
+              },
+              "Type": "Totals"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text29",
+              "Guid": "84c7449f24906d9a025301d5876b0268",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "26,0,4.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Sum(DataBand1,b.total_re)}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:255,255,0",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "Totals"
+            }
+          }
+        },
+        "4": {
+          "Ident": "StiReportSummaryBand",
+          "Name": "ReportSummaryBand1",
+          "ClientRectangle": "0,7,34,8",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text21",
+              "Guid": "ad12d3717f709b723e41a231f08fcdf6",
+              "ClientRectangle": "0,0,2,8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiChart",
+              "Name": "Chart2",
+              "Guid": "fb40c855364c625a4e3447d915906b8b",
+              "ClientRectangle": "10,0,8,8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:255,255,255",
+              "Series": {
+                "0": {
+                  "Ident": "StiPieSeries",
+                  "ShowShadow": false,
+                  "SeriesLabels": {
+                    "Ident": "StiCenterAxisLabels",
+                    "MarkerSize": {
+                      "Width": 8,
+                      "Height": 6
+                    },
+                    "ValueTypeSeparator": "-",
+                    "LabelColor": "50,58,69",
+                    "BorderColor": "Transparent",
+                    "Brush": "solid:Transparent",
+                    "Font": ";10;;"
+                  },
+                  "ValueDataColumn": "b.qty_wuxiao",
+                  "ArgumentDataColumn": "b.laiyuan",
+                  "Title": {
+                    "Value": "Series 1"
+                  },
+                  "BorderColor": "Transparent",
+                  "Brush": "solid:52,152,219",
+                  "Lighting": false
+                }
+              },
+              "Area": {
+                "Ident": "StiPieArea",
+                "AllowApplyStyle": false,
+                "BorderColor": "0,255,255,255",
+                "Brush": "solid:255,255,255"
+              },
+              "Table": {
+                "GridLineColor": "225,225,225",
+                "Header": {
+                  "Brush": "solid:White"
+                },
+                "DataCells": {
+                  "TextColor": "140,140,140"
+                }
+              },
+              "SeriesLabels": {
+                "Ident": "StiCenterPieLabels",
+                "AllowApplyStyle": false,
+                "ShowNulls": false,
+                "MarkerSize": {
+                  "Width": 8,
+                  "Height": 6
+                },
+                "ValueType": "ArgumentValue",
+                "ValueTypeSeparator": "-",
+                "LegendValueType": "Argument",
+                "Format": "P2",
+                "LabelColor": "50,58,69",
+                "BorderColor": "Transparent",
+                "Brush": "solid:Transparent",
+                "Font": "Microsoft YaHei;8;;",
+                "ShowInPercent": true
+              },
+              "Legend": {
+                "AllowApplyStyle": false,
+                "ShowShadow": false,
+                "BorderColor": "0,255,255,255",
+                "Brush": "solid:255,255,255",
+                "TitleColor": "105,105,105",
+                "LabelsColor": "140,140,140",
+                "HorAlignment": "Center",
+                "VertAlignment": "BottomOutside",
+                "MarkerSize": {
+                  "Width": 10,
+                  "Height": 10
+                },
+                "Columns": 0,
+                "Size": "0,0"
+              },
+              "Title": {
+                "AllowApplyStyle": false,
+                "Font": "Microsoft YaHei;10;;",
+                "Brush": "solid:0,0,0",
+                "Alignment": "Near"
+              },
+              "Style": {
+                "Ident": "StiStyle29"
+              }
+            },
+            "2": {
+              "Ident": "StiChart",
+              "Name": "Chart3",
+              "Guid": "da1d2ffe06b4bcb3639f405eefb71ed1",
+              "ClientRectangle": "18,0,8,8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:255,255,255",
+              "Series": {
+                "0": {
+                  "Ident": "StiPieSeries",
+                  "ShowShadow": false,
+                  "SeriesLabels": {
+                    "Ident": "StiCenterAxisLabels",
+                    "MarkerSize": {
+                      "Width": 8,
+                      "Height": 6
+                    },
+                    "ValueTypeSeparator": "-",
+                    "LabelColor": "50,58,69",
+                    "BorderColor": "Transparent",
+                    "Brush": "solid:Transparent",
+                    "Font": ";10;;"
+                  },
+                  "ValueDataColumn": "b.qty_re",
+                  "ArgumentDataColumn": "b.laiyuan",
+                  "Title": {
+                    "Value": "Series 1"
+                  },
+                  "BorderColor": "Transparent",
+                  "Brush": "solid:52,152,219",
+                  "Lighting": false
+                }
+              },
+              "Area": {
+                "Ident": "StiPieArea",
+                "AllowApplyStyle": false,
+                "BorderColor": "0,255,255,255",
+                "Brush": "solid:255,255,255"
+              },
+              "Table": {
+                "GridLineColor": "225,225,225",
+                "Header": {
+                  "Brush": "solid:White"
+                },
+                "DataCells": {
+                  "TextColor": "140,140,140"
+                }
+              },
+              "SeriesLabels": {
+                "Ident": "StiCenterPieLabels",
+                "AllowApplyStyle": false,
+                "ShowNulls": false,
+                "MarkerSize": {
+                  "Width": 8,
+                  "Height": 6
+                },
+                "ValueType": "ArgumentValue",
+                "ValueTypeSeparator": "-",
+                "LegendValueType": "Argument",
+                "Format": "P2",
+                "LabelColor": "50,58,69",
+                "BorderColor": "Transparent",
+                "Brush": "solid:Transparent",
+                "Font": "Microsoft YaHei;8;;",
+                "ShowInPercent": true
+              },
+              "Legend": {
+                "AllowApplyStyle": false,
+                "ShowShadow": false,
+                "BorderColor": "0,255,255,255",
+                "Brush": "solid:255,255,255",
+                "TitleColor": "105,105,105",
+                "LabelsColor": "140,140,140",
+                "HorAlignment": "Center",
+                "VertAlignment": "BottomOutside",
+                "MarkerSize": {
+                  "Width": 10,
+                  "Height": 10
+                },
+                "Columns": 0,
+                "Size": "0,0"
+              },
+              "Title": {
+                "AllowApplyStyle": false,
+                "Font": "Microsoft YaHei;10;;",
+                "Brush": "solid:0,0,0",
+                "Alignment": "Near"
+              },
+              "Style": {
+                "Ident": "StiStyle29"
+              }
+            },
+            "3": {
+              "Ident": "StiChart",
+              "Name": "Chart4",
+              "Guid": "65ea10973337262bb6aae3c84cde2605",
+              "ClientRectangle": "26,0,8,8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:255,255,255",
+              "Series": {
+                "0": {
+                  "Ident": "StiPieSeries",
+                  "ShowShadow": false,
+                  "SeriesLabels": {
+                    "Ident": "StiCenterAxisLabels",
+                    "MarkerSize": {
+                      "Width": 8,
+                      "Height": 6
+                    },
+                    "ValueTypeSeparator": "-",
+                    "LabelColor": "50,58,69",
+                    "BorderColor": "Transparent",
+                    "Brush": "solid:Transparent",
+                    "Font": ";10;;"
+                  },
+                  "ValueDataColumn": "b.total_re",
+                  "ArgumentDataColumn": "b.laiyuan",
+                  "Title": {
+                    "Value": "Series 1"
+                  },
+                  "BorderColor": "Transparent",
+                  "Brush": "solid:52,152,219",
+                  "Lighting": false
+                }
+              },
+              "Area": {
+                "Ident": "StiPieArea",
+                "AllowApplyStyle": false,
+                "BorderColor": "0,255,255,255",
+                "Brush": "solid:255,255,255"
+              },
+              "Table": {
+                "GridLineColor": "225,225,225",
+                "Header": {
+                  "Brush": "solid:White"
+                },
+                "DataCells": {
+                  "TextColor": "140,140,140"
+                }
+              },
+              "SeriesLabels": {
+                "Ident": "StiCenterPieLabels",
+                "AllowApplyStyle": false,
+                "ShowNulls": false,
+                "MarkerSize": {
+                  "Width": 8,
+                  "Height": 6
+                },
+                "ValueType": "ArgumentValue",
+                "ValueTypeSeparator": "-",
+                "LegendValueType": "Argument",
+                "Format": "P2",
+                "LabelColor": "50,58,69",
+                "BorderColor": "Transparent",
+                "Brush": "solid:Transparent",
+                "Font": "Microsoft YaHei;8;;",
+                "ShowInPercent": true
+              },
+              "Legend": {
+                "AllowApplyStyle": false,
+                "ShowShadow": false,
+                "BorderColor": "0,255,255,255",
+                "Brush": "solid:255,255,255",
+                "TitleColor": "105,105,105",
+                "LabelsColor": "140,140,140",
+                "HorAlignment": "Center",
+                "VertAlignment": "BottomOutside",
+                "MarkerSize": {
+                  "Width": 10,
+                  "Height": 10
+                },
+                "Columns": 0,
+                "Size": "0,0"
+              },
+              "Title": {
+                "AllowApplyStyle": false,
+                "Font": "Microsoft YaHei;10;;",
+                "Brush": "solid:0,0,0",
+                "Alignment": "Near"
+              },
+              "Style": {
+                "Ident": "StiStyle29"
+              }
+            },
+            "4": {
+              "Ident": "StiChart",
+              "Name": "Chart1",
+              "ClientRectangle": "2,0,8,8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:255,255,255",
+              "Series": {
+                "0": {
+                  "Ident": "StiPieSeries",
+                  "ShowShadow": false,
+                  "SeriesLabels": {
+                    "Ident": "StiCenterAxisLabels",
+                    "MarkerSize": {
+                      "Width": 8,
+                      "Height": 6
+                    },
+                    "ValueTypeSeparator": "-",
+                    "LabelColor": "50,58,69",
+                    "BorderColor": "Transparent",
+                    "Brush": "solid:Transparent",
+                    "Font": ";10;;"
+                  },
+                  "ValueDataColumn": "b.qty_xiansuo",
+                  "ArgumentDataColumn": "b.laiyuan",
+                  "Title": {
+                    "Value": "Series 1"
+                  },
+                  "BorderColor": "Transparent",
+                  "Brush": "solid:52,152,219",
+                  "Lighting": false
+                }
+              },
+              "Area": {
+                "Ident": "StiPieArea",
+                "AllowApplyStyle": false,
+                "BorderColor": "0,255,255,255",
+                "Brush": "solid:255,255,255"
+              },
+              "Table": {
+                "GridLineColor": "225,225,225",
+                "Header": {
+                  "Brush": "solid:White"
+                },
+                "DataCells": {
+                  "TextColor": "140,140,140"
+                }
+              },
+              "SeriesLabels": {
+                "Ident": "StiCenterPieLabels",
+                "AllowApplyStyle": false,
+                "ShowNulls": false,
+                "MarkerSize": {
+                  "Width": 8,
+                  "Height": 6
+                },
+                "ValueType": "ArgumentValue",
+                "ValueTypeSeparator": "-",
+                "LegendValueType": "Argument",
+                "Format": "P2",
+                "LabelColor": "50,58,69",
+                "BorderColor": "Transparent",
+                "Brush": "solid:Transparent",
+                "Font": "Microsoft YaHei;8;;",
+                "ShowInPercent": true
+              },
+              "Legend": {
+                "AllowApplyStyle": false,
+                "ShowShadow": false,
+                "BorderColor": "0,255,255,255",
+                "Brush": "solid:255,255,255",
+                "TitleColor": "105,105,105",
+                "LabelsColor": "140,140,140",
+                "HorAlignment": "Center",
+                "VertAlignment": "BottomOutside",
+                "MarkerSize": {
+                  "Width": 10,
+                  "Height": 10
+                },
+                "Columns": 0,
+                "Size": "0,0"
+              },
+              "Title": {
+                "AllowApplyStyle": false,
+                "Font": "Microsoft YaHei;10;;",
+                "Brush": "solid:0,0,0",
+                "Alignment": "Near"
+              },
+              "Style": {
+                "Ident": "StiStyle29"
+              }
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text19",
+              "Guid": "92f4aebddce9c8bbd7b52a4714873345",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,2,8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            }
+          }
+        }
+      },
+      "PageWidth": 36,
+      "PageHeight": 29.69,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    }
+  }
+}

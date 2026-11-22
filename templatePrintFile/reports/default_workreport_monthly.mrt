@@ -1,0 +1,1215 @@
+{
+  "ReportVersion": "2019.4.1",
+  "ReportGuid": "0273ab90595874c3aa81fe013892110d",
+  "ReportName": "Report",
+  "ReportAlias": "工作汇报月计划统计表",
+  "ReportFile": "default_workreport_monthly.mrt",
+  "ReportCreated": "/Date(288000000+0800)/",
+  "ReportChanged": "/Date(288000000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Styles": {
+    "0": {
+      "Ident": "StiStyle",
+      "Name": "column_odd",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:255,255,255",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    },
+    "1": {
+      "Ident": "StiStyle",
+      "Name": "column_even",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:252,252,252",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    }
+  },
+  "Dictionary": {
+    "Variables": {
+      "0": {
+        "Value": "Year(Today)",
+        "Name": "nian",
+        "DialogInfo": {
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "list_nian.list_value",
+          "ValuesColumn": "list_nian.list_value",
+          "AllowUserValues": false
+        },
+        "Alias": "年度",
+        "Type": "System.String",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      },
+      "1": {
+        "Name": "userid",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime",
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "list_users.id",
+          "ValuesColumn": "list_users.last_name",
+          "AllowUserValues": false
+        },
+        "Alias": "查看范围",
+        "Type": "Stimulsoft.Report.StringList",
+        "RequestFromUser": true
+      },
+      "2": {
+        "Name": "bumen",
+        "DialogInfo": {
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "list_groups.groupid",
+          "ValuesColumn": "list_groups.groupname",
+          "AllowUserValues": false
+        },
+        "Alias": "所属部门",
+        "Type": "Stimulsoft.Report.StringList",
+        "RequestFromUser": true
+      }
+    },
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "list_nian",
+        "Alias": "list_nian",
+        "Columns": {
+          "0": {
+            "Name": "list_value",
+            "Index": -1,
+            "NameInSource": "list_value",
+            "Alias": "list_value",
+            "Type": "System.Int32"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT YEAR(CURDATE()) AS list_value\r\nUNION\r\nSELECT YEAR(CURDATE())-1\r\nUNION\r\nSELECT YEAR(CURDATE())-2\r\nUNION\r\nSELECT YEAR(CURDATE())-3\r\nUNION\r\nSELECT YEAR(CURDATE())-4"
+      },
+      "1": {
+        "Ident": "StiMySqlSource",
+        "Name": "list_users",
+        "Alias": "list_users",
+        "Columns": {
+          "0": {
+            "Name": "id",
+            "Index": -1,
+            "NameInSource": "id",
+            "Alias": "id",
+            "Type": "System.Int32"
+          },
+          "1": {
+            "Name": "last_name",
+            "Index": -1,
+            "NameInSource": "last_name",
+            "Alias": "last_name",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT\r\n\ta.id,\r\n\t(case when left(database(),2)='wx' and right(database(),5)+0>10000 and IFNULL(a.real_name,'')<>'' then a.real_name else a.last_name end ) as last_name\r\nFROM ld_users a\r\nINNER JOIN (\r\n\tSELECT DISTINCT\r\n\t\tuserid \r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tld_users.id AS userid \r\n\t\tFROM ld_users\r\n\t\tWHERE EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename='CooperativeWork' and scopeauthority=1 AND userid='[uuid]')\r\n\t\tUNION\r\n\t\tSELECT \r\n\t\t\tviewid AS userid \r\n\t\tFROM ld_scoperhigher\r\n\t\tWHERE userid='[uuid]' AND modulename='CooperativeWork' AND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE userid='[uuid]' AND scopeauthority=2 AND modulename='CooperativeWork')\t\t\t\r\n\t\tUNION\r\n\t\tSELECT DISTINCT \r\n\t\t\tld_users2group.userid AS userid \r\n\t\tFROM ld_scoperhigher \r\n\t\tINNER JOIN ld_groups ON ld_groups.groupid=ld_scoperhigher.viewid\r\n\t\tINNER JOIN ld_users2group ON ld_users2group.groupid=ld_groups.groupid\r\n\t\tWHERE ld_scoperhigher.userid='[uuid]' \r\n\t\t\tAND ld_scoperhigher.modulename='CooperativeWork'\r\n\t\t\tAND ld_scoperhigher.scopeauthority=3 \r\n\t\t\tAND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename='CooperativeWork' AND scopeauthority=3 AND userid='[uuid]')\r\n\t\tUNION \r\n\t\tSELECT \r\n\t\t\tid AS userid \r\n\t\tFROM ld_users  \r\n\t\tWHERE EXISTS(SELECT 1 FROM ld_users WHERE id='[uuid]' AND is_admin='on')\r\n\t\tUNION\r\n\t\tSELECT '[uuid]') AS vw_users\r\n) AS tmp_users ON tmp_users.userid=a.id\r\nWHERE a.deleted=0\r\n\tAND a.`status`='Active'\r\nORDER BY CONVERT(a.last_name USING gbk)"
+      },
+      "2": {
+        "Ident": "StiMySqlSource",
+        "Name": "list_groups",
+        "Alias": "list_groups",
+        "Columns": {
+          "0": {
+            "Name": "groupid",
+            "Index": -1,
+            "NameInSource": "groupid",
+            "Alias": "groupid",
+            "Type": "System.Int32"
+          },
+          "1": {
+            "Name": "groupname",
+            "Index": -1,
+            "NameInSource": "groupname",
+            "Alias": "groupname",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT groupid,CONCAT(SPACE(depth*4),groupname) AS groupname FROM ld_groups ORDER BY parentgroup"
+      },
+      "3": {
+        "Ident": "StiMySqlSource",
+        "Name": "t",
+        "Alias": "t",
+        "Columns": {
+          "0": {
+            "Name": "last_name",
+            "Index": -1,
+            "NameInSource": "last_name",
+            "Alias": "last_name",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "L1",
+            "Index": -1,
+            "NameInSource": "L1",
+            "Alias": "L1",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "L2",
+            "Index": -1,
+            "NameInSource": "L2",
+            "Alias": "L2",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "L3",
+            "Index": -1,
+            "NameInSource": "L3",
+            "Alias": "L3",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "L4",
+            "Index": -1,
+            "NameInSource": "L4",
+            "Alias": "L4",
+            "Type": "System.String"
+          },
+          "5": {
+            "Name": "L5",
+            "Index": -1,
+            "NameInSource": "L5",
+            "Alias": "L5",
+            "Type": "System.String"
+          },
+          "6": {
+            "Name": "L6",
+            "Index": -1,
+            "NameInSource": "L6",
+            "Alias": "L6",
+            "Type": "System.String"
+          },
+          "7": {
+            "Name": "L7",
+            "Index": -1,
+            "NameInSource": "L7",
+            "Alias": "L7",
+            "Type": "System.String"
+          },
+          "8": {
+            "Name": "L8",
+            "Index": -1,
+            "NameInSource": "L8",
+            "Alias": "L8",
+            "Type": "System.String"
+          },
+          "9": {
+            "Name": "L9",
+            "Index": -1,
+            "NameInSource": "L9",
+            "Alias": "L9",
+            "Type": "System.String"
+          },
+          "10": {
+            "Name": "L10",
+            "Index": -1,
+            "NameInSource": "L10",
+            "Alias": "L10",
+            "Type": "System.String"
+          },
+          "11": {
+            "Name": "L11",
+            "Index": -1,
+            "NameInSource": "L11",
+            "Alias": "L11",
+            "Type": "System.String"
+          },
+          "12": {
+            "Name": "L12",
+            "Index": -1,
+            "NameInSource": "L12",
+            "Alias": "L12",
+            "Type": "System.String"
+          },
+          "13": {
+            "Name": "sub_qty",
+            "Index": -1,
+            "NameInSource": "sub_qty",
+            "Alias": "sub_qty",
+            "Type": "System.Int32"
+          },
+          "14": {
+            "Name": "no_qty",
+            "Index": -1,
+            "NameInSource": "no_qty",
+            "Alias": "no_qty",
+            "Type": "System.Int32"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "Type": "Table",
+        "SqlCommand": "SELECT\r\n\tlast_name,\r\n\tCASE\r\n\t\tWHEN start_date<=CURDATE() AND L1=1 THEN '√'\r\n \t\tWHEN start_date<=CURDATE() AND L1=0 THEN '×'\r\n\t\tWHEN start_date<=CURDATE() AND L1=2 THEN '补'\r\n\t\tELSE  ''\r\n\tEND AS L1,\r\n\tCASE\r\n\t\tWHEN DATE_ADD(start_date,INTERVAL 1 MONTH)<=CURDATE() AND L2=1 THEN '√'\r\n \t\tWHEN DATE_ADD(start_date,INTERVAL 1 MONTH)<=CURDATE() AND L2=0 THEN '×'\r\n \t\tWHEN DATE_ADD(start_date,INTERVAL 1 MONTH)<=CURDATE() AND L2=2 THEN '补'\r\n\t\tELSE  ''\r\n\tEND AS L2,\r\n\tCASE\r\n\t\tWHEN DATE_ADD(start_date,INTERVAL 2 MONTH)<=CURDATE() AND L3=1 THEN '√'\r\n \t\tWHEN DATE_ADD(start_date,INTERVAL 2 MONTH)<=CURDATE() AND L3=0 THEN '×'\r\n \t\tWHEN DATE_ADD(start_date,INTERVAL 2 MONTH)<=CURDATE() AND L3=2 THEN '补'\r\n\t\tELSE  ''\r\n\tEND AS L3,\r\n\tCASE\r\n\t\tWHEN DATE_ADD(start_date,INTERVAL 3 MONTH)<=CURDATE() AND L4=1 THEN '√'\r\n \t\tWHEN DATE_ADD(start_date,INTERVAL 3 MONTH)<=CURDATE() AND L4=0 THEN '×'\r\n\t\tWHEN DATE_ADD(start_date,INTERVAL 3 MONTH)<=CURDATE() AND L4=2 THEN '补'\r\n\t\tELSE  ''\r\n\tEND AS L4,\r\n\tCASE\r\n\t\tWHEN DATE_ADD(start_date,INTERVAL 4 MONTH)<=CURDATE() AND L5=1 THEN '√'\r\n \t\tWHEN DATE_ADD(start_date,INTERVAL 4 MONTH)<=CURDATE() AND L5=0 THEN '×'\r\n \t\tWHEN DATE_ADD(start_date,INTERVAL 4 MONTH)<=CURDATE() AND L5=2 THEN '补'\r\n\t\tELSE  ''\r\n\tEND AS L5,\r\n\tCASE\r\n\t\tWHEN DATE_ADD(start_date,INTERVAL 5 MONTH)<=CURDATE() AND L6=1 THEN '√'\r\n \t\tWHEN DATE_ADD(start_date,INTERVAL 5 MONTH)<=CURDATE() AND L6=0 THEN '×'\r\n \t\tWHEN DATE_ADD(start_date,INTERVAL 5 MONTH)<=CURDATE() AND L6=2 THEN '补'\r\n\t\tELSE  ''\r\n\tEND AS L6,\r\n\tCASE\r\n\t\tWHEN DATE_ADD(start_date,INTERVAL 6 MONTH)<=CURDATE() AND L7=1 THEN '√'\r\n \t\tWHEN DATE_ADD(start_date,INTERVAL 6 MONTH)<=CURDATE() AND L7=0 THEN '×'\r\n \t\tWHEN DATE_ADD(start_date,INTERVAL 6 MONTH)<=CURDATE() AND L7=2 THEN '补'\r\n\t\tELSE  ''\r\n\tEND AS L7,\r\n\tCASE\r\n\t\tWHEN DATE_ADD(start_date,INTERVAL 7 MONTH)<=CURDATE() AND L8=1 THEN '√'\r\n \t\tWHEN DATE_ADD(start_date,INTERVAL 7 MONTH)<=CURDATE() AND L8=0 THEN '×'\r\n \t\tWHEN DATE_ADD(start_date,INTERVAL 7 MONTH)<=CURDATE() AND L8=2 THEN '补'\r\n\t\tELSE  ''\r\n\tEND AS L8,\r\n\tCASE\r\n\t\tWHEN DATE_ADD(start_date,INTERVAL 8 MONTH)<=CURDATE() AND L9=1 THEN '√'\r\n \t\tWHEN DATE_ADD(start_date,INTERVAL 8 MONTH)<=CURDATE() AND L9=0 THEN '×'\r\n \t\tWHEN DATE_ADD(start_date,INTERVAL 8 MONTH)<=CURDATE() AND L9=2 THEN '补'\r\n\t\tELSE  ''\r\n\tEND AS L9,\r\n\tCASE\r\n\t\tWHEN DATE_ADD(start_date,INTERVAL 9 MONTH)<=CURDATE() AND L10=1 THEN '√'\r\n \t\tWHEN DATE_ADD(start_date,INTERVAL 9 MONTH)<=CURDATE() AND L10=0 THEN '×'\r\n \t\tWHEN DATE_ADD(start_date,INTERVAL 9 MONTH)<=CURDATE() AND L10=2 THEN '补'\r\n\t\tELSE  ''\r\n\tEND AS L10,\r\n\tCASE\r\n\t\tWHEN DATE_ADD(start_date,INTERVAL 10 MONTH)<=CURDATE() AND L11=1 THEN '√'\r\n \t\tWHEN DATE_ADD(start_date,INTERVAL 10 MONTH)<=CURDATE() AND L11=0 THEN '×'\r\n \t\tWHEN DATE_ADD(start_date,INTERVAL 10 MONTH)<=CURDATE() AND L11=2 THEN '补'\r\n\t\tELSE  ''\r\n\tEND AS L11,\r\n\tCASE\r\n\t\tWHEN DATE_ADD(start_date,INTERVAL 11 MONTH)<=CURDATE() AND L12=1 THEN '√'\r\n \t\tWHEN DATE_ADD(start_date,INTERVAL 11 MONTH)<=CURDATE() AND L12=0 THEN '×'\r\n \t\tWHEN DATE_ADD(start_date,INTERVAL 11 MONTH)<=CURDATE() AND L12=2 THEN '补'\r\n\t\tELSE  ''\r\n\tEND AS L12,\r\n\tIF(L1=2,1,L1)+IF(L2=2,1,L2)+IF(L3=2,1,L3)+IF(L4=2,1,L4)+IF(L5=2,1,L5)+IF(L6=2,1,L6)+IF(L7=2,1,L7)+IF(L8=2,1,L8)+IF(L9=2,1,L9)+IF(L10=2,1,L10)+IF(L11=2,1,L11)+IF(L12=2,1,L12) AS sub_qty,\r\n\tCASE\r\n\t\tWHEN start_date>CURDATE() THEN 0\r\n\t\tWHEN DATE_ADD(start_date,INTERVAL 11 MONTH)<=CURDATE() THEN 12-(IF(L1=2,1,L1)+IF(L2=2,1,L2)+IF(L3=2,1,L3)+IF(L4=2,1,L4)+IF(L5=2,1,L5)+IF(L6=2,1,L6)+IF(L7=2,1,L7)+IF(L8=2,1,L8)+IF(L9=2,1,L9)+IF(L10=2,1,L10)+IF(L11=2,1,L11)+IF(L12=2,1,L12))\r\n\t\tELSE MONTH(CURDATE())-(IF(L1=2,1,L1)+IF(L2=2,1,L2)+IF(L3=2,1,L3)+IF(L4=2,1,L4)+IF(L5=2,1,L5)+IF(L6=2,1,L6)+IF(L7=2,1,L7)+IF(L8=2,1,L8)+IF(L9=2,1,L9)+IF(L10=2,1,L10)+IF(L11=2,1,L11)+IF(L12=2,1,L12))\r\n\tEND AS no_qty\r\nFROM (\r\n\tSELECT\r\n\t\tu.id,\r\n\t\tu.last_name,\r\n\t\tu.start_date,\r\n\t\tCASE\r\n\t\t\tWHEN EXISTS (SELECT 1 FROM ld_workreport WHERE type=3 AND smcreatorid=u.id \r\n\t\t\t\tAND YEAR(createdtime)=u.query_nian AND MONTH(createdtime)=1\r\n\t\t\t\tAND DATE_FORMAT(createdtime,'%Y-%m-%d') BETWEEN LEFT(sendlog_workdate,10) AND RIGHT(sendlog_workdate,10)) THEN 1\r\n\t\t\tWHEN EXISTS (SELECT 1 FROM ld_workreport WHERE type=3 AND smcreatorid=u.id \r\n\t\t\t\tAND LEFT(sendlog_workdate,10) BETWEEN start_date AND LAST_DAY(start_date)) THEN 2 \r\n\t\t\tELSE 0\r\n\t\tEND AS L1,\r\n\t\tCASE\r\n\t\t\tWHEN EXISTS (SELECT 1 FROM ld_workreport WHERE type=3 AND smcreatorid=u.id \r\n\t\t\t\tAND YEAR(createdtime)=u.query_nian AND MONTH(createdtime)=2\r\n\t\t\t\tAND DATE_FORMAT(createdtime,'%Y-%m-%d') BETWEEN LEFT(sendlog_workdate,10) AND RIGHT(sendlog_workdate,10)) THEN 1\r\n\t\t\tWHEN EXISTS (SELECT 1 FROM ld_workreport WHERE type=3 AND smcreatorid=u.id \r\n\t\t\t\tAND LEFT(sendlog_workdate,10) BETWEEN DATE_ADD(start_date,INTERVAL 1 MONTH) AND LAST_DAY(DATE_ADD(start_date,INTERVAL 1 MONTH))) THEN 2 \r\n\t\t\tELSE 0\r\n\t\tEND AS L2,\r\n\t\tCASE\r\n\t\t\tWHEN EXISTS (SELECT 1 FROM ld_workreport WHERE type=3 AND smcreatorid=u.id \r\n\t\t\t\tAND YEAR(createdtime)=u.query_nian AND MONTH(createdtime)=3\r\n\t\t\t\tAND DATE_FORMAT(createdtime,'%Y-%m-%d') BETWEEN LEFT(sendlog_workdate,10) AND RIGHT(sendlog_workdate,10)) THEN 1\r\n\t\t\tWHEN EXISTS (SELECT 1 FROM ld_workreport WHERE type=3 AND smcreatorid=u.id \r\n\t\t\t\tAND LEFT(sendlog_workdate,10) BETWEEN DATE_ADD(start_date,INTERVAL 2 MONTH) AND LAST_DAY(DATE_ADD(start_date,INTERVAL 2 MONTH))) THEN 2 \r\n\t\t\tELSE 0\r\n\t\tEND AS L3,\r\n\t\tCASE\r\n\t\t\tWHEN EXISTS (SELECT 1 FROM ld_workreport WHERE type=3 AND smcreatorid=u.id \r\n\t\t\t\tAND YEAR(createdtime)=u.query_nian AND MONTH(createdtime)=4\r\n\t\t\t\tAND DATE_FORMAT(createdtime,'%Y-%m-%d') BETWEEN LEFT(sendlog_workdate,10) AND RIGHT(sendlog_workdate,10)) THEN 1\r\n\t\t\tWHEN EXISTS (SELECT 1 FROM ld_workreport WHERE type=3 AND smcreatorid=u.id \r\n\t\t\t\tAND LEFT(sendlog_workdate,10) BETWEEN DATE_ADD(start_date,INTERVAL 3 MONTH) AND LAST_DAY(DATE_ADD(start_date,INTERVAL 3 MONTH))) THEN 2 \r\n\t\t\tELSE 0\r\n\t\tEND AS L4,\r\n\t\tCASE\r\n\t\t\tWHEN EXISTS (SELECT 1 FROM ld_workreport WHERE type=3 AND smcreatorid=u.id \r\n\t\t\t\tAND YEAR(createdtime)=u.query_nian AND MONTH(createdtime)=5\r\n\t\t\t\tAND DATE_FORMAT(createdtime,'%Y-%m-%d') BETWEEN LEFT(sendlog_workdate,10) AND RIGHT(sendlog_workdate,10)) THEN 1\r\n\t\t\tWHEN EXISTS (SELECT 1 FROM ld_workreport WHERE type=3 AND smcreatorid=u.id \r\n\t\t\t\tAND LEFT(sendlog_workdate,10) BETWEEN DATE_ADD(start_date,INTERVAL 4 MONTH) AND LAST_DAY(DATE_ADD(start_date,INTERVAL 4 MONTH))) THEN 2 \r\n\t\t\tELSE 0\r\n\t\tEND AS L5,\r\n\t\tCASE\r\n\t\t\tWHEN EXISTS (SELECT 1 FROM ld_workreport WHERE type=3 AND smcreatorid=u.id \r\n\t\t\t\tAND YEAR(createdtime)=u.query_nian AND MONTH(createdtime)=6\r\n\t\t\t\tAND DATE_FORMAT(createdtime,'%Y-%m-%d') BETWEEN LEFT(sendlog_workdate,10) AND RIGHT(sendlog_workdate,10)) THEN 1\r\n\t\t\tWHEN EXISTS (SELECT 1 FROM ld_workreport WHERE type=3 AND smcreatorid=u.id \r\n\t\t\t\tAND LEFT(sendlog_workdate,10) BETWEEN DATE_ADD(start_date,INTERVAL 5 MONTH) AND LAST_DAY(DATE_ADD(start_date,INTERVAL 5 MONTH))) THEN 2 \r\n\t\t\tELSE 0\r\n\t\tEND AS L6,\r\n\t\tCASE\r\n\t\t\tWHEN EXISTS (SELECT 1 FROM ld_workreport WHERE type=3 AND smcreatorid=u.id \r\n\t\t\t\tAND YEAR(createdtime)=u.query_nian AND MONTH(createdtime)=7\r\n\t\t\t\tAND DATE_FORMAT(createdtime,'%Y-%m-%d') BETWEEN LEFT(sendlog_workdate,10) AND RIGHT(sendlog_workdate,10)) THEN 1\r\n\t\t\tWHEN EXISTS (SELECT 1 FROM ld_workreport WHERE type=3 AND smcreatorid=u.id \r\n\t\t\t\tAND LEFT(sendlog_workdate,10) BETWEEN DATE_ADD(start_date,INTERVAL 6 MONTH) AND LAST_DAY(DATE_ADD(start_date,INTERVAL 6 MONTH))) THEN 2 \r\n\t\t\tELSE 0\r\n\t\tEND AS L7,\r\n\t\tCASE\r\n\t\t\tWHEN EXISTS (SELECT 1 FROM ld_workreport WHERE type=3 AND smcreatorid=u.id \r\n\t\t\t\tAND YEAR(createdtime)=u.query_nian AND MONTH(createdtime)=8\r\n\t\t\t\tAND DATE_FORMAT(createdtime,'%Y-%m-%d') BETWEEN LEFT(sendlog_workdate,10) AND RIGHT(sendlog_workdate,10)) THEN 1\r\n\t\t\tWHEN EXISTS (SELECT 1 FROM ld_workreport WHERE type=3 AND smcreatorid=u.id \r\n\t\t\t\tAND LEFT(sendlog_workdate,10) BETWEEN DATE_ADD(start_date,INTERVAL 7 MONTH) AND LAST_DAY(DATE_ADD(start_date,INTERVAL 7 MONTH))) THEN 2 \r\n\t\t\tELSE 0\r\n\t\tEND AS L8,\r\n\t\tCASE\r\n\t\t\tWHEN EXISTS (SELECT 1 FROM ld_workreport WHERE type=3 AND smcreatorid=u.id \r\n\t\t\t\tAND YEAR(createdtime)=u.query_nian AND MONTH(createdtime)=9\r\n\t\t\t\tAND DATE_FORMAT(createdtime,'%Y-%m-%d') BETWEEN LEFT(sendlog_workdate,10) AND RIGHT(sendlog_workdate,10)) THEN 1\r\n\t\t\tWHEN EXISTS (SELECT 1 FROM ld_workreport WHERE type=3 AND smcreatorid=u.id \r\n\t\t\t\tAND LEFT(sendlog_workdate,10) BETWEEN DATE_ADD(start_date,INTERVAL 8 MONTH) AND LAST_DAY(DATE_ADD(start_date,INTERVAL 8 MONTH))) THEN 2 \r\n\t\t\tELSE 0\r\n\t\tEND AS L9,\r\n\t\tCASE\r\n\t\t\tWHEN EXISTS (SELECT 1 FROM ld_workreport WHERE type=3 AND smcreatorid=u.id \r\n\t\t\t\tAND YEAR(createdtime)=u.query_nian AND MONTH(createdtime)=10\r\n\t\t\t\tAND DATE_FORMAT(createdtime,'%Y-%m-%d') BETWEEN LEFT(sendlog_workdate,10) AND RIGHT(sendlog_workdate,10)) THEN 1\r\n\t\t\tWHEN EXISTS (SELECT 1 FROM ld_workreport WHERE type=3 AND smcreatorid=u.id \r\n\t\t\t\tAND LEFT(sendlog_workdate,10) BETWEEN DATE_ADD(start_date,INTERVAL 9 MONTH) AND LAST_DAY(DATE_ADD(start_date,INTERVAL 9 MONTH))) THEN 2 \r\n\t\t\tELSE 0\r\n\t\tEND AS L10,\r\n\t\tCASE\r\n\t\t\tWHEN EXISTS (SELECT 1 FROM ld_workreport WHERE type=3 AND smcreatorid=u.id \r\n\t\t\t\tAND YEAR(createdtime)=u.query_nian AND MONTH(createdtime)=11\r\n\t\t\t\tAND DATE_FORMAT(createdtime,'%Y-%m-%d') BETWEEN LEFT(sendlog_workdate,10) AND RIGHT(sendlog_workdate,10)) THEN 1\r\n\t\t\tWHEN EXISTS (SELECT 1 FROM ld_workreport WHERE type=3 AND smcreatorid=u.id \r\n\t\t\t\tAND LEFT(sendlog_workdate,10) BETWEEN DATE_ADD(start_date,INTERVAL 10 MONTH) AND LAST_DAY(DATE_ADD(start_date,INTERVAL 10 MONTH))) THEN 2 \r\n\t\t\tELSE 0\r\n\t\tEND AS L11,\r\n\t\tCASE\r\n\t\t\tWHEN EXISTS (SELECT 1 FROM ld_workreport WHERE type=3 AND smcreatorid=u.id \r\n\t\t\t\tAND YEAR(createdtime)=u.query_nian AND MONTH(createdtime)=12\r\n\t\t\t\tAND DATE_FORMAT(createdtime,'%Y-%m-%d') BETWEEN LEFT(sendlog_workdate,10) AND RIGHT(sendlog_workdate,10)) THEN 1\r\n\t\t\tWHEN EXISTS (SELECT 1 FROM ld_workreport WHERE type=3 AND smcreatorid=u.id \r\n\t\t\t\tAND LEFT(sendlog_workdate,10) BETWEEN DATE_ADD(start_date,INTERVAL 11 MONTH) AND LAST_DAY(DATE_ADD(start_date,INTERVAL 11 MONTH))) THEN 2 \r\n\t\t\tELSE 0\r\n\t\tEND AS L12\r\n\tFROM (\r\n\t\tSELECT\r\n\t\t\ta.id,\r\n\t\t\t(case when left(database(),2)='wx' and right(database(),5)+0>10000 and IFNULL(a.real_name,'')<>'' then a.real_name else a.last_name end ) AS last_name,\r\n\t\t\t'{nian}' AS query_nian,\r\n\t\t\tSTR_TO_DATE(CONCAT('{nian}','-01-01'),'%Y-%m-%d') AS start_date\r\n\t\tFROM ld_users a\r\n\t\tINNER JOIN (\r\n\t\t\tSELECT DISTINCT\r\n\t\t\t\tuserid \r\n\t\t\tFROM (\r\n\t\t\t\tSELECT \r\n\t\t\t\t\tld_users.id AS userid \r\n\t\t\t\tFROM ld_users\r\n\t\t\t\tWHERE EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename='CooperativeWork' and scopeauthority=1 AND userid='[uuid]')\r\n\t\t\t\tUNION\r\n\t\t\t\tSELECT \r\n\t\t\t\t\tviewid AS userid \r\n\t\t\t\tFROM ld_scoperhigher\r\n\t\t\t\tWHERE userid='[uuid]' AND modulename='CooperativeWork' AND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE userid='[uuid]' AND scopeauthority=2 AND modulename='CooperativeWork')\t\t\t\r\n\t\t\t\tUNION\r\n\t\t\t\tSELECT DISTINCT \r\n\t\t\t\t\tld_users2group.userid AS userid \r\n\t\t\t\tFROM ld_scoperhigher \r\n\t\t\t\tINNER JOIN ld_groups ON ld_groups.groupid=ld_scoperhigher.viewid\r\n\t\t\t\tINNER JOIN ld_users2group ON ld_users2group.groupid=ld_groups.groupid\r\n\t\t\t\tWHERE ld_scoperhigher.userid='[uuid]' \r\n\t\t\t\t\tAND ld_scoperhigher.modulename='CooperativeWork'\r\n\t\t\t\t\tAND ld_scoperhigher.scopeauthority=3 \r\n\t\t\t\t\tAND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename='CooperativeWork' AND scopeauthority=3 AND userid='[uuid]')\r\n\t\t\t\tUNION \r\n\t\t\t\tSELECT \r\n\t\t\t\t\tid AS userid \r\n\t\t\t\tFROM ld_users  \r\n\t\t\t\tWHERE EXISTS(SELECT 1 FROM ld_users WHERE id='[uuid]' AND is_admin='on')\r\n\t\t\t\tUNION\r\n\t\t\t\tSELECT '[uuid]') AS vw_users\r\n\t\t) AS tmp_users ON tmp_users.userid=a.id\r\nINNER JOIN (\r\n\tSELECT\r\n\t\ta.userid\r\n\tFROM ld_users2group a\r\n\tLEFT JOIN ld_groups b ON a.groupid=b.groupid\r\n\tWHERE (\r\n\t\tCASE\r\n\t\t\tWHEN '{bumen}'='' THEN 1=1\r\n\t\t\tWHEN '{bumen}'>0 AND '{bumen}' NOT LIKE '%,%' THEN a.groupid='{bumen}' OR LOCATE((SELECT CONCAT(parentgroup,'::') FROM ld_groups WHERE groupid='{bumen}'),b.parentgroup) \r\n\t\t\tELSE FIND_IN_SET(a.groupid,'{bumen}')\r\n\t\tEND)\r\n\tGROUP BY a.userid\r\n) tmp_groups ON tmp_groups.userid=a.id\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND a.`status`='Active'\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{userid}'='' THEN 1=1\r\n\t\t\t\t\tELSE FIND_IN_SET(a.id,'{userid}')\r\n\t\t\t\tEND)\r\n\t) u\r\n) t\r\nORDER BY CONVERT(last_name USING GBK)"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "ldcrm",
+        "Alias": "ldcrm",
+        "ConnectionStringEncrypted": "9Gx168ZcS1nhR9Wl6iV1n8JsaWBhT1mFQhWxkOkl9i/CYNfKTV1ClEZ4uYhjXK17gshxYMhtut1AReWN6oz1KtVgc+NWBdN1YkmsgOo9NEbJxHNIRlyp+UZbqLw="
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "Page1",
+      "Guid": "7a63ece74acd9b16d3cef16f83d3c036",
+      "Alias": "工作汇报月计划统计表",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiHeaderBand",
+          "Name": "HeaderBand1",
+          "ClientRectangle": "0,0.4,22,1.2",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text73",
+              "Guid": "772b5ef1ad471cd63c9c6aea9debfa64",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,22,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{nian}年工作汇报统计表-月计划"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;18;;",
+              "Border": ";153,153,153;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiColumnHeaderBand",
+          "Name": "ColumnHeaderBand1",
+          "ClientRectangle": "0,2.4,22,1.2",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text3",
+              "Guid": "f5d0f72140ad0324c5e0f17d22e35c48",
+              "ClientRectangle": "0,0,1,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "#"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text27",
+              "Guid": "0b3fa234672f1b0611730a539a578190",
+              "ClientRectangle": "1,0,2.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "姓名"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text69",
+              "Guid": "aead6e6f7440ceb485d06ad42f070772",
+              "ClientRectangle": "17.6,0.6,2.2,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "提交月数"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "Left, Right, Bottom;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text71",
+              "Guid": "3a2fb522173e55f0d5c86ad4b708edd4",
+              "ClientRectangle": "19.8,0.6,2.2,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "未提交月数"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "Left, Right, Bottom;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text72",
+              "Guid": "e965a466afa6a3d2ca5c6ad5b13f5179",
+              "ClientRectangle": "17.6,0,4.4,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "总计"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "Top, Left, Right;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text2",
+              "Guid": "5c99276a6fc001a271296da8f24b6a37",
+              "ClientRectangle": "3.2,0,1.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "1"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "Top, Left, Right;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text6",
+              "Guid": "589d4e228e14026573376dd1fec146b6",
+              "ClientRectangle": "4.4,0,1.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "2"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "Top, Left, Right;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text8",
+              "Guid": "b4169d39aa5f409101a56dd243357f3e",
+              "ClientRectangle": "5.6,0,1.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "3"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "Top, Left, Right;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text10",
+              "Guid": "d1288661e82a982af1896dd288d0fcda",
+              "ClientRectangle": "6.8,0,1.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "4"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "Top, Left, Right;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text23",
+              "Guid": "b7d58d8d1e65267823df6dd48444893d",
+              "ClientRectangle": "8,0,1.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "5"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "Top, Left, Right;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "10": {
+              "Ident": "StiText",
+              "Name": "Text9",
+              "Guid": "3e8490186b969f20eaa76dd48445fb65",
+              "ClientRectangle": "9.2,0,1.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "6"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "Top, Left, Right;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "11": {
+              "Ident": "StiText",
+              "Name": "Text19",
+              "Guid": "81716edf2618d9e279bd6dd48445661d",
+              "ClientRectangle": "10.4,0,1.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "7"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "Top, Left, Right;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "12": {
+              "Ident": "StiText",
+              "Name": "Text21",
+              "Guid": "d720e12218431e51be9e6dd48445c5b6",
+              "ClientRectangle": "11.6,0,1.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "8"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "Top, Left, Right;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "13": {
+              "Ident": "StiText",
+              "Name": "Text28",
+              "Guid": "9cd62dc1143a5a7151266dd4952c54f2",
+              "ClientRectangle": "12.8,0,1.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "9"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "Top, Left, Right;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "14": {
+              "Ident": "StiText",
+              "Name": "Text22",
+              "Guid": "fa307565c7a8294164356dd4952d0e7c",
+              "ClientRectangle": "14,0,1.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "10"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "Top, Left, Right;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "15": {
+              "Ident": "StiText",
+              "Name": "Text24",
+              "Guid": "afb1f502dd4c426ddd0d6dd4952d6dd8",
+              "ClientRectangle": "15.2,0,1.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "11"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "Top, Left, Right;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "16": {
+              "Ident": "StiText",
+              "Name": "Text25",
+              "Guid": "76a72ec9d32d1cf68a3b6dd4952d0e92",
+              "ClientRectangle": "16.4,0,1.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "12"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "Top, Left, Right;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            }
+          }
+        },
+        "2": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand1",
+          "ClientRectangle": "0,4.4,22,1",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text5",
+              "Guid": "a28a5b018edbc121ab66f17f7a6f88e2",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,1,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{LineThrough}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "SystemVariables"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text20",
+              "Guid": "ad7f6d8fa1d219607c7d0a539a576b07",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "1,0,2.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{t.last_name}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text66",
+              "Guid": "31311b18c551ff0759f76ad42f07d41b",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "17.6,0,2.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{t.sub_qty}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text68",
+              "Guid": "2d85a0d75b84f6e55cfc6ad4b708a3cc",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "19.8,0,2.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{t.no_qty}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text70",
+              "Guid": "f3bfd1ed7f1903c738bd6b0614113a9b",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "3.2,0,1.2,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{t.L1 == \"×\" }"
+                  },
+                  "Font": "微软雅黑;11;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{t.L1}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text1",
+              "Guid": "c84aadbca1796e6202d86dd1fec1810f",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "4.4,0,1.2,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{t.L2 == \"×\" }"
+                  },
+                  "Font": "微软雅黑;11;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{t.L2}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text4",
+              "Guid": "7b12902640271384d0426dd243353c2f",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "5.6,0,1.2,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{t.L3 == \"×\" }"
+                  },
+                  "Font": "微软雅黑;11;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{t.L3}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text7",
+              "Guid": "5fb748f1a601bafd08d06dd288d02bd9",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "6.8,0,1.2,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{t.L4 == \"×\" }"
+                  },
+                  "Font": "微软雅黑;11;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{t.L4}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text11",
+              "Guid": "a55346c9b4830cbbd85c6dd2b86bd1d6",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "8,0,1.2,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{t.L5 == \"×\" }"
+                  },
+                  "Font": "微软雅黑;11;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{t.L5}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text12",
+              "Guid": "49ca5e03cf4012a61f386dd30a8ac04b",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "9.2,0,1.2,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{t.L6 == \"×\" }"
+                  },
+                  "Font": "微软雅黑;11;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{t.L6}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "10": {
+              "Ident": "StiText",
+              "Name": "Text13",
+              "Guid": "9829bd07cac182d0c0726dd33d6d6d5e",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "10.4,0,1.2,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{t.L7 == \"×\" }"
+                  },
+                  "Font": "微软雅黑;11;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{t.L7}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "11": {
+              "Ident": "StiText",
+              "Name": "Text14",
+              "Guid": "2fbed66c03a0d63b44a06dd374579f6f",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "11.6,0,1.2,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{t.L8 == \"×\" }"
+                  },
+                  "Font": "微软雅黑;11;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{t.L8}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "12": {
+              "Ident": "StiText",
+              "Name": "Text15",
+              "Guid": "f6e78f081b828adbc6b76dd3a3a81564",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "12.8,0,1.2,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{t.L9 == \"×\" }"
+                  },
+                  "Font": "微软雅黑;11;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{t.L9}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "13": {
+              "Ident": "StiText",
+              "Name": "Text16",
+              "Guid": "09f3ef3d40124274158b6dd3d37b6d27",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "14,0,1.2,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{t.L10 == \"×\" }"
+                  },
+                  "Font": "微软雅黑;11;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{t.L10}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "14": {
+              "Ident": "StiText",
+              "Name": "Text17",
+              "Guid": "782c6b3d4c7476ff536e6dd4074d5740",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "15.2,0,1.2,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{t.L11 == \"×\" }"
+                  },
+                  "Font": "微软雅黑;11;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{t.L11}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "15": {
+              "Ident": "StiText",
+              "Name": "Text18",
+              "Guid": "a128933da7cc72ad45646dd438d677f0",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "16.4,0,1.2,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{t.L12 == \"×\" }"
+                  },
+                  "Font": "微软雅黑;11;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{t.L12}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "t",
+          "EvenStyle": "column_even",
+          "OddStyle": "column_odd"
+        }
+      },
+      "PageWidth": 24,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    }
+  }
+}

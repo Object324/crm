@@ -1,0 +1,733 @@
+{
+  "ReportVersion": "2019.4.1",
+  "ReportGuid": "72865ba108c8431980b6423cb97bdaba",
+  "ReportName": "Report",
+  "ReportAlias": "Report",
+  "ReportFile": "default_project_progresscontrast.mrt",
+  "ReportCreated": "/Date(1638365846000+0800)/",
+  "ReportChanged": "/Date(1638365846000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Dictionary": {
+    "Variables": {
+      "0": {
+        "Name": "xm_name",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime",
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "list_xmjh.xmid",
+          "ValuesColumn": "list_xmjh.xmname",
+          "AllowUserValues": false
+        },
+        "Alias": "项目名称",
+        "Type": "System.String",
+        "RequestFromUser": true,
+        "SelectionMode": "First"
+      },
+      "1": {
+        "Name": "jh_name",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime",
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "list_xmjh.xmjh_id",
+          "ValuesColumn": "list_xmjh.xmjh_name",
+          "BindingValuesColumn": "list_xmjh.xmid",
+          "AllowUserValues": false,
+          "BindingValue": true,
+          "BindingVariable": "xm_name"
+        },
+        "Alias": "项目计划",
+        "Type": "Stimulsoft.Report.StringList",
+        "RequestFromUser": true
+      }
+    },
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "a",
+        "Alias": "a",
+        "Columns": {
+          "0": {
+            "Name": "argumnt",
+            "Index": -1,
+            "NameInSource": "argumnt",
+            "Alias": "argumnt",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "color",
+            "Index": -1,
+            "NameInSource": "color",
+            "Alias": "color",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "completetask",
+            "Index": -1,
+            "NameInSource": "completetask",
+            "Alias": "completetask",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "enddate",
+            "Index": -1,
+            "NameInSource": "enddate",
+            "Alias": "enddate",
+            "Type": "System.DateTime"
+          },
+          "4": {
+            "Name": "jh_endate",
+            "Index": -1,
+            "NameInSource": "jh_endate",
+            "Alias": "jh_endate",
+            "Type": "System.String"
+          },
+          "5": {
+            "Name": "jh_startdate",
+            "Index": -1,
+            "NameInSource": "jh_startdate",
+            "Alias": "jh_startdate",
+            "Type": "System.String"
+          },
+          "6": {
+            "Name": "keyid",
+            "Index": -1,
+            "NameInSource": "keyid",
+            "Alias": "keyid",
+            "Type": "System.Decimal"
+          },
+          "7": {
+            "Name": "progress",
+            "Index": -1,
+            "NameInSource": "progress",
+            "Alias": "progress",
+            "Type": "System.String"
+          },
+          "8": {
+            "Name": "project_no",
+            "Index": -1,
+            "NameInSource": "project_no",
+            "Alias": "project_no",
+            "Type": "System.String"
+          },
+          "9": {
+            "Name": "projectid",
+            "Index": -1,
+            "NameInSource": "projectid",
+            "Alias": "projectid",
+            "Type": "System.String"
+          },
+          "10": {
+            "Name": "projectname",
+            "Index": -1,
+            "NameInSource": "projectname",
+            "Alias": "projectname",
+            "Type": "System.String"
+          },
+          "11": {
+            "Name": "projectstatus",
+            "Index": -1,
+            "NameInSource": "projectstatus",
+            "Alias": "projectstatus",
+            "Type": "System.String"
+          },
+          "12": {
+            "Name": "projecttaskid",
+            "Index": -1,
+            "NameInSource": "projecttaskid",
+            "Alias": "projecttaskid",
+            "Type": "System.Int32"
+          },
+          "13": {
+            "Name": "projecttaskname",
+            "Index": -1,
+            "NameInSource": "projecttaskname",
+            "Alias": "projecttaskname",
+            "Type": "System.String"
+          },
+          "14": {
+            "Name": "projecttaskstatus",
+            "Index": -1,
+            "NameInSource": "projecttaskstatus",
+            "Alias": "projecttaskstatus",
+            "Type": "System.String"
+          },
+          "15": {
+            "Name": "sj_endate",
+            "Index": -1,
+            "NameInSource": "sj_endate",
+            "Alias": "sj_endate",
+            "Type": "System.String"
+          },
+          "16": {
+            "Name": "sj_startdate",
+            "Index": -1,
+            "NameInSource": "sj_startdate",
+            "Alias": "sj_startdate",
+            "Type": "System.String"
+          },
+          "17": {
+            "Name": "startdate",
+            "Index": -1,
+            "NameInSource": "startdate",
+            "Alias": "startdate",
+            "Type": "System.DateTime"
+          },
+          "18": {
+            "Name": "xm_owner",
+            "Index": -1,
+            "NameInSource": "xm_owner",
+            "Alias": "xm_owner",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT\r\n\ta.keyid,\r\n\ta.project_no,\r\n\ta.projectid,\r\n\ta.projecttaskid,\r\n\ta.projectname,\r\n\r\n\ta.projecttaskname,\r\n\ta.progress,\r\n\ta.xm_owner,\r\n\ta.projectstatus,\r\n\ta.completetask,\r\n\r\n\t(SELECT DATE_FORMAT(MIN(startdate),'%Y-%m-%d') FROM ld_projecttask WHERE deleted=0 AND approvestatus<>'已拒绝' AND projectid=a.projectid) AS jh_startdate,\r\n\t(SELECT DATE_FORMAT(MAX(enddate),'%Y-%m-%d') FROM ld_projecttask WHERE deleted=0 AND approvestatus<>'已拒绝' AND projectid=a.projectid) AS jh_endate,\r\n\t(SELECT DATE_FORMAT(MIN(startdate),'%Y-%m-%d') FROM ld_projectprogress WHERE deleted=0 AND approvestatus<>'已拒绝' AND projectid=a.projectid AND projecttaskid>0) AS sj_startdate,\r\n\tCASE WHEN a.projectstatus='已完成' THEN (SELECT DATE_FORMAT(MIN(startdate),'%Y-%m-%d') FROM ld_projectprogress WHERE deleted=0 AND approvestatus<>'已拒绝' AND projectid=a.projectid AND projecttaskid>0) ELSE NULL END AS sj_endate,\r\n\r\n\ta.projecttaskstatus,\r\n\ta.startdate,\r\n\tCASE \r\n\t\tWHEN a.startdate<a.enddate THEN DATE_ADD(a.enddate,INTERVAL 86399 SECOND)\r\n\t\tWHEN a.enddate>=CURDATE() AND a.projecttaskstatus='进行中' THEN NOW()\r\n\t\tELSE DATE_ADD(a.enddate,INTERVAL 1 MINUTE) \r\n\tEND AS enddate,\r\n\ta.argumnt,\r\n\ta.color\r\nFROM (\r\n\tSELECT \r\n\t\ta.projecttaskid+s.seq*0.1 AS keyid,\r\n\t\tb.project_no,\r\n\t\ta.projectid,\r\n\t\ta.projecttaskid,\r\n\t\tb.projectname,\r\n\t\ta.projecttaskname,\r\n\t\ta.projecttaskprogress AS progress,\r\n\t\tv.last_name AS xm_owner,\r\n\t\tb.projectstatus,\r\n\t\tb.completetask,\r\n\t\ta.projecttaskstatus,\r\n\t\tCASE\r\n\t\t\tWHEN s.seq=1 THEN a.startdate\r\n\t\t\tELSE IFNULL(c.startdate,a.startdate)\r\n\t\tEND AS startdate,\r\n\t\tCASE\r\n\t\t\tWHEN s.seq=1 THEN a.enddate\r\n\t\t\tWHEN s.seq=2 AND (c.startdate>CURDATE() OR c.startdate IS NULL) THEN IFNULL(c.startdate,a.startdate)\r\n\t\t\tELSE c.enddate\r\n\t\tEND AS enddate,\r\n\t\tCONCAT('',\r\n\t\t\t\t\t'『',IFNULL(a.projecttaskname,''),'』-',\r\n\t\t\t\t\t'『',u.last_name,'』-',\r\n\t\t\t\t\t'『',(CASE WHEN s.seq=1 THEN '计划' ELSE '实际' END),'』-『',\r\n\t\t\t\t\t(CASE \r\n\t\t\t\t\t\tWHEN s.seq=1 THEN DATE_FORMAT(a.startdate,'%Y年%m月%d日')\r\n\t\t\t\t\t\tWHEN s.seq=2 AND (c.startdate>CURDATE() OR c.startdate IS NULL) THEN '待-----开------始'\r\n\t\t\t\t\t\tELSE DATE_FORMAT(c.startdate,'%Y年%m月%d日')\t\r\n\t\t\t\t\tEND),\r\n\t\t\t\t\t'』-『',\r\n\t\t\t\t\t(CASE \r\n\t\t\t\t\t\tWHEN s.seq=1 THEN DATE_FORMAT(a.enddate,'%Y年%m月%d日')\r\n\t\t\t\t\t\tWHEN s.seq=2 AND IFNULL(a.projecttaskstatus,'')<>'已完成' AND c.enddate>a.enddate THEN '已-----超------期'\r\n\t\t\t\t\t\tWHEN s.seq=2 AND IFNULL(a.projecttaskstatus,'')<>'已完成' AND c.enddate BETWEEN a.startdate AND a.enddate THEN '进-----行------中'\r\n\t\t\t\t\t\tWHEN s.seq=2 AND (c.startdate>CURDATE() OR c.startdate IS NULL) THEN '------------------'\r\n\t\t\t\t\t\tWHEN s.seq=2 AND IFNULL(a.projecttaskstatus,'')='已完成' THEN DATE_FORMAT(IFNULL(c.enddate,CURDATE()),'%Y年%m月%d日')\r\n\t\t\t\t\tEND),\r\n\t\t\t\t\t'』'\r\n\t\t\t) AS argumnt,\r\n\t\tCASE\t\r\n\t\t\tWHEN s.seq=1 THEN '0,176,240'\r\n\t\t\tWHEN s.seq=2 AND IFNULL(a.projecttaskstatus,'')<>'已完成' AND c.enddate>a.enddate THEN '255,0,0'\r\n\t\t\tWHEN s.seq=2 AND IFNULL(a.projecttaskstatus,'')<>'已完成' AND c.enddate BETWEEN a.startdate AND a.enddate THEN '255,255,0'\r\n\t\t\tWHEN s.seq=2 AND (c.startdate>CURDATE() OR c.startdate IS NULL) THEN '50,63,79'\r\n\t\t\tWHEN s.seq=2 AND IFNULL(a.projecttaskstatus,'')='已完成' THEN '146,208,80'\r\n\t\tEND AS color,\r\n\t\ts.seq\r\n\tFROM ld_projecttask a\r\n\tLEFT JOIN ld_project b ON b.projectid=a.projectid\r\n\tLEFT JOIN ld_users u ON u.id=a.smownerid\r\n\tLEFT JOIN ld_users v ON v.id=b.smownerid\r\n\tLEFT JOIN (\r\n\t\tSELECT\r\n\t\t\ta.projecttaskid,\r\n\t\t\tMIN(a.startdate) AS startdate,\r\n\t\t\tMAX(a.enddate) AS enddate\r\n\t\tFROM ld_projectprogress a\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\tAND a.projecttaskid>0\r\n\t\tGROUP BY a.projecttaskid\r\n\t) c ON c.projecttaskid=a.projecttaskid\r\n\tCROSS JOIN (SELECT seq FROM sequence WHERE seq BETWEEN 1 AND 2) s\r\n\tWHERE a.deleted=0\r\n\t\tAND a.approvestatus<>'已拒绝'\r\n\t\tAND (\r\n\t\t\tCASE\r\n\t\t\t\tWHEN '{xm_name}'='' THEN \r\n\t\t\t\t\ta.projectid=(\r\n\t\t\t\t\t\tSELECT\r\n\t\t\t\t\t\t\ta.projectid\r\n\t\t\t\t\t\tFROM ld_projecttask a\r\n\t\t\t\t\t\tINNER JOIN ld_project b ON b.projectid=a.projectid\r\n\t\t\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\t\t\tAND b.deleted=0\r\n\t\t\t\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\t\t\t\tAND b.approvestatus<>'已拒绝'\r\n\t\t\t\t\t\tORDER BY CONVERT(b.projectname USING GBK),a.startdate,a.enddate,a.projecttaskid\r\n\t\t\t\t\t\tLIMIT 1)\r\n\t\t\t\tELSE a.projectid='{xm_name}'\r\n\t\t\tEND)\r\n\t\tAND (\r\n\t\t\tCASE\r\n\t\t\t\tWHEN '{jh_name}'='' THEN 1=1\r\n\t\t\t\tELSE FIND_IN_SET(a.projecttaskid,'{jh_name}')\r\n\t\t\tEND)\r\n)a\r\nORDER BY CONVERT(a.projecttaskname USING GBK) DESC,a.projecttaskid DESC,a.seq DESC"
+      },
+      "1": {
+        "Ident": "StiMySqlSource",
+        "Name": "list_xmjh",
+        "Alias": "list_xmjh",
+        "Columns": {
+          "0": {
+            "Name": "xmid",
+            "Index": -1,
+            "NameInSource": "xmid",
+            "Alias": "xmid",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "xmjh_id",
+            "Index": -1,
+            "NameInSource": "xmjh_id",
+            "Alias": "xmjh_id",
+            "Type": "System.Int32"
+          },
+          "2": {
+            "Name": "xmjh_name",
+            "Index": -1,
+            "NameInSource": "xmjh_name",
+            "Alias": "xmjh_name",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "xmname",
+            "Index": -1,
+            "NameInSource": "xmname",
+            "Alias": "xmname",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT\r\n\ta.projectid AS xmid,\r\n\tb.projectname AS xmname,\r\n\ta.projecttaskid AS xmjh_id,\r\n\ta.projecttaskname AS xmjh_name\r\nFROM ld_projecttask a\r\nINNER JOIN ld_project b ON b.projectid=a.projectid\r\nWHERE a.deleted=0\r\n\tAND b.deleted=0\r\n\tAND a.approvestatus<>'已拒绝'\r\n\tAND b.approvestatus<>'已拒绝'\r\nORDER BY CONVERT(b.projectname USING GBK),a.startdate,a.enddate,a.projecttaskid"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "ldcrm",
+        "Alias": "ldcrm",
+        "ConnectionStringEncrypted": "42zh68ZcSzXhR9VY+yV0YtVwcWNhT1uFwxWx9GRx9i/Cdt2Dxl1RiEZ4pJjkXCIv2G7RK0ZtqaRiG7Tsygl1KtFWd8PoXePNYkucjek9d0aHYGUCQwiihWxb0Yk="
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "Page1",
+      "Guid": "3e9faa779913785279d785a03362d1cc",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "empty",
+      "Components": {
+        "0": {
+          "Ident": "StiChart",
+          "Name": "Chart1",
+          "ShiftMode": "None",
+          "ClientRectangle": "0,3,44,19",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:50,63,79",
+          "Series": {
+            "0": {
+              "Ident": "StiGanttSeries",
+              "ShowInLegend": false,
+              "ShowSeriesLabels": "FromSeries",
+              "ShowShadow": false,
+              "YAxis": "RightYAxis",
+              "SeriesLabels": {
+                "Ident": "StiCenterAxisLabels",
+                "AllowApplyStyle": false,
+                "MarkerSize": {
+                  "Width": 8,
+                  "Height": 6
+                },
+                "ValueType": "Tag",
+                "ValueTypeSeparator": "-",
+                "Visible": false,
+                "DrawBorder": false,
+                "LabelColor": "88,86,75",
+                "BorderColor": "88,86,75",
+                "Brush": "empty"
+              },
+              "ValueDataColumn": "a.startdate",
+              "ArgumentDataColumn": "a.argumnt",
+              "AutoSeriesTitleDataColumn": "a.tips",
+              "AutoSeriesKeyDataColumn": "a.keyid",
+              "AutoSeriesColorDataColumn": "a.color",
+              "TagDataColumn": "a.progress",
+              "DrillDownEnabled": true,
+              "Title": {
+                "Value": "series1"
+              },
+              "ShowZeros": true,
+              "Width": 1,
+              "BorderColor": "Transparent",
+              "Brush": "solid:46,198,200",
+              "BrushNegative": "empty",
+              "AllowApplyBrushNegative": true,
+              "ValueDataColumnEnd": "a.enddate"
+            }
+          },
+          "Area": {
+            "Ident": "StiGanttArea",
+            "AllowApplyStyle": false,
+            "BorderColor": "171,172,173",
+            "Brush": "solid:50,63,79",
+            "InterlacingHor": {
+              "AllowApplyStyle": false,
+              "InterlacedBrush": "solid:10,155,155,155",
+              "Visible": false,
+              "Area": true
+            },
+            "InterlacingVert": {
+              "AllowApplyStyle": false,
+              "InterlacedBrush": "solid:10,155,155,155",
+              "Visible": false,
+              "Area": true
+            },
+            "GridLinesHor": {
+              "AllowApplyStyle": false,
+              "Color": "255,255,255",
+              "MinorColor": "100,105,105,105",
+              "Area": true
+            },
+            "GridLinesHorRight": {
+              "AllowApplyStyle": false,
+              "Visible": false,
+              "Area": true
+            },
+            "GridLinesVert": {
+              "AllowApplyStyle": false,
+              "Color": "233,244,252",
+              "MinorColor": "233,244,252",
+              "Area": true
+            },
+            "YAxis": {
+              "Ident": "StiYLeftAxis",
+              "AllowApplyStyle": false,
+              "StartFromZero": false,
+              "Labels": {
+                "AllowApplyStyle": false,
+                "Font": "Microsoft YaHei;9;;",
+                "Color": "233,244,252"
+              },
+              "LineColor": "233,244,252",
+              "LineWidth": 0,
+              "Title": {
+                "AllowApplyStyle": false,
+                "Color": "233,244,252",
+                "Antialiasing": false,
+                "Direction": "BottomToTop"
+              },
+              "Ticks": {
+                "Visible": false
+              }
+            },
+            "YRightAxis": {
+              "Ident": "StiYRightAxis",
+              "AllowApplyStyle": false,
+              "StartFromZero": false,
+              "Labels": {
+                "AllowApplyStyle": false,
+                "Color": "233,244,252",
+                "TextAlignment": "Left"
+              },
+              "LineColor": "233,244,252",
+              "Title": {
+                "Color": "233,244,252",
+                "Direction": "TopToBottom"
+              }
+            },
+            "XAxis": {
+              "Ident": "StiXBottomAxis",
+              "AllowApplyStyle": false,
+              "StartFromZero": false,
+              "Labels": {
+                "Color": "140,140,140"
+              },
+              "Visible": false,
+              "LineColor": "140,140,140",
+              "Title": {
+                "Color": "140,140,140",
+                "Direction": "LeftToRight"
+              },
+              "ShowXAxis": "Center",
+              "DateTimeStep": {
+                "NumberOfValues": 0
+              }
+            },
+            "XTopAxis": {
+              "Ident": "StiXTopAxis",
+              "AllowApplyStyle": false,
+              "StartFromZero": false,
+              "Interaction": {
+                "RangeScrollEnabled": false
+              },
+              "Labels": {
+                "AllowApplyStyle": false,
+                "Angle": 45,
+                "Font": "Microsoft YaHei;10;;",
+                "Color": "233,244,252"
+              },
+              "LineColor": "140,140,140",
+              "LineWidth": 0,
+              "Title": {
+                "Color": "140,140,140",
+                "Direction": "LeftToRight"
+              },
+              "Visible": true
+            }
+          },
+          "Table": {
+            "GridLineColor": "225,225,225",
+            "Header": {
+              "Brush": "solid:White",
+              "WordWrap": true
+            },
+            "DataCells": {
+              "TextColor": "140,140,140"
+            }
+          },
+          "SeriesLabels": {
+            "Ident": "StiNoneLabels",
+            "AllowApplyStyle": false,
+            "MarkerSize": {
+              "Width": 8,
+              "Height": 6
+            },
+            "ValueType": "Tag",
+            "ValueTypeSeparator": "-"
+          },
+          "Legend": {
+            "ShowShadow": false,
+            "BorderColor": "225,225,225",
+            "Brush": "solid:255,255,255",
+            "TitleColor": "105,105,105",
+            "LabelsColor": "140,140,140",
+            "MarkerSize": {
+              "Width": 10,
+              "Height": 10
+            },
+            "Columns": 0,
+            "Size": "0,0"
+          },
+          "Title": {
+            "Brush": "solid:140,140,140"
+          },
+          "AllowApplyStyle": false,
+          "Style": {
+            "Ident": "StiStyle26"
+          }
+        },
+        "1": {
+          "Ident": "StiReportTitleBand",
+          "Name": "ReportTitleBand1",
+          "ClientRectangle": "0,0.4,44,2.4",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text2",
+              "Guid": "7b3f98f067a5cd17840590792909ee5c",
+              "ClientRectangle": "6,0,10,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "项目名称：{a.projectname}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;;",
+              "Border": ";;;;;;;solid:0,0,0",
+              "Brush": "solid:255,255,255",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text1",
+              "Guid": "5d4e5bd02e7766696a821a34fe13b344",
+              "ClientRectangle": "0,0,6,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "项目编号：{a.project_no}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;;",
+              "Border": ";;;;;;;solid:0,0,0",
+              "Brush": "solid:255,255,255",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text4",
+              "Guid": "e1ccded59eee0433ba13b99cbe4b3bf2",
+              "ClientRectangle": "0,0.6,6,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "计划开始时间：{a.jh_startdate}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;;",
+              "Border": ";;;;;;;solid:0,0,0",
+              "Brush": "solid:255,255,255",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text5",
+              "Guid": "75d812c6bcb0716e27db9471297bf5eb",
+              "ClientRectangle": "6,0.6,6,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "计划结束时间：{a.jh_endate}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;;",
+              "Border": ";;;;;;;solid:0,0,0",
+              "Brush": "solid:255,255,255",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text6",
+              "Guid": "ed020712936f483843850ccc1cede80b",
+              "ClientRectangle": "12,0.6,4,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;;",
+              "Border": ";;;;;;;solid:0,0,0",
+              "Brush": "solid:255,255,255",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text8",
+              "Guid": "be4cbcf81da2ceed03a676b83a204ff4",
+              "ClientRectangle": "0,1.2,6,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "实际开始时间：{a.sj_startdate}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;;",
+              "Border": ";;;;;;;solid:0,0,0",
+              "Brush": "solid:255,255,255",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text9",
+              "Guid": "f543f0dac553f4968bb12a4415167e73",
+              "ClientRectangle": "6,1.2,6,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "实际结束时间：{a.sj_endate}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;;",
+              "Border": ";;;;;;;solid:0,0,0",
+              "Brush": "solid:255,255,255",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text10",
+              "Guid": "4a883d35652463de66718d5774733001",
+              "ClientRectangle": "12,1.2,4,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;;",
+              "Border": ";;;;;;;solid:0,0,0",
+              "Brush": "solid:255,255,255",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text12",
+              "Guid": "9abe503cac48674c40be833dd9270eb0",
+              "ClientRectangle": "0,1.8,6,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "项目状态：{a.projectstatus}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;;",
+              "Border": ";;;;;;;solid:0,0,0",
+              "Brush": "solid:255,255,255",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text13",
+              "Guid": "6dce591c9b35bf3b1a17deacb33b4ee9",
+              "ClientRectangle": "6,1.8,6,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "已完成任务数：{a.completetask}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;;",
+              "Border": ";;;;;;;solid:0,0,0",
+              "Brush": "solid:255,255,255",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "10": {
+              "Ident": "StiText",
+              "Name": "Text14",
+              "Guid": "a9e2cda1b96a653efda4f89be5847182",
+              "ClientRectangle": "12,1.8,4,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "项目负责人：{a.xm_owner}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;;",
+              "Border": ";;;;;;;solid:0,0,0",
+              "Brush": "solid:255,255,255",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            }
+          }
+        }
+      },
+      "PageWidth": 44,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 0,
+        "Right": 0,
+        "Top": 0,
+        "Bottom": 0
+      }
+    }
+  }
+}

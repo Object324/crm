@@ -1,0 +1,1759 @@
+{
+  "ReportVersion": "2019.3.1",
+  "ReportGuid": "2f165b4a0c198230c9c89caef47e42b2",
+  "ReportName": "自有车辆概况",
+  "ReportAlias": "自有车辆概况",
+  "ReportFile": "langjie_car_weixiu.mrt",
+  "ReportCreated": "/Date(633600000+0800)/",
+  "ReportChanged": "/Date(633600000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Styles": {
+    "0": {
+      "Ident": "StiStyle",
+      "Name": "column_odd",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:255,255,255",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    },
+    "1": {
+      "Ident": "StiStyle",
+      "Name": "column_even",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:252,252,252",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    }
+  },
+  "Dictionary": {
+    "Variables": {
+      "0": {
+        "Value": "DateSerial(Year(Today),Month(Today),1)",
+        "Name": "start_date",
+        "Alias": "起始日期",
+        "Type": "System.DateTime",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      },
+      "1": {
+        "Name": "chepai",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime"
+        },
+        "Alias": "车牌",
+        "Type": "System.String",
+        "RequestFromUser": true
+      },
+      "2": {
+        "Value": "DateSerial(Year(Today),Month(Today)+1,0)",
+        "Name": "end_date",
+        "Alias": "起始日期",
+        "Type": "System.DateTime",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      }
+    },
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "a",
+        "Alias": "a",
+        "Columns": {
+          "0": {
+            "Name": "01_qufen",
+            "Index": -1,
+            "NameInSource": "01_qufen",
+            "Alias": "01_qufen",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "02_chepai",
+            "Index": -1,
+            "NameInSource": "02_chepai",
+            "Alias": "02_chepai",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "03_fashengdate",
+            "Index": -1,
+            "NameInSource": "03_fashengdate",
+            "Alias": "03_fashengdate",
+            "Type": "System.Int32"
+          },
+          "3": {
+            "Name": "04_guzhangtype",
+            "Index": -1,
+            "NameInSource": "04_guzhangtype",
+            "Alias": "04_guzhangtype",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "05_weixiudate",
+            "Index": -1,
+            "NameInSource": "05_weixiudate",
+            "Alias": "05_weixiudate",
+            "Type": "System.String"
+          },
+          "5": {
+            "Name": "06_weixiudetail",
+            "Index": -1,
+            "NameInSource": "06_weixiudetail",
+            "Alias": "06_weixiudetail",
+            "Type": "System.String"
+          },
+          "6": {
+            "Name": "07_weixiufee",
+            "Index": -1,
+            "NameInSource": "07_weixiufee",
+            "Alias": "07_weixiufee",
+            "Type": "System.Decimal"
+          },
+          "7": {
+            "Name": "08_stopday",
+            "Index": -1,
+            "NameInSource": "08_stopday",
+            "Alias": "08_stopday",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "crm",
+        "SqlCommand": "SELECT\r\n\tDATE_FORMAT(a.startdate,'%y/%c月') AS 01_qufen,\r\n\tc.projectname AS 02_chepai,\r\n\tDAY(a.startdate) AS 03_fashengdate,\r\n\ta.projecttasktype AS 04_guzhangtype,\r\n\tDATE_FORMAT(a.actualenddate,'%Y-%c-%e') AS 05_weixiudate,\r\n\ta.workcontent AS 06_weixiudetail,\r\n\tROUND(b.cf_2969,0) AS 07_weixiufee,\r\n\tb.cf_2968 AS 08_stopday\r\nFROM ld_projecttask a\r\nLEFT JOIN ld_projecttaskcf b ON b.projecttaskid=a.projecttaskid\r\nLEFT JOIN ld_project c ON c.projectid=a.projectid\r\nWHERE a.deleted=0\r\n\tAND a.projectid>0\r\n\tAND a.projecttaskstatus='维修'\r\n\tAND a.startdate BETWEEN DATE_FORMAT('{start_date}','%Y-%m-%d') AND DATE_FORMAT('{end_date}','%Y-%m-%d')\r\n\tAND (\r\n\t\tCASE\r\n\t\t\tWHEN TRIM('{chepai}')='' THEN 1=1\r\n\t\t\tELSE LOCATE(TRIM('{chepai}'),c.projectname)>0\r\n\t\tEND) \r\nORDER BY c.projectname,a.actualenddate"
+      },
+      "1": {
+        "Ident": "StiMySqlSource",
+        "Name": "b",
+        "Alias": "b",
+        "Columns": {
+          "0": {
+            "Name": "chart_value1",
+            "Index": -1,
+            "NameInSource": "chart_value1",
+            "Alias": "chart_value1",
+            "Type": "System.Int32"
+          },
+          "1": {
+            "Name": "chart_value2",
+            "Index": -1,
+            "NameInSource": "chart_value2",
+            "Alias": "chart_value2",
+            "Type": "System.Decimal"
+          },
+          "2": {
+            "Name": "chart_value3",
+            "Index": -1,
+            "NameInSource": "chart_value3",
+            "Alias": "chart_value3",
+            "Type": "System.Decimal"
+          },
+          "3": {
+            "Name": "chatrt_type",
+            "Index": -1,
+            "NameInSource": "chatrt_type",
+            "Alias": "chatrt_type",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "crm",
+        "SqlCommand": "SELECT\r\n\tc.projectname AS chatrt_type,\r\n\tCOUNT(a.projectid) AS chart_value1,\r\n\tSUM(ROUND(b.cf_2969,0)) AS chart_value2,\r\n\tSUM(b.cf_2968) AS chart_value3\r\nFROM ld_projecttask a\r\nLEFT JOIN ld_projecttaskcf b ON b.projecttaskid=a.projecttaskid\r\nLEFT JOIN ld_project c ON c.projectid=a.projectid\r\nWHERE a.deleted=0\r\n\tAND a.projectid>0\r\n\tAND a.projecttaskstatus='维修'\r\n\tAND (\r\n\t\tCASE\r\n\t\t\tWHEN TRIM('{chepai}')='' THEN 1=1\r\n\t\t\tELSE LOCATE(TRIM('{chepai}'),c.projectname)>0\r\n\t\tEND)\r\nGROUP BY a.projectid\r\nORDER BY c.projectname"
+      },
+      "2": {
+        "Ident": "StiMySqlSource",
+        "Name": "c",
+        "Alias": "c",
+        "Columns": {
+          "0": {
+            "Name": "01_qufen",
+            "Index": -1,
+            "NameInSource": "01_qufen",
+            "Alias": "01_qufen",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "02_chepai",
+            "Index": -1,
+            "NameInSource": "02_chepai",
+            "Alias": "02_chepai",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "03_baoyangfee",
+            "Index": -1,
+            "NameInSource": "03_baoyangfee",
+            "Alias": "03_baoyangfee",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "04_yanghufee",
+            "Index": -1,
+            "NameInSource": "04_yanghufee",
+            "Alias": "04_yanghufee",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "05_jiyoufee",
+            "Index": -1,
+            "NameInSource": "05_jiyoufee",
+            "Alias": "05_jiyoufee",
+            "Type": "System.String"
+          },
+          "5": {
+            "Name": "06_huanjiyou",
+            "Index": -1,
+            "NameInSource": "06_huanjiyou",
+            "Alias": "06_huanjiyou",
+            "Type": "System.String"
+          },
+          "6": {
+            "Name": "07_huanjiyouge",
+            "Index": -1,
+            "NameInSource": "07_huanjiyouge",
+            "Alias": "07_huanjiyouge",
+            "Type": "System.String"
+          },
+          "7": {
+            "Name": "08_dahuangyou",
+            "Index": -1,
+            "NameInSource": "08_dahuangyou",
+            "Alias": "08_dahuangyou",
+            "Type": "System.String"
+          },
+          "8": {
+            "Name": "09_silunbaoyang",
+            "Index": -1,
+            "NameInSource": "09_silunbaoyang",
+            "Alias": "09_silunbaoyang",
+            "Type": "System.String"
+          },
+          "9": {
+            "Name": "10_huancaiyouge",
+            "Index": -1,
+            "NameInSource": "10_huancaiyouge",
+            "Alias": "10_huancaiyouge",
+            "Type": "System.String"
+          },
+          "10": {
+            "Name": "11_kongqi",
+            "Index": -1,
+            "NameInSource": "11_kongqi",
+            "Alias": "11_kongqi",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "crm",
+        "SqlCommand": "SELECT\r\n\tDATE_FORMAT(a.startdate,'%y/%c月') AS 01_qufen,\r\n\tc.projectname AS 02_chepai,\r\n\tIFNULL(b.cf_2970,'') AS 03_baoyangfee,\r\n\tIFNULL(b.cf_2971,'') AS 04_yanghufee,\r\n\tIFNULL(b.cf_2972,'') AS 05_jiyoufee,\r\n\tIFNULL(b.cf_2973,'') AS 06_huanjiyou,\r\n\tIFNULL(b.cf_2974,'') AS 07_huanjiyouge,\r\n\tIFNULL(b.cf_2975,'') AS 08_dahuangyou,\r\n\tIFNULL(b.cf_2976,'') AS 09_silunbaoyang,\r\n\tIFNULL(b.cf_2977,'') AS 10_huancaiyouge,\r\n\tIFNULL(b.cf_2978,'') AS 11_kongqi\r\nFROM ld_projecttask a\r\nLEFT JOIN ld_projecttaskcf b ON b.projecttaskid=a.projecttaskid\r\nLEFT JOIN ld_project c ON c.projectid=a.projectid\r\nWHERE a.deleted=0\r\n\tAND a.projectid>0\r\n\tAND a.projecttaskstatus='保养'\r\n\tAND a.startdate BETWEEN DATE_FORMAT('{start_date}','%Y-%m-%d') AND DATE_FORMAT('{end_date}','%Y-%m-%d')\r\n\tAND (\r\n\t\tCASE\r\n\t\t\tWHEN TRIM('{chepai}')='' THEN 1=1\r\n\t\t\tELSE LOCATE(TRIM('{chepai}'),c.projectname)>0\r\n\t\tEND) \r\nORDER BY c.projectname,a.startdate"
+      },
+      "3": {
+        "Ident": "StiMySqlSource",
+        "Name": "d",
+        "Alias": "d",
+        "Columns": {
+          "0": {
+            "Name": "chart_type",
+            "Index": -1,
+            "NameInSource": "chart_type",
+            "Alias": "chart_type",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "chart_value1",
+            "Index": -1,
+            "NameInSource": "chart_value1",
+            "Alias": "chart_value1",
+            "Type": "System.Decimal"
+          },
+          "2": {
+            "Name": "chart_value2",
+            "Index": -1,
+            "NameInSource": "chart_value2",
+            "Alias": "chart_value2",
+            "Type": "System.Decimal"
+          }
+        },
+        "NameInSource": "crm",
+        "SqlCommand": "SELECT\r\n\tc.projectname AS chart_type,\r\n\tSUM(IFNULL(b.cf_2971,0)) AS chart_value1,\r\n\tSUM(IFNULL(b.cf_2972,0)) AS chart_value2\r\nFROM ld_projecttask a\r\nLEFT JOIN ld_projecttaskcf b ON b.projecttaskid=a.projecttaskid\r\nLEFT JOIN ld_project c ON c.projectid=a.projectid\r\nWHERE a.deleted=0\r\n\tAND a.projectid>0\r\n\tAND a.projecttaskstatus='保养'\r\n\tAND a.startdate BETWEEN DATE_FORMAT('{start_date}','%Y-%m-%d') AND DATE_FORMAT('{end_date}','%Y-%m-%d')\r\n\tAND (\r\n\t\tCASE\r\n\t\t\tWHEN TRIM('{chepai}')='' THEN 1=1\r\n\t\t\tELSE LOCATE(TRIM('{chepai}'),c.projectname)>0\r\n\t\tEND) \r\nGROUP BY a.projectid\r\nORDER BY c.projectname"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "crm",
+        "Alias": "crm",
+        "ConnectionStringEncrypted": "48hp6+ddWe1rEymByFz1TtV2caNhCgHlQxuxpeoFtUaBcM+D11mphGJRPZhjXGIXw1bRq8YFGYxiZ6WY8RF119lW/WhGXNP1Rh7JmOl0o0aB1vurYUqrlEVapfHESXU="
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "维修保养报表",
+      "Guid": "c6220a5fbec68edd9bd3ae9cd861a47e",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:0,0,0",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiPageHeaderBand",
+          "Name": "PageHeaderBand1",
+          "ClientRectangle": "0,0.4,32,1.2",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text10",
+              "Guid": "4ba4cf1deddc70cdb5aa6af99d132558",
+              "ClientRectangle": "0,0,32,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "维修保养报表"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;18;;",
+              "Border": ";;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiPanel",
+              "Name": "Panel1",
+              "ClientRectangle": "0,1.2,15.8,13.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Border": ";221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "Components": {
+                "0": {
+                  "Ident": "StiColumnHeaderBand",
+                  "Name": "ColumnHeaderBand1",
+                  "ClientRectangle": "0,0.4,15.8,10.6",
+                  "Interaction": {
+                    "Ident": "StiInteraction"
+                  },
+                  "Border": ";;;;;;;solid:Black",
+                  "Brush": "solid:0,255,255,255",
+                  "Components": {
+                    "0": {
+                      "Ident": "StiText",
+                      "Name": "Text15",
+                      "Guid": "02fbf0fc080ec616aea3ae9f66933252",
+                      "ClientRectangle": "0,9.4,1.6,1.2",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "区分"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;Bold;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:240,244,252",
+                      "TextBrush": "solid:92,92,92",
+                      "Type": "Expression"
+                    },
+                    "1": {
+                      "Ident": "StiText",
+                      "Name": "Text25",
+                      "Guid": "f3d4cc1629ad358c61d7aea3759a74e5",
+                      "ClientRectangle": "1.6,9.4,1.8,1.2",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "车牌"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;Bold;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:240,244,252",
+                      "TextBrush": "solid:92,92,92",
+                      "Type": "Expression"
+                    },
+                    "2": {
+                      "Ident": "StiText",
+                      "Name": "Text1",
+                      "Guid": "c40fa8c6146a9a4e0e746433910ffebd",
+                      "ClientRectangle": "3.4,9.4,1.6,1.2",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "发生日期"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;Bold;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:240,244,252",
+                      "TextBrush": "solid:92,92,92",
+                      "TextOptions": {
+                        "WordWrap": true
+                      },
+                      "Type": "Expression"
+                    },
+                    "3": {
+                      "Ident": "StiText",
+                      "Name": "Text5",
+                      "Guid": "9741d40f9d271c33c2c215ff0f5a4ee2",
+                      "ClientRectangle": "5,9.4,2,1.2",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "维修日期"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;Bold;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:240,244,252",
+                      "TextBrush": "solid:92,92,92",
+                      "Type": "Expression"
+                    },
+                    "4": {
+                      "Ident": "StiText",
+                      "Name": "Text8",
+                      "Guid": "e87482c89c7e4abc2f664cdaa283d69b",
+                      "ClientRectangle": "7,9.4,5,1.2",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "维修明细"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;Bold;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:240,244,252",
+                      "TextBrush": "solid:92,92,92",
+                      "Type": "Expression"
+                    },
+                    "5": {
+                      "Ident": "StiText",
+                      "Name": "Text3",
+                      "Guid": "d239e10478bd848c3000a237bdc68815",
+                      "ClientRectangle": "12,9.4,2.2,1.2",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "维修费"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;Bold;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:240,244,252",
+                      "TextBrush": "solid:92,92,92",
+                      "Type": "Expression"
+                    },
+                    "6": {
+                      "Ident": "StiText",
+                      "Name": "Text6",
+                      "Guid": "2a8a17e98d607a500be063f25280bce5",
+                      "ClientRectangle": "14.2,9.4,1.6,1.2",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "停运时间"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;Bold;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:240,244,252",
+                      "TextBrush": "solid:92,92,92",
+                      "Type": "Expression"
+                    },
+                    "7": {
+                      "Ident": "StiChart",
+                      "Name": "Chart1",
+                      "ClientRectangle": "0,1,15.8,8",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:255,255,255",
+                      "HorSpacing": 5,
+                      "Series": {
+                        "0": {
+                          "Ident": "StiClusteredColumnSeries",
+                          "AllowApplyStyle": false,
+                          "ShowSeriesLabels": "FromSeries",
+                          "ShowShadow": false,
+                          "YAxis": "RightYAxis",
+                          "SeriesLabels": {
+                            "Ident": "StiOutsideAxisLabels",
+                            "AllowApplyStyle": false,
+                            "ShowZeros": true,
+                            "MarkerSize": {
+                              "Width": 8,
+                              "Height": 6
+                            },
+                            "ValueTypeSeparator": "-",
+                            "LabelColor": "255,0,0",
+                            "BorderColor": "Transparent",
+                            "Brush": "solid:Transparent",
+                            "Font": ";8;;",
+                            "LineLength": 8
+                          },
+                          "TrendLine": {
+                            "Ident": "StiTrendLineNone",
+                            "ShowShadow": true,
+                            "Position": "LeftBottom"
+                          },
+                          "ValueDataColumn": "b.chart_value1",
+                          "ArgumentDataColumn": "b.chatrt_type",
+                          "Title": {
+                            "Value": "发生次数"
+                          },
+                          "ShowZeros": true,
+                          "BorderColor": "Transparent",
+                          "Brush": "solid:52,152,219",
+                          "BrushNegative": "solid:Firebrick"
+                        },
+                        "1": {
+                          "Ident": "StiClusteredColumnSeries",
+                          "AllowApplyStyle": false,
+                          "ShowSeriesLabels": "FromSeries",
+                          "ShowShadow": false,
+                          "SeriesLabels": {
+                            "Ident": "StiOutsideAxisLabels",
+                            "AllowApplyStyle": false,
+                            "ShowZeros": true,
+                            "MarkerSize": {
+                              "Width": 8,
+                              "Height": 6
+                            },
+                            "ValueTypeSeparator": "-",
+                            "TextBefore": "￥",
+                            "BorderColor": "Transparent",
+                            "Brush": "solid:Transparent",
+                            "Font": ";8;Bold;",
+                            "LineLength": 8
+                          },
+                          "TrendLine": {
+                            "Ident": "StiTrendLineNone",
+                            "ShowShadow": true,
+                            "Position": "LeftBottom"
+                          },
+                          "ValueDataColumn": "b.chart_value2",
+                          "ArgumentDataColumn": "b.chatrt_type",
+                          "Title": {
+                            "Value": "维修费"
+                          },
+                          "ShowZeros": true,
+                          "BorderColor": "Transparent",
+                          "Brush": "solid:237,125,49",
+                          "BrushNegative": "solid:Firebrick"
+                        },
+                        "2": {
+                          "Ident": "StiClusteredColumnSeries",
+                          "AllowApplyStyle": false,
+                          "ShowSeriesLabels": "FromSeries",
+                          "ShowShadow": false,
+                          "YAxis": "RightYAxis",
+                          "SeriesLabels": {
+                            "Ident": "StiOutsideAxisLabels",
+                            "AllowApplyStyle": false,
+                            "ShowZeros": true,
+                            "MarkerSize": {
+                              "Width": 8,
+                              "Height": 6
+                            },
+                            "ValueTypeSeparator": "-",
+                            "LabelColor": "255,0,0",
+                            "BorderColor": "Transparent",
+                            "Brush": "solid:Transparent",
+                            "Font": ";8;;",
+                            "LineLength": 8
+                          },
+                          "TrendLine": {
+                            "Ident": "StiTrendLineNone",
+                            "ShowShadow": true,
+                            "Position": "LeftBottom"
+                          },
+                          "ValueDataColumn": "b.chart_value3",
+                          "ArgumentDataColumn": "b.chatrt_type",
+                          "Title": {
+                            "Value": "停运天数"
+                          },
+                          "ShowZeros": true,
+                          "BorderColor": "Transparent",
+                          "Brush": "solid:216,216,216",
+                          "BrushNegative": "solid:Firebrick"
+                        }
+                      },
+                      "Area": {
+                        "Ident": "StiClusteredColumnArea",
+                        "AllowApplyStyle": false,
+                        "BorderColor": "0,255,255,255",
+                        "Brush": "empty",
+                        "InterlacingHor": {
+                          "InterlacedBrush": "solid:10,155,155,155",
+                          "Visible": false,
+                          "Area": true
+                        },
+                        "InterlacingVert": {
+                          "InterlacedBrush": "solid:10,155,155,155",
+                          "Visible": false,
+                          "Area": true
+                        },
+                        "GridLinesHor": {
+                          "Color": "100,105,105,105",
+                          "MinorColor": "100,105,105,105",
+                          "Area": true
+                        },
+                        "GridLinesHorRight": {
+                          "Visible": false,
+                          "Area": true
+                        },
+                        "GridLinesVert": {
+                          "Color": "100,105,105,105",
+                          "MinorColor": "100,105,105,105",
+                          "Visible": false,
+                          "Area": true
+                        },
+                        "YAxis": {
+                          "Ident": "StiYLeftAxis",
+                          "AllowApplyStyle": false,
+                          "Labels": {
+                            "Color": "140,140,140"
+                          },
+                          "LineColor": "140,140,140",
+                          "LineWidth": 0.5,
+                          "Title": {
+                            "AllowApplyStyle": false,
+                            "Font": "Microsoft YaHei;10;Regular;",
+                            "Text": "费用",
+                            "Color": "12,12,12",
+                            "Alignment": "Far",
+                            "Direction": "BottomToTop"
+                          },
+                          "Ticks": {
+                            "Length": 2
+                          }
+                        },
+                        "YRightAxis": {
+                          "Ident": "StiYRightAxis",
+                          "AllowApplyStyle": false,
+                          "Labels": {
+                            "AllowApplyStyle": false,
+                            "Color": "140,140,140",
+                            "TextAlignment": "Left"
+                          },
+                          "LineColor": "140,140,140",
+                          "LineWidth": 0.5,
+                          "Title": {
+                            "AllowApplyStyle": false,
+                            "Font": "Microsoft YaHei;10;Regular;",
+                            "Text": "数量",
+                            "Alignment": "Far",
+                            "Direction": "TopToBottom"
+                          },
+                          "Ticks": {
+                            "Length": 2
+                          },
+                          "Visible": true
+                        },
+                        "XAxis": {
+                          "Ident": "StiXBottomAxis",
+                          "AllowApplyStyle": false,
+                          "Labels": {
+                            "Color": "140,140,140"
+                          },
+                          "LineColor": "140,140,140",
+                          "LineWidth": 0.5,
+                          "Title": {
+                            "Color": "140,140,140"
+                          },
+                          "Ticks": {
+                            "Visible": false
+                          }
+                        },
+                        "XTopAxis": {
+                          "Ident": "StiXTopAxis",
+                          "AllowApplyStyle": false,
+                          "Labels": {
+                            "Color": "140,140,140"
+                          },
+                          "LineColor": "140,140,140",
+                          "LineWidth": 0,
+                          "Title": {
+                            "Color": "140,140,140"
+                          }
+                        }
+                      },
+                      "Table": {
+                        "GridLineColor": "225,225,225",
+                        "Header": {
+                          "Brush": "solid:White"
+                        },
+                        "DataCells": {
+                          "TextColor": "140,140,140"
+                        }
+                      },
+                      "SeriesLabels": {
+                        "Ident": "StiOutsideAxisLabels",
+                        "MarkerSize": {
+                          "Width": 8,
+                          "Height": 6
+                        },
+                        "ValueTypeSeparator": "-",
+                        "LabelColor": "50,58,69",
+                        "BorderColor": "Transparent",
+                        "Brush": "solid:Transparent",
+                        "Font": ";10;;"
+                      },
+                      "Legend": {
+                        "AllowApplyStyle": false,
+                        "ShowShadow": false,
+                        "BorderColor": "0,255,255,255",
+                        "Brush": "empty",
+                        "TitleColor": "216,216,216",
+                        "LabelsColor": "0,0,0",
+                        "TitleFont": ";10;Regular;",
+                        "Font": "Microsoft YaHei;;Bold;",
+                        "MarkerBorder": false,
+                        "MarkerSize": {
+                          "Width": 8,
+                          "Height": 8
+                        },
+                        "Columns": 0,
+                        "VertSpacing": 0,
+                        "Size": "0,0"
+                      },
+                      "Title": {
+                        "AllowApplyStyle": false,
+                        "Brush": "solid:140,140,140"
+                      },
+                      "AllowApplyStyle": false,
+                      "Style": {
+                        "Ident": "StiStyle29"
+                      }
+                    },
+                    "8": {
+                      "Ident": "StiText",
+                      "Name": "Text38",
+                      "ClientRectangle": "0.1,0.4,0.4,0.4",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Border": ";221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:12,12,12",
+                      "TextBrush": "solid:Black"
+                    },
+                    "9": {
+                      "Ident": "StiText",
+                      "Name": "Text39",
+                      "Guid": "5ff039ee8babc98d5a8bcd7cb4085d6f",
+                      "ClientRectangle": "0.6,0.2,3,0.8",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "车辆维修"
+                      },
+                      "VertAlignment": "Center",
+                      "Font": "Microsoft YaHei;12;Bold;",
+                      "Border": ";221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:0,255,255,255",
+                      "TextBrush": "solid:0,0,0",
+                      "Type": "Expression"
+                    }
+                  }
+                },
+                "1": {
+                  "Ident": "StiDataBand",
+                  "Name": "DataBand5",
+                  "ClientRectangle": "0,11.8,15.8,1",
+                  "Interaction": {
+                    "Ident": "StiBandInteraction"
+                  },
+                  "Border": "Left, Right;128,128,128;;;;;;solid:0,0,0",
+                  "Brush": "solid:0,255,255,255",
+                  "Components": {
+                    "0": {
+                      "Ident": "StiText",
+                      "Name": "Text19",
+                      "Guid": "2102be78bb9016aade3eaea89da1fb3c",
+                      "CanGrow": true,
+                      "GrowToHeight": true,
+                      "ClientRectangle": "0,0,1.6,1",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "{a.n01_qufen}"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:Transparent",
+                      "TextBrush": "solid:Black",
+                      "TextOptions": {
+                        "WordWrap": true
+                      },
+                      "NullValue": "-",
+                      "Type": "DataColumn"
+                    },
+                    "1": {
+                      "Ident": "StiText",
+                      "Name": "Text37",
+                      "Guid": "86a8d234dcfeefd6012baeaa89194ade",
+                      "CanGrow": true,
+                      "GrowToHeight": true,
+                      "ClientRectangle": "1.6,0,1.8,1",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "{a.n02_chepai}"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:Transparent",
+                      "TextBrush": "solid:Black",
+                      "TextOptions": {
+                        "WordWrap": true
+                      },
+                      "NullValue": "-",
+                      "Type": "DataColumn"
+                    },
+                    "2": {
+                      "Ident": "StiText",
+                      "Name": "Text2",
+                      "Guid": "de3b03e77f31e6024b7f3e2202c6e406",
+                      "CanGrow": true,
+                      "GrowToHeight": true,
+                      "ClientRectangle": "3.4,0,1.6,1",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "{a.n03_fashengdate}"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:Transparent",
+                      "TextBrush": "solid:Black",
+                      "TextOptions": {
+                        "WordWrap": true
+                      },
+                      "NullValue": "-",
+                      "Type": "DataColumn"
+                    },
+                    "3": {
+                      "Ident": "StiText",
+                      "Name": "Text7",
+                      "Guid": "a5ce1b30ccf76065bc0a8ec99706352c",
+                      "CanGrow": true,
+                      "GrowToHeight": true,
+                      "ClientRectangle": "5,0,2,1",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "{a.n05_weixiudate}"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:Transparent",
+                      "TextBrush": "solid:Black",
+                      "TextOptions": {
+                        "WordWrap": true
+                      },
+                      "NullValue": "-",
+                      "Type": "DataColumn"
+                    },
+                    "4": {
+                      "Ident": "StiText",
+                      "Name": "Text9",
+                      "Guid": "5c0a47428e553136f87eba4f101652ad",
+                      "CanGrow": true,
+                      "GrowToHeight": true,
+                      "ClientRectangle": "7,0,5,1",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "{a.n06_weixiudetail}"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:Transparent",
+                      "TextBrush": "solid:Black",
+                      "TextOptions": {
+                        "WordWrap": true
+                      },
+                      "NullValue": "-",
+                      "Type": "DataColumn"
+                    },
+                    "5": {
+                      "Ident": "StiText",
+                      "Name": "Text4",
+                      "Guid": "a564d521798cf277157b0a60adcd2d97",
+                      "CanGrow": true,
+                      "GrowToHeight": true,
+                      "ClientRectangle": "12,0,2.2,1",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "{a.n07_weixiufee}"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:Transparent",
+                      "TextBrush": "solid:Black",
+                      "TextOptions": {
+                        "WordWrap": true
+                      },
+                      "NullValue": "-",
+                      "TextFormat": {
+                        "Ident": "StiNumberFormatService",
+                        "NegativePattern": 1,
+                        "DecimalDigits": 0,
+                        "GroupSeparator": ",",
+                        "State": "DecimalDigits"
+                      },
+                      "Type": "DataColumn"
+                    },
+                    "6": {
+                      "Ident": "StiText",
+                      "Name": "Text11",
+                      "Guid": "b496a7cd9915c313ad3fa1d259d4f81d",
+                      "CanGrow": true,
+                      "GrowToHeight": true,
+                      "ClientRectangle": "14.2,0,1.6,1",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "{a.n08_stopday}"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:Transparent",
+                      "TextBrush": "solid:Black",
+                      "TextOptions": {
+                        "WordWrap": true
+                      },
+                      "NullValue": "-",
+                      "Type": "DataColumn"
+                    }
+                  },
+                  "DataSourceName": "a",
+                  "EvenStyle": "column_even",
+                  "OddStyle": "column_odd"
+                }
+              }
+            },
+            "2": {
+              "Ident": "StiPanel",
+              "Name": "Panel2",
+              "Guid": "e7fc859c3b1e96a71e2519d81c441c9f",
+              "ClientRectangle": "16.2,1.2,15.8,13.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Border": ";221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "Components": {
+                "0": {
+                  "Ident": "StiColumnHeaderBand",
+                  "Name": "ColumnHeaderBand2",
+                  "Guid": "d6a407779ffa2717cd8d9fb19563ee5d",
+                  "ClientRectangle": "0,0.4,15.8,10.6",
+                  "Interaction": {
+                    "Ident": "StiInteraction"
+                  },
+                  "Border": ";;;;;;;solid:Black",
+                  "Brush": "solid:0,255,255,255",
+                  "Components": {
+                    "0": {
+                      "Ident": "StiText",
+                      "Name": "Text12",
+                      "Guid": "d61a2b3f5cc6d25f82985462cb30cc0d",
+                      "ClientRectangle": "0,9.4,1.6,1.2",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "区分"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;Bold;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:240,244,252",
+                      "TextBrush": "solid:92,92,92",
+                      "Type": "Expression"
+                    },
+                    "1": {
+                      "Ident": "StiText",
+                      "Name": "Text13",
+                      "Guid": "8dba82c152a9d961fcb70cb0c3dd66ca",
+                      "ClientRectangle": "1.6,9.4,1.8,1.2",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "车牌"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;Bold;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:240,244,252",
+                      "TextBrush": "solid:92,92,92",
+                      "Type": "Expression"
+                    },
+                    "2": {
+                      "Ident": "StiText",
+                      "Name": "Text18",
+                      "Guid": "056e2a8792245dac96df23d8d657b4d5",
+                      "ClientRectangle": "3.4,9.4,1.6,1.2",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "保养费\r\n（M+N）"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;Bold;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:240,244,252",
+                      "TextBrush": "solid:92,92,92",
+                      "Type": "Expression"
+                    },
+                    "3": {
+                      "Ident": "StiText",
+                      "Name": "Text14",
+                      "Guid": "d16a1dce5196cd01f0557bf20d9d3c14",
+                      "ClientRectangle": "5,9.4,1.2,1.2",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "养护费"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;Bold;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:240,244,252",
+                      "TextBrush": "solid:92,92,92",
+                      "Type": "Expression"
+                    },
+                    "4": {
+                      "Ident": "StiText",
+                      "Name": "Text17",
+                      "Guid": "ec37f9a913dda3f87e9e3e2c24d328e9",
+                      "ClientRectangle": "6.2,9.4,1.2,1.2",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "机油费"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;Bold;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:240,244,252",
+                      "TextBrush": "solid:92,92,92",
+                      "Type": "Expression"
+                    },
+                    "5": {
+                      "Ident": "StiText",
+                      "Name": "Text20",
+                      "Guid": "29615da405b7ff9be423261e2eddfc1c",
+                      "ClientRectangle": "7.4,9.4,1.4,1.2",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "换机油"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;Bold;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:240,244,252",
+                      "TextBrush": "solid:92,92,92",
+                      "Type": "Expression"
+                    },
+                    "6": {
+                      "Ident": "StiText",
+                      "Name": "Text26",
+                      "Guid": "742c0615c19eac5a6101cdfa4d7a6f4f",
+                      "ClientRectangle": "8.8,9.4,1.4,1.2",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "换机油格"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;Bold;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:240,244,252",
+                      "TextBrush": "solid:92,92,92",
+                      "Type": "Expression"
+                    },
+                    "7": {
+                      "Ident": "StiText",
+                      "Name": "Text29",
+                      "Guid": "c660aa0e0eee8b04c93af16457f2a0e7",
+                      "ClientRectangle": "10.2,9.4,1.4,1.2",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "打黄油"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;Bold;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:240,244,252",
+                      "TextBrush": "solid:92,92,92",
+                      "Type": "Expression"
+                    },
+                    "8": {
+                      "Ident": "StiText",
+                      "Name": "Text31",
+                      "Guid": "ffa76bb3e0241b967171fcd0874803e9",
+                      "ClientRectangle": "11.6,9.4,1.4,1.2",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "四轮保养"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;Bold;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:240,244,252",
+                      "TextBrush": "solid:92,92,92",
+                      "Type": "Expression"
+                    },
+                    "9": {
+                      "Ident": "StiText",
+                      "Name": "Text33",
+                      "Guid": "f94790bb4f28f9235b46c1f34e67b9f5",
+                      "ClientRectangle": "13,9.4,1.4,1.2",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "换柴油格"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;Bold;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:240,244,252",
+                      "TextBrush": "solid:92,92,92",
+                      "Type": "Expression"
+                    },
+                    "10": {
+                      "Ident": "StiText",
+                      "Name": "Text35",
+                      "Guid": "68fe651a91cfc4712db4ec759b171411",
+                      "ClientRectangle": "14.4,9.4,1.4,1.2",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "空气滤芯"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;Bold;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:240,244,252",
+                      "TextBrush": "solid:92,92,92",
+                      "Type": "Expression"
+                    },
+                    "11": {
+                      "Ident": "StiChart",
+                      "Name": "Chart2",
+                      "Guid": "58093ee17c4ab9d8169046c979fc3806",
+                      "ClientRectangle": "0,1,15.8,8",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:255,255,255",
+                      "HorSpacing": 5,
+                      "Series": {
+                        "0": {
+                          "Ident": "StiStackedColumnSeries",
+                          "AllowApplyStyle": false,
+                          "ShowSeriesLabels": "FromSeries",
+                          "SeriesLabels": {
+                            "Ident": "StiCenterAxisLabels",
+                            "AllowApplyStyle": false,
+                            "MarkerSize": {
+                              "Width": 8,
+                              "Height": 6
+                            },
+                            "ValueTypeSeparator": "-",
+                            "TextBefore": "￥",
+                            "DrawBorder": false,
+                            "LabelColor": "50,58,69",
+                            "BorderColor": "0,255,255,255",
+                            "Brush": "solid:Transparent",
+                            "Font": ";8;;"
+                          },
+                          "ValueDataColumn": "d.chart_value2",
+                          "ArgumentDataColumn": "d.chart_type",
+                          "Title": {
+                            "Value": "机油费"
+                          },
+                          "BorderColor": "0,255,255,255",
+                          "Brush": "solid:237,125,49",
+                          "BrushNegative": "solid:Firebrick"
+                        },
+                        "1": {
+                          "Ident": "StiStackedColumnSeries",
+                          "AllowApplyStyle": false,
+                          "ShowSeriesLabels": "FromSeries",
+                          "SeriesLabels": {
+                            "Ident": "StiCenterAxisLabels",
+                            "AllowApplyStyle": false,
+                            "MarkerSize": {
+                              "Width": 8,
+                              "Height": 6
+                            },
+                            "ValueTypeSeparator": "-",
+                            "TextBefore": "￥",
+                            "DrawBorder": false,
+                            "LabelColor": "50,58,69",
+                            "BorderColor": "0,255,255,255",
+                            "Brush": "solid:Transparent",
+                            "Font": ";8;;"
+                          },
+                          "ValueDataColumn": "d.chart_value1",
+                          "ArgumentDataColumn": "d.chart_type",
+                          "Title": {
+                            "Value": "养护费"
+                          },
+                          "BorderColor": "0,255,255,255",
+                          "Brush": "solid:52,152,219",
+                          "BrushNegative": "solid:Firebrick"
+                        }
+                      },
+                      "Area": {
+                        "Ident": "StiStackedColumnArea",
+                        "AllowApplyStyle": false,
+                        "BorderColor": "0,255,255,255",
+                        "Brush": "empty",
+                        "InterlacingHor": {
+                          "InterlacedBrush": "solid:Transparent",
+                          "Area": true
+                        },
+                        "InterlacingVert": {
+                          "InterlacedBrush": "solid:Transparent",
+                          "Area": true
+                        },
+                        "GridLinesHor": {
+                          "Area": true
+                        },
+                        "GridLinesHorRight": {
+                          "Visible": false,
+                          "Area": true
+                        },
+                        "GridLinesVert": {
+                          "Area": true
+                        },
+                        "YAxis": {
+                          "Ident": "StiYLeftAxis",
+                          "AllowApplyStyle": false,
+                          "Title": {
+                            "AllowApplyStyle": false,
+                            "Font": "Microsoft YaHei;10;Regular;",
+                            "Text": "费用",
+                            "Alignment": "Far",
+                            "Direction": "BottomToTop"
+                          },
+                          "Ticks": {
+                            "Length": 3
+                          }
+                        },
+                        "YRightAxis": {
+                          "Ident": "StiYRightAxis",
+                          "Labels": {
+                            "TextAlignment": "Left"
+                          },
+                          "Title": {
+                            "Direction": "TopToBottom"
+                          }
+                        },
+                        "XAxis": {
+                          "Ident": "StiXBottomAxis",
+                          "Ticks": {
+                            "Visible": false
+                          }
+                        },
+                        "XTopAxis": {
+                          "Ident": "StiXTopAxis"
+                        }
+                      },
+                      "Table": {
+                        "GridLineColor": "225,225,225",
+                        "Header": {
+                          "Brush": "solid:White"
+                        },
+                        "DataCells": {
+                          "TextColor": "140,140,140"
+                        }
+                      },
+                      "SeriesLabels": {
+                        "Ident": "StiCenterAxisLabels",
+                        "AllowApplyStyle": false,
+                        "MarkerSize": {
+                          "Width": 8,
+                          "Height": 6
+                        },
+                        "ValueTypeSeparator": "-",
+                        "LabelColor": "50,58,69",
+                        "BorderColor": "Transparent",
+                        "Brush": "solid:Transparent",
+                        "Font": ";10;;"
+                      },
+                      "Legend": {
+                        "AllowApplyStyle": false,
+                        "ShowShadow": false,
+                        "BorderColor": "0,255,255,255",
+                        "Brush": "empty",
+                        "TitleColor": "216,216,216",
+                        "LabelsColor": "0,0,0",
+                        "TitleFont": ";10;Regular;",
+                        "Font": "Microsoft YaHei;;Bold;",
+                        "MarkerBorder": false,
+                        "MarkerSize": {
+                          "Width": 8,
+                          "Height": 8
+                        },
+                        "Columns": 0,
+                        "VertSpacing": 0,
+                        "Size": "0,0"
+                      },
+                      "Title": {
+                        "AllowApplyStyle": false,
+                        "Brush": "solid:140,140,140"
+                      },
+                      "AllowApplyStyle": false,
+                      "Style": {
+                        "Ident": "StiStyle29"
+                      }
+                    },
+                    "12": {
+                      "Ident": "StiText",
+                      "Name": "Text40",
+                      "Guid": "1c8d417769c6f478d6cdd3ff8918ea96",
+                      "ClientRectangle": "0.1,0.4,0.4,0.4",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Border": ";221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:12,12,12",
+                      "TextBrush": "solid:Black"
+                    },
+                    "13": {
+                      "Ident": "StiText",
+                      "Name": "Text41",
+                      "Guid": "5995034c88a02957d2bfdaba842f846a",
+                      "ClientRectangle": "0.6,0.2,3,0.8",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "车辆保养"
+                      },
+                      "VertAlignment": "Center",
+                      "Font": "Microsoft YaHei;12;Bold;",
+                      "Border": ";221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:0,255,255,255",
+                      "TextBrush": "solid:0,0,0",
+                      "Type": "Expression"
+                    }
+                  }
+                },
+                "1": {
+                  "Ident": "StiDataBand",
+                  "Name": "DataBand1",
+                  "Guid": "7a489f0640e3a596046429570483b7d5",
+                  "ClientRectangle": "0,11.8,15.8,1",
+                  "Interaction": {
+                    "Ident": "StiBandInteraction"
+                  },
+                  "Border": "Left, Right;128,128,128;;;;;;solid:0,0,0",
+                  "Brush": "solid:0,255,255,255",
+                  "Components": {
+                    "0": {
+                      "Ident": "StiText",
+                      "Name": "Text21",
+                      "Guid": "d1f629d7a8f2693f222646f39544ecd9",
+                      "CanGrow": true,
+                      "GrowToHeight": true,
+                      "ClientRectangle": "0,0,1.6,1",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "{c.n01_qufen}"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:Transparent",
+                      "TextBrush": "solid:Black",
+                      "TextOptions": {
+                        "WordWrap": true
+                      },
+                      "NullValue": "-",
+                      "Type": "DataColumn"
+                    },
+                    "1": {
+                      "Ident": "StiText",
+                      "Name": "Text22",
+                      "Guid": "7254aaabc727f8b8df04b17ebebc3c44",
+                      "CanGrow": true,
+                      "GrowToHeight": true,
+                      "ClientRectangle": "1.6,0,1.8,1",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "{c.n02_chepai}"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:Transparent",
+                      "TextBrush": "solid:Black",
+                      "TextOptions": {
+                        "WordWrap": true
+                      },
+                      "NullValue": "-",
+                      "Type": "DataColumn"
+                    },
+                    "2": {
+                      "Ident": "StiText",
+                      "Name": "Text27",
+                      "Guid": "bd89235329c4b062c61d520cf74bb9e9",
+                      "CanGrow": true,
+                      "GrowToHeight": true,
+                      "ClientRectangle": "3.4,0,1.6,1",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "{c.n03_baoyangfee}"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:Transparent",
+                      "TextBrush": "solid:Black",
+                      "TextOptions": {
+                        "WordWrap": true
+                      },
+                      "NullValue": "-",
+                      "TextFormat": {
+                        "Ident": "StiNumberFormatService",
+                        "NegativePattern": 1,
+                        "DecimalDigits": 0,
+                        "GroupSeparator": ",",
+                        "State": "DecimalDigits"
+                      },
+                      "Type": "DataColumn"
+                    },
+                    "3": {
+                      "Ident": "StiText",
+                      "Name": "Text16",
+                      "Guid": "3533a490ed4f90727b8b1602377d019d",
+                      "CanGrow": true,
+                      "GrowToHeight": true,
+                      "ClientRectangle": "5,0,1.2,1",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "{c.n04_yanghufee}"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:Transparent",
+                      "TextBrush": "solid:Black",
+                      "TextOptions": {
+                        "WordWrap": true
+                      },
+                      "NullValue": "-",
+                      "TextFormat": {
+                        "Ident": "StiNumberFormatService",
+                        "NegativePattern": 1,
+                        "DecimalDigits": 0,
+                        "GroupSeparator": ",",
+                        "State": "DecimalDigits"
+                      },
+                      "Type": "DataColumn"
+                    },
+                    "4": {
+                      "Ident": "StiText",
+                      "Name": "Text23",
+                      "Guid": "a944ef5addf7d83a8f8b1930532fccd8",
+                      "CanGrow": true,
+                      "GrowToHeight": true,
+                      "ClientRectangle": "6.2,0,1.2,1",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "{c.n05_jiyoufee}"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:Transparent",
+                      "TextBrush": "solid:Black",
+                      "TextOptions": {
+                        "WordWrap": true
+                      },
+                      "NullValue": "-",
+                      "TextFormat": {
+                        "Ident": "StiNumberFormatService",
+                        "NegativePattern": 1,
+                        "DecimalDigits": 0,
+                        "GroupSeparator": ",",
+                        "State": "DecimalDigits"
+                      },
+                      "Type": "DataColumn"
+                    },
+                    "5": {
+                      "Ident": "StiText",
+                      "Name": "Text24",
+                      "Guid": "75c7744cf78e377154c0bd23f61bb68b",
+                      "CanGrow": true,
+                      "GrowToHeight": true,
+                      "ClientRectangle": "7.4,0,1.4,1",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "{c.n06_huanjiyou}"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:Transparent",
+                      "TextBrush": "solid:Black",
+                      "TextOptions": {
+                        "WordWrap": true
+                      },
+                      "NullValue": "-",
+                      "Type": "DataColumn"
+                    },
+                    "6": {
+                      "Ident": "StiText",
+                      "Name": "Text28",
+                      "Guid": "293cfb3e6162c96f0c1784562a020e05",
+                      "CanGrow": true,
+                      "GrowToHeight": true,
+                      "ClientRectangle": "8.8,0,1.4,1",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "{c.n07_huanjiyouge}"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:Transparent",
+                      "TextBrush": "solid:Black",
+                      "TextOptions": {
+                        "WordWrap": true
+                      },
+                      "NullValue": "-",
+                      "Type": "DataColumn"
+                    },
+                    "7": {
+                      "Ident": "StiText",
+                      "Name": "Text30",
+                      "Guid": "2a1adc9a870abaa3f0686a0331bf56d4",
+                      "CanGrow": true,
+                      "GrowToHeight": true,
+                      "ClientRectangle": "10.2,0,1.4,1",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "{c.n08_dahuangyou}"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:Transparent",
+                      "TextBrush": "solid:Black",
+                      "TextOptions": {
+                        "WordWrap": true
+                      },
+                      "NullValue": "-",
+                      "Type": "DataColumn"
+                    },
+                    "8": {
+                      "Ident": "StiText",
+                      "Name": "Text32",
+                      "Guid": "84b8321514c30d08650096116f8f319b",
+                      "CanGrow": true,
+                      "GrowToHeight": true,
+                      "ClientRectangle": "11.6,0,1.4,1",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "{c.n09_silunbaoyang}"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:Transparent",
+                      "TextBrush": "solid:Black",
+                      "TextOptions": {
+                        "WordWrap": true
+                      },
+                      "NullValue": "-",
+                      "Type": "DataColumn"
+                    },
+                    "9": {
+                      "Ident": "StiText",
+                      "Name": "Text34",
+                      "Guid": "285b4e27d846aa119b01eb34ef512bb2",
+                      "CanGrow": true,
+                      "GrowToHeight": true,
+                      "ClientRectangle": "13,0,1.4,1",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "{c.n10_huancaiyouge}"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:Transparent",
+                      "TextBrush": "solid:Black",
+                      "TextOptions": {
+                        "WordWrap": true
+                      },
+                      "NullValue": "-",
+                      "Type": "DataColumn"
+                    },
+                    "10": {
+                      "Ident": "StiText",
+                      "Name": "Text36",
+                      "Guid": "8e7c5861bc292f7389b2f7fe7194bd60",
+                      "CanGrow": true,
+                      "GrowToHeight": true,
+                      "ClientRectangle": "14.4,0,1.4,1",
+                      "Interaction": {
+                        "Ident": "StiInteraction"
+                      },
+                      "Text": {
+                        "Value": "{c.n11_kongqi}"
+                      },
+                      "HorAlignment": "Center",
+                      "VertAlignment": "Center",
+                      "Font": "微软雅黑;9;;",
+                      "Border": "All;221,221,221;;;;;;solid:0,0,0",
+                      "Brush": "solid:Transparent",
+                      "TextBrush": "solid:Black",
+                      "TextOptions": {
+                        "WordWrap": true
+                      },
+                      "NullValue": "-",
+                      "Type": "DataColumn"
+                    }
+                  },
+                  "DataSourceName": "c",
+                  "EvenStyle": "column_even",
+                  "OddStyle": "column_odd"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Columns": 1,
+      "PageWidth": 34,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    }
+  }
+}

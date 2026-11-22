@@ -1,0 +1,1661 @@
+{
+  "ReportVersion": "2019.4.1",
+  "ReportGuid": "e1a4f80bc4189e7b93b94bcd325be798",
+  "ReportName": "客户全景统计表",
+  "ReportAlias": "客户全景统计表",
+  "ReportFile": "default_account_panorama.mrt",
+  "ReportCreated": "/Date(432000000+0800)/",
+  "ReportChanged": "/Date(432000000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Styles": {
+    "0": {
+      "Ident": "StiStyle",
+      "Name": "column_odd",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:255,255,255",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    },
+    "1": {
+      "Ident": "StiStyle",
+      "Name": "column_even",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:252,252,252",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    }
+  },
+  "Dictionary": {
+    "Variables": {
+      "0": {
+        "Name": "AcountName",
+        "Alias": "客户名称",
+        "Type": "System.String",
+        "RequestFromUser": true
+      },
+      "1": {
+        "Name": "salesorderTotalbegin",
+        "Alias": "合同总额从",
+        "Type": "System.Double",
+        "RequestFromUser": true
+      },
+      "2": {
+        "Value": "false",
+        "Name": "approve",
+        "Alias": "只统计已审核单据",
+        "Type": "System.Boolean",
+        "RequestFromUser": true
+      },
+      "3": {
+        "Value": "今天",
+        "Name": "createdtime",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime",
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "Period.Period"
+        },
+        "Alias": "日期选择",
+        "Type": "System.String",
+        "RequestFromUser": true
+      },
+      "4": {
+        "Name": "salesorderTotalend",
+        "Alias": "合同总额至",
+        "Type": "System.Double",
+        "RequestFromUser": true
+      },
+      "5": {
+        "Name": "userid",
+        "DialogInfo": {
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "users.id",
+          "ValuesColumn": "users.last_name",
+          "AllowUserValues": false
+        },
+        "Alias": "人员范围",
+        "Type": "Stimulsoft.Report.IntList",
+        "RequestFromUser": true
+      }
+    },
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "counttotal",
+        "Alias": "counttotal",
+        "Columns": {
+          "0": {
+            "Name": "accountid",
+            "Index": -1,
+            "NameInSource": "accountid",
+            "Alias": "accountid",
+            "Type": "System.Int32"
+          },
+          "1": {
+            "Name": "last_name",
+            "Index": -1,
+            "NameInSource": "last_name",
+            "Alias": "last_name",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "smownerid",
+            "Index": -1,
+            "NameInSource": "smownerid",
+            "Alias": "smownerid",
+            "Type": "System.Int32"
+          },
+          "3": {
+            "Name": "accountname",
+            "Index": -1,
+            "NameInSource": "accountname",
+            "Alias": "accountname",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "contactcount",
+            "Index": -1,
+            "NameInSource": "contactcount",
+            "Alias": "contactcount",
+            "Type": "System.Decimal"
+          },
+          "5": {
+            "Name": "potentialcount",
+            "Index": -1,
+            "NameInSource": "potentialcount",
+            "Alias": "potentialcount",
+            "Type": "System.Decimal"
+          },
+          "6": {
+            "Name": "Calendarcount",
+            "Index": -1,
+            "NameInSource": "Calendarcount",
+            "Alias": "Calendarcount",
+            "Type": "System.Decimal"
+          },
+          "7": {
+            "Name": "ContactRecordscount",
+            "Index": -1,
+            "NameInSource": "ContactRecordscount",
+            "Alias": "ContactRecordscount",
+            "Type": "System.Decimal"
+          },
+          "8": {
+            "Name": "HelpDeskcount",
+            "Index": -1,
+            "NameInSource": "HelpDeskcount",
+            "Alias": "HelpDeskcount",
+            "Type": "System.Decimal"
+          },
+          "9": {
+            "Name": "CashBillcount",
+            "Index": -1,
+            "NameInSource": "CashBillcount",
+            "Alias": "CashBillcount",
+            "Type": "System.Decimal"
+          },
+          "10": {
+            "Name": "Salesordercount",
+            "Index": -1,
+            "NameInSource": "Salesordercount",
+            "Alias": "Salesordercount",
+            "Type": "System.Decimal"
+          },
+          "11": {
+            "Name": "ServiceContractscount",
+            "Index": -1,
+            "NameInSource": "ServiceContractscount",
+            "Alias": "ServiceContractscount",
+            "Type": "System.Decimal"
+          },
+          "12": {
+            "Name": "cashbilltotalsum",
+            "Index": -1,
+            "NameInSource": "cashbilltotalsum",
+            "Alias": "cashbilltotalsum",
+            "Type": "System.Decimal"
+          },
+          "13": {
+            "Name": "salesordertotalsum",
+            "Index": -1,
+            "NameInSource": "salesordertotalsum",
+            "Alias": "salesordertotalsum",
+            "Type": "System.Decimal"
+          },
+          "14": {
+            "Name": "servicecontractstotalsum",
+            "Index": -1,
+            "NameInSource": "servicecontractstotalsum",
+            "Alias": "servicecontractstotalsum",
+            "Type": "System.Decimal"
+          },
+          "15": {
+            "Name": "expensetotalsum",
+            "Index": -1,
+            "NameInSource": "expensetotalsum",
+            "Alias": "expensetotalsum",
+            "Type": "System.Decimal"
+          }
+        },
+        "NameInSource": "Connection1",
+        "SqlCommand": "SELECT ld_account.accountid,ld_users.last_name,ld_account.smownerid,accountname,sum(IFNULL(contactcount,0)) as contactcount,sum(IFNULL(potentialcount,0)) as potentialcount,\r\nsum(IFNULL(Calendarcount,0)) as Calendarcount,sum(IFNULL(ContactRecordscount,0)) as ContactRecordscount,sum(IFNULL(HelpDeskcount,0)) as HelpDeskcount,\r\nsum(IFNULL(CashBillcount,0)) as CashBillcount,sum(IFNULL(Salesordercount,0)) as Salesordercount,sum(IFNULL(ServiceContractscount,0)) as ServiceContractscount,\r\nsum(IFNULL(cashbilltotalsum,0)) as cashbilltotalsum,sum(IFNULL(salesordertotalsum,0)) as salesordertotalsum,\r\nsum(IFNULL(round(servicecontractstotalsum,2),0)) as servicecontractstotalsum,sum(IFNULL(round(expensetotalsum,2),0)) as expensetotalsum\r\nFROM ld_account LEFT JOIN (\r\n\tSELECT count(1) AS contactcount,smownerid,accountid FROM ld_contactdetails WHERE deleted = 0\r\nand CONCAT('全部',\r\n'/',CASE WHEN YEAR(ld_contactdetails.createdtime)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_contactdetails.createdtime)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_contactdetails.createdtime)=YEAR(CURDATE()) AND MONTH(ld_contactdetails.createdtime)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_contactdetails.createdtime)=YEAR(CURDATE()) AND MONTH(ld_contactdetails.createdtime)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_contactdetails.createdtime)=YEAR(CURDATE()) AND WEEK(ld_contactdetails.createdtime)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_contactdetails.createdtime)=YEAR(CURDATE()) AND WEEK(ld_contactdetails.createdtime)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_contactdetails.createdtime,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_contactdetails.createdtime,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{createdtime}%'\r\n\tGROUP BY accountid\r\n) AS contacttable ON contacttable.accountid = ld_account.accountid\r\nLEFT JOIN (\r\n\tSELECT count(1) AS potentialcount,smownerid,accountid FROM ld_potential WHERE deleted = 0\r\nand CONCAT('全部',\r\n'/',CASE WHEN YEAR(ld_potential.createdtime)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_potential.createdtime)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_potential.createdtime)=YEAR(CURDATE()) AND MONTH(ld_potential.createdtime)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_potential.createdtime)=YEAR(CURDATE()) AND MONTH(ld_potential.createdtime)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_potential.createdtime)=YEAR(CURDATE()) AND WEEK(ld_potential.createdtime)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_potential.createdtime)=YEAR(CURDATE()) AND WEEK(ld_potential.createdtime)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_potential.createdtime,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_potential.createdtime,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{createdtime}%'\r\n\tGROUP BY accountid\r\n)AS potentialtable ON potentialtable.accountid = ld_account.accountid\r\nLEFT JOIN (\r\n\tSELECT count(1) AS Calendarcount,smownerid,accountid FROM ld_activity WHERE deleted = 0 and activitytype<>'Emails'\r\nand CONCAT('全部',\r\n'/',CASE WHEN YEAR(ld_activity.date_start)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_activity.date_start)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_activity.date_start)=YEAR(CURDATE()) AND MONTH(ld_activity.date_start)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_activity.date_start)=YEAR(CURDATE()) AND MONTH(ld_activity.date_start)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_activity.date_start)=YEAR(CURDATE()) AND WEEK(ld_activity.date_start)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_activity.date_start)=YEAR(CURDATE()) AND WEEK(ld_activity.date_start)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_activity.date_start,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_activity.date_start,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{createdtime}%'\r\n\tGROUP BY accountid\r\n)AS Calendartable ON Calendartable.accountid = ld_account.accountid\r\nLEFT JOIN (\r\n\tSELECT count(1) AS ContactRecordscount,smownerid,accountid FROM ld_contactrecords WHERE deleted = 0\r\nand CONCAT('全部',\r\n'/',CASE WHEN YEAR(ld_contactrecords.contactdate)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_contactrecords.contactdate)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_contactrecords.contactdate)=YEAR(CURDATE()) AND MONTH(ld_contactrecords.contactdate)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_contactrecords.contactdate)=YEAR(CURDATE()) AND MONTH(ld_contactrecords.contactdate)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_contactrecords.contactdate)=YEAR(CURDATE()) AND WEEK(ld_contactrecords.contactdate)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_contactrecords.contactdate)=YEAR(CURDATE()) AND WEEK(ld_contactrecords.contactdate)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_contactrecords.contactdate,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_contactrecords.contactdate,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{createdtime}%'\r\n\tGROUP BY accountid\r\n)AS ContactRecordstable ON ContactRecordstable.accountid = ld_account.accountid\r\nLEFT JOIN (\r\n\tSELECT count(1) AS HelpDeskcount,smownerid,accountid FROM ld_troubletickets WHERE deleted = 0\r\nand CONCAT('全部',\r\n'/',CASE WHEN YEAR(ld_troubletickets.realtime)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_troubletickets.realtime)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_troubletickets.realtime)=YEAR(CURDATE()) AND MONTH(ld_troubletickets.realtime)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_troubletickets.realtime)=YEAR(CURDATE()) AND MONTH(ld_troubletickets.realtime)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_troubletickets.realtime)=YEAR(CURDATE()) AND WEEK(ld_troubletickets.realtime)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_troubletickets.realtime)=YEAR(CURDATE()) AND WEEK(ld_troubletickets.realtime)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_troubletickets.realtime,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_troubletickets.realtime,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{createdtime}%'\r\n\tGROUP BY accountid\r\n)AS HelpDesktable ON HelpDesktable.accountid = ld_account.accountid\r\nLEFT JOIN (\r\n\tSELECT count(1) AS CashBillcount,smownerid,accountid FROM ld_cashbill WHERE deleted = 0\r\n\tand IF(ld_cashbill.checkoutstatus='已审核','0','1') <> (IF('{approve}'='true','1','0.001'))\r\n\tand CONCAT('全部',\r\n'/',CASE WHEN YEAR(ld_cashbill.cashbilldate)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_cashbill.cashbilldate)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_cashbill.cashbilldate)=YEAR(CURDATE()) AND MONTH(ld_cashbill.cashbilldate)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_cashbill.cashbilldate)=YEAR(CURDATE()) AND MONTH(ld_cashbill.cashbilldate)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_cashbill.cashbilldate)=YEAR(CURDATE()) AND WEEK(ld_cashbill.cashbilldate)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_cashbill.cashbilldate)=YEAR(CURDATE()) AND WEEK(ld_cashbill.cashbilldate)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_cashbill.cashbilldate,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_cashbill.cashbilldate,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{createdtime}%'\r\n\tGROUP BY accountid\r\n)AS CashBilltable ON CashBilltable.accountid = ld_account.accountid\r\nLEFT JOIN (\r\n\tSELECT count(1) AS Salesordercount,smownerid,accountid FROM ld_salesorder WHERE deleted = 0\r\nand IF(ld_salesorder.approvestatus='已批准','0','1') <> (IF('{approve}'='true','1','0.001'))\r\nand CONCAT('全部',\r\n'/',CASE WHEN YEAR(ld_salesorder.signed_data)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_salesorder.signed_data)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_salesorder.signed_data)=YEAR(CURDATE()) AND MONTH(ld_salesorder.signed_data)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_salesorder.signed_data)=YEAR(CURDATE()) AND MONTH(ld_salesorder.signed_data)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_salesorder.signed_data)=YEAR(CURDATE()) AND WEEK(ld_salesorder.signed_data)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_salesorder.signed_data)=YEAR(CURDATE()) AND WEEK(ld_salesorder.signed_data)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_salesorder.signed_data,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_salesorder.signed_data,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{createdtime}%'\r\n\tGROUP BY accountid\r\n)AS Salesordertable ON Salesordertable.accountid = ld_account.accountid\r\nLEFT JOIN (\r\n\tSELECT count(1) AS ServiceContractscount,smownerid,accountid FROM ld_servicecontracts WHERE deleted = 0\r\nand IF(ld_servicecontracts.approvestatus='已批准','0','1') <> (IF('{approve}'='true','1','0.001'))\r\nand CONCAT('全部',\r\n'/',CASE WHEN YEAR(ld_servicecontracts.due_date)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_servicecontracts.due_date)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_servicecontracts.due_date)=YEAR(CURDATE()) AND MONTH(ld_servicecontracts.due_date)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_servicecontracts.due_date)=YEAR(CURDATE()) AND MONTH(ld_servicecontracts.due_date)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_servicecontracts.due_date)=YEAR(CURDATE()) AND WEEK(ld_servicecontracts.due_date)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_servicecontracts.due_date)=YEAR(CURDATE()) AND WEEK(ld_servicecontracts.due_date)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_servicecontracts.due_date,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_servicecontracts.due_date,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{createdtime}%'\r\n\tGROUP BY accountid\r\n)AS ServiceContractstable ON ServiceContractstable.accountid = ld_account.accountid\r\nLEFT JOIN (\r\n\tSELECT sum(if(ld_cashbill.currency_id > 1,IFNULL(total,0)/ld_cashbill.conversion_rate,IFNULL(total,0))) as cashbilltotalsum,\r\nsmownerid,accountid FROM ld_cashbill WHERE deleted = 0\r\nand IF(ld_cashbill.checkoutstatus='已审核','0','1') <> (IF('{approve}'='true','1','0.001'))\r\nand CONCAT('全部',\r\n'/',CASE WHEN YEAR(ld_cashbill.cashbilldate)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_cashbill.cashbilldate)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_cashbill.cashbilldate)=YEAR(CURDATE()) AND MONTH(ld_cashbill.cashbilldate)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_cashbill.cashbilldate)=YEAR(CURDATE()) AND MONTH(ld_cashbill.cashbilldate)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_cashbill.cashbilldate)=YEAR(CURDATE()) AND WEEK(ld_cashbill.cashbilldate)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_cashbill.cashbilldate)=YEAR(CURDATE()) AND WEEK(ld_cashbill.cashbilldate)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_cashbill.cashbilldate,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_cashbill.cashbilldate,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{createdtime}%'\r\n\tGROUP BY accountid\r\n)AS cashbilltotal ON cashbilltotal.accountid = ld_account.accountid\r\nLEFT JOIN (\r\n\tSELECT sum(if(ld_salesorder.currency_id > 1,IFNULL(total,0)/ld_salesorder.conversion_rate,IFNULL(total,0))) as salesordertotalsum,\r\nsmownerid,accountid FROM ld_salesorder WHERE deleted = 0\r\nand IF(ld_salesorder.approvestatus='已批准','0','1') <> (IF('{approve}'='true','1','0.001'))\r\nand CONCAT('全部',\r\n'/',CASE WHEN YEAR(ld_salesorder.signed_data)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_salesorder.signed_data)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_salesorder.signed_data)=YEAR(CURDATE()) AND MONTH(ld_salesorder.signed_data)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_salesorder.signed_data)=YEAR(CURDATE()) AND MONTH(ld_salesorder.signed_data)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_salesorder.signed_data)=YEAR(CURDATE()) AND WEEK(ld_salesorder.signed_data)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_salesorder.signed_data)=YEAR(CURDATE()) AND WEEK(ld_salesorder.signed_data)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_salesorder.signed_data,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_salesorder.signed_data,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{createdtime}%'\r\n\tGROUP BY accountid\r\n)AS salesordertotal ON salesordertotal.accountid = ld_account.accountid\r\nLEFT JOIN (\r\n\tSELECT sum(if(ld_servicecontracts.currency_id > 1,IFNULL(total,0)/ld_servicecontracts.conversion_rate,IFNULL(total,0))) as servicecontractstotalsum,\r\nsmownerid,accountid FROM ld_servicecontracts WHERE deleted = 0\r\nand IF(ld_servicecontracts.approvestatus='已批准','0','1') <> (IF('{approve}'='true','1','0.001'))\r\nand CONCAT('全部',\r\n'/',CASE WHEN YEAR(ld_servicecontracts.due_date)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_servicecontracts.due_date)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_servicecontracts.due_date)=YEAR(CURDATE()) AND MONTH(ld_servicecontracts.due_date)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_servicecontracts.due_date)=YEAR(CURDATE()) AND MONTH(ld_servicecontracts.due_date)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_servicecontracts.due_date)=YEAR(CURDATE()) AND WEEK(ld_servicecontracts.due_date)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_servicecontracts.due_date)=YEAR(CURDATE()) AND WEEK(ld_servicecontracts.due_date)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_servicecontracts.due_date,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_servicecontracts.due_date,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{createdtime}%'\r\n\tGROUP BY accountid\r\n)AS servicecontractstotal ON servicecontractstotal.accountid = ld_account.accountid\r\nLEFT JOIN (\r\n\tSELECT sum(if(ld_expense.currency_id > 1,IFNULL(total,0)/ld_expense.conversion_rate,IFNULL(total,0))) as expensetotalsum,\r\nsmownerid,accountid FROM ld_expense WHERE deleted = 0\r\nand IF(ld_expense.approvestatus='已批准','0','1') <> (IF('{approve}'='true','1','0.001'))\r\nand CONCAT('全部',\r\n'/',CASE WHEN YEAR(ld_expense.expensedate)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_expense.expensedate)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_expense.expensedate)=YEAR(CURDATE()) AND MONTH(ld_expense.expensedate)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_expense.expensedate)=YEAR(CURDATE()) AND MONTH(ld_expense.expensedate)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_expense.expensedate)=YEAR(CURDATE()) AND WEEK(ld_expense.expensedate)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_expense.expensedate)=YEAR(CURDATE()) AND WEEK(ld_expense.expensedate)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_expense.expensedate,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_expense.expensedate,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{createdtime}%'\r\n\tGROUP BY accountid\r\n)AS expensetotal ON expensetotal.accountid = ld_account.accountid \r\nLEFT JOIN ld_users on ld_account.smownerid=ld_users.id\r\nwhere  ld_account.deleted=0\r\n\tAND(\r\n\t\tCASE \r\n\t\t\tWHEN '{AcountName}' !='' THEN accountname like '%{AcountName}%' \r\n\t\t\tELSE (accountname like '%%' or ifnull(accountname,'')='') \r\n\tEND)\r\n\t\t\t\t\t\tand (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{userid}'='' THEN \r\n\t\t\t\t\t\t\t\tFIND_IN_SET(CASE WHEN ld_account.smownerid is NULL THEN 1 ELSE ld_account.smownerid END,(\r\n\t\t\t\t\t\t\t\t\tSELECT\r\n\t\t\t\t\t\t\t\t\t\tGROUP_CONCAT(userid)\r\n\t\t\t\t\t\t\t\t\tFROM (\r\n\t\t\t\t\t\t\t\t\t\tSELECT DISTINCT\r\n\t\t\t\t\t\t\t\t\t\t\tuserid \r\n\t\t\t\t\t\t\t\t\t\tFROM (\r\n\t\t\t\t\t\t\t\t\t\t\tSELECT \r\n\t\t\t\t\t\t\t\t\t\t\t\tld_users.id as userid \r\n\t\t\t\t\t\t\t\t\t\t\tFROM ld_users\r\n\t\t\t\t\t\t\t\t\t\t\tWHERE EXISTS(select 1 from ld_setscoperhigher where modulename='Accounts' and scopeauthority=1 and userid='[uuid]')\r\n\t\t\t\t\t\t\t\t\t\t\tUNION\r\n\t\t\t\t\t\t\t\t\t\t\tselect \r\n\t\t\t\t\t\t\t\t\t\t\t\tviewid as userid \r\n\t\t\t\t\t\t\t\t\t\t\tfrom ld_scoperhigher\r\n\t\t\t\t\t\t\t\t\t\t\twhere userid='[uuid]' and modulename='Accounts' and EXISTS(select 1 from ld_setscoperhigher where userid='[uuid]' and scopeauthority=2 and modulename='Accounts')\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\tUNION\r\n\t\t\t\t\t\t\t\t\t\t\tselect DISTINCT \r\n\t\t\t\t\t\t\t\t\t\t\t\tld_users2group.userid as userid \r\n\t\t\t\t\t\t\t\t\t\t\tfrom ld_scoperhigher \r\n\t\t\t\t\t\t\t\t\t\t\tINNER JOIN ld_groups on ld_groups.groupid=ld_scoperhigher.viewid\r\n\t\t\t\t\t\t\t\t\t\t\tINNER JOIN ld_users2group on ld_users2group.groupid=ld_groups.groupid\r\n\t\t\t\t\t\t\t\t\t\t\tWHERE ld_scoperhigher.userid='[uuid]' \r\n\t\t\t\t\t\t\t\t\t\t\t\tand ld_scoperhigher.modulename='Accounts'\r\n\t\t\t\t\t\t\t\t\t\t\t\tand ld_scoperhigher.scopeauthority=3 \r\n\t\t\t\t\t\t\t\t\t\t\t\tand EXISTS(select 1 from ld_setscoperhigher where modulename='Accounts' and scopeauthority=3 and userid='[uuid]')\r\n\t\t\t\t\t\t\t\t\t\t\tUNION \r\n\t\t\t\t\t\t\t\t\t\t\tselect \r\n\t\t\t\t\t\t\t\t\t\t\t\tid as userid \r\n\t\t\t\t\t\t\t\t\t\t\tfrom ld_users  \r\n\t\t\t\t\t\t\t\t\t\t\twhere exists(select 1 from ld_users where id='[uuid]' and is_admin='on')\r\n\t\t\t\t\t\t\t\t\t\t\tUNION\r\n\t\t\t\t\t\t\t\t\t\t\tselect '[uuid]')as vw_users\r\n\t\t\t\t\t\t\t\t\t) as tmp_users))\r\n\t\t\t\t\t\t\tELSE FIND_IN_SET(CASE WHEN ld_account.smownerid is NULL THEN 1 ELSE ld_account.smownerid END,'{userid}')\r\n\t\t\t\t\t\tEND)\r\n\tAND IFNULL(contactcount,0)+IFNULL(potentialcount,0)+IFNULL(Calendarcount,0)+IFNULL(ContactRecordscount,0)+IFNULL(HelpDeskcount,0)+IFNULL(CashBillcount,0)+IFNULL(Salesordercount,0)+IFNULL(ServiceContractscount,0)+IFNULL(cashbilltotalsum,0)+IFNULL(salesordertotalsum,0)+IFNULL(round(servicecontractstotalsum,2),0)+IFNULL(round(expensetotalsum,2),0)<>0\r\n\tAND (\r\n\t\t\tCASE \r\n\t\t\t\tWHEN '{salesorderTotalend}'>0 THEN salesordertotalsum>=IFNULL('{salesorderTotalbegin}',0) AND salesordertotalsum<='{salesorderTotalend}' \r\n\tELSE 1=1\r\n\t\tEND\r\n\t)"
+      },
+      "1": {
+        "Ident": "StiMySqlSource",
+        "Name": "selectdata",
+        "Alias": "selectdata",
+        "Columns": {
+          "0": {
+            "Name": "Calendarcount",
+            "Index": -1,
+            "NameInSource": "Calendarcount",
+            "Alias": "Calendarcount",
+            "Type": "System.Int32"
+          },
+          "1": {
+            "Name": "CashBillcount",
+            "Index": -1,
+            "NameInSource": "CashBillcount",
+            "Alias": "CashBillcount",
+            "Type": "System.Int32"
+          },
+          "2": {
+            "Name": "ContactRecordscount",
+            "Index": -1,
+            "NameInSource": "ContactRecordscount",
+            "Alias": "ContactRecordscount",
+            "Type": "System.Int32"
+          },
+          "3": {
+            "Name": "HelpDeskcount",
+            "Index": -1,
+            "NameInSource": "HelpDeskcount",
+            "Alias": "HelpDeskcount",
+            "Type": "System.Int32"
+          },
+          "4": {
+            "Name": "Salesordercount",
+            "Index": -1,
+            "NameInSource": "Salesordercount",
+            "Alias": "Salesordercount",
+            "Type": "System.Int32"
+          },
+          "5": {
+            "Name": "ServiceContractscount",
+            "Index": -1,
+            "NameInSource": "ServiceContractscount",
+            "Alias": "ServiceContractscount",
+            "Type": "System.Int32"
+          },
+          "6": {
+            "Name": "accountid",
+            "Index": -1,
+            "NameInSource": "accountid",
+            "Alias": "accountid",
+            "Type": "System.Int32"
+          },
+          "7": {
+            "Name": "accountname",
+            "Index": -1,
+            "NameInSource": "accountname",
+            "Alias": "accountname",
+            "Type": "System.String"
+          },
+          "8": {
+            "Name": "cashbilltotalsum",
+            "Index": -1,
+            "NameInSource": "cashbilltotalsum",
+            "Alias": "cashbilltotalsum",
+            "Type": "System.Decimal"
+          },
+          "9": {
+            "Name": "contactcount",
+            "Index": -1,
+            "NameInSource": "contactcount",
+            "Alias": "contactcount",
+            "Type": "System.Int32"
+          },
+          "10": {
+            "Name": "expensetotalsum",
+            "Index": -1,
+            "NameInSource": "expensetotalsum",
+            "Alias": "expensetotalsum",
+            "Type": "System.Decimal"
+          },
+          "11": {
+            "Name": "last_name",
+            "Index": -1,
+            "NameInSource": "last_name",
+            "Alias": "last_name",
+            "Type": "System.String"
+          },
+          "12": {
+            "Name": "potentialcount",
+            "Index": -1,
+            "NameInSource": "potentialcount",
+            "Alias": "potentialcount",
+            "Type": "System.Int32"
+          },
+          "13": {
+            "Name": "salesordertotalsum",
+            "Index": -1,
+            "NameInSource": "salesordertotalsum",
+            "Alias": "salesordertotalsum",
+            "Type": "System.Decimal"
+          },
+          "14": {
+            "Name": "servicecontractstotalsum",
+            "Index": -1,
+            "NameInSource": "servicecontractstotalsum",
+            "Alias": "servicecontractstotalsum",
+            "Type": "System.Decimal"
+          },
+          "15": {
+            "Name": "smownerid",
+            "Index": -1,
+            "NameInSource": "smownerid",
+            "Alias": "smownerid",
+            "Type": "System.Int32"
+          }
+        },
+        "NameInSource": "Connection1",
+        "SqlCommand": "SELECT ld_account.accountid,ld_users.last_name,ld_account.smownerid,accountname,IFNULL(contactcount,0) as contactcount,IFNULL(potentialcount,0) as potentialcount,\r\nIFNULL(Calendarcount,0) as Calendarcount,IFNULL(ContactRecordscount,0) as ContactRecordscount,IFNULL(HelpDeskcount,0) as HelpDeskcount,\r\nIFNULL(CashBillcount,0) as CashBillcount,IFNULL(Salesordercount,0) as Salesordercount,IFNULL(ServiceContractscount,0) as ServiceContractscount,\r\nIFNULL(cashbilltotalsum,0) as cashbilltotalsum,IFNULL(salesordertotalsum,0) as salesordertotalsum,\r\nIFNULL(round(servicecontractstotalsum,2),0) as servicecontractstotalsum,IFNULL(round(expensetotalsum,2),0) as expensetotalsum\r\nFROM ld_account LEFT JOIN (\r\n\tSELECT count(1) AS contactcount,smownerid,accountid FROM ld_contactdetails WHERE deleted = 0\r\nand CONCAT('全部',\r\n'/',CASE WHEN YEAR(ld_contactdetails.createdtime)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_contactdetails.createdtime)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_contactdetails.createdtime)=YEAR(CURDATE()) AND MONTH(ld_contactdetails.createdtime)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_contactdetails.createdtime)=YEAR(CURDATE()) AND MONTH(ld_contactdetails.createdtime)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_contactdetails.createdtime)=YEAR(CURDATE()) AND WEEK(ld_contactdetails.createdtime)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_contactdetails.createdtime)=YEAR(CURDATE()) AND WEEK(ld_contactdetails.createdtime)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_contactdetails.createdtime,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_contactdetails.createdtime,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{createdtime}%'\r\n\tGROUP BY accountid\r\n) AS contacttable ON contacttable.accountid = ld_account.accountid\r\nLEFT JOIN (\r\n\tSELECT count(1) AS potentialcount,smownerid,accountid FROM ld_potential WHERE deleted = 0\r\nand CONCAT('全部',\r\n'/',CASE WHEN YEAR(ld_potential.createdtime)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_potential.createdtime)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_potential.createdtime)=YEAR(CURDATE()) AND MONTH(ld_potential.createdtime)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_potential.createdtime)=YEAR(CURDATE()) AND MONTH(ld_potential.createdtime)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_potential.createdtime)=YEAR(CURDATE()) AND WEEK(ld_potential.createdtime)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_potential.createdtime)=YEAR(CURDATE()) AND WEEK(ld_potential.createdtime)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_potential.createdtime,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_potential.createdtime,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{createdtime}%'\r\n\tGROUP BY accountid\r\n)AS potentialtable ON potentialtable.accountid = ld_account.accountid\r\nLEFT JOIN (\r\n\tSELECT count(1) AS Calendarcount,smownerid,accountid FROM ld_activity WHERE deleted = 0 AND activitytype<>'Emails'\r\nand CONCAT('全部',\r\n'/',CASE WHEN YEAR(ld_activity.date_start)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_activity.date_start)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_activity.date_start)=YEAR(CURDATE()) AND MONTH(ld_activity.date_start)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_activity.date_start)=YEAR(CURDATE()) AND MONTH(ld_activity.date_start)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_activity.date_start)=YEAR(CURDATE()) AND WEEK(ld_activity.date_start)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_activity.date_start)=YEAR(CURDATE()) AND WEEK(ld_activity.date_start)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_activity.date_start,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_activity.date_start,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{createdtime}%'\r\n\tGROUP BY accountid\r\n)AS Calendartable ON Calendartable.accountid = ld_account.accountid\r\nLEFT JOIN (\r\n\tSELECT count(1) AS ContactRecordscount,smownerid,accountid FROM ld_contactrecords WHERE deleted = 0\r\nand CONCAT('全部',\r\n'/',CASE WHEN YEAR(ld_contactrecords.contactdate)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_contactrecords.contactdate)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_contactrecords.contactdate)=YEAR(CURDATE()) AND MONTH(ld_contactrecords.contactdate)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_contactrecords.contactdate)=YEAR(CURDATE()) AND MONTH(ld_contactrecords.contactdate)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_contactrecords.contactdate)=YEAR(CURDATE()) AND WEEK(ld_contactrecords.contactdate)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_contactrecords.contactdate)=YEAR(CURDATE()) AND WEEK(ld_contactrecords.contactdate)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_contactrecords.contactdate,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_contactrecords.contactdate,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{createdtime}%'\r\n\tGROUP BY accountid\r\n)AS ContactRecordstable ON ContactRecordstable.accountid = ld_account.accountid\r\nLEFT JOIN (\r\n\tSELECT count(1) AS HelpDeskcount,smownerid,accountid FROM ld_troubletickets WHERE deleted = 0\r\nand CONCAT('全部',\r\n'/',CASE WHEN YEAR(ld_troubletickets.realtime)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_troubletickets.realtime)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_troubletickets.realtime)=YEAR(CURDATE()) AND MONTH(ld_troubletickets.realtime)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_troubletickets.realtime)=YEAR(CURDATE()) AND MONTH(ld_troubletickets.realtime)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_troubletickets.realtime)=YEAR(CURDATE()) AND WEEK(ld_troubletickets.realtime)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_troubletickets.realtime)=YEAR(CURDATE()) AND WEEK(ld_troubletickets.realtime)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_troubletickets.realtime,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_troubletickets.realtime,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{createdtime}%'\r\n\tGROUP BY accountid\r\n)AS HelpDesktable ON HelpDesktable.accountid = ld_account.accountid\r\nLEFT JOIN (\r\n\tSELECT count(1) AS CashBillcount,smownerid,accountid FROM ld_cashbill WHERE deleted = 0\r\n\tand IF(ld_cashbill.checkoutstatus='已审核','0','1') <> (IF('{approve}'='true','1','0.001'))\r\n\tand CONCAT('全部',\r\n'/',CASE WHEN YEAR(ld_cashbill.cashbilldate)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_cashbill.cashbilldate)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_cashbill.cashbilldate)=YEAR(CURDATE()) AND MONTH(ld_cashbill.cashbilldate)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_cashbill.cashbilldate)=YEAR(CURDATE()) AND MONTH(ld_cashbill.cashbilldate)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_cashbill.cashbilldate)=YEAR(CURDATE()) AND WEEK(ld_cashbill.cashbilldate)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_cashbill.cashbilldate)=YEAR(CURDATE()) AND WEEK(ld_cashbill.cashbilldate)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_cashbill.cashbilldate,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_cashbill.cashbilldate,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{createdtime}%'\r\n\tGROUP BY accountid\r\n)AS CashBilltable ON CashBilltable.accountid = ld_account.accountid\r\nLEFT JOIN (\r\n\tSELECT count(1) AS Salesordercount,smownerid,accountid FROM ld_salesorder WHERE deleted = 0\r\nand IF(ld_salesorder.approvestatus='已批准','0','1') <> (IF('{approve}'='true','1','0.001'))\r\nand CONCAT('全部',\r\n'/',CASE WHEN YEAR(ld_salesorder.signed_data)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_salesorder.signed_data)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_salesorder.signed_data)=YEAR(CURDATE()) AND MONTH(ld_salesorder.signed_data)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_salesorder.signed_data)=YEAR(CURDATE()) AND MONTH(ld_salesorder.signed_data)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_salesorder.signed_data)=YEAR(CURDATE()) AND WEEK(ld_salesorder.signed_data)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_salesorder.signed_data)=YEAR(CURDATE()) AND WEEK(ld_salesorder.signed_data)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_salesorder.signed_data,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_salesorder.signed_data,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{createdtime}%'\r\n\tGROUP BY accountid\r\n)AS Salesordertable ON Salesordertable.accountid = ld_account.accountid\r\nLEFT JOIN (\r\n\tSELECT count(1) AS ServiceContractscount,smownerid,accountid FROM ld_servicecontracts WHERE deleted = 0\r\nand IF(ld_servicecontracts.approvestatus='已批准','0','1') <> (IF('{approve}'='true','1','0.001'))\r\nand CONCAT('全部',\r\n'/',CASE WHEN YEAR(ld_servicecontracts.due_date)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_servicecontracts.due_date)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_servicecontracts.due_date)=YEAR(CURDATE()) AND MONTH(ld_servicecontracts.due_date)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_servicecontracts.due_date)=YEAR(CURDATE()) AND MONTH(ld_servicecontracts.due_date)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_servicecontracts.due_date)=YEAR(CURDATE()) AND WEEK(ld_servicecontracts.due_date)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_servicecontracts.due_date)=YEAR(CURDATE()) AND WEEK(ld_servicecontracts.due_date)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_servicecontracts.due_date,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_servicecontracts.due_date,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{createdtime}%'\r\n\tGROUP BY accountid\r\n)AS ServiceContractstable ON ServiceContractstable.accountid = ld_account.accountid\r\nLEFT JOIN (\r\n\tSELECT sum(if(ld_cashbill.currency_id > 1,IFNULL(total,0)/ld_cashbill.conversion_rate,IFNULL(total,0))) as cashbilltotalsum,\r\nsmownerid,accountid FROM ld_cashbill WHERE deleted = 0\r\nand IF(ld_cashbill.checkoutstatus='已审核','0','1') <> (IF('{approve}'='true','1','0.001'))\r\nand CONCAT('全部',\r\n'/',CASE WHEN YEAR(ld_cashbill.cashbilldate)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_cashbill.cashbilldate)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_cashbill.cashbilldate)=YEAR(CURDATE()) AND MONTH(ld_cashbill.cashbilldate)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_cashbill.cashbilldate)=YEAR(CURDATE()) AND MONTH(ld_cashbill.cashbilldate)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_cashbill.cashbilldate)=YEAR(CURDATE()) AND WEEK(ld_cashbill.cashbilldate)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_cashbill.cashbilldate)=YEAR(CURDATE()) AND WEEK(ld_cashbill.cashbilldate)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_cashbill.cashbilldate,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_cashbill.cashbilldate,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{createdtime}%'\r\n\tGROUP BY accountid\r\n)AS cashbilltotal ON cashbilltotal.accountid = ld_account.accountid\r\nLEFT JOIN (\r\n\tSELECT sum(if(ld_salesorder.currency_id > 1,IFNULL(total,0)/ld_salesorder.conversion_rate,IFNULL(total,0))) as salesordertotalsum,\r\nsmownerid,accountid FROM ld_salesorder WHERE deleted = 0\r\nand IF(ld_salesorder.approvestatus='已批准','0','1') <> (IF('{approve}'='true','1','0.001'))\r\nand CONCAT('全部',\r\n'/',CASE WHEN YEAR(ld_salesorder.signed_data)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_salesorder.signed_data)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_salesorder.signed_data)=YEAR(CURDATE()) AND MONTH(ld_salesorder.signed_data)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_salesorder.signed_data)=YEAR(CURDATE()) AND MONTH(ld_salesorder.signed_data)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_salesorder.signed_data)=YEAR(CURDATE()) AND WEEK(ld_salesorder.signed_data)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_salesorder.signed_data)=YEAR(CURDATE()) AND WEEK(ld_salesorder.signed_data)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_salesorder.signed_data,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_salesorder.signed_data,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{createdtime}%'\r\n\tGROUP BY accountid\r\n)AS salesordertotal ON salesordertotal.accountid = ld_account.accountid\r\nLEFT JOIN (\r\n\tSELECT sum(if(ld_servicecontracts.currency_id > 1,IFNULL(total,0)/ld_servicecontracts.conversion_rate,IFNULL(total,0))) as servicecontractstotalsum,\r\nsmownerid,accountid FROM ld_servicecontracts WHERE deleted = 0\r\nand IF(ld_servicecontracts.approvestatus='已批准','0','1') <> (IF('{approve}'='true','1','0.001'))\r\nand CONCAT('全部',\r\n'/',CASE WHEN YEAR(ld_servicecontracts.due_date)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_servicecontracts.due_date)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_servicecontracts.due_date)=YEAR(CURDATE()) AND MONTH(ld_servicecontracts.due_date)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_servicecontracts.due_date)=YEAR(CURDATE()) AND MONTH(ld_servicecontracts.due_date)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_servicecontracts.due_date)=YEAR(CURDATE()) AND WEEK(ld_servicecontracts.due_date)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_servicecontracts.due_date)=YEAR(CURDATE()) AND WEEK(ld_servicecontracts.due_date)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_servicecontracts.due_date,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_servicecontracts.due_date,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{createdtime}%'\r\n\tGROUP BY accountid\r\n)AS servicecontractstotal ON servicecontractstotal.accountid = ld_account.accountid\r\nLEFT JOIN (\r\n\tSELECT sum(if(ld_expense.currency_id > 1,IFNULL(total,0)/ld_expense.conversion_rate,IFNULL(total,0))) as expensetotalsum,\r\nsmownerid,accountid FROM ld_expense WHERE deleted = 0\r\nand IF(ld_expense.approvestatus='已批准','0','1') <> (IF('{approve}'='true','1','0.001'))\r\nand CONCAT('全部',\r\n'/',CASE WHEN YEAR(ld_expense.expensedate)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_expense.expensedate)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_expense.expensedate)=YEAR(CURDATE()) AND MONTH(ld_expense.expensedate)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_expense.expensedate)=YEAR(CURDATE()) AND MONTH(ld_expense.expensedate)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_expense.expensedate)=YEAR(CURDATE()) AND WEEK(ld_expense.expensedate)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n'/',CASE WHEN YEAR(ld_expense.expensedate)=YEAR(CURDATE()) AND WEEK(ld_expense.expensedate)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_expense.expensedate,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n'/',CASE WHEN DATE_FORMAT(ld_expense.expensedate,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{createdtime}%'\r\n\tGROUP BY accountid\r\n)AS expensetotal ON expensetotal.accountid = ld_account.accountid \r\nLEFT JOIN ld_users on ld_account.smownerid=ld_users.id\r\nwhere  ld_account.deleted=0\r\n\tAND(\r\n\t\tCASE \r\n\t\t\tWHEN '{AcountName}' !='' THEN accountname like '%{AcountName}%' \r\n\t\t\tELSE (accountname like '%%' or ifnull(accountname,'')='') \r\n\tEND)\r\n\t\t\t\t\t\tand (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{userid}'='' THEN \r\n\t\t\t\t\t\t\t\tFIND_IN_SET(CASE WHEN ld_account.smownerid is NULL THEN 1 ELSE ld_account.smownerid END,(\r\n\t\t\t\t\t\t\t\t\tSELECT\r\n\t\t\t\t\t\t\t\t\t\tGROUP_CONCAT(userid)\r\n\t\t\t\t\t\t\t\t\tFROM (\r\n\t\t\t\t\t\t\t\t\t\tSELECT DISTINCT\r\n\t\t\t\t\t\t\t\t\t\t\tuserid \r\n\t\t\t\t\t\t\t\t\t\tFROM (\r\n\t\t\t\t\t\t\t\t\t\t\tSELECT \r\n\t\t\t\t\t\t\t\t\t\t\t\tld_users.id as userid \r\n\t\t\t\t\t\t\t\t\t\t\tFROM ld_users\r\n\t\t\t\t\t\t\t\t\t\t\tWHERE EXISTS(select 1 from ld_setscoperhigher where modulename='Accounts' and scopeauthority=1 and userid='[uuid]')\r\n\t\t\t\t\t\t\t\t\t\t\tUNION\r\n\t\t\t\t\t\t\t\t\t\t\tselect \r\n\t\t\t\t\t\t\t\t\t\t\t\tviewid as userid \r\n\t\t\t\t\t\t\t\t\t\t\tfrom ld_scoperhigher\r\n\t\t\t\t\t\t\t\t\t\t\twhere userid='[uuid]' and modulename='Accounts' and EXISTS(select 1 from ld_setscoperhigher where userid='[uuid]' and scopeauthority=2 and modulename='Accounts')\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\tUNION\r\n\t\t\t\t\t\t\t\t\t\t\tselect DISTINCT \r\n\t\t\t\t\t\t\t\t\t\t\t\tld_users2group.userid as userid \r\n\t\t\t\t\t\t\t\t\t\t\tfrom ld_scoperhigher \r\n\t\t\t\t\t\t\t\t\t\t\tINNER JOIN ld_groups on ld_groups.groupid=ld_scoperhigher.viewid\r\n\t\t\t\t\t\t\t\t\t\t\tINNER JOIN ld_users2group on ld_users2group.groupid=ld_groups.groupid\r\n\t\t\t\t\t\t\t\t\t\t\tWHERE ld_scoperhigher.userid='[uuid]' \r\n\t\t\t\t\t\t\t\t\t\t\t\tand ld_scoperhigher.modulename='Accounts'\r\n\t\t\t\t\t\t\t\t\t\t\t\tand ld_scoperhigher.scopeauthority=3 \r\n\t\t\t\t\t\t\t\t\t\t\t\tand EXISTS(select 1 from ld_setscoperhigher where modulename='Accounts' and scopeauthority=3 and userid='[uuid]')\r\n\t\t\t\t\t\t\t\t\t\t\tUNION \r\n\t\t\t\t\t\t\t\t\t\t\tselect \r\n\t\t\t\t\t\t\t\t\t\t\t\tid as userid \r\n\t\t\t\t\t\t\t\t\t\t\tfrom ld_users  \r\n\t\t\t\t\t\t\t\t\t\t\twhere exists(select 1 from ld_users where id='[uuid]' and is_admin='on')\r\n\t\t\t\t\t\t\t\t\t\t\tUNION\r\n\t\t\t\t\t\t\t\t\t\t\tselect '[uuid]')as vw_users\r\n\t\t\t\t\t\t\t\t\t) as tmp_users))\r\n\t\t\t\t\t\t\tELSE FIND_IN_SET(CASE WHEN ld_account.smownerid is NULL THEN 1 ELSE ld_account.smownerid END,'{userid}')\r\n\t\t\t\t\t\tEND)\r\nAND IFNULL(contactcount,0)+IFNULL(potentialcount,0)+IFNULL(Calendarcount,0)+IFNULL(ContactRecordscount,0)+IFNULL(HelpDeskcount,0)+IFNULL(CashBillcount,0)+IFNULL(Salesordercount,0)+IFNULL(ServiceContractscount,0)+IFNULL(cashbilltotalsum,0)+IFNULL(salesordertotalsum,0)+IFNULL(round(servicecontractstotalsum,2),0)+IFNULL(round(expensetotalsum,2),0)<>0\r\nAND (\r\n\t\tCASE \r\n\t\t\tWHEN '{salesorderTotalend}'>0 THEN salesordertotalsum>=IFNULL('{salesorderTotalbegin}',0) AND salesordertotalsum<='{salesorderTotalend}' \r\nELSE 1=1\r\n\tEND\r\n)"
+      },
+      "2": {
+        "Ident": "StiMySqlSource",
+        "Name": "Period",
+        "Alias": "Period",
+        "Columns": {
+          "0": {
+            "Name": "Period",
+            "Index": -1,
+            "NameInSource": "Period",
+            "Alias": "Period",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "Connection1",
+        "SqlCommand": "SELECT '全部' as Period\r\nUNION \r\nselect'本年' \r\nUNION \r\nselect'本月'\r\nUNION \r\nselect'本周'\r\nUNION \r\nselect'今天'\r\nUNION \r\nselect'去年'\r\nUNION \r\nselect'去年' \r\nUNION \r\nselect'上月'\r\nUNION \r\nselect'上周'\r\nUNION \r\nselect'昨天'"
+      },
+      "3": {
+        "Ident": "StiMySqlSource",
+        "Name": "users",
+        "Alias": "users",
+        "Columns": {
+          "0": {
+            "Name": "id",
+            "Index": -1,
+            "NameInSource": "id",
+            "Alias": "id",
+            "Type": "System.Int32"
+          },
+          "1": {
+            "Name": "last_name",
+            "Index": -1,
+            "NameInSource": "last_name",
+            "Alias": "last_name",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "Connection1",
+        "SqlCommand": "SELECT\r\n\ta.id,\r\n\ta.last_name\r\nFROM ld_users a\r\nINNER JOIN (\r\n\tSELECT DISTINCT\r\n\t\tuserid \r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tld_users.id as userid \r\n\t\tFROM ld_users\r\n\t\tWHERE EXISTS(select 1 from ld_setscoperhigher where modulename='Accounts' and scopeauthority=1 and userid='[uuid]')\r\n\t\tUNION\r\n\t\tselect \r\n\t\t\tviewid as userid \r\n\t\tfrom ld_scoperhigher\r\n\t\twhere userid='[uuid]' and modulename='Accounts' and EXISTS(select 1 from ld_setscoperhigher where userid='[uuid]' and scopeauthority=2 and modulename='Accounts')\t\t\t\r\n\t\tUNION\r\n\t\tselect DISTINCT \r\n\t\t\tld_users2group.userid as userid \r\n\t\tfrom ld_scoperhigher \r\n\t\tINNER JOIN ld_groups on ld_groups.groupid=ld_scoperhigher.viewid\r\n\t\tINNER JOIN ld_users2group on ld_users2group.groupid=ld_groups.groupid\r\n\t\tWHERE ld_scoperhigher.userid='[uuid]' \r\n\t\t\tand ld_scoperhigher.modulename='Accounts'\r\n\t\t\tand ld_scoperhigher.scopeauthority=3 \r\n\t\t\tand EXISTS(select 1 from ld_setscoperhigher where modulename='Accounts' and scopeauthority=3 and userid='[uuid]')\r\n\t\tUNION \r\n\t\tselect \r\n\t\t\tid as userid \r\n\t\tfrom ld_users  \r\n\t\twhere exists(select 1 from ld_users where id='[uuid]' and is_admin='on')\r\n\t\tUNION\r\n\t\tselect '[uuid]')as vw_users\r\n) as tmp_users ON tmp_users.userid=a.id\r\norder by CONVERT(a.last_name USING gbk)"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "Connection1",
+        "Alias": "Connection1",
+        "ConnectionStringEncrypted": "9Gx168ZcS1nhR9Wl6iV1n8JsaWBhT1mFQhWxkOkl9i/CYNfKTV1ClEZ4uYhjXK17gshxYMhtut1AReWN6oz1KtVgc+NWBdN1YkmsgOo9NEbJxHNIRlyp+UZbqLw="
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "客户全景统计表",
+      "Guid": "f5ae4cc662f0b845150555cd9b71b8de",
+      "Alias": "客户全景统计表",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "ToolTip": {
+        "Value": "{selectdata.accountname}"
+      },
+      "Hyperlink": {
+        "Value": "viewdetails.php?id={selectdata.accountid}"
+      },
+      "Tag": {
+        "Value": "{selectdata.accountname}"
+      },
+      "Border": ";;2;;;;;solid:0,0,0",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiPageHeaderBand",
+          "Name": "PageHeaderBand1",
+          "ClientRectangle": "0,0.4,41.4,2.4",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text3",
+              "Guid": "a0247374510e2ead533e3592c088f4a5",
+              "ClientRectangle": "0,0,41.4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "客户全景统计表"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;18;;",
+              "Border": ";;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text2",
+              "Guid": "a211c9e3b232a7106c4655d1d302c118",
+              "ClientRectangle": "0,1.2,7.4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "客户名称"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text5",
+              "Guid": "7ad25b0bc29e43e9edd055d4a1171d88",
+              "ClientRectangle": "9.6,1.2,2.4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "新建联系人数"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text206",
+              "Guid": "09f43fc29c01fed55d3364402ff03aea",
+              "ClientRectangle": "7.4,1.2,2.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "销售负责人"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text9",
+              "Guid": "31ad0805ebece5532f8855d4b35b2759",
+              "ClientRectangle": "16.6,1.2,2.8,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "新建联系记录数"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text10",
+              "Guid": "295fb0fdd41938cc7cf355d4b81a6c7f",
+              "ClientRectangle": "19.4,1.2,2.4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "新建服务单数"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text50",
+              "Guid": "bec8408cf93d7181a86e55eac5e37006",
+              "ClientRectangle": "12,1.2,2.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "新建机会数"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text16",
+              "Guid": "18e09111f06103fb89efca074fabfaf7",
+              "ClientRectangle": "14.2,1.2,2.4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "新建日程数"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text6",
+              "Guid": "2ac3efe6e7b9bee0190155d4a64090a8",
+              "ClientRectangle": "21.8,1.2,3.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "回款总额"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text7",
+              "Guid": "5be753231e0d557ea2a555d4aaa29462",
+              "ClientRectangle": "25,1.2,1.8,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "回款笔数"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "10": {
+              "Ident": "StiText",
+              "Name": "Text11",
+              "Guid": "9a2bb18f771018b6822c55d4bcd2460c",
+              "ClientRectangle": "26.8,1.2,3.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "合同总额"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "11": {
+              "Ident": "StiText",
+              "Name": "Text12",
+              "Guid": "9455f5ac30607fa30c7355d4c1255dc4",
+              "ClientRectangle": "30,1.2,2.8,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "合同笔数"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "12": {
+              "Ident": "StiText",
+              "Name": "Text23",
+              "Guid": "832144d041c68b6ad7f355d5b7c25e26",
+              "ClientRectangle": "32.8,1.2,3.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "费用总额"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "13": {
+              "Ident": "StiText",
+              "Name": "Text1",
+              "Guid": "3c61c527ff868550aaeb55d5b7c2cd22",
+              "ClientRectangle": "36,1.2,3,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "服务合同总额"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 0,
+                "Right": 2,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "14": {
+              "Ident": "StiText",
+              "Name": "Text13",
+              "Guid": "19e15f26e23323f2f1c055d5b7c2f6f1",
+              "ClientRectangle": "39,1.2,2.4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "服务合同笔数"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 0,
+                "Right": 2,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiText",
+          "Name": "Text54",
+          "Guid": "4a2c502ae816c3f327cf55d62f920ec2",
+          "ClientRectangle": "129.6,2.4,2.4,0.6",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Text": {
+            "Value": "2010/9/8"
+          },
+          "HorAlignment": "Center",
+          "Font": "微软雅黑;10;;",
+          "Border": ";138,138,138;;;;;;solid:Black",
+          "Brush": "solid:230,230,230",
+          "TextBrush": "solid:92,92,92",
+          "Type": "Expression"
+        },
+        "2": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand2",
+          "ClientRectangle": "0,3.6,41.4,1",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": "All;153,153,153;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text8",
+              "Guid": "3b140b57b47346b41502ca19fe3b3e01",
+              "ClientRectangle": "0,0,7.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "{selectdata.accountname}"
+              },
+              "Hyperlink": {
+                "Value": "viewdetails.php?id={selectdata.accountid}"
+              },
+              "Tag": {
+                "Value": "{selectdata.accountname}"
+              },
+              "Text": {
+                "Value": "{selectdata.accountname}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "empty",
+              "TextBrush": "solid:52,135,226",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text4",
+              "Guid": "4b49b1835edee47b9c61ca19b1349702",
+              "ClientRectangle": "7.4,0,2.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{selectdata.smownerid}"
+              },
+              "Text": {
+                "Value": "{selectdata.last_name}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "empty",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 2,
+                "GroupSeparator": ",",
+                "UseLocalSetting": false
+              },
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text14",
+              "Guid": "6b0263fe0f81e89edb14ca1a12df1ff2",
+              "ClientRectangle": "9.6,0,2.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{selectdata.contactcount}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "empty",
+              "TextBrush": "solid:Black",
+              "NullValue": "0",
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 2,
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "UseLocalSetting": false
+              },
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text15",
+              "Guid": "d2a4e6aca5a8a46218a1ca1a2a506ed3",
+              "ClientRectangle": "12,0,2.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{selectdata.potentialcount}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "empty",
+              "TextBrush": "solid:Black",
+              "NullValue": "0",
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 2,
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "UseLocalSetting": false
+              },
+              "Type": "DataColumn"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text17",
+              "Guid": "27ad98f548bc074f9c1dca1a421e5c64",
+              "ClientRectangle": "14.2,0,2.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{selectdata.Calendarcount}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "empty",
+              "TextBrush": "solid:Black",
+              "NullValue": "0",
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 2,
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "UseLocalSetting": false
+              },
+              "Type": "DataColumn"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text18",
+              "Guid": "72a7189ade8cbe379d18ca1a5101233c",
+              "ClientRectangle": "16.6,0,2.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{selectdata.ContactRecordscount}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "empty",
+              "TextBrush": "solid:Black",
+              "NullValue": "0",
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 2,
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "UseLocalSetting": false
+              },
+              "Type": "DataColumn"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text21",
+              "Guid": "33dd288d210132230cbfca1a6c834292",
+              "ClientRectangle": "19.4,0,2.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{selectdata.HelpDeskcount}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "empty",
+              "TextBrush": "solid:Black",
+              "NullValue": "0",
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 2,
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "UseLocalSetting": false
+              },
+              "Type": "DataColumn"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text22",
+              "Guid": "2cf6cb56ba43c664ea4eca1a7a8baf1e",
+              "ClientRectangle": "21.8,0,3.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{selectdata.cashbilltotalsum}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "empty",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "DataColumn"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text24",
+              "Guid": "5597ce4ea5a139823369ca1a99afa38e",
+              "ClientRectangle": "25,0,1.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{selectdata.CashBillcount}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "empty",
+              "TextBrush": "solid:Black",
+              "NullValue": "0",
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 2,
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "UseLocalSetting": false
+              },
+              "Type": "DataColumn"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text25",
+              "Guid": "e42a8b9e7fad8bf2f074ca1aafd8253c",
+              "ClientRectangle": "26.8,0,3.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{selectdata.salesordertotalsum}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "empty",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "DataColumn"
+            },
+            "10": {
+              "Ident": "StiText",
+              "Name": "Text26",
+              "Guid": "e6d59a9de9f7d37a1c22ca1ac2a60f01",
+              "ClientRectangle": "30,0,2.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{selectdata.Salesordercount}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "empty",
+              "TextBrush": "solid:Black",
+              "NullValue": "0",
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "DataColumn"
+            },
+            "11": {
+              "Ident": "StiText",
+              "Name": "Text27",
+              "Guid": "59efef6a784e0ede0e5cca1ad40fc181",
+              "ClientRectangle": "32.8,0,3.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{selectdata.expensetotalsum}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "empty",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "DataColumn"
+            },
+            "12": {
+              "Ident": "StiText",
+              "Name": "Text28",
+              "Guid": "7b8cd4d69c0c75d9706aca1ae540a6fb",
+              "ClientRectangle": "36,0,3,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{selectdata.servicecontractstotalsum}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "empty",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "Expression"
+            },
+            "13": {
+              "Ident": "StiText",
+              "Name": "Text29",
+              "Guid": "2b3fae655928c86af7ddca1af5b5fddd",
+              "ClientRectangle": "39,0,2.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{selectdata.ServiceContractscount}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "empty",
+              "TextBrush": "solid:Black",
+              "NullValue": "0",
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 2,
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "UseLocalSetting": false
+              },
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "selectdata",
+          "EvenStyle": "column_even",
+          "OddStyle": "column_odd",
+          "Sort": {
+            "0": "DESC",
+            "1": "salesordertotalsum"
+          }
+        },
+        "3": {
+          "Ident": "StiColumnFooterBand",
+          "Name": "ColumnFooterBand1",
+          "ClientRectangle": "0,5.4,41.4,1",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text153",
+              "Guid": "5f1d9c95ddee35d2c7fd5641417a501b",
+              "ClientRectangle": "0,0,7.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "合计"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text155",
+              "Guid": "dd483860f54a57e78b18564238f99387",
+              "ClientRectangle": "9.6,0,2.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{counttotal.contactcount}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "NullValue": "0",
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 2,
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "UseLocalSetting": false
+              },
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text157",
+              "Guid": "e8953f7f3ef6ce06f16756424d206eb0",
+              "ClientRectangle": "12,0,2.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{counttotal.potentialcount}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "NullValue": "0",
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 2,
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "UseLocalSetting": false
+              },
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text151",
+              "Guid": "d7823b22c41f0853d2be56424d204b71",
+              "ClientRectangle": "14.2,0,2.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{counttotal.Calendarcount}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "NullValue": "0",
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 2,
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "UseLocalSetting": false
+              },
+              "Type": "DataColumn"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text161",
+              "Guid": "93d742b4e66f437fd16e564265d387ae",
+              "ClientRectangle": "16.6,0,2.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{counttotal.ContactRecordscount}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "NullValue": "0",
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 2,
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "UseLocalSetting": false
+              },
+              "Type": "DataColumn"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text156",
+              "Guid": "09708f6e50518b7a0874564265d37f36",
+              "ClientRectangle": "19.4,0,2.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{counttotal.HelpDeskcount}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "NullValue": "0",
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 2,
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "UseLocalSetting": false
+              },
+              "Type": "DataColumn"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text158",
+              "Guid": "195bde07aab4bd7f2c4a564265d3c1cc",
+              "ClientRectangle": "25,0,1.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Sum(DataBand2,selectdata.CashBillcount)}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "NullValue": "0",
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 2,
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "UseLocalSetting": false
+              },
+              "Type": "Totals"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text159",
+              "Guid": "738de3a4b8351149fd0b564265d3052f",
+              "ClientRectangle": "26.8,0,3.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{counttotal.salesordertotalsum}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "Expression"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text160",
+              "Guid": "68224d83c7b00412cc3156427b4fb377",
+              "ClientRectangle": "30,0,2.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{counttotal.Salesordercount}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "NullValue": "0",
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "DataColumn"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text163",
+              "Guid": "e783dbe4376f7d0ac55d56427b4f5f0f",
+              "ClientRectangle": "32.8,0,3.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{counttotal.expensetotalsum}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "Expression"
+            },
+            "10": {
+              "Ident": "StiText",
+              "Name": "Text164",
+              "Guid": "e3c7c511fdc9cabea37f56428ed60233",
+              "ClientRectangle": "36,0,3,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{counttotal.servicecontractstotalsum}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "Expression"
+            },
+            "11": {
+              "Ident": "StiText",
+              "Name": "Text166",
+              "Guid": "29b26797a2c8f3a8357756428ed693b1",
+              "ClientRectangle": "39,0,2.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{counttotal.ServiceContractscount}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "NullValue": "0",
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 2,
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "UseLocalSetting": false
+              },
+              "Type": "DataColumn"
+            },
+            "12": {
+              "Ident": "StiText",
+              "Name": "Text19",
+              "Guid": "42efd72dfd34eff3daa2ca0a7479b279",
+              "ClientRectangle": "21.8,0,3.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{counttotal.cashbilltotalsum}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "Expression"
+            },
+            "13": {
+              "Ident": "StiText",
+              "Name": "Text20",
+              "Guid": "2d2cbb63801c3a13a205ca0b3204bcb0",
+              "ClientRectangle": "7.4,0,2.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextFormat": {
+                "Ident": "StiCurrencyFormatService",
+                "NegativePattern": 2,
+                "GroupSeparator": ",",
+                "UseLocalSetting": false,
+                "PositivePattern": 0,
+                "Symbol": "¥"
+              },
+              "Type": "Expression"
+            }
+          }
+        }
+      },
+      "PageWidth": 43.4,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    }
+  }
+}

@@ -1,0 +1,2566 @@
+{
+  "ReportVersion": "2019.3.1",
+  "ReportGuid": "a75e2d433208b6c77d3d3fc37e5cf153",
+  "ReportName": "Report",
+  "ReportAlias": "项目机会汇总",
+  "ReportFile": "yc_jihui_fae.mrt",
+  "ReportCreated": "/Date(1575495447000+0800)/",
+  "ReportChanged": "/Date(1575495447000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Styles": {
+    "0": {
+      "Ident": "StiStyle",
+      "Name": "column_odd",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:255,255,255",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    },
+    "1": {
+      "Ident": "StiStyle",
+      "Name": "column_even",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:252,252,252",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    }
+  },
+  "Dictionary": {
+    "Variables": {
+      "0": {
+        "Value": "Year(Today)",
+        "Name": "nian",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime",
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "list_nian.list_value",
+          "ValuesColumn": "list_nian.list_value"
+        },
+        "Alias": "年度",
+        "Type": "System.String",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      },
+      "1": {
+        "Name": "ponum",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime"
+        },
+        "Alias": "项目编号",
+        "Type": "System.String",
+        "RequestFromUser": true
+      },
+      "2": {
+        "Value": "Month(Today)",
+        "Name": "yue",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime",
+          "AllowUserValues": false,
+          "Keys": {
+            "0": "1",
+            "1": "2",
+            "2": "3",
+            "3": "4",
+            "4": "5",
+            "5": "6",
+            "6": "7",
+            "7": "8",
+            "8": "9",
+            "9": "10",
+            "10": "11",
+            "11": "12"
+          },
+          "Values": {
+            "0": "1",
+            "1": "2",
+            "2": "3",
+            "3": "4",
+            "4": "5",
+            "5": "6",
+            "6": "7",
+            "7": "8",
+            "8": "9",
+            "9": "10",
+            "10": "11",
+            "11": "12"
+          }
+        },
+        "Alias": "月份",
+        "Type": "System.String",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      },
+      "3": {
+        "Value": "true",
+        "Name": "main_item",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime"
+        },
+        "Alias": "只显示活跃与EOL项目",
+        "Type": "System.Boolean",
+        "RequestFromUser": true
+      }
+    },
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "a",
+        "Alias": "a",
+        "Columns": {
+          "0": {
+            "Name": "la01",
+            "Index": -1,
+            "NameInSource": "la01",
+            "Alias": "la01",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "la02",
+            "Index": -1,
+            "NameInSource": "la02",
+            "Alias": "la02",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "la03",
+            "Index": -1,
+            "NameInSource": "la03",
+            "Alias": "la03",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "la04",
+            "Index": -1,
+            "NameInSource": "la04",
+            "Alias": "la04",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "la05",
+            "Index": -1,
+            "NameInSource": "la05",
+            "Alias": "la05",
+            "Type": "System.String"
+          },
+          "5": {
+            "Name": "la06",
+            "Index": -1,
+            "NameInSource": "la06",
+            "Alias": "la06",
+            "Type": "System.String"
+          },
+          "6": {
+            "Name": "la07",
+            "Index": -1,
+            "NameInSource": "la07",
+            "Alias": "la07",
+            "Type": "System.String"
+          },
+          "7": {
+            "Name": "la08",
+            "Index": -1,
+            "NameInSource": "la08",
+            "Alias": "la08",
+            "Type": "System.String"
+          },
+          "8": {
+            "Name": "la09",
+            "Index": -1,
+            "NameInSource": "la09",
+            "Alias": "la09",
+            "Type": "System.String"
+          },
+          "9": {
+            "Name": "la10",
+            "Index": -1,
+            "NameInSource": "la10",
+            "Alias": "la10",
+            "Type": "System.String"
+          },
+          "10": {
+            "Name": "la11",
+            "Index": -1,
+            "NameInSource": "la11",
+            "Alias": "la11",
+            "Type": "System.String"
+          },
+          "11": {
+            "Name": "la12",
+            "Index": -1,
+            "NameInSource": "la12",
+            "Alias": "la12",
+            "Type": "System.String"
+          },
+          "12": {
+            "Name": "lb01",
+            "Index": -1,
+            "NameInSource": "lb01",
+            "Alias": "lb01",
+            "Type": "System.String"
+          },
+          "13": {
+            "Name": "lb02",
+            "Index": -1,
+            "NameInSource": "lb02",
+            "Alias": "lb02",
+            "Type": "System.String"
+          },
+          "14": {
+            "Name": "lb03",
+            "Index": -1,
+            "NameInSource": "lb03",
+            "Alias": "lb03",
+            "Type": "System.String"
+          },
+          "15": {
+            "Name": "lb04",
+            "Index": -1,
+            "NameInSource": "lb04",
+            "Alias": "lb04",
+            "Type": "System.String"
+          },
+          "16": {
+            "Name": "lb05",
+            "Index": -1,
+            "NameInSource": "lb05",
+            "Alias": "lb05",
+            "Type": "System.String"
+          },
+          "17": {
+            "Name": "lb06",
+            "Index": -1,
+            "NameInSource": "lb06",
+            "Alias": "lb06",
+            "Type": "System.String"
+          },
+          "18": {
+            "Name": "lb07",
+            "Index": -1,
+            "NameInSource": "lb07",
+            "Alias": "lb07",
+            "Type": "System.String"
+          },
+          "19": {
+            "Name": "lb08",
+            "Index": -1,
+            "NameInSource": "lb08",
+            "Alias": "lb08",
+            "Type": "System.String"
+          },
+          "20": {
+            "Name": "lb09",
+            "Index": -1,
+            "NameInSource": "lb09",
+            "Alias": "lb09",
+            "Type": "System.String"
+          },
+          "21": {
+            "Name": "lb10",
+            "Index": -1,
+            "NameInSource": "lb10",
+            "Alias": "lb10",
+            "Type": "System.String"
+          },
+          "22": {
+            "Name": "lb11",
+            "Index": -1,
+            "NameInSource": "lb11",
+            "Alias": "lb11",
+            "Type": "System.String"
+          },
+          "23": {
+            "Name": "lb12",
+            "Index": -1,
+            "NameInSource": "lb12",
+            "Alias": "lb12",
+            "Type": "System.String"
+          },
+          "24": {
+            "Name": "lc01",
+            "Index": -1,
+            "NameInSource": "lc01",
+            "Alias": "lc01",
+            "Type": "System.String"
+          },
+          "25": {
+            "Name": "lc02",
+            "Index": -1,
+            "NameInSource": "lc02",
+            "Alias": "lc02",
+            "Type": "System.String"
+          },
+          "26": {
+            "Name": "lc03",
+            "Index": -1,
+            "NameInSource": "lc03",
+            "Alias": "lc03",
+            "Type": "System.String"
+          },
+          "27": {
+            "Name": "lc04",
+            "Index": -1,
+            "NameInSource": "lc04",
+            "Alias": "lc04",
+            "Type": "System.String"
+          },
+          "28": {
+            "Name": "lc05",
+            "Index": -1,
+            "NameInSource": "lc05",
+            "Alias": "lc05",
+            "Type": "System.String"
+          },
+          "29": {
+            "Name": "lc06",
+            "Index": -1,
+            "NameInSource": "lc06",
+            "Alias": "lc06",
+            "Type": "System.String"
+          },
+          "30": {
+            "Name": "lc07",
+            "Index": -1,
+            "NameInSource": "lc07",
+            "Alias": "lc07",
+            "Type": "System.String"
+          },
+          "31": {
+            "Name": "lc08",
+            "Index": -1,
+            "NameInSource": "lc08",
+            "Alias": "lc08",
+            "Type": "System.String"
+          },
+          "32": {
+            "Name": "lc09",
+            "Index": -1,
+            "NameInSource": "lc09",
+            "Alias": "lc09",
+            "Type": "System.String"
+          },
+          "33": {
+            "Name": "lc10",
+            "Index": -1,
+            "NameInSource": "lc10",
+            "Alias": "lc10",
+            "Type": "System.String"
+          },
+          "34": {
+            "Name": "lc11",
+            "Index": -1,
+            "NameInSource": "lc11",
+            "Alias": "lc11",
+            "Type": "System.String"
+          },
+          "35": {
+            "Name": "lc12",
+            "Index": -1,
+            "NameInSource": "lc12",
+            "Alias": "lc12",
+            "Type": "System.String"
+          },
+          "36": {
+            "Name": "ld01",
+            "Index": -1,
+            "NameInSource": "ld01",
+            "Alias": "ld01",
+            "Type": "System.String"
+          },
+          "37": {
+            "Name": "ld02",
+            "Index": -1,
+            "NameInSource": "ld02",
+            "Alias": "ld02",
+            "Type": "System.String"
+          },
+          "38": {
+            "Name": "ld03",
+            "Index": -1,
+            "NameInSource": "ld03",
+            "Alias": "ld03",
+            "Type": "System.String"
+          },
+          "39": {
+            "Name": "ld04",
+            "Index": -1,
+            "NameInSource": "ld04",
+            "Alias": "ld04",
+            "Type": "System.String"
+          },
+          "40": {
+            "Name": "ld05",
+            "Index": -1,
+            "NameInSource": "ld05",
+            "Alias": "ld05",
+            "Type": "System.String"
+          },
+          "41": {
+            "Name": "ld06",
+            "Index": -1,
+            "NameInSource": "ld06",
+            "Alias": "ld06",
+            "Type": "System.String"
+          },
+          "42": {
+            "Name": "ld07",
+            "Index": -1,
+            "NameInSource": "ld07",
+            "Alias": "ld07",
+            "Type": "System.String"
+          },
+          "43": {
+            "Name": "ld08",
+            "Index": -1,
+            "NameInSource": "ld08",
+            "Alias": "ld08",
+            "Type": "System.String"
+          },
+          "44": {
+            "Name": "ld09",
+            "Index": -1,
+            "NameInSource": "ld09",
+            "Alias": "ld09",
+            "Type": "System.String"
+          },
+          "45": {
+            "Name": "ld10",
+            "Index": -1,
+            "NameInSource": "ld10",
+            "Alias": "ld10",
+            "Type": "System.String"
+          },
+          "46": {
+            "Name": "ld11",
+            "Index": -1,
+            "NameInSource": "ld11",
+            "Alias": "ld11",
+            "Type": "System.String"
+          },
+          "47": {
+            "Name": "ld12",
+            "Index": -1,
+            "NameInSource": "ld12",
+            "Alias": "ld12",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "crm",
+        "SqlCommand": "SELECT\r\n\tDATE_FORMAT(DATE_SUB(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 11 MONTH),'%b-%y') AS la01,\r\n\tDATE_FORMAT(DATE_SUB(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 10 MONTH),'%b-%y') AS la02,\r\n\tDATE_FORMAT(DATE_SUB(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 9 MONTH),'%b-%y') AS la03,\r\n\tDATE_FORMAT(DATE_SUB(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 8 MONTH),'%b-%y') AS la04,\r\n\tDATE_FORMAT(DATE_SUB(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 7 MONTH),'%b-%y') AS la05,\r\n\tDATE_FORMAT(DATE_SUB(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 6 MONTH),'%b-%y') AS la06,\r\n\tDATE_FORMAT(DATE_SUB(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 5 MONTH),'%b-%y') AS la07,\r\n\tDATE_FORMAT(DATE_SUB(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 4 MONTH),'%b-%y') AS la08,\r\n\tDATE_FORMAT(DATE_SUB(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 3 MONTH),'%b-%y') AS la09,\r\n\tDATE_FORMAT(DATE_SUB(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 2 MONTH),'%b-%y') AS la10,\r\n\tDATE_FORMAT(DATE_SUB(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 1 MONTH),'%b-%y') AS la11,\r\n\tDATE_FORMAT(DATE_SUB(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 0 MONTH),'%b-%y') AS la12,\r\n\r\n\tDATE_FORMAT(DATE_SUB(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 11 MONTH),'%y年%c月') AS lb01,\r\n\tDATE_FORMAT(DATE_SUB(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 10 MONTH),'%y年%c月') AS lb02,\r\n\tDATE_FORMAT(DATE_SUB(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 9 MONTH),'%y年%c月') AS lb03,\r\n\tDATE_FORMAT(DATE_SUB(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 8 MONTH),'%y年%c月') AS lb04,\r\n\tDATE_FORMAT(DATE_SUB(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 7 MONTH),'%y年%c月') AS lb05,\r\n\tDATE_FORMAT(DATE_SUB(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 6 MONTH),'%y年%c月') AS lb06,\r\n\tDATE_FORMAT(DATE_SUB(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 5 MONTH),'%y年%c月') AS lb07,\r\n\tDATE_FORMAT(DATE_SUB(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 4 MONTH),'%y年%c月') AS lb08,\r\n\tDATE_FORMAT(DATE_SUB(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 3 MONTH),'%y年%c月') AS lb09,\r\n\tDATE_FORMAT(DATE_SUB(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 2 MONTH),'%y年%c月') AS lb10,\r\n\tDATE_FORMAT(DATE_SUB(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 1 MONTH),'%y年%c月') AS lb11,\r\n\tDATE_FORMAT(DATE_SUB(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 0 MONTH),'%y年%c月') AS lb12,\r\n\r\n\tCASE \r\n\t\tWHEN EXISTS (SELECT 1 FROM ld_customform03 WHERE deleted=0 AND YEAR(yuce_date)='{nian}' AND MONTH(yuce_date)='{yue}') THEN\r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 1 MONTH),'%b-%y') \r\n\t\tELSE \r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 0 MONTH),'%b-%y')\r\n\tEND AS lc01,\r\n\tCASE \r\n\t\tWHEN EXISTS (SELECT 1 FROM ld_customform03 WHERE deleted=0 AND YEAR(yuce_date)='{nian}' AND MONTH(yuce_date)='{yue}') THEN\r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 2 MONTH),'%b-%y') \r\n\t\tELSE \r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 1 MONTH),'%b-%y')\r\n\tEND AS lc02,\r\n\tCASE \r\n\t\tWHEN EXISTS (SELECT 1 FROM ld_customform03 WHERE deleted=0 AND YEAR(yuce_date)='{nian}' AND MONTH(yuce_date)='{yue}') THEN\r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 3 MONTH),'%b-%y') \r\n\t\tELSE \r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 2 MONTH),'%b-%y')\r\n\tEND AS lc03,\r\n\tCASE \r\n\t\tWHEN EXISTS (SELECT 1 FROM ld_customform03 WHERE deleted=0 AND YEAR(yuce_date)='{nian}' AND MONTH(yuce_date)='{yue}') THEN\r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 4 MONTH),'%b-%y') \r\n\t\tELSE \r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 3 MONTH),'%b-%y')\r\n\tEND AS lc04,\r\n\tCASE \r\n\t\tWHEN EXISTS (SELECT 1 FROM ld_customform03 WHERE deleted=0 AND YEAR(yuce_date)='{nian}' AND MONTH(yuce_date)='{yue}') THEN\r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 5 MONTH),'%b-%y') \r\n\t\tELSE \r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 4 MONTH),'%b-%y')\r\n\tEND AS lc05,\r\n\tCASE \r\n\t\tWHEN EXISTS (SELECT 1 FROM ld_customform03 WHERE deleted=0 AND YEAR(yuce_date)='{nian}' AND MONTH(yuce_date)='{yue}') THEN\r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 6 MONTH),'%b-%y') \r\n\t\tELSE \r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 5 MONTH),'%b-%y')\r\n\tEND AS lc06,\r\n\r\n\r\n\tCASE \r\n\t\tWHEN EXISTS (SELECT 1 FROM ld_customform03 WHERE deleted=0 AND YEAR(yuce_date)='{nian}' AND MONTH(yuce_date)='{yue}') THEN\r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 7 MONTH),'%b-%y') \r\n\t\tELSE \r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 6 MONTH),'%b-%y')\r\n\tEND AS lc07,\r\n\tCASE \r\n\t\tWHEN EXISTS (SELECT 1 FROM ld_customform03 WHERE deleted=0 AND YEAR(yuce_date)='{nian}' AND MONTH(yuce_date)='{yue}') THEN\r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 8 MONTH),'%b-%y') \r\n\t\tELSE \r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 7 MONTH),'%b-%y')\r\n\tEND AS lc08,\r\n\tCASE \r\n\t\tWHEN EXISTS (SELECT 1 FROM ld_customform03 WHERE deleted=0 AND YEAR(yuce_date)='{nian}' AND MONTH(yuce_date)='{yue}') THEN\r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 9 MONTH),'%b-%y') \r\n\t\tELSE \r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 8 MONTH),'%b-%y')\r\n\tEND AS lc09,\r\n\tCASE \r\n\t\tWHEN EXISTS (SELECT 1 FROM ld_customform03 WHERE deleted=0 AND YEAR(yuce_date)='{nian}' AND MONTH(yuce_date)='{yue}') THEN\r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 10 MONTH),'%b-%y') \r\n\t\tELSE \r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 9 MONTH),'%b-%y')\r\n\tEND AS lc10,\r\n\tCASE \r\n\t\tWHEN EXISTS (SELECT 1 FROM ld_customform03 WHERE deleted=0 AND YEAR(yuce_date)='{nian}' AND MONTH(yuce_date)='{yue}') THEN\r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 11 MONTH),'%b-%y') \r\n\t\tELSE \r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 10 MONTH),'%b-%y')\r\n\tEND AS lc11,\r\n\tCASE \r\n\t\tWHEN EXISTS (SELECT 1 FROM ld_customform03 WHERE deleted=0 AND YEAR(yuce_date)='{nian}' AND MONTH(yuce_date)='{yue}') THEN\r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 12 MONTH),'%b-%y')\r\n\t\tELSE \r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 11 MONTH),'%b-%y')\r\n\tEND AS lc12,\r\n\r\n\tCASE \r\n\t\tWHEN EXISTS (SELECT 1 FROM ld_customform03 WHERE deleted=0 AND YEAR(yuce_date)='{nian}' AND MONTH(yuce_date)='{yue}') THEN\r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 1 MONTH),'%y年%c月') \r\n\t\tELSE \r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 0 MONTH),'%y年%c月')\r\n\tEND AS ld01,\r\n\tCASE \r\n\t\tWHEN EXISTS (SELECT 1 FROM ld_customform03 WHERE deleted=0 AND YEAR(yuce_date)='{nian}' AND MONTH(yuce_date)='{yue}') THEN\r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 2 MONTH),'%y年%c月') \r\n\t\tELSE \r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 1 MONTH),'%y年%c月')\r\n\tEND AS ld02,\r\n\tCASE \r\n\t\tWHEN EXISTS (SELECT 1 FROM ld_customform03 WHERE deleted=0 AND YEAR(yuce_date)='{nian}' AND MONTH(yuce_date)='{yue}') THEN\r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 3 MONTH),'%y年%c月')\r\n\t\tELSE \r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 2 MONTH),'%y年%c月')\r\n\tEND AS ld03,\r\n\tCASE \r\n\t\tWHEN EXISTS (SELECT 1 FROM ld_customform03 WHERE deleted=0 AND YEAR(yuce_date)='{nian}' AND MONTH(yuce_date)='{yue}') THEN\r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 4 MONTH),'%y年%c月')\r\n\t\tELSE \r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 3 MONTH),'%y年%c月')\r\n\tEND AS ld04,\r\n\tCASE \r\n\t\tWHEN EXISTS (SELECT 1 FROM ld_customform03 WHERE deleted=0 AND YEAR(yuce_date)='{nian}' AND MONTH(yuce_date)='{yue}') THEN\r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 5 MONTH),'%y年%c月')\r\n\t\tELSE \r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 4 MONTH),'%y年%c月')\r\n\tEND AS ld05,\r\n\tCASE \r\n\t\tWHEN EXISTS (SELECT 1 FROM ld_customform03 WHERE deleted=0 AND YEAR(yuce_date)='{nian}' AND MONTH(yuce_date)='{yue}') THEN\r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 6 MONTH),'%y年%c月') \r\n\t\tELSE \r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 5 MONTH),'%y年%c月')\r\n\tEND AS ld06,\r\n\r\n\r\n\tCASE \r\n\t\tWHEN EXISTS (SELECT 1 FROM ld_customform03 WHERE deleted=0 AND YEAR(yuce_date)='{nian}' AND MONTH(yuce_date)='{yue}') THEN\r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 7 MONTH),'%y年%c月')\r\n\t\tELSE \r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 6 MONTH),'%y年%c月')\r\n\tEND AS ld07,\r\n\tCASE \r\n\t\tWHEN EXISTS (SELECT 1 FROM ld_customform03 WHERE deleted=0 AND YEAR(yuce_date)='{nian}' AND MONTH(yuce_date)='{yue}') THEN\r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 8 MONTH),'%y年%c月')\r\n\t\tELSE \r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 7 MONTH),'%y年%c月')\r\n\tEND AS ld08,\r\n\tCASE \r\n\t\tWHEN EXISTS (SELECT 1 FROM ld_customform03 WHERE deleted=0 AND YEAR(yuce_date)='{nian}' AND MONTH(yuce_date)='{yue}') THEN\r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 9 MONTH),'%y年%c月')\r\n\t\tELSE \r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 8 MONTH),'%y年%c月')\r\n\tEND AS ld09,\r\n\tCASE \r\n\t\tWHEN EXISTS (SELECT 1 FROM ld_customform03 WHERE deleted=0 AND YEAR(yuce_date)='{nian}' AND MONTH(yuce_date)='{yue}') THEN\r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 10 MONTH),'%y年%c月')\r\n\t\tELSE \r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 9 MONTH),'%y年%c月')\r\n\tEND AS ld10,\r\n\tCASE \r\n\t\tWHEN EXISTS (SELECT 1 FROM ld_customform03 WHERE deleted=0 AND YEAR(yuce_date)='{nian}' AND MONTH(yuce_date)='{yue}') THEN\r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 11 MONTH),'%y年%c月')\r\n\t\tELSE \r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 10 MONTH),'%y年%c月')\r\n\tEND AS ld11,\r\n\tCASE \r\n\t\tWHEN EXISTS (SELECT 1 FROM ld_customform03 WHERE deleted=0 AND YEAR(yuce_date)='{nian}' AND MONTH(yuce_date)='{yue}') THEN\r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 12 MONTH),'%y年%c月') \r\n\t\tELSE \r\n\t\t\tDATE_FORMAT(DATE_ADD(CONCAT('{nian}','-',LPAD('{yue}',2,'0'),'-01'),INTERVAL 11 MONTH),'%y年%c月')\r\n\tEND AS ld12\r\n"
+      },
+      "1": {
+        "Ident": "StiMySqlSource",
+        "Name": "b",
+        "Alias": "b",
+        "Columns": {
+          "0": {
+            "Name": "00_shareids",
+            "Index": -1,
+            "NameInSource": "00_shareids",
+            "Alias": "00_shareids",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "02_no",
+            "Index": -1,
+            "NameInSource": "02_no",
+            "Alias": "02_no",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "03_ishuoyue",
+            "Index": -1,
+            "NameInSource": "03_ishuoyue",
+            "Alias": "03_ishuoyue",
+            "Type": "System.Int32"
+          },
+          "3": {
+            "Name": "03_status",
+            "Index": -1,
+            "NameInSource": "03_status",
+            "Alias": "03_status",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "03_status_seq",
+            "Index": -1,
+            "NameInSource": "03_status_seq",
+            "Alias": "03_status_seq",
+            "Type": "System.Int32"
+          },
+          "5": {
+            "Name": "04_kehu",
+            "Index": -1,
+            "NameInSource": "04_kehu",
+            "Alias": "04_kehu",
+            "Type": "System.String"
+          },
+          "6": {
+            "Name": "05_xiangmuhao",
+            "Index": -1,
+            "NameInSource": "05_xiangmuhao",
+            "Alias": "05_xiangmuhao",
+            "Type": "System.String"
+          },
+          "7": {
+            "Name": "06_fuzeren",
+            "Index": -1,
+            "NameInSource": "06_fuzeren",
+            "Alias": "06_fuzeren",
+            "Type": "System.String"
+          },
+          "8": {
+            "Name": "07_team",
+            "Index": -1,
+            "NameInSource": "07_team",
+            "Alias": "07_team",
+            "Type": "System.String"
+          },
+          "9": {
+            "Name": "08_pro_amount",
+            "Index": -1,
+            "NameInSource": "08_pro_amount",
+            "Alias": "08_pro_amount",
+            "Type": "System.String"
+          },
+          "10": {
+            "Name": "09_pro_volume",
+            "Index": -1,
+            "NameInSource": "09_pro_volume",
+            "Alias": "09_pro_volume",
+            "Type": "System.String"
+          },
+          "11": {
+            "Name": "10_pingtaiA",
+            "Index": -1,
+            "NameInSource": "10_pingtaiA",
+            "Alias": "10_pingtaiA",
+            "Type": "System.String"
+          },
+          "12": {
+            "Name": "11_pingtaiB",
+            "Index": -1,
+            "NameInSource": "11_pingtaiB",
+            "Alias": "11_pingtaiB",
+            "Type": "System.String"
+          },
+          "13": {
+            "Name": "12_productleixing",
+            "Index": -1,
+            "NameInSource": "12_productleixing",
+            "Alias": "12_productleixing",
+            "Type": "System.String"
+          },
+          "14": {
+            "Name": "13_productnameIC",
+            "Index": -1,
+            "NameInSource": "13_productnameIC",
+            "Alias": "13_productnameIC",
+            "Type": "System.String"
+          },
+          "15": {
+            "Name": "14_productstyle",
+            "Index": -1,
+            "NameInSource": "14_productstyle",
+            "Alias": "14_productstyle",
+            "Type": "System.String"
+          },
+          "16": {
+            "Name": "15_zhongduankehu",
+            "Index": -1,
+            "NameInSource": "15_zhongduankehu",
+            "Alias": "15_zhongduankehu",
+            "Type": "System.String"
+          },
+          "17": {
+            "Name": "16_EMS",
+            "Index": -1,
+            "NameInSource": "16_EMS",
+            "Alias": "16_EMS",
+            "Type": "System.String"
+          },
+          "18": {
+            "Name": "17_dailishang",
+            "Index": -1,
+            "NameInSource": "17_dailishang",
+            "Alias": "17_dailishang",
+            "Type": "System.String"
+          },
+          "19": {
+            "Name": "18_guanlianxiaoshou",
+            "Index": -1,
+            "NameInSource": "18_guanlianxiaoshou",
+            "Alias": "18_guanlianxiaoshou",
+            "Type": "System.String"
+          },
+          "20": {
+            "Name": "a02_pricejy",
+            "Index": -1,
+            "NameInSource": "a02_pricejy",
+            "Alias": "a02_pricejy",
+            "Type": "System.Object"
+          },
+          "21": {
+            "Name": "a03_pricedl",
+            "Index": -1,
+            "NameInSource": "a03_pricedl",
+            "Alias": "a03_pricedl",
+            "Type": "System.Object"
+          },
+          "22": {
+            "Name": "a04_pricedg",
+            "Index": -1,
+            "NameInSource": "a04_pricedg",
+            "Alias": "a04_pricedg",
+            "Type": "System.Object"
+          },
+          "23": {
+            "Name": "a05_pricepp",
+            "Index": -1,
+            "NameInSource": "a05_pricepp",
+            "Alias": "a05_pricepp",
+            "Type": "System.Object"
+          },
+          "24": {
+            "Name": "a06_pricecb",
+            "Index": -1,
+            "NameInSource": "a06_pricecb",
+            "Alias": "a06_pricecb",
+            "Type": "System.Object"
+          },
+          "25": {
+            "Name": "a07_lirun",
+            "Index": -1,
+            "NameInSource": "a07_lirun",
+            "Alias": "a07_lirun",
+            "Type": "System.String"
+          },
+          "26": {
+            "Name": "a08_lirundl",
+            "Index": -1,
+            "NameInSource": "a08_lirundl",
+            "Alias": "a08_lirundl",
+            "Type": "System.String"
+          },
+          "27": {
+            "Name": "a09_lirundg",
+            "Index": -1,
+            "NameInSource": "a09_lirundg",
+            "Alias": "a09_lirundg",
+            "Type": "System.String"
+          },
+          "28": {
+            "Name": "a10_jingpinpp",
+            "Index": -1,
+            "NameInSource": "a10_jingpinpp",
+            "Alias": "a10_jingpinpp",
+            "Type": "System.String"
+          },
+          "29": {
+            "Name": "a10_jingpinxh",
+            "Index": -1,
+            "NameInSource": "a10_jingpinxh",
+            "Alias": "a10_jingpinxh",
+            "Type": "System.String"
+          },
+          "30": {
+            "Name": "a11_jingpinprice",
+            "Index": -1,
+            "NameInSource": "a11_jingpinprice",
+            "Alias": "a11_jingpinprice",
+            "Type": "System.Object"
+          },
+          "31": {
+            "Name": "ownerid_s1",
+            "Index": -1,
+            "NameInSource": "ownerid_s1",
+            "Alias": "ownerid_s1",
+            "Type": "System.Int32"
+          },
+          "32": {
+            "Name": "ownerid_s2",
+            "Index": -1,
+            "NameInSource": "ownerid_s2",
+            "Alias": "ownerid_s2",
+            "Type": "System.Int32"
+          },
+          "33": {
+            "Name": "ownerid_s3",
+            "Index": -1,
+            "NameInSource": "ownerid_s3",
+            "Alias": "ownerid_s3",
+            "Type": "System.Int32"
+          },
+          "34": {
+            "Name": "ownerid_s4",
+            "Index": -1,
+            "NameInSource": "ownerid_s4",
+            "Alias": "ownerid_s4",
+            "Type": "System.Int32"
+          }
+        },
+        "NameInSource": "crm",
+        "Type": "Table",
+        "SqlCommand": "SELECT\r\n\t*\r\nFROM (\r\nSELECT\r\n\ts1.smownerid AS ownerid_s1,\r\n\ts2.smownerid AS ownerid_s2,\r\n\ts3.smownerid AS ownerid_s3,\r\n\ts4.smownerid AS ownerid_s4,\r\n\t(SELECT GROUP_CONCAT(DISTINCT viewuserid ORDER BY viewuserid) FROM ld_tabshare WHERE crmid=s1.billid OR crmid=s2.billid OR crmid=s3.billid OR crmid=s4.billid) AS 00_shareids,\r\n\ts1.xm_no AS 02_no,\r\n\tCASE\r\n\t\tWHEN s4.xm_no IS NOT NULL THEN s4.xm_status\r\n\t\tWHEN s3.xm_no IS NOT NULL THEN 'S3'\r\n\t\tWHEN s2.xm_no IS NOT NULL THEN 'S2'\r\n\t\tELSE 'S1'\r\n\tEND AS 03_status,\r\n\tCASE\r\n\t\tWHEN s4.xm_no IS NOT NULL THEN 1\r\n\t\tWHEN s3.xm_no IS NOT NULL THEN 2\r\n\t\tWHEN s2.xm_no IS NOT NULL THEN 3\r\n\t\tELSE 4\r\n\tEND AS 03_status_seq,\r\n\tCASE\r\n\t\tWHEN s4.xm_no IS NOT NULL THEN 1\r\n\t\tWHEN s3.xm_no IS NOT NULL THEN 2\r\n\t\tWHEN s2.xm_no IS NOT NULL THEN 3\r\n\t\tELSE 4\r\n\tEND AS 03_ishuoyue,\r\n\tCASE\r\n\t\tWHEN s4.xm_no IS NOT NULL THEN s4.accountname\r\n\t\tWHEN s3.xm_no IS NOT NULL THEN s3.accountname\r\n\t\tWHEN s2.xm_no IS NOT NULL THEN s2.accountname\r\n\t\tELSE s1.accountname\r\n\tEND AS 04_kehu,\r\n\tCASE\r\n\t\tWHEN s4.xm_no IS NOT NULL THEN s4.xiangmuhao\r\n\t\tWHEN s3.xm_no IS NOT NULL THEN s3.xiangmuhao\r\n\t\tWHEN s2.xm_no IS NOT NULL THEN s2.xiangmuhao\r\n\t\tELSE s1.xiangmuhao\r\n\tEND AS 05_xiangmuhao,\r\n\tCASE\r\n\t\tWHEN s4.xm_no IS NOT NULL THEN s4.smowner\r\n\t\tWHEN s3.xm_no IS NOT NULL THEN s3.smowner\r\n\t\tWHEN s2.xm_no IS NOT NULL THEN s2.smowner\r\n\t\tELSE s1.smowner\r\n\tEND AS 06_fuzeren,\r\n\tCASE\r\n\t\tWHEN s4.xm_no IS NOT NULL THEN s4.team\r\n\t\tWHEN s3.xm_no IS NOT NULL THEN s3.team\r\n\t\tWHEN s2.xm_no IS NOT NULL THEN s2.team\r\n\t\tELSE s1.team\r\n\tEND AS 07_team,\r\n\tCASE\r\n\t\tWHEN s4.xm_no IS NOT NULL THEN s4.pro_amount\r\n\t\tWHEN s3.xm_no IS NOT NULL THEN s3.pro_amount\r\n\t\tWHEN s2.xm_no IS NOT NULL THEN s2.pro_amount\r\n\t\tELSE s1.pro_amount\r\n\tEND AS 08_pro_amount,\r\n\tCASE\r\n\t\tWHEN s4.xm_no IS NOT NULL THEN s4.pro_volume\r\n\t\tWHEN s3.xm_no IS NOT NULL THEN s3.pro_volume\r\n\t\tWHEN s2.xm_no IS NOT NULL THEN s2.pro_volume\r\n\t\tELSE s1.pro_volume\r\n\tEND AS 09_pro_volume,\r\n\tCASE\r\n\t\tWHEN s4.xm_no IS NOT NULL THEN s4.pingtaiA\r\n\t\tWHEN s3.xm_no IS NOT NULL THEN s3.pingtaiA\r\n\t\tWHEN s2.xm_no IS NOT NULL THEN s2.pingtaiA\r\n\t\tELSE s1.pingtaiA\r\n\tEND AS 10_pingtaiA,\r\n\r\n\r\n\tCASE\r\n\t\tWHEN s4.xm_no IS NOT NULL THEN s4.pingtaiB\r\n\t\tWHEN s3.xm_no IS NOT NULL THEN s3.pingtaiB\r\n\t\tWHEN s2.xm_no IS NOT NULL THEN s2.pingtaiB\r\n\t\tELSE s1.pingtaiB\r\n\tEND AS 11_pingtaiB,\r\n\tCASE\r\n\t\tWHEN s4.xm_no IS NOT NULL THEN s4.chanpin_leixing\r\n\t\tWHEN s3.xm_no IS NOT NULL THEN s3.chanpin_leixing\r\n\t\tWHEN s2.xm_no IS NOT NULL THEN s2.chanpin_leixing\r\n\t\tELSE s1.chanpin_leixing\r\n\tEND AS 12_productleixing,\r\n\tCASE\r\n\t\tWHEN s4.xm_no IS NOT NULL THEN s4.chanpin_nameIC\r\n\t\tWHEN s3.xm_no IS NOT NULL THEN s3.chanpin_nameIC\r\n\t\tELSE NULL\r\n\tEND AS 13_productnameIC,\r\n\tCASE\r\n\t\tWHEN s4.xm_no IS NOT NULL THEN s4.chanpin_xingtai\r\n\t\tWHEN s3.xm_no IS NOT NULL THEN s3.chanpin_xingtai\r\n\t\tWHEN s2.xm_no IS NOT NULL THEN s2.chanpin_xingtai\r\n\t\tELSE s1.chanpin_xingtai\r\n\tEND AS 14_productstyle,\r\n\tCASE\r\n\t\tWHEN s4.xm_no IS NOT NULL THEN s4.last_kehu\r\n\t\tWHEN s3.xm_no IS NOT NULL THEN s3.last_kehu\r\n\t\tWHEN s2.xm_no IS NOT NULL THEN s2.last_kehu\r\n\t\tELSE s1.last_kehu\r\n\tEND AS 15_zhongduankehu,\r\n\tCASE\r\n\t\tWHEN s4.xm_no IS NOT NULL THEN s4.EMS\r\n\t\tWHEN s3.xm_no IS NOT NULL THEN s3.EMS\r\n\t\tWHEN s2.xm_no IS NOT NULL THEN s2.EMS\r\n\t\tELSE s1.EMS\r\n\tEND AS 16_EMS,\r\n\tCASE\r\n\t\tWHEN s4.xm_no IS NOT NULL THEN s4.DLS\r\n\t\tWHEN s3.xm_no IS NOT NULL THEN s3.DLS\r\n\t\tWHEN s2.xm_no IS NOT NULL THEN s2.DLS\r\n\t\tELSE s1.DLS\r\n\tEND AS 17_dailishang,\r\n\tCASE\r\n\t\tWHEN s4.xm_no IS NOT NULL THEN s4.rel_saleser\r\n\t\tWHEN s3.xm_no IS NOT NULL THEN s3.rel_saleser\r\n\t\tWHEN s2.xm_no IS NOT NULL THEN s2.rel_saleser\r\n\t\tELSE s1.rel_saleser\r\n\tEND AS 18_guanlianxiaoshou,\r\n\r\n\tROUND(s4.quote_price_jy,2) AS a02_pricejy,\r\n\tROUND(s4.quote_price_dl,2) AS a03_pricedl,\r\n\tROUND(s4.quote_price_dg,2) AS a04_pricedg,\r\n\tROUND(s4.quote_price_pp,2) AS a05_pricepp,\r\n\tROUND(s4.quote_price_cb,2) AS a06_pricecb,\r\n\ts4.quote_lirun AS a07_lirun,\r\n\ts4.quote_lirun_dl AS a08_lirundl,\r\n\ts4.quote_lirun_dg AS a09_lirundg,\r\n\ts2.jingpinpp AS a10_jingpinpp,\r\n\ts2.jingpinxh AS a10_jingpinxh,\r\n\ts2.jingpinprice AS a11_jingpinprice\r\nFROM (\r\n\tSELECT\r\n\t\ta.leadsid AS billid,\r\n\t\ta.leads_no  AS xm_no,\r\n\t\t'S1' AS xm_status,\r\n\t\tk.accountname,\r\n\t\tu.last_name AS smowner,\r\n\t\tNULL AS team,\r\n\t\tb.cf_3682 AS pro_amount,\r\n\t\tb.cf_3603 AS pro_volume,\r\n\t\tb.cf_4811 AS pingtaiA,\r\n\t\tb.cf_4810 AS pingtaiB,\r\n\t\tNULL AS chanpin_leixing,\r\n\t\tb.cf_3942 AS chanpin_xingtai,\r\n\t\tNULL AS last_kehu,\r\n\t\tNULL AS EMS,\r\n\t\tNULL AS DLS,\r\n\t\tb.cf_3752 AS rel_saleser,\r\n\t\tNULL AS xiangmuhao,\r\n\t\tCASE\r\n\t\t\t WHEN b.cf_2995='否' THEN 'yes'\r\n\t\t\t ELSE 'no'\r\n\t\tEND AS is_defshow,\r\n\t\ta.smownerid\r\n\tFROM ld_leads a\r\n\tLEFT JOIN ld_leadscf b ON b.leadsid=a.leadsid\r\n\tLEFT JOIN ld_users u ON u.id=a.smownerid\r\n\tLEFT JOIN ld_account k ON k.accountid=a.accountid\r\n\tWHERE a.deleted=0\r\n\t\tAND IFNULL(a.leads_no,'')<>''\r\n\tGROUP BY a.leads_no\r\n) s1\r\nLEFT JOIN (\r\n\tSELECT\r\n\t\ta.potentialid AS billid,\r\n\t\tb.cf_3341 AS xm_no,\r\n\t\t'S2' AS xm_status,\r\n\t\tk.accountname,\r\n\t\tu.last_name AS smowner,\r\n\t\tb.cf_3453 AS team,\r\n\t\ta.amount AS pro_amount,\r\n\t\tb.cf_3744 AS pro_volume,\r\n\t\tb.cf_4812 AS pingtaiA,\r\n\t\tb.cf_4813 AS pingtaiB,\r\n\t\tb.cf_3426 AS chanpin_leixing,\r\n\t\tb.cf_3943 AS chanpin_xingtai,\r\n\t\tb.cf_3347 AS last_kehu,\r\n\t\tb.cf_3294 AS EMS,\r\n\t\tb.cf_3452 AS DLS,\r\n\t\tb.cf_3777 AS rel_saleser,\r\n\t\tb.cf_3332 AS xiangmuhao,\r\n\t\tb.cf_3342 AS jingpinpp,\r\n\t\tb.cf_3343 AS jingpinxh,\r\n\t\tb.cf_3344 AS jingpinprice,\r\n\t\tCASE\r\n\t\t\t WHEN b.cf_3340='否' THEN 'yes'\r\n\t\t\t ELSE 'no'\r\n\t\tEND AS is_defshow,\r\n\t\ta.smownerid\r\n\tFROM ld_potential a\r\n\tLEFT JOIN ld_potentialscf b ON b.potentialid=a.potentialid\r\n\tLEFT JOIN ld_users u ON u.id=a.smownerid\r\n\tLEFT JOIN ld_account k ON k.accountid=a.accountid\r\n\tWHERE a.deleted=0\r\n\t\tAND IFNULL(b.cf_3341,'')<>''\r\n\tGROUP BY b.cf_3341\r\n) s2 ON s2.xm_no=s1.xm_no\r\nLEFT JOIN (\r\n\tSELECT\r\n\t\ta.customform22id AS billid,\r\n\t\tc.cf_3341 AS xm_no,\r\n\t\t'S3' AS xm_status,\r\n\t\tk.accountname,\r\n\t\tu.last_name AS smowner,\r\n\t\tb.cf_3706 AS team,\r\n\t\tb.cf_3782 AS pro_amount,\r\n\t\tb.cf_3781 AS pro_volume,\r\n\t\tb.cf_4814 AS pingtaiA,\r\n\t\tb.cf_4815 AS pingtaiB,\r\n\t\tb.cf_3784 AS chanpin_leixing,\r\n\t\tb.cf_3944 AS chanpin_xingtai,\r\n\t\tb.cf_3118 AS chanpin_nameIC,\r\n\t\tb.cf_3533 AS last_kehu,\r\n\t\tb.cf_3532 AS EMS,\r\n\t\tb.cf_3531 AS DLS,\r\n\t\tb.cf_3778 AS rel_saleser,\r\n\t\tb.cf_3527 AS xiangmuhao,\r\n\t\tCASE\r\n\t\t\t WHEN b.cf_3077='否' THEN 'yes'\r\n\t\t\t ELSE 'no'\r\n\t\tEND AS is_defshow,\r\n\t\ta.smownerid\r\n\tFROM ld_customform22 a\r\n\tLEFT JOIN ld_customform22scf b ON b.customform22id=a.customform22id\r\n\tLEFT JOIN ld_potentialscf c ON c.potentialid=a.potentialid\r\n\tLEFT JOIN ld_users u ON u.id=a.smownerid\r\n\tLEFT JOIN ld_account k ON k.accountid=a.accountid\r\n\tWHERE a.deleted=0\r\n\t\tAND IFNULL(c.cf_3341,'')<>''\r\n\tGROUP BY c.cf_3341\r\n) s3 ON s3.xm_no=s1.xm_no\r\nLEFT JOIN (\r\n\tSELECT\r\n\t\ta.customform21id AS billid,\r\n\t\ta.quote_id,\r\n\t\tb.cf_3458 AS xm_no,\r\n\t\tb.cf_3457 AS xm_status,\r\n\t\tk.accountname,\r\n\t\tu.last_name AS smowner,\r\n\t\tb.cf_3707 AS team,\r\n\t\tNULL AS pro_amount,\r\n\t\tNULL AS pro_volume,\r\n\t\tb.cf_4816 AS pingtaiA,\r\n\t\tb.cf_4817 AS pingtaiB,\r\n\t\tb.cf_3785 AS chanpin_leixing,\r\n\t\tb.cf_3945 AS chanpin_xingtai,\r\n\t\tCASE\r\n\t\t\tWHEN b.cf_3785='Module' THEN b.cf_4006\r\n\t\t\tELSE b.cf_3124 \r\n\t\tEND AS chanpin_nameIC,\r\n\t\tb.cf_3537 AS last_kehu,\r\n\t\tb.cf_3536 AS EMS,\r\n\t\tb.cf_3535 AS DLS,\r\n\t\tb.cf_4656 AS rel_saleser,\r\n\t\tb.cf_3528 AS xiangmuhao,\r\n\t\t\r\n\t\ta.quote_price_jy,\r\n\t\ta.quote_price_dl,\r\n\t\ta.quote_price_dg,\r\n\t\ta.quote_price_pp,\r\n\t\ta.quote_price_cb,\r\n\t\ta.quote_lirun,\r\n\t\ta.quote_lirun_dl,\r\n\t\ta.quote_lirun_dg,\r\n\t\tCASE\r\n\t\t\t WHEN b.cf_2968='否' OR b.cf_3457='EOL' THEN 'yes'\r\n\t\t\t ELSE 'no'\r\n\t\tEND AS is_defshow,\r\n\t\ta.smownerid\r\n\tFROM ld_customform21 a\r\n\tLEFT JOIN ld_customform21scf b ON b.customform21id=a.customform21id\r\n\tLEFT JOIN ld_users u ON u.id=a.smownerid\r\n\tLEFT JOIN ld_account k ON k.accountid=a.accountid\r\n\tWHERE a.deleted=0\r\n\t\tAND IFNULL(b.cf_3458,'')<>''\r\n\tGROUP BY b.cf_3458\r\n) s4 ON s4.xm_no=s1.xm_no\r\nWHERE 1=1 \r\n\tAND (\r\n\t\tCASE\r\n\t\t\tWHEN TRIM('{ponum}')='' THEN 1=1\r\n\t\t\tELSE LOCATE(TRIM('{ponum}'),s1.xm_no)>0\r\n\t\tEND)\r\n\tAND (\r\n\t\tCASE\r\n\t\t\tWHEN '{main_item}'='true' THEN \r\n\t\t\t\t (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN s4.xm_no IS NOT NULL THEN s4.is_defshow\r\n\t\t\t\t\t\tWHEN s3.xm_no IS NOT NULL THEN s3.is_defshow\r\n\t\t\t\t\t\tWHEN s2.xm_no IS NOT NULL THEN s2.is_defshow\r\n\t\t\t\t\t\tELSE s1.is_defshow\r\n\t\t\t\t\tEND\r\n\t\t\t\t)='yes'\r\n\t\t\tELSE 1=1\r\n\t\tEND) \r\n) tmp\r\nWHERE 1=1\r\n\tAND (\r\n\t\tCASE\r\n\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('管理员','总经理','副总经理','总监')) THEN 1=1\r\n\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('普通成员')) THEN\r\n\t\t\t\townerid_s1='[uuid]' OR ownerid_s2='[uuid]' OR ownerid_s3='[uuid]' OR ownerid_s4='[uuid]' OR FIND_IN_SET('[uuid]',00_shareids)\r\n\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('部门经理')) THEN\r\n\t\t\t\townerid_s1 IN (SELECT userid FROM ld_users2group WHERE groupid IN (SELECT groupid FROM ld_users2group WHERE userid='[uuid]'))\r\n\t\t\t\tOR ownerid_s2 IN (SELECT userid FROM ld_users2group WHERE groupid IN (SELECT groupid FROM ld_users2group WHERE userid='[uuid]'))\r\n\t\t\t\tOR ownerid_s3 IN (SELECT userid FROM ld_users2group WHERE groupid IN (SELECT groupid FROM ld_users2group WHERE userid='[uuid]'))\t\r\n\t\t\t\tOR ownerid_s4 IN (SELECT userid FROM ld_users2group WHERE groupid IN (SELECT groupid FROM ld_users2group WHERE userid='[uuid]'))\t\t\r\n\t\t\t\tOR FIND_IN_SET('[uuid]',00_shareids)\r\n\t\t\tELSE 0=1\r\n\t\tEND)\r\nORDER BY 03_status_seq,FIELD(03_status,'S4','EOL','S3','S2','S1'),02_no"
+      },
+      "2": {
+        "Ident": "StiMySqlSource",
+        "Name": "c",
+        "Alias": "c",
+        "Columns": {
+          "0": {
+            "Name": "tips_s1",
+            "Index": -1,
+            "NameInSource": "tips_s1",
+            "Alias": "tips_s1",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "tips_s2",
+            "Index": -1,
+            "NameInSource": "tips_s2",
+            "Alias": "tips_s2",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "tips_s3",
+            "Index": -1,
+            "NameInSource": "tips_s3",
+            "Alias": "tips_s3",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "tips_s4",
+            "Index": -1,
+            "NameInSource": "tips_s4",
+            "Alias": "tips_s4",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "crm",
+        "SqlCommand": "SELECT \r\n\tCONCAT('S4量产项目 总数：',RPAD(s4_qty,4,' '),'，关闭：',RPAD(s4_guanbi,4,' '),'，其中EOL：',RPAD(s4_eol,4,' '),'，非EOL：',\r\n\t\tRPAD(s4_guanbi-s4_eol,4,' '),'；',SPACE(4),'活跃：',s4_qty-s4_guanbi,'，其中量产：',s4_liangchan,'，未量产：',s4_qty-s4_guanbi-s4_liangchan\r\n\t) AS tips_s4,\r\n\tCONCAT('S1销售线索 总数：',RPAD(s1_qty,4,' '),'，关闭：',RPAD(s1_guanbi,4,' '),'，活跃：',RPAD(s1_qty-s1_guanbi,4,' '))  AS tips_s1,\r\n\tCONCAT('S2销售机会 总数：',RPAD(s2_qty,4,' '),'，关闭：',RPAD(s2_guanbi,4,' '),'，活跃：',RPAD(s2_qty-s2_guanbi,4,' '))  AS tips_s2,\r\n\tCONCAT('S3立项项目 总数：',RPAD(s3_qty,4,' '),'，关闭：',RPAD(s3_guanbi,4,' '),'，活跃：',RPAD(s3_qty-s3_guanbi,4,' '))  AS tips_s3\r\nFROM (\r\nSELECT \r\n\t(\r\n\t\tSELECT \r\n\t\t\tCOUNT(1)\r\n\t\tFROm ld_customform21 a\r\n\t\tLEFT JOIN ld_customform21scf b ON b.customform21id=a.customform21id\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('管理员','总经理','副总经理','总监')) THEN 1=1\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('普通成员')) THEN \r\n\t\t\t\t\t\ta.smownerid='[uuid]' OR '[uuid]' IN (SELECT viewuserid FROM ld_tabshare WHERE crmid=a.customform21id)\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('部门经理')) THEN\r\n\t\t\t\t\t\ta.smownerid IN (SELECT userid FROM ld_users2group WHERE groupid IN (SELECT groupid FROM ld_users2group WHERE userid='[uuid]'))\t\t\r\n\t\t\t\t\t\t\tOR '[uuid]' IN (SELECT viewuserid FROM ld_tabshare WHERE crmid=a.customform21id)\r\n\t\t\t\t\tELSE 0=1\r\n\t\t\t\tEND)\r\n\t) AS s4_qty,\r\n\t(\r\n\t\tSELECT \r\n\t\t\tCOUNT(1)\r\n\t\tFROm ld_customform21 a\r\n\t\tLEFT JOIN ld_customform21scf b ON b.customform21id=a.customform21id\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND b.cf_2968='是'\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('管理员','总经理','副总经理','总监')) THEN 1=1\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('普通成员')) THEN \r\n\t\t\t\t\t\ta.smownerid='[uuid]' OR '[uuid]' IN (SELECT viewuserid FROM ld_tabshare WHERE crmid=a.customform21id)\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('部门经理')) THEN\r\n\t\t\t\t\t\ta.smownerid IN (SELECT userid FROM ld_users2group WHERE groupid IN (SELECT groupid FROM ld_users2group WHERE userid='[uuid]'))\t\t\r\n\t\t\t\t\t\t\tOR '[uuid]' IN (SELECT viewuserid FROM ld_tabshare WHERE crmid=a.customform21id)\r\n\t\t\t\t\tELSE 0=1\r\n\t\t\t\tEND)\r\n\t) AS s4_guanbi,\r\n\t(\r\n\t\tSELECT \r\n\t\t\tCOUNT(1)\r\n\t\tFROm ld_customform21 a\r\n\t\tLEFT JOIN ld_customform21scf b ON b.customform21id=a.customform21id\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND b.cf_2968='是'\r\n\t\t\tAND b.cf_3457='EOL'\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('管理员','总经理','副总经理','总监')) THEN 1=1\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('普通成员')) THEN \r\n\t\t\t\t\t\ta.smownerid='[uuid]' OR '[uuid]' IN (SELECT viewuserid FROM ld_tabshare WHERE crmid=a.customform21id)\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('部门经理')) THEN\r\n\t\t\t\t\t\ta.smownerid IN (SELECT userid FROM ld_users2group WHERE groupid IN (SELECT groupid FROM ld_users2group WHERE userid='[uuid]'))\t\t\r\n\t\t\t\t\t\t\tOR '[uuid]' IN (SELECT viewuserid FROM ld_tabshare WHERE crmid=a.customform21id)\r\n\t\t\t\t\tELSE 0=1\r\n\t\t\t\tEND)\r\n\t) AS s4_eol,\r\n\t(\r\n\t\tSELECT \r\n\t\t\tCOUNT(1)\r\n\t\tFROm ld_customform21 a\r\n\t\tLEFT JOIN ld_customform21scf b ON b.customform21id=a.customform21id\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND b.cf_3457='S4'\r\n\t\t\tAND b.cf_2968='否'\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('管理员','总经理','副总经理','总监')) THEN 1=1\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('普通成员')) THEN \r\n\t\t\t\t\t\ta.smownerid='[uuid]' OR '[uuid]' IN (SELECT viewuserid FROM ld_tabshare WHERE crmid=a.customform21id)\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('部门经理')) THEN\r\n\t\t\t\t\t\ta.smownerid IN (SELECT userid FROM ld_users2group WHERE groupid IN (SELECT groupid FROM ld_users2group WHERE userid='[uuid]'))\t\t\r\n\t\t\t\t\t\t\tOR '[uuid]' IN (SELECT viewuserid FROM ld_tabshare WHERE crmid=a.customform21id)\r\n\t\t\t\t\tELSE 0=1\r\n\t\t\t\tEND)\r\n\t) AS s4_liangchan,\r\n\t(\r\n\t\tSELECT \r\n\t\t\tCOUNT(1)\r\n\t\tFROm ld_leads a\r\n\t\tLEFT JOIN ld_leadscf b ON b.leadsid=a.leadsid\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('管理员','总经理','副总经理','总监')) THEN 1=1\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('普通成员')) THEN \r\n\t\t\t\t\t\ta.smownerid='[uuid]' OR '[uuid]' IN (SELECT viewuserid FROM ld_tabshare WHERE crmid=a.leadsid)\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('部门经理')) THEN\r\n\t\t\t\t\t\ta.smownerid IN (SELECT userid FROM ld_users2group WHERE groupid IN (SELECT groupid FROM ld_users2group WHERE userid='[uuid]'))\t\t\r\n\t\t\t\t\t\t\tOR '[uuid]' IN (SELECT viewuserid FROM ld_tabshare WHERE crmid=a.leadsid)\r\n\t\t\t\t\tELSE 0=1\r\n\t\t\t\tEND)\r\n\t) AS s1_qty,\r\n\t(\r\n\t\tSELECT \r\n\t\t\tCOUNT(1)\r\n\t\tFROm ld_leads a\r\n\t\tLEFT JOIN ld_leadscf b ON b.leadsid=a.leadsid\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND b.cf_2995='是'\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('管理员','总经理','副总经理','总监')) THEN 1=1\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('普通成员')) THEN \r\n\t\t\t\t\t\ta.smownerid='[uuid]' OR '[uuid]' IN (SELECT viewuserid FROM ld_tabshare WHERE crmid=a.leadsid)\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('部门经理')) THEN\r\n\t\t\t\t\t\ta.smownerid IN (SELECT userid FROM ld_users2group WHERE groupid IN (SELECT groupid FROM ld_users2group WHERE userid='[uuid]'))\t\t\r\n\t\t\t\t\t\t\tOR '[uuid]' IN (SELECT viewuserid FROM ld_tabshare WHERE crmid=a.leadsid)\r\n\t\t\t\t\tELSE 0=1\r\n\t\t\t\tEND)\r\n\t) AS s1_guanbi,\r\n\t(\r\n\t\tSELECT \r\n\t\t\tCOUNT(1)\r\n\t\tFROm ld_potential a\r\n\t\tLEFT JOIN ld_potentialscf b ON b.potentialid=a.potentialid\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('管理员','总经理','副总经理','总监')) THEN 1=1\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('普通成员')) THEN \r\n\t\t\t\t\t\ta.smownerid='[uuid]' OR '[uuid]' IN (SELECT viewuserid FROM ld_tabshare WHERE crmid=a.potentialid)\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('部门经理')) THEN\r\n\t\t\t\t\t\ta.smownerid IN (SELECT userid FROM ld_users2group WHERE groupid IN (SELECT groupid FROM ld_users2group WHERE userid='[uuid]'))\t\t\r\n\t\t\t\t\t\t\tOR '[uuid]' IN (SELECT viewuserid FROM ld_tabshare WHERE crmid=a.potentialid)\r\n\t\t\t\t\tELSE 0=1\r\n\t\t\t\tEND)\r\n\t) AS s2_qty,\r\n\t(\r\n\t\tSELECT \r\n\t\t\tCOUNT(1)\r\n\t\tFROm ld_potential a\r\n\t\tLEFT JOIN ld_potentialscf b ON b.potentialid=a.potentialid\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND b.cf_3340='是'\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('管理员','总经理','副总经理','总监')) THEN 1=1\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('普通成员')) THEN \r\n\t\t\t\t\t\ta.smownerid='[uuid]' OR '[uuid]' IN (SELECT viewuserid FROM ld_tabshare WHERE crmid=a.potentialid)\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('部门经理')) THEN\r\n\t\t\t\t\t\ta.smownerid IN (SELECT userid FROM ld_users2group WHERE groupid IN (SELECT groupid FROM ld_users2group WHERE userid='[uuid]'))\t\t\r\n\t\t\t\t\t\t\tOR '[uuid]' IN (SELECT viewuserid FROM ld_tabshare WHERE crmid=a.potentialid)\r\n\t\t\t\t\tELSE 0=1\r\n\t\t\t\tEND)\r\n\t) AS s2_guanbi,\r\n\t(\r\n\t\tSELECT \r\n\t\t\tCOUNT(1)\r\n\t\tFROm ld_customform22 a\r\n\t\tLEFT JOIN ld_customform22scf b ON b.customform22id=a.customform22id\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('管理员','总经理','副总经理','总监')) THEN 1=1\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('普通成员')) THEN \r\n\t\t\t\t\t\ta.smownerid='[uuid]' OR '[uuid]' IN (SELECT viewuserid FROM ld_tabshare WHERE crmid=a.customform22id)\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('部门经理')) THEN\r\n\t\t\t\t\t\ta.smownerid IN (SELECT userid FROM ld_users2group WHERE groupid IN (SELECT groupid FROM ld_users2group WHERE userid='[uuid]'))\t\t\r\n\t\t\t\t\t\t\tOR '[uuid]' IN (SELECT viewuserid FROM ld_tabshare WHERE crmid=a.customform22id)\r\n\t\t\t\t\tELSE 0=1\r\n\t\t\t\tEND)\r\n\t) AS s3_qty,\r\n\t(\r\n\t\tSELECT \r\n\t\t\tCOUNT(1)\r\n\t\tFROm ld_customform22 a\r\n\t\tLEFT JOIN ld_customform22scf b ON b.customform22id=a.customform22id\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND b.cf_3077='是'\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('管理员','总经理','副总经理','总监')) THEN 1=1\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('普通成员')) THEN \r\n\t\t\t\t\t\ta.smownerid='[uuid]' OR '[uuid]' IN (SELECT viewuserid FROM ld_tabshare WHERE crmid=a.customform22id)\r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 FROM ld_users WHERE id='[uuid]' AND userlevel IN ('部门经理')) THEN\r\n\t\t\t\t\t\ta.smownerid IN (SELECT userid FROM ld_users2group WHERE groupid IN (SELECT groupid FROM ld_users2group WHERE userid='[uuid]'))\t\t\r\n\t\t\t\t\t\t\tOR '[uuid]' IN (SELECT viewuserid FROM ld_tabshare WHERE crmid=a.customform22id)\r\n\t\t\t\t\tELSE 0=1\r\n\t\t\t\tEND)\r\n\t) AS s3_guanbi\r\n) t"
+      },
+      "3": {
+        "Ident": "StiMySqlSource",
+        "Name": "list_nian",
+        "Alias": "list_nian",
+        "Columns": {
+          "0": {
+            "Name": "list_value",
+            "Index": -1,
+            "NameInSource": "list_value",
+            "Alias": "list_value",
+            "Type": "System.Decimal"
+          }
+        },
+        "NameInSource": "crm",
+        "SqlCommand": "SELECT YEAR(NOW())-3 AS list_value\r\nUNION\r\nSELECT YEAR(NOW())-2 AS list_value\r\nUNION\r\nSELECT YEAR(NOW())-1 AS list_value\r\nUNION\r\nSELECT YEAR(NOW()) AS list_value\r\nUNION\r\nSELECT YEAR(NOW())+1 AS list_value"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "crm",
+        "Alias": "crm",
+        "ConnectionStringEncrypted": "41bRCUh8S81GRym9xJzjXovS+ythCkGJYhWhzOIJYWeQWtnrYUxDCcwbqNjoePZn3tyNSMYJUZTCE/mAZBR3boN4zcJPA1GobU3QgMs="
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "Page1",
+      "Guid": "723fe29559abb2d8469acd9605690dac",
+      "Alias": "项目机会汇总",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiReportTitleBand",
+          "Name": "ReportTitleBand1",
+          "Guid": "088394e15ad73bd749a068b51e470cd2",
+          "ClientRectangle": "0,0.4,61.8,2",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text107",
+              "Guid": "f8ea526486cdcef5dd26db6cc9ea86c3",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,24.6,2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{c.tips_s4}\r\n{c.tips_s1}\r\n{c.tips_s2}\r\n{c.tips_s3}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;10;;",
+              "Border": ";221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:255,0,0",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "LineSpacing": 1.2,
+              "Type": "Expression"
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiHeaderBand",
+          "Name": "HeaderBand2",
+          "Guid": "74a2c4322086d876464db17b9e97c7c4",
+          "ClientRectangle": "0,3.2,61.8,2.8",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text337",
+              "Guid": "1a329979152eb5e95698a89f4c5dfe9a",
+              "ClientRectangle": "0,0.8,3.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "No."
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text338",
+              "Guid": "39e784845619410fb28719deb0209b5f",
+              "ClientRectangle": "3.4,0.8,1.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "Status"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text339",
+              "Guid": "b916ce68e675dd3aee2eb39e6c84c027",
+              "ClientRectangle": "5.2,0.8,5.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "Direct Customer"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text340",
+              "Guid": "1578b24e739a43aee27904a23f6d557c",
+              "ClientRectangle": "16.8,0.8,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "Engineer"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text342",
+              "Guid": "4d6dd169f500b0d33d62997ef7c5eed4",
+              "ClientRectangle": "0,1.8,3.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "项目编号"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text343",
+              "Guid": "da8d66393638abba27b10704dd2a0f0f",
+              "ClientRectangle": "3.4,1.8,1.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "销售状态"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text344",
+              "Guid": "bdde3cbe5e71d65d4490305e4e169153",
+              "ClientRectangle": "5.2,1.8,5.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "客户名"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text345",
+              "Guid": "b444223f3ce01951694b8b60c3317698",
+              "ClientRectangle": "16.8,1.8,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "工程团队"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text347",
+              "Guid": "49c8b3e730fe650ac1a716ff1980cf49",
+              "ClientRectangle": "10.6,1.8,4.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "客户项目号"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text348",
+              "Guid": "cca0c36dfdd2c16bc712f9687b3b475c",
+              "ClientRectangle": "10.6,0.8,4.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "Project"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "10": {
+              "Ident": "StiText",
+              "Name": "Text349",
+              "Guid": "017a7e69a8f1c0a49dbf4f4d06c75ea3",
+              "ClientRectangle": "14.8,0.8,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "Main Sales"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "11": {
+              "Ident": "StiText",
+              "Name": "Text350",
+              "Guid": "af9430c030f8902cf97b2b506726ce83",
+              "ClientRectangle": "14.8,1.8,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "销售负责人"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "12": {
+              "Ident": "StiText",
+              "Name": "Text351",
+              "Guid": "6b464a102d53d413db381c6333b95d09",
+              "ClientRectangle": "18.8,0.8,3.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "Project Volume"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "13": {
+              "Ident": "StiText",
+              "Name": "Text352",
+              "Guid": "338f3ab8ab05f39955e9db4d18a5db26",
+              "ClientRectangle": "18.8,1.8,3.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "生命周期销售量 (PCS)"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "14": {
+              "Ident": "StiText",
+              "Name": "Text353",
+              "Guid": "f4850efc0c038d7018341acf8ec9ec1d",
+              "ClientRectangle": "22,0.8,2.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "Platform A"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "15": {
+              "Ident": "StiText",
+              "Name": "Text354",
+              "Guid": "720a65f8415d7dcee2b0afa10b2b559a",
+              "ClientRectangle": "22,1.8,2.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "销售料号A"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "16": {
+              "Ident": "StiText",
+              "Name": "Text355",
+              "Guid": "199352c399c83be9d196f41bd5fd68d8",
+              "ClientRectangle": "26.4,0.8,3.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "Product Type"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "17": {
+              "Ident": "StiText",
+              "Name": "Text356",
+              "Guid": "60e96c11c49f482a4dfb98002a88b611",
+              "ClientRectangle": "26.4,1.8,3.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "产品类型"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "18": {
+              "Ident": "StiText",
+              "Name": "Text357",
+              "Guid": "44a5a12237d9ea2b852afdc70ac0fbab",
+              "ClientRectangle": "35.8,0.8,5.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "End Customer"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "19": {
+              "Ident": "StiText",
+              "Name": "Text358",
+              "Guid": "745d312b9034e6983fd011e4592a426f",
+              "ClientRectangle": "35.8,1.8,5.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "终端客户"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "20": {
+              "Ident": "StiText",
+              "Name": "Text359",
+              "Guid": "a1e85f1d35e069f13955221cd88068f5",
+              "ClientRectangle": "41,0.8,5.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "EMS"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "21": {
+              "Ident": "StiText",
+              "Name": "Text360",
+              "Guid": "8baaae480411cb62f96108194b41c016",
+              "ClientRectangle": "41,1.8,5.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "代工厂"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "22": {
+              "Ident": "StiText",
+              "Name": "Text361",
+              "Guid": "67a20e698014e886a0cd75b446d41c8f",
+              "ClientRectangle": "46.4,0.8,5.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "Disty"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "23": {
+              "Ident": "StiText",
+              "Name": "Text362",
+              "Guid": "575d0dbcd8da3fd9c99fbd7ee415e6de",
+              "ClientRectangle": "46.4,1.8,5.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "代理商"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "24": {
+              "Ident": "StiText",
+              "Name": "Text363",
+              "Guid": "3ac1a9d33236fffc2c2eabe2db814688",
+              "ClientRectangle": "52.2,0.8,2.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "Sub. Sales"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "25": {
+              "Ident": "StiText",
+              "Name": "Text364",
+              "Guid": "237614c523a96ce7e729d740018bed13",
+              "ClientRectangle": "52.2,1.8,2.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "关联销售"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "26": {
+              "Ident": "StiText",
+              "Name": "Text379",
+              "Guid": "d84ac4f55596b19f5f29c19a305d405a",
+              "ClientRectangle": "52.2,0,9.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "项目商务信息"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:216,216,216",
+              "TextBrush": "solid:0,0,0",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "27": {
+              "Ident": "StiText",
+              "Name": "Text380",
+              "Guid": "fc34e6ae65fc4004b475fb3e8450f2da",
+              "ClientRectangle": "0,0,52.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "项目基本信息"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:216,216,216",
+              "TextBrush": "solid:0,0,0",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "28": {
+              "Ident": "StiText",
+              "Name": "Text3",
+              "Guid": "ea79fb9990424de22fd006922a58b6bc",
+              "ClientRectangle": "24.4,0.8,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "Platform B"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "29": {
+              "Ident": "StiText",
+              "Name": "Text5",
+              "Guid": "3f0aab8a8425eff01a12e351bb73b654",
+              "ClientRectangle": "24.4,1.8,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "销售料号 B"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "30": {
+              "Ident": "StiText",
+              "Name": "Text7",
+              "Guid": "a36ba911402711207c6e7c5f10d8b768",
+              "ClientRectangle": "29.6,0.8,3.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "IC Product Name A"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "31": {
+              "Ident": "StiText",
+              "Name": "Text8",
+              "Guid": "6fc62a59d5ab3ade7d8d0e3fee6ea601",
+              "ClientRectangle": "29.6,1.8,3.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "S4 产品名称"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "32": {
+              "Ident": "StiText",
+              "Name": "Text10",
+              "Guid": "df8511b57152eec283978dfbe53bc1d9",
+              "ClientRectangle": "32.8,0.8,3,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "Product Form"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "33": {
+              "Ident": "StiText",
+              "Name": "Text11",
+              "Guid": "fdb17fde5d09b837258b040448b1bb9a",
+              "ClientRectangle": "32.8,1.8,3,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "产品形态"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "34": {
+              "Ident": "StiText",
+              "Name": "Text375",
+              "Guid": "0ba85c7cae9fcd76dc8f3906bd7476e0",
+              "ClientRectangle": "57.2,0.8,2.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "Comp Model"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "35": {
+              "Ident": "StiText",
+              "Name": "Text376",
+              "Guid": "359de408ef5aa368568bdb14819529dc",
+              "ClientRectangle": "57.2,1.8,2.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "竞品型号"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "36": {
+              "Ident": "StiText",
+              "Name": "Text377",
+              "Guid": "2e4d9736b936600b165ea228874c2f26",
+              "ClientRectangle": "59.8,0.8,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "Comp Price"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "37": {
+              "Ident": "StiText",
+              "Name": "Text378",
+              "Guid": "ecd5c88c2fb12e6d5c35b4935e342ebf",
+              "ClientRectangle": "59.8,1.8,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "竞品价格"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "38": {
+              "Ident": "StiText",
+              "Name": "Text373",
+              "Guid": "593cf01eb0bdd05b0258e469627a04a1",
+              "ClientRectangle": "54.6,0.8,2.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "Comp "
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "39": {
+              "Ident": "StiText",
+              "Name": "Text374",
+              "Guid": "565b77b702f56bd50cf2053005c0bfda",
+              "ClientRectangle": "54.6,1.8,2.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "竞品品牌"
+              },
+              "VertAlignment": "Center",
+              "Font": "Calibri;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:242,242,242",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            }
+          }
+        },
+        "2": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand1",
+          "Guid": "1623ad3070a1aaaab886d1d19b93a341",
+          "ClientRectangle": "0,6.8,61.8,1",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text264",
+              "Guid": "7f17433ccff06e9db2a59beb78e34754",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,3.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{order_info.salesorderid}"
+              },
+              "Text": {
+                "Value": "{b.n02_no}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text265",
+              "Guid": "bb5008f0084b23e36397a5e1bf3160d4",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "3.4,0,1.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{order_info.salesorderid}"
+              },
+              "Text": {
+                "Value": "{b.n03_status}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text266",
+              "Guid": "d9fe61d9947b9e404b403687956c9706",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "5.2,0,5.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{order_info.salesorderid}"
+              },
+              "Text": {
+                "Value": "{b.n04_kehu}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text267",
+              "Guid": "9e0662647ce6ee747091385e707c7573",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "16.8,0,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{order_info.salesorderid}"
+              },
+              "Text": {
+                "Value": "{b.n07_team}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text268",
+              "Guid": "cb8fbed3b04b3ed5743f3495d54cd561",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "10.6,0,4.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{order_info.salesorderid}"
+              },
+              "Text": {
+                "Value": "{b.n05_xiangmuhao}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text269",
+              "Guid": "596fa1291d0d3702b763fdca60de0c98",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "14.8,0,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{order_info.salesorderid}"
+              },
+              "Text": {
+                "Value": "{b.n06_fuzeren}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text271",
+              "Guid": "7288c978b8946f4fc87b12b6018071a2",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "18.8,0,3.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{order_info.salesorderid}"
+              },
+              "Text": {
+                "Value": "{b.n09_pro_volume}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "DataColumn"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text272",
+              "Guid": "9d665fceaf33a278211ecfd942832afc",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "22,0,2.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{order_info.salesorderid}"
+              },
+              "Text": {
+                "Value": "{b.n10_pingtaiA}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text273",
+              "Guid": "c941bd0acf12f97e0bebab2289f8d975",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "26.4,0,3.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{order_info.salesorderid}"
+              },
+              "Text": {
+                "Value": "{b.n12_productleixing}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text274",
+              "Guid": "3ba7f3cdde6ec7a89a18fbab9c32f200",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "35.8,0,5.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{order_info.salesorderid}"
+              },
+              "Text": {
+                "Value": "{b.n15_zhongduankehu}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "10": {
+              "Ident": "StiText",
+              "Name": "Text275",
+              "Guid": "293ae1d670a434c9a58e1ed5c4bd5e1f",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "41,0,5.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{order_info.salesorderid}"
+              },
+              "Text": {
+                "Value": "{b.n16_EMS}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "11": {
+              "Ident": "StiText",
+              "Name": "Text276",
+              "Guid": "3860f4e21be865a975f296a0ac1a9c9a",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "46.4,0,5.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{order_info.salesorderid}"
+              },
+              "Text": {
+                "Value": "{b.n17_dailishang}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "12": {
+              "Ident": "StiText",
+              "Name": "Text277",
+              "Guid": "973e358c603279dfe82bb9bb8cf5f41d",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "52.2,0,2.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{order_info.salesorderid}"
+              },
+              "Text": {
+                "Value": "{b.n18_guanlianxiaoshou}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "13": {
+              "Ident": "StiText",
+              "Name": "Text6",
+              "Guid": "d6ea834522997397aefa4cda46752a4e",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "24.4,0,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{order_info.salesorderid}"
+              },
+              "Text": {
+                "Value": "{b.n11_pingtaiB}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "14": {
+              "Ident": "StiText",
+              "Name": "Text9",
+              "Guid": "83b4027572aafd95354c3c6d8d3e8f3c",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "29.6,0,3.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{order_info.salesorderid}"
+              },
+              "Text": {
+                "Value": "{b.n13_productnameIC}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "15": {
+              "Ident": "StiText",
+              "Name": "Text12",
+              "Guid": "84864783b26ea45e3ef0a0c86010e76e",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "32.8,0,3,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{order_info.salesorderid}"
+              },
+              "Text": {
+                "Value": "{b.n14_productstyle}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "16": {
+              "Ident": "StiText",
+              "Name": "Text283",
+              "Guid": "248942d4e8d07a25708a5972ee66e366",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "57.2,0,2.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "{b.n01_no}"
+              },
+              "Tag": {
+                "Value": "{order_info.salesorderid}"
+              },
+              "Text": {
+                "Value": "{b.a10_jingpinxh}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "17": {
+              "Ident": "StiText",
+              "Name": "Text284",
+              "Guid": "166a2bc903ce0fdb026896c36386cd64",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "59.8,0,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "{b.n01_no}"
+              },
+              "Tag": {
+                "Value": "{order_info.salesorderid}"
+              },
+              "Text": {
+                "Value": "{b.a11_jingpinprice}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "18": {
+              "Ident": "StiText",
+              "Name": "Text282",
+              "Guid": "e8e623b403702a33fadd87415558dda3",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "54.6,0,2.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "{b.n01_no}"
+              },
+              "Tag": {
+                "Value": "{order_info.salesorderid}"
+              },
+              "Text": {
+                "Value": "{b.a10_jingpinpp}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "b"
+        }
+      },
+      "PageWidth": 63.8,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    }
+  }
+}

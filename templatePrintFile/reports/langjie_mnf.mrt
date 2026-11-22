@@ -1,0 +1,931 @@
+{
+  "ReportVersion": "2019.3.1",
+  "ReportGuid": "bf5ca524f01f0d946aec507c0d96b093",
+  "ReportName": "MNF",
+  "ReportAlias": "MNF",
+  "ReportFile": "langjie_mnf.mrt",
+  "ReportCreated": "/Date(1612800000+0800)/",
+  "ReportChanged": "/Date(1612800000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Styles": {
+    "0": {
+      "Ident": "StiStyle",
+      "Name": "column_odd",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:255,255,255",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    },
+    "1": {
+      "Ident": "StiStyle",
+      "Name": "column_even",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:252,252,252",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    }
+  },
+  "Dictionary": {
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "a",
+        "Alias": "a",
+        "Columns": {
+          "0": {
+            "Name": "goods",
+            "Index": -1,
+            "NameInSource": "goods",
+            "Alias": "goods",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "mast_qty",
+            "Index": -1,
+            "NameInSource": "mast_qty",
+            "Alias": "mast_qty",
+            "Type": "System.Object"
+          },
+          "2": {
+            "Name": "master_wight",
+            "Index": -1,
+            "NameInSource": "master_wight",
+            "Alias": "master_wight",
+            "Type": "System.Object"
+          },
+          "3": {
+            "Name": "masterorder_no",
+            "Index": -1,
+            "NameInSource": "masterorder_no",
+            "Alias": "masterorder_no",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "masterorder_receiver",
+            "Index": -1,
+            "NameInSource": "masterorder_receiver",
+            "Alias": "masterorder_receiver",
+            "Type": "System.String"
+          },
+          "5": {
+            "Name": "masterorder_receiveraddress",
+            "Index": -1,
+            "NameInSource": "masterorder_receiveraddress",
+            "Alias": "masterorder_receiveraddress",
+            "Type": "System.String"
+          },
+          "6": {
+            "Name": "masterorder_shipper",
+            "Index": -1,
+            "NameInSource": "masterorder_shipper",
+            "Alias": "masterorder_shipper",
+            "Type": "System.String"
+          },
+          "7": {
+            "Name": "masterorder_shipperaddress",
+            "Index": -1,
+            "NameInSource": "masterorder_shipperaddress",
+            "Alias": "masterorder_shipperaddress",
+            "Type": "System.String"
+          },
+          "8": {
+            "Name": "port_end",
+            "Index": -1,
+            "NameInSource": "port_end",
+            "Alias": "port_end",
+            "Type": "System.String"
+          },
+          "9": {
+            "Name": "port_start",
+            "Index": -1,
+            "NameInSource": "port_start",
+            "Alias": "port_start",
+            "Type": "System.String"
+          },
+          "10": {
+            "Name": "real_flightdate",
+            "Index": -1,
+            "NameInSource": "real_flightdate",
+            "Alias": "real_flightdate",
+            "Type": "System.String"
+          },
+          "11": {
+            "Name": "real_flightno",
+            "Index": -1,
+            "NameInSource": "real_flightno",
+            "Alias": "real_flightno",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "crm",
+        "Type": "Table",
+        "SqlCommand": "SELECT \r\n\tCONCAT('Port of Loading: ',IFNULL(a.start_port,'')) AS port_start,\r\n\tCONCAT('Port of Destination: ',IFNULL(a.end_port,'')) AS port_end,\r\n\tCONCAT('Flight No.: ',IFNULL(a.real_flightno,'')) AS real_flightno,\r\n\tCONCAT('Flight Date: ',IFNULL(DATE_FORMAT(a.real_flightdate,'%m.%d.%Y'),'')) AS real_flightdate,\r\n\ta.masterorder_no,\r\n\tSUM(d.sf171) AS mast_qty,\r\n\tb.cf_3811 AS master_wight,\r\n\ta.masterorder_shipper,\r\n\ta.masterorder_shipperaddress,\r\n\ta.masterorder_receiver,\r\n\ta.masterorder_receiveraddress,\r\n\tCASE\r\n\t\tWHEN COUNT(1)>0 THEN 'CONSOLIDATED SHPT AS PER ATTACHED CARGO MANIFEST'\r\n\t\tELSE d.sf170\r\n\tEND AS goods\r\nFROM ld_customform25 a\r\nLEFT JOIN ld_customform25scf b ON b.customform25id=a.customform25id\r\nLEFT JOIN ld_customform25detail c ON c.id=a.customform25id\r\nLEFT JOIN ld_customform25detailscf d ON d.lineitem_id=c.lineitem_id\r\nWHERE a.customform25id='[related_ldcrmid]' \r\nGROUP BY a.customform25id"
+      },
+      "1": {
+        "Ident": "StiMySqlSource",
+        "Name": "b",
+        "Alias": "b",
+        "Columns": {
+          "0": {
+            "Name": "bill_no",
+            "Index": -1,
+            "NameInSource": "bill_no",
+            "Alias": "bill_no",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "goods",
+            "Index": -1,
+            "NameInSource": "goods",
+            "Alias": "goods",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "pkg",
+            "Index": -1,
+            "NameInSource": "pkg",
+            "Alias": "pkg",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "ship_address",
+            "Index": -1,
+            "NameInSource": "ship_address",
+            "Alias": "ship_address",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "ship_name",
+            "Index": -1,
+            "NameInSource": "ship_name",
+            "Alias": "ship_name",
+            "Type": "System.String"
+          },
+          "5": {
+            "Name": "shou_address",
+            "Index": -1,
+            "NameInSource": "shou_address",
+            "Alias": "shou_address",
+            "Type": "System.String"
+          },
+          "6": {
+            "Name": "shou_name",
+            "Index": -1,
+            "NameInSource": "shou_name",
+            "Alias": "shou_name",
+            "Type": "System.String"
+          },
+          "7": {
+            "Name": "wight",
+            "Index": -1,
+            "NameInSource": "wight",
+            "Alias": "wight",
+            "Type": "System.Object"
+          }
+        },
+        "NameInSource": "crm",
+        "SqlCommand": "SELECT \r\n\td.sf169 AS bill_no,\r\n\tCONCAT(IFNULL(d.sf171,0),IFNULL(d.sf172,'')) AS pkg,\r\n\td.sf173 AS wight,\r\n\td.sf176 AS ship_name,\r\n\td.sf177 AS ship_address,\r\n\td.sf178 AS shou_name,\r\n\td.sf179 AS shou_address,\r\n\td.sf170 AS goods\r\nFROM ld_customform25 a\r\nLEFT JOIN ld_customform25scf b ON b.customform25id=a.customform25id\r\nLEFT JOIN ld_customform25detail c ON c.id=a.customform25id\r\nLEFT JOIN ld_customform25detailscf d ON d.lineitem_id=c.lineitem_id\r\nWHERE a.customform25id='[related_ldcrmid]' "
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "crm",
+        "Alias": "crm",
+        "ConnectionStringEncrypted": "49b169cbG9ViSaWVSwB1TtVaacNhCWmdQxOxkWdxcWODcK2DYkFBvGBH0aVhXKS70dTZwk9UafDtTT10ag0lXoBWcSvoWouA6Rjt9Pt0tUaCbnWI4xhZpOMVnKk="
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "Page1",
+      "Guid": "6389d51e78446a91e887233818b2fdeb",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiReportTitleBand",
+          "Name": "ReportTitleBand1",
+          "ClientRectangle": "0,0.4,29,3.2",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text1",
+              "Guid": "dfec27b8615723625b8f84844cad4293",
+              "ClientRectangle": "0,0,29,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "CARGO MANIFEST"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;16;Bold;",
+              "Border": ";;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text3",
+              "Guid": "8427a3e0bd311ffb0c666fe959d071bd",
+              "ClientRectangle": "0,2.4,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "Air Waybill"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;Bold;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text4",
+              "Guid": "dd2bb23943a048a0e95f7357875cd5d9",
+              "ClientRectangle": "2.8,2.4,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "Waybill No."
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;Bold;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text5",
+              "Guid": "936d439f7ec9e291df62aeafd26a7486",
+              "ClientRectangle": "5.6,2.4,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "No. of Pkg"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;Bold;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text6",
+              "Guid": "42a173a1058a5dd30c4a5248e6ae2e9e",
+              "ClientRectangle": "8.4,2.4,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "Weight (kg)"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;Bold;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text7",
+              "Guid": "cb10321a779d8fa84e9b96a7197a296a",
+              "ClientRectangle": "11.2,2.4,6.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "Shipper"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;Bold;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text8",
+              "Guid": "95e68693d187538a4aa17af14ed6bf33",
+              "ClientRectangle": "17.6,2.4,6.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "Consignee"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;Bold;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text9",
+              "Guid": "b868ee899fca2cfb0670e04cdc35fdf6",
+              "ClientRectangle": "24,2.4,5,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "Description of Goods"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;Bold;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text10",
+              "Guid": "462508f53459445b6c067fc3d60531ad",
+              "ClientRectangle": "0,1.6,5.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{a.port_start}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;Bold;",
+              "Border": "Top, Left, Bottom;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text11",
+              "Guid": "3c088f850ad132eb104f6fdd78696d48",
+              "ClientRectangle": "5.6,1.6,5.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{a.port_end}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;Bold;",
+              "Border": "Top, Bottom;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "10": {
+              "Ident": "StiText",
+              "Name": "Text2",
+              "Guid": "328f0629b79a112c251eb9e3df4a3c7b",
+              "ClientRectangle": "11.2,1.6,6.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{a.real_flightno}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;Bold;",
+              "Border": "Top, Bottom;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "11": {
+              "Ident": "StiText",
+              "Name": "Text12",
+              "Guid": "62b6e85c9e30de4514fea67f1e2d2e5b",
+              "ClientRectangle": "17.6,1.6,6.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{a.real_flightdate}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;Bold;",
+              "Border": "Top, Bottom;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "12": {
+              "Ident": "StiText",
+              "Name": "Text13",
+              "Guid": "b5a835a95e8e9ffab9a0fcda6dc65274",
+              "ClientRectangle": "24,1.6,5,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;Bold;",
+              "Border": "Top, Right, Bottom;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand1",
+          "ClientRectangle": "0,4.4,29,3",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text14",
+              "Guid": "ceffa6dfd053dae7a874876ac28c83f3",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,2.8,3",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "MAWB"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "LineSpacing": 1.2,
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text15",
+              "Guid": "e7c76896585fed6d4b1806a4f2574081",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "2.8,0,2.8,3",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{a.masterorder_no}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "LineSpacing": 1.2,
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text16",
+              "Guid": "2d67decca234e2af97194d55f76a511b",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "5.6,0,2.8,3",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{a.mast_qty}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "LineSpacing": 1.2,
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text17",
+              "Guid": "5d38a10292ec74aa60101c4d0daf1f0b",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "8.4,0,2.8,3",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{a.master_wight}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "LineSpacing": 1.2,
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "DataColumn"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text18",
+              "Guid": "679fb29f149646dd1d6613b075dc8f4b",
+              "ClientRectangle": "11.2,0,6.4,3",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{a.masterorder_shipper}\r\n{a.masterorder_shipperaddress}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "LineSpacing": 1.2,
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text19",
+              "Guid": "35a71d171958d9c4fbb4b5888fb7dbad",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "17.6,0,6.4,3",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{a.masterorder_receiver}\r\n{a.masterorder_receiveraddress}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "LineSpacing": 1.2,
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text20",
+              "Guid": "284dc55f3d939156c125df34edf8bd2a",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "24,0,5,3",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{a.goods}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "LineSpacing": 1.2,
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "a"
+        },
+        "2": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand2",
+          "Guid": "a7321b543be0c0f253031cbe330b0a62",
+          "ClientRectangle": "0,8.2,29,3",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text21",
+              "Guid": "8e396a09bdeb5bcb9b0599dd4eff98a4",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,2.8,3",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "HAWB"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "LineSpacing": 1.2,
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text22",
+              "Guid": "fa70cf92a84286d1be88f053f2ebf4b3",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "2.8,0,2.8,3",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.bill_no}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "LineSpacing": 1.2,
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text23",
+              "Guid": "0516bd9a21fe2f0f7005e37ef3d80d27",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "5.6,0,2.8,3",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.pkg}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "LineSpacing": 1.2,
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text24",
+              "Guid": "3cd71c0a72bc7f952258d928beafca13",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "8.4,0,2.8,3",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.wight}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "LineSpacing": 1.2,
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "DataColumn"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text25",
+              "Guid": "86f4e2d33c4a833a48096ddbe83a82ca",
+              "ClientRectangle": "11.2,0,6.4,3",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.ship_name}\r\n{b.ship_address}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "LineSpacing": 1.2,
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text26",
+              "Guid": "4ed430c3a024b4c46be879bed8304c2b",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "17.6,0,6.4,3",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.shou_name}\r\n{b.shou_address}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "LineSpacing": 1.2,
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text27",
+              "Guid": "735b6a60f462e132d8e56b01855cf9fe",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "24,0,5,3",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.goods}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;10;;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "LineSpacing": 1.2,
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "b"
+        }
+      },
+      "PageWidth": 31,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    }
+  }
+}

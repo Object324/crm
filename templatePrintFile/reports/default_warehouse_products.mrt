@@ -1,0 +1,2972 @@
+{
+  "ReportVersion": "2019.4.1",
+  "ReportGuid": "0fdd6cfbf67b4ba080fdf8fb582d618f",
+  "ReportName": "Report",
+  "ReportAlias": "库存余额表",
+  "ReportFile": "default_warehouse_products.mrt",
+  "ReportCreated": "/Date(316800000+0800)/",
+  "ReportChanged": "/Date(316800000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Styles": {
+    "0": {
+      "Ident": "StiStyle",
+      "Name": "column_odd",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:255,255,255",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    },
+    "1": {
+      "Ident": "StiStyle",
+      "Name": "column_even",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:252,252,252",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    }
+  },
+  "Dictionary": {
+    "Variables": {
+      "0": {
+        "Value": "0",
+        "Name": "warename",
+        "DialogInfo": {
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "warehouse.id",
+          "ValuesColumn": "warehouse.name",
+          "AllowUserValues": false
+        },
+        "Alias": "仓库名称",
+        "Type": "System.String",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      },
+      "1": {
+        "Name": "productno",
+        "Alias": "产品编号",
+        "Type": "System.String",
+        "RequestFromUser": true
+      },
+      "2": {
+        "Value": "true",
+        "Name": "qty_range",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime"
+        },
+        "Alias": "只显示库存数量大于零的产品",
+        "Type": "System.Boolean",
+        "RequestFromUser": true
+      },
+      "3": {
+        "Name": "productname",
+        "Alias": "产品名称",
+        "Type": "System.String",
+        "RequestFromUser": true
+      },
+      "4": {
+        "Name": "productsheet",
+        "Alias": "规格型号",
+        "Type": "System.String",
+        "RequestFromUser": true
+      },
+      "5": {
+        "Value": "false",
+        "Name": "safety_range",
+        "Alias": "只显示安全库存差额小于零的产品",
+        "Type": "System.Boolean",
+        "RequestFromUser": true
+      },
+      "6": {
+        "Name": "pici",
+        "Alias": "批次",
+        "Type": "System.String",
+        "RequestFromUser": true
+      },
+      "7": {
+        "Value": "1",
+        "Name": "shenpi",
+        "DialogInfo": {
+          "AllowUserValues": false,
+          "Keys": {
+            "0": "1",
+            "1": "2"
+          },
+          "Values": {
+            "0": "全部",
+            "1": "审批通过"
+          }
+        },
+        "Alias": "审批状态",
+        "Type": "System.String",
+        "RequestFromUser": true
+      }
+    },
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "columnname",
+        "Alias": "columnname",
+        "Columns": {
+          "0": {
+            "Name": "productname",
+            "Index": -1,
+            "NameInSource": "productname",
+            "Alias": "productname",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "product_no",
+            "Index": -1,
+            "NameInSource": "product_no",
+            "Alias": "product_no",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "productsheet",
+            "Index": -1,
+            "NameInSource": "productsheet",
+            "Alias": "productsheet",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "anniu_name",
+            "Index": -1,
+            "NameInSource": "anniu_name",
+            "Alias": "anniu_name",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "anniu_tips",
+            "Index": -1,
+            "NameInSource": "anniu_tips",
+            "Alias": "anniu_tips",
+            "Type": "System.String"
+          },
+          "5": {
+            "Name": "pname",
+            "Index": -1,
+            "NameInSource": "pname",
+            "Alias": "pname",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT\r\n\t(SELECT \r\n\t\tb.fieldlabel\r\n\tFROM ld_field a\r\n\tLEFT JOIN ld_tranlabel b ON a.fieldid=b.Relateid AND b.trantable='ld_field' AND b.languagetype='zh'\r\n\tWHERE a.tabid=14 and columnname='productname' limit 1) AS productname,\r\n\t(SELECT \r\n\t\tb.fieldlabel\r\n\tFROM ld_field a\r\n\tLEFT JOIN ld_tranlabel b ON a.fieldid=b.Relateid AND b.trantable='ld_field' AND b.languagetype='zh'\r\n\tWHERE a.tabid=14 and columnname='product_no' limit 1) AS product_no,\r\n\t(SELECT \r\n\t\tb.fieldlabel\r\n\tFROM ld_field a\r\n\tLEFT JOIN ld_tranlabel b ON a.fieldid=b.Relateid AND b.trantable='ld_field' AND b.languagetype='zh'\r\n\tWHERE a.tabid=14 and columnname='productsheet' limit 1) AS productsheet,\r\n\t(SELECT \r\n\t\tCONCAT('创建',fieldlabel)\r\n\tFROM ld_tranlabel \r\n\tWHERE trantable='ld_tab' AND tabid=21 and Relateid=21 AND languagetype='zh' limit 1) AS anniu_name,\r\n\t(SELECT \r\n\t\tCONCAT('为安全库存差额小于0的产品创建',fieldlabel)\r\n\tFROM ld_tranlabel \r\n\tWHERE trantable='ld_tab' AND tabid=21 and Relateid=21 AND languagetype='zh' limit 1) AS anniu_tips,\r\n\t(SELECT productname FROM ld_products WHERE productid='{this[\"id\"]}' LIMIT 1) AS pname"
+      },
+      "1": {
+        "Ident": "StiMySqlSource",
+        "Name": "warehouse",
+        "Alias": "warehouse",
+        "Columns": {
+          "0": {
+            "Name": "id",
+            "Index": -1,
+            "NameInSource": "id",
+            "Alias": "id",
+            "Type": "System.Int32"
+          },
+          "1": {
+            "Name": "name",
+            "Index": -1,
+            "NameInSource": "name",
+            "Alias": "name",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT 0 id,'全部' `name`\r\nUNION ALL\r\nSELECT id,`name` FROM ld_warehouse WHERE `status`=0"
+      },
+      "2": {
+        "Ident": "StiMySqlSource",
+        "Name": "detail_locked",
+        "Alias": "detail_locked",
+        "Columns": {
+          "0": {
+            "Name": "approvestatus",
+            "Index": -1,
+            "NameInSource": "approvestatus",
+            "Alias": "approvestatus",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "last_name",
+            "Index": -1,
+            "NameInSource": "last_name",
+            "Alias": "last_name",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "order_id",
+            "Index": -1,
+            "NameInSource": "order_id",
+            "Alias": "order_id",
+            "Type": "System.Int32"
+          },
+          "3": {
+            "Name": "order_no",
+            "Index": -1,
+            "NameInSource": "order_no",
+            "Alias": "order_no",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "productid",
+            "Index": -1,
+            "NameInSource": "productid",
+            "Alias": "productid",
+            "Type": "System.Int32"
+          },
+          "5": {
+            "Name": "qty_locked",
+            "Index": -1,
+            "NameInSource": "qty_locked",
+            "Alias": "qty_locked",
+            "Type": "System.Decimal"
+          },
+          "6": {
+            "Name": "qty_locked_show",
+            "Index": -1,
+            "NameInSource": "qty_locked_show",
+            "Alias": "qty_locked_show",
+            "Type": "System.String"
+          },
+          "7": {
+            "Name": "signed_data",
+            "Index": -1,
+            "NameInSource": "signed_data",
+            "Alias": "signed_data",
+            "Type": "System.DateTime"
+          },
+          "8": {
+            "Name": "sostatus",
+            "Index": -1,
+            "NameInSource": "sostatus",
+            "Alias": "sostatus",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT\r\n\ta.order_id,\r\n\ta.order_no,\r\n\ta.signed_data,\r\n\ta.sostatus,\r\n\ta.approvestatus,\r\n\tb.productid,\r\n\tSUM(b.balanceoutproductcount) AS qty_locked,\r\n\tFORMAT(SUM(b.balanceoutproductcount),(select deploy_value from ld_systems_deploy where deploy_type=49 limit 1)) AS qty_locked_show,\r\n\tc.last_name\r\nFROM (\r\n\tSELECT\r\n\t\ta.salesorderid AS order_id,\r\n\t\ta.salesorder_no AS order_no,\r\n\t\ta.signed_data,\r\n\t\ta.sostatus,\r\n\t\ta.approvestatus,\r\n\t\ta.smownerid\r\n\tFROM ld_salesorder a \r\n\tWHERE a.deleted=0 \r\n\t\tAND a.approvestatus<>'已拒绝' \r\n\t\tAND IFNULL(a.sostatus,'')<>'已作废'\r\n\tUNION ALL\r\n\tSELECT \r\n\t\ta.servicecontractsid,\r\n\t\ta.contract_no,\r\n\t\ta.due_date,\r\n\t\ta.contract_status,\r\n\t\ta.approvestatus,\r\n\t\ta.smownerid\r\n\tFROM ld_servicecontracts a \r\n\tWHERE a.deleted=0 \r\n\t\tAND a.approvestatus<>'已拒绝' \r\n\t\tAND IFNULL(a.contract_status,'')<>'已作废'\r\n) a\r\nLEFT JOIN (\r\n\tSELECT id,productid,balanceoutproductcount FROM ld_salesorderdetail\r\n\tUNION ALL\r\n\tSELECT id,productid,balanceoutproductcount FROM ld_servicecontractsdetail\r\n) b ON a.order_id=b.id\r\nLEFT JOIN ld_users c ON c.id=a.smownerid\r\nWHERE b.balanceoutproductcount>0\r\n\tAND b.productid='{this[\"id\"]}'\r\nGROUP BY a.order_id\r\nORDER BY a.signed_data,a.order_id"
+      },
+      "3": {
+        "Ident": "StiMySqlSource",
+        "Name": "detail_way",
+        "Alias": "detail_way",
+        "Columns": {
+          "0": {
+            "Name": "approvestatus",
+            "Index": -1,
+            "NameInSource": "approvestatus",
+            "Alias": "approvestatus",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "last_name",
+            "Index": -1,
+            "NameInSource": "last_name",
+            "Alias": "last_name",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "postatus",
+            "Index": -1,
+            "NameInSource": "postatus",
+            "Alias": "postatus",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "productid",
+            "Index": -1,
+            "NameInSource": "productid",
+            "Alias": "productid",
+            "Type": "System.Int32"
+          },
+          "4": {
+            "Name": "purchaseorder_no",
+            "Index": -1,
+            "NameInSource": "purchaseorder_no",
+            "Alias": "purchaseorder_no",
+            "Type": "System.String"
+          },
+          "5": {
+            "Name": "purchaseorderid",
+            "Index": -1,
+            "NameInSource": "purchaseorderid",
+            "Alias": "purchaseorderid",
+            "Type": "System.Int32"
+          },
+          "6": {
+            "Name": "qty_locked_show",
+            "Index": -1,
+            "NameInSource": "qty_locked_show",
+            "Alias": "qty_locked_show",
+            "Type": "System.String"
+          },
+          "7": {
+            "Name": "qty_way",
+            "Index": -1,
+            "NameInSource": "qty_way",
+            "Alias": "qty_way",
+            "Type": "System.Decimal"
+          },
+          "8": {
+            "Name": "signed_data",
+            "Index": -1,
+            "NameInSource": "signed_data",
+            "Alias": "signed_data",
+            "Type": "System.DateTime"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT\r\n\ta.purchaseorderid,\r\n\ta.purchaseorder_no,\r\n\ta.signed_data,\r\n\ta.postatus,\r\n\ta.approvestatus,\r\n\tb.productid,\r\n\tSUM(b.balancepurchasecount) AS qty_way,\r\n\tFORMAT(SUM(b.balancepurchasecount),(select deploy_value from ld_systems_deploy where deploy_type=49 limit 1)) AS qty_locked_show,\r\n\tc.last_name\t\r\nFROM ld_purchaseorder a\r\nLEFT JOIN ld_purchaseorderdetail b ON a.purchaseorderid=b.id\r\nLEFT JOIN ld_users c ON c.id=a.smownerid\r\nWHERE a.deleted=0\r\n\tAND a.approvestatus<>'已拒绝'\r\n\tAND IFNULL(a.postatus,'')<>'已作废'\r\n\tAND b.balancepurchasecount>0\r\n\tAND b.productid='{this[\"id\"]}'\r\nGROUP BY a.purchaseorderid\r\nORDER BY a.signed_data,a.purchaseorderid"
+      },
+      "4": {
+        "Ident": "StiMySqlSource",
+        "Name": "detai_ware",
+        "Alias": "detai_ware",
+        "Columns": {
+          "0": {
+            "Name": "wareid",
+            "Index": -1,
+            "NameInSource": "wareid",
+            "Alias": "wareid",
+            "Type": "System.Int32"
+          },
+          "1": {
+            "Name": "name",
+            "Index": -1,
+            "NameInSource": "name",
+            "Alias": "name",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "productid",
+            "Index": -1,
+            "NameInSource": "productid",
+            "Alias": "productid",
+            "Type": "System.Int32"
+          },
+          "3": {
+            "Name": "productname",
+            "Index": -1,
+            "NameInSource": "productname",
+            "Alias": "productname",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "product_no",
+            "Index": -1,
+            "NameInSource": "product_no",
+            "Alias": "product_no",
+            "Type": "System.String"
+          },
+          "5": {
+            "Name": "productsheet",
+            "Index": -1,
+            "NameInSource": "productsheet",
+            "Alias": "productsheet",
+            "Type": "System.String"
+          },
+          "6": {
+            "Name": "usageunit",
+            "Index": -1,
+            "NameInSource": "usageunit",
+            "Alias": "usageunit",
+            "Type": "System.String"
+          },
+          "7": {
+            "Name": "batchtext",
+            "Index": -1,
+            "NameInSource": "batchtext",
+            "Alias": "batchtext",
+            "Type": "System.String"
+          },
+          "8": {
+            "Name": "inventory_qty",
+            "Index": -1,
+            "NameInSource": "inventory_qty",
+            "Alias": "inventory_qty",
+            "Type": "System.Decimal"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT\r\n\ta.wareid,\r\n\tw.name,\r\n\tp.productid,\r\n\tp.productname,\r\n\tp.product_no,\r\n\tp.productsheet,\r\n\tp.usageunit,\r\n\ta.batchtext,\r\n\tSUM(IFNULL(a.inventory_qty,0)) AS inventory_qty\r\nFROM ld_products p\r\nINNER JOIN (\r\n\tSELECT\r\n\t\ta.wareid,\r\n\t\ta.productid,\r\n\t\ta.batchtext,\r\n\t\tSUM(a.inventory_qty) AS inventory_qty\r\n\tFROM (\r\n\t\tSELECT\r\n\t\t\ta.warehouseid AS wareid,\r\n\t\t\ta.productid,\r\n\t\t\ta.batchtext,\r\n\t\t\ta.lastqty AS inventory_qty\r\n\t\tFROM ld_warehousecondtions a\r\n\t\tLEFT JOIN ld_products c ON c.productid=a.productid\r\n\t\tWHERE a.modulename='库存初始化'\r\n\t\t\tAND a.type='确认初始库存'\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\tELSE LOCATE('{productname}',c.productname)>0\r\n\t\t\t\tEND)\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\tELSE LOCATE('{pici}',a.batchtext)>0\r\n\t\t\t\tEND)\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\tELSE a.warehouseid='{warename}'\r\n\t\t\t\tEND)\r\n\t\tUNION ALL\r\n\t\tSELECT\r\n\t\t\ta.wareid,\r\n\t\t\tc.productid,\r\n\t\t\tc.batchtext,\r\n\t\t\tc.quantity\r\n\t\tFROM ld_stock a\r\n\t\tLEFT JOIN ld_stockdetail c ON c.id=a.stock_id\r\n\t\tLEFT JOIN ld_products p ON p.productid=c.productid\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\tELSE LOCATE('{productname}',p.productname)>0\r\n\t\t\t\tEND)\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\tELSE LOCATE('{pici}',c.batchtext)>0\r\n\t\t\t\tEND)\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\tELSE a.wareid='{warename}'\r\n\t\t\t\tEND)\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\tELSE a.approvestatus='已批准'\r\n\t\t\t\tEND)\r\n\t\tUNION ALL\r\n\t\tSELECT\r\n\t\t\ta.wareid,\r\n\t\t\tc.productid,\r\n\t\t\tc.batchtext,\r\n\t\t\tc.quantity\r\n\t\tFROM ld_salesback a\r\n\t\tLEFT JOIN ld_salesbackdetail c ON c.id=a.salesbackid\r\n\t\tLEFT JOIN ld_products p ON p.productid=c.productid\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND a.salesbackstatus<>'中止'\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\tELSE LOCATE('{productname}',p.productname)>0\r\n\t\t\t\tEND)\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\tELSE LOCATE('{pici}',c.batchtext)>0\r\n\t\t\t\tEND)\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\tELSE a.wareid='{warename}'\r\n\t\t\t\tEND)\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\tELSE a.approvestatus='已批准'\r\n\t\t\t\tEND)\r\n\t\tUNION ALL\r\n\t\tSELECT\r\n\t\t\tc.wareid,\r\n\t\t\tc.productid,\r\n\t\t\tc.batchtext,\r\n\t\t\t0-c.quantity\r\n\t\tFROM ld_outboundorder a\r\n\t\tLEFT JOIN ld_outboundordercf b ON a.out_id=b.out_id\r\n\t\tLEFT JOIN ld_outboundorderdetail c ON c.id=a.out_id\r\n\t\tLEFT JOIN ld_outboundorderdetailscf d ON d.lineitem_id=c.lineitem_id\r\n\t\tLEFT JOIN ld_products p ON p.productid=c.productid\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\tELSE LOCATE('{productname}',p.productname)>0\r\n\t\t\t\tEND)\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\tELSE LOCATE('{pici}',c.batchtext)>0\r\n\t\t\t\tEND)\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\tELSE c.wareid='{warename}'\r\n\t\t\t\tEND)\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\tELSE a.approvestatus='已批准'\r\n\t\t\t\tEND)\r\n\t\tUNION ALL\r\n\t\tSELECT\r\n\t\t\ta.wareid,\r\n\t\t\tc.productid,\r\n\t\t\tc.batchtext,\r\n\t\t\t0-c.quantity\r\n\t\tFROM ld_purchaseback a\r\n\t\tLEFT JOIN ld_purchasebackdetail c ON c.id=a.purchasebackid\r\n\t\tLEFT JOIN ld_products p ON p.productid=c.productid\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND a.purchasebackstatus<>'中止'\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\tELSE LOCATE('{productname}',p.productname)>0\r\n\t\t\t\tEND)\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\tELSE LOCATE('{pici}',c.batchtext)>0\r\n\t\t\t\tEND)\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\tELSE a.wareid='{warename}'\r\n\t\t\t\tEND)\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\tELSE a.purchasebackstatus='结束'\r\n\t\t\t\tEND)\r\n\t\tUNION ALL\r\n\t\tSELECT\r\n\t\t\ta.inwarehouse,\r\n\t\t\tc.productid,\r\n\t\t\tc.batchtext,\r\n\t\t\tc.quantity\r\n\t\tFROM ld_warehousetransfer a\r\n\t\tLEFT JOIN ld_warehousetransferdetail c ON c.id=a.warehousetransferid\r\n\t\tLEFT JOIN ld_products p ON p.productid=c.productid\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\tELSE LOCATE('{productname}',p.productname)>0\r\n\t\t\t\tEND)\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\tELSE LOCATE('{pici}',c.batchtext)>0\r\n\t\t\t\tEND)\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\tELSE a.inwarehouse='{warename}'\r\n\t\t\t\tEND)\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\tELSE a.transferstatus='已审核'\r\n\t\t\t\tEND)\r\n\t\tUNION ALL\r\n\t\tSELECT\r\n\t\t\ta.outwarehouse,\r\n\t\t\tc.productid,\r\n\t\t\tc.batchtext,\r\n\t\t\t0-c.quantity\r\n\t\tFROM ld_warehousetransfer a\r\n\t\tLEFT JOIN ld_warehousetransferdetail c ON c.id=a.warehousetransferid\r\n\t\tLEFT JOIN ld_products p ON p.productid=c.productid\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\tELSE LOCATE('{productname}',p.productname)>0\r\n\t\t\t\tEND)\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\tELSE LOCATE('{pici}',c.batchtext)>0\r\n\t\t\t\tEND)\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\tELSE a.outwarehouse='{warename}'\r\n\t\t\t\tEND)\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\tELSE a.transferstatus='已审核'\r\n\t\t\t\tEND)\r\n\t\tUNION ALL\r\n\t\tSELECT\r\n\t\t\ta.wareid,\r\n\t\t\tc.productid,\r\n\t\t\tc.batchtext,\r\n\t\t\tc.profitloss\r\n\t\tFROM ld_checks a\r\n\t\tLEFT JOIN ld_checksdetail c ON c.id=a.id\r\n\t\tLEFT JOIN ld_products p ON p.productid=c.productid\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\tELSE LOCATE('{productname}',p.productname)>0\r\n\t\t\t\tEND)\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\tELSE LOCATE('{pici}',c.batchtext)>0\r\n\t\t\t\tEND)\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\tELSE a.wareid='{warename}'\r\n\t\t\t\tEND)\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\tELSE a.presence='盘点结束'\r\n\t\t\t\tEND)\r\n\t) a\r\n\tWHERE a.productid>0\r\n\tGROUP BY a.wareid,a.productid,IFNULL(a.batchtext,'')\r\n) a ON p.productid=a.productid\r\nLEFT JOIN ld_warehouse w ON w.id=a.wareid\r\nWHERE p.productid='{this[\"id\"]}'\r\n\t\tAND (\r\n\t\t\tCASE\r\n\t\t\t\tWHEN '{qty_range}'='true' THEN inventory_qty>0\r\n\t\t\t\tELSE 1=1\r\n\t\t\tEND)\r\n\tAND (\r\n\t\tCASE\r\n\t\t\tWHEN '{this[\"issubtotal\"]}'=0 THEN IFNULL(a.batchtext,'')='{this[\"picihao\"]}'\r\n\t\t\tELSE 1=1\r\n\t\tEND)\r\nGROUP BY a.wareid,IFNULL(a.batchtext,'')\r\nORDER BY w.id,batchtext"
+      },
+      "5": {
+        "Ident": "StiMySqlSource",
+        "Name": "purchase_data",
+        "Alias": "purchase_data",
+        "Columns": {
+          "0": {
+            "Name": "json_products",
+            "Index": -1,
+            "NameInSource": "json_products",
+            "Alias": "json_products",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT\r\n\tCONCAT('[',GROUP_CONCAT(CONCAT(s1,'\"productid\":',productid,',\"quantity\":',REPLACE(cha_qty_show,',',''),s2)),']') AS json_products\r\nFROM (\r\n\tSELECT\r\n\t\tp.productid,\r\n\t\t(select symbol from tmp_symbol where id=1) AS s1,\r\n\t\t(select symbol from tmp_symbol where id=2) AS s2,\r\n\t\tIFNULL(a.inventory_qty,0) AS inventory_qty,\r\n\t\tIFNULL(a.inventory_qty,0)-IFNULL(b.qty_locked,0)+IFNULL(c.qty_way,0)-IFNULL(p.qtyearly,0) AS cha_qty,\r\n\t\tFORMAT(ABS(IFNULL(a.inventory_qty,0)-IFNULL(b.qty_locked,0)+IFNULL(c.qty_way,0)-IFNULL(p.qtyearly,0)),(SELECT deploy_value FROM ld_systems_deploy WHERE deploy_type=49 LIMIT 1)) AS cha_qty_show\r\n\tFROM ld_products p\r\n\tINNER JOIN (\r\n\t\tSELECT\r\n\t\t\ta.productid,\r\n\t\t\ta.batchtext,\r\n\t\t\tSUM(a.inventory_qty) AS inventory_qty\r\n\t\tFROM (\r\n\t\t\tSELECT\r\n\t\t\t\ta.warehouseid AS wareid,\r\n\t\t\t\ta.productid,\r\n\t\t\t\ta.batchtext,\r\n\t\t\t\ta.lastqty AS inventory_qty\r\n\t\t\tFROM ld_warehousecondtions a\r\n\t\t\tLEFT JOIN ld_products c ON c.productid=a.productid\r\n\t\t\tWHERE a.modulename='库存初始化'\r\n\t\t\t\tAND a.type='确认初始库存'\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\t\tELSE LOCATE('{productname}',c.productname)>0\r\n\t\t\t\t\tEND)\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\t\tELSE LOCATE('{pici}',a.batchtext)>0\r\n\t\t\t\t\tEND)\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\t\tELSE a.warehouseid='{warename}'\r\n\t\t\t\t\tEND)\r\n\t\t\tUNION ALL\r\n\t\t\tSELECT\r\n\t\t\t\ta.wareid,\r\n\t\t\t\tc.productid,\r\n\t\t\t\tc.batchtext,\r\n\t\t\t\tc.quantity\r\n\t\t\tFROM ld_stock a\r\n\t\t\tLEFT JOIN ld_stockdetail c ON c.id=a.stock_id\r\n\t\t\tLEFT JOIN ld_products p ON p.productid=c.productid\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\t\tELSE LOCATE('{productname}',p.productname)>0\r\n\t\t\t\t\tEND)\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\t\tELSE LOCATE('{pici}',c.batchtext)>0\r\n\t\t\t\t\tEND)\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\t\tELSE a.wareid='{warename}'\r\n\t\t\t\t\tEND)\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\tELSE a.approvestatus='已批准'\r\n\t\t\t\t\tEND)\r\n\t\t\tUNION ALL\r\n\t\t\tSELECT\r\n\t\t\t\ta.wareid,\r\n\t\t\t\tc.productid,\r\n\t\t\t\tc.batchtext,\r\n\t\t\t\tc.quantity\r\n\t\t\tFROM ld_salesback a\r\n\t\t\tLEFT JOIN ld_salesbackdetail c ON c.id=a.salesbackid\r\n\t\t\tLEFT JOIN ld_products p ON p.productid=c.productid\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND a.salesbackstatus<>'中止'\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\t\tELSE LOCATE('{productname}',p.productname)>0\r\n\t\t\t\t\tEND)\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\t\tELSE LOCATE('{pici}',c.batchtext)>0\r\n\t\t\t\t\tEND)\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\t\tELSE a.wareid='{warename}'\r\n\t\t\t\t\tEND)\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\tELSE a.approvestatus='已批准'\r\n\t\t\t\t\tEND)\r\n\t\t\tUNION ALL\r\n\t\t\tSELECT\r\n\t\t\t\tc.wareid,\r\n\t\t\t\tc.productid,\r\n\t\t\t\tc.batchtext,\r\n\t\t\t\t0-c.quantity\r\n\t\t\tFROM ld_outboundorder a\r\n\t\t\tLEFT JOIN ld_outboundordercf b ON a.out_id=b.out_id\r\n\t\t\tLEFT JOIN ld_outboundorderdetail c ON c.id=a.out_id\r\n\t\t\tLEFT JOIN ld_outboundorderdetailscf d ON d.lineitem_id=c.lineitem_id\r\n\t\t\tLEFT JOIN ld_products p ON p.productid=c.productid\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\t\tELSE LOCATE('{productname}',p.productname)>0\r\n\t\t\t\t\tEND)\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\t\tELSE LOCATE('{pici}',c.batchtext)>0\r\n\t\t\t\t\tEND)\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\t\tELSE c.wareid='{warename}'\r\n\t\t\t\t\tEND)\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\tELSE a.approvestatus='已批准'\r\n\t\t\t\t\tEND)\r\n\t\t\tUNION ALL\r\n\t\t\tSELECT\r\n\t\t\t\ta.wareid,\r\n\t\t\t\tc.productid,\r\n\t\t\t\tc.batchtext,\r\n\t\t\t\t0-c.quantity\r\n\t\t\tFROM ld_purchaseback a\r\n\t\t\tLEFT JOIN ld_purchasebackdetail c ON c.id=a.purchasebackid\r\n\t\t\tLEFT JOIN ld_products p ON p.productid=c.productid\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND a.purchasebackstatus<>'中止'\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\t\tELSE LOCATE('{productname}',p.productname)>0\r\n\t\t\t\t\tEND)\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\t\tELSE LOCATE('{pici}',c.batchtext)>0\r\n\t\t\t\t\tEND)\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\t\tELSE a.wareid='{warename}'\r\n\t\t\t\t\tEND)\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\tELSE a.purchasebackstatus='结束'\r\n\t\t\t\t\tEND)\r\n\t\t\tUNION ALL\r\n\t\t\tSELECT\r\n\t\t\t\ta.inwarehouse,\r\n\t\t\t\tc.productid,\r\n\t\t\t\tc.batchtext,\r\n\t\t\t\tc.quantity\r\n\t\t\tFROM ld_warehousetransfer a\r\n\t\t\tLEFT JOIN ld_warehousetransferdetail c ON c.id=a.warehousetransferid\r\n\t\t\tLEFT JOIN ld_products p ON p.productid=c.productid\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\t\tELSE LOCATE('{productname}',p.productname)>0\r\n\t\t\t\t\tEND)\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\t\tELSE LOCATE('{pici}',c.batchtext)>0\r\n\t\t\t\t\tEND)\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\t\tELSE a.inwarehouse='{warename}'\r\n\t\t\t\t\tEND)\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\tELSE a.transferstatus='已审核'\r\n\t\t\t\t\tEND)\r\n\t\t\tUNION ALL\r\n\t\t\tSELECT\r\n\t\t\t\ta.outwarehouse,\r\n\t\t\t\tc.productid,\r\n\t\t\t\tc.batchtext,\r\n\t\t\t\t0-c.quantity\r\n\t\t\tFROM ld_warehousetransfer a\r\n\t\t\tLEFT JOIN ld_warehousetransferdetail c ON c.id=a.warehousetransferid\r\n\t\t\tLEFT JOIN ld_products p ON p.productid=c.productid\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\t\tELSE LOCATE('{productname}',p.productname)>0\r\n\t\t\t\t\tEND)\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\t\tELSE LOCATE('{pici}',c.batchtext)>0\r\n\t\t\t\t\tEND)\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\t\tELSE a.outwarehouse='{warename}'\r\n\t\t\t\t\tEND)\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\tELSE a.transferstatus='已审核'\r\n\t\t\t\t\tEND)\r\n\t\t\tUNION ALL\r\n\t\t\tSELECT\r\n\t\t\t\ta.wareid,\r\n\t\t\t\tc.productid,\r\n\t\t\t\tc.batchtext,\r\n\t\t\t\tc.profitloss\r\n\t\t\tFROM ld_checks a\r\n\t\t\tLEFT JOIN ld_checksdetail c ON c.id=a.id\r\n\t\t\tLEFT JOIN ld_products p ON p.productid=c.productid\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\t\tELSE LOCATE('{productname}',p.productname)>0\r\n\t\t\t\t\tEND)\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\t\tELSE LOCATE('{pici}',c.batchtext)>0\r\n\t\t\t\t\tEND)\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\t\tELSE a.wareid='{warename}'\r\n\t\t\t\t\tEND)\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\tELSE a.presence='盘点结束'\r\n\t\t\t\t\tEND)\r\n\t\t) a\r\n\t\tWHERE a.productid>0\r\n\t\tGROUP BY a.productid\r\n\t) a ON p.productid=a.productid\r\n\tLEFT JOIN (\r\n\t\tSELECT\r\n\t\t\tb.productid,\r\n\t\t\tSUM(b.balanceoutproductcount) AS qty_locked\r\n\t\tFROM (\r\n\t\t\tSELECT \r\n\t\t\t\ta.salesorderid AS order_id\r\n\t\t\tFROM ld_salesorder a \r\n\t\t\tWHERE a.deleted=0 \r\n\t\t\t\tAND a.approvestatus<>'已拒绝' \r\n\t\t\t\tAND IFNULL(a.sostatus,'')<>'已作废'\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\tELSE a.approvestatus='已批准'\r\n\t\t\t\t\tEND)\r\n\t\t\tUNION ALL\r\n\t\t\tSELECT \r\n\t\t\t\ta.servicecontractsid\r\n\t\t\tFROM ld_servicecontracts a \r\n\t\t\tWHERE a.deleted=0 \r\n\t\t\t\tAND a.approvestatus<>'已拒绝' \r\n\t\t\t\tAND IFNULL(a.contract_status,'')<>'已作废'\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\tELSE a.approvestatus='已批准'\r\n\t\t\t\t\tEND)\r\n\t\t) a\r\n\t\tLEFT JOIN (\r\n\t\t\tSELECT id,productid,balanceoutproductcount FROM ld_salesorderdetail\r\n\t\t\tUNION ALL\r\n\t\t\tSELECT id,productid,balanceoutproductcount FROM ld_servicecontractsdetail\r\n\t\t) b ON a.order_id=b.id\r\n\t\tWHERE b.balanceoutproductcount>0\r\n\t\tGROUP BY b.productid\r\n\t) b ON a.productid=b.productid\r\n\tLEFT JOIN (\r\n\t\tSELECT\r\n\t\t\tb.productid,\r\n\t\t\tSUM(b.balancepurchasecount) AS qty_way\r\n\t\tFROM ld_purchaseorder a\r\n\t\tLEFT JOIN ld_purchaseorderdetail b ON a.purchaseorderid=b.id\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\tAND IFNULL(a.postatus,'')<>'已作废'\r\n\t\t\tAND b.balancepurchasecount>0\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\tELSE a.approvestatus='已批准'\r\n\t\t\t\tEND)\r\n\t\tGROUP BY b.productid\r\n\t) c ON c.productid=a.productid\r\n) tmp\r\nWHERE (\r\n\t\tCASE\r\n\t\t\tWHEN '{qty_range}'='true' THEN inventory_qty>0\r\n\t\t\tELSE 1=1\r\n\t\tEND)\r\n\tAND cha_qty<0"
+      },
+      "6": {
+        "Ident": "StiMySqlSource",
+        "Name": "report",
+        "Alias": "report",
+        "Columns": {
+          "0": {
+            "Name": "anquan_qty_show",
+            "Index": -1,
+            "NameInSource": "anquan_qty_show",
+            "Alias": "anquan_qty_show",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "batchtext",
+            "Index": -1,
+            "NameInSource": "batchtext",
+            "Alias": "batchtext",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "billseq",
+            "Index": -1,
+            "NameInSource": "billseq",
+            "Alias": "billseq",
+            "Type": "System.Int32"
+          },
+          "3": {
+            "Name": "cha_qty_show",
+            "Index": -1,
+            "NameInSource": "cha_qty_show",
+            "Alias": "cha_qty_show",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "product_no",
+            "Index": -1,
+            "NameInSource": "product_no",
+            "Alias": "product_no",
+            "Type": "System.String"
+          },
+          "5": {
+            "Name": "productid",
+            "Index": -1,
+            "NameInSource": "productid",
+            "Alias": "productid",
+            "Type": "System.Int32"
+          },
+          "6": {
+            "Name": "productname",
+            "Index": -1,
+            "NameInSource": "productname",
+            "Alias": "productname",
+            "Type": "System.String"
+          },
+          "7": {
+            "Name": "productsheet",
+            "Index": -1,
+            "NameInSource": "productsheet",
+            "Alias": "productsheet",
+            "Type": "System.String"
+          },
+          "8": {
+            "Name": "qty_locked_show",
+            "Index": -1,
+            "NameInSource": "qty_locked_show",
+            "Alias": "qty_locked_show",
+            "Type": "System.String"
+          },
+          "9": {
+            "Name": "qty_show",
+            "Index": -1,
+            "NameInSource": "qty_show",
+            "Alias": "qty_show",
+            "Type": "System.String"
+          },
+          "10": {
+            "Name": "qty_way_show",
+            "Index": -1,
+            "NameInSource": "qty_way_show",
+            "Alias": "qty_way_show",
+            "Type": "System.String"
+          },
+          "11": {
+            "Name": "usageunit",
+            "Index": -1,
+            "NameInSource": "usageunit",
+            "Alias": "usageunit",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT\r\n\tbillseq,\r\n\tproductid,\r\n\tproductname,\r\n\tproduct_no,\r\n\tproductsheet,\r\n\tusageunit,\r\n\tbatchtext,\r\n\tFORMAT(inventory_qty,diglength) AS qty_show,\r\n\tFORMAT(qty_locked,diglength) AS qty_locked_show,\r\n\tFORMAT(qty_way,diglength) AS qty_way_show,\r\n\tFORMAT(anquan_qty,diglength) AS anquan_qty_show,\r\n\tFORMAT(cha_qty,diglength) AS cha_qty_show\r\nFROM ( \r\n\t(SELECT\r\n\t\t0 AS billseq,\r\n\t\t(SELECT deploy_value FROM ld_systems_deploy WHERE deploy_type=49 LIMIT 1) AS diglength,\r\n\t\tproductid,\r\n\t\tproductname,\r\n\t\tproduct_no,\r\n\t\tproductsheet,\r\n\t\tusageunit,\r\n\t\tbatchtext,\r\n\t\tinventory_qty,\r\n\t\tqty_locked,\r\n\t\tqty_way,\r\n\t\tanquan_qty,\r\n\t\tcha_qty\r\n\tFROM (\r\n\t\tSELECT\r\n\t\t\tp.productid,\r\n\t\t\tp.productname,\r\n\t\t\tp.product_no,\r\n\t\t\tp.productsheet,\r\n\t\t\tp.usageunit,\r\n\t\t\ta.batchtext,\r\n\t\t\tIFNULL(a.inventory_qty,0) AS inventory_qty,\r\n\t\t\tIFNULL(b.qty_locked,0) AS qty_locked,\r\n\t\t\tIFNULL(c.qty_way,0) AS qty_way,\r\n\t\t\tIFNULL(p.qtyearly,0) AS anquan_qty,\r\n\t\t\tIFNULL(a.inventory_qty,0)-IFNULL(b.qty_locked,0)+IFNULL(c.qty_way,0)-IFNULL(p.qtyearly,0) AS cha_qty\r\n\t\tFROM ld_products p\r\n\t\tINNER JOIN (\r\n\t\t\tSELECT\r\n\t\t\t\ta.productid,\r\n\t\t\t\ta.batchtext,\r\n\t\t\t\tSUM(a.inventory_qty) AS inventory_qty\r\n\t\t\tFROM (\r\n\t\t\t\tSELECT\r\n\t\t\t\t\ta.warehouseid AS wareid,\r\n\t\t\t\t\ta.productid,\r\n\t\t\t\t\ta.batchtext,\r\n\t\t\t\t\ta.lastqty AS inventory_qty\r\n\t\t\t\tFROM ld_warehousecondtions a\r\n\t\t\t\tLEFT JOIN ld_products c ON c.productid=a.productid\r\n\t\t\t\tWHERE a.modulename='库存初始化'\r\n\t\t\t\t\tAND a.type='确认初始库存'\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productname}',c.productname)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productno}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productno}',c.product_no)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productsheet}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productsheet}',c.productsheet)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{pici}',a.batchtext)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.warehouseid='{warename}'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\tUNION ALL\r\n\t\t\t\tSELECT\r\n\t\t\t\t\ta.wareid,\r\n\t\t\t\t\tc.productid,\r\n\t\t\t\t\tc.batchtext,\r\n\t\t\t\t\tc.quantity\r\n\t\t\t\tFROM ld_stock a\r\n\t\t\t\tLEFT JOIN ld_stockdetail c ON c.id=a.stock_id\r\n\t\t\t\tLEFT JOIN ld_products p ON p.productid=c.productid\r\n\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productname}',p.productname)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productno}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productno}',p.product_no)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productsheet}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productsheet}',p.productsheet)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{pici}',c.batchtext)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.wareid='{warename}'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.approvestatus='已批准'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\tUNION ALL\r\n\t\t\t\tSELECT\r\n\t\t\t\t\ta.wareid,\r\n\t\t\t\t\tc.productid,\r\n\t\t\t\t\tc.batchtext,\r\n\t\t\t\t\tc.quantity\r\n\t\t\t\tFROM ld_salesback a\r\n\t\t\t\tLEFT JOIN ld_salesbackdetail c ON c.id=a.salesbackid\r\n\t\t\t\tLEFT JOIN ld_products p ON p.productid=c.productid\r\n\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\tAND a.salesbackstatus<>'中止'\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productname}',p.productname)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productno}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productno}',p.product_no)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productsheet}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productsheet}',p.productsheet)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{pici}',c.batchtext)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.wareid='{warename}'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.approvestatus='已批准'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\tUNION ALL\r\n\t\t\t\tSELECT\r\n\t\t\t\t\tc.wareid,\r\n\t\t\t\t\tc.productid,\r\n\t\t\t\t\tc.batchtext,\r\n\t\t\t\t\t0-c.quantity\r\n\t\t\t\tFROM ld_outboundorder a\r\n\t\t\t\tLEFT JOIN ld_outboundordercf b ON a.out_id=b.out_id\r\n\t\t\t\tLEFT JOIN ld_outboundorderdetail c ON c.id=a.out_id\r\n\t\t\t\tLEFT JOIN ld_outboundorderdetailscf d ON d.lineitem_id=c.lineitem_id\r\n\t\t\t\tLEFT JOIN ld_products p ON p.productid=c.productid\r\n\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productname}',p.productname)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productno}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productno}',p.product_no)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productsheet}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productsheet}',p.productsheet)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{pici}',c.batchtext)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\t\t\tELSE c.wareid='{warename}'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.approvestatus='已批准'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\tUNION ALL\r\n\t\t\t\tSELECT\r\n\t\t\t\t\ta.wareid,\r\n\t\t\t\t\tc.productid,\r\n\t\t\t\t\tc.batchtext,\r\n\t\t\t\t\t0-c.quantity\r\n\t\t\t\tFROM ld_purchaseback a\r\n\t\t\t\tLEFT JOIN ld_purchasebackdetail c ON c.id=a.purchasebackid\r\n\t\t\t\tLEFT JOIN ld_products p ON p.productid=c.productid\r\n\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\tAND a.purchasebackstatus<>'中止'\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productname}',p.productname)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productno}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productno}',p.product_no)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productsheet}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productsheet}',p.productsheet)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{pici}',c.batchtext)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.wareid='{warename}'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.purchasebackstatus='结束'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\tUNION ALL\r\n\t\t\t\tSELECT\r\n\t\t\t\t\ta.inwarehouse,\r\n\t\t\t\t\tc.productid,\r\n\t\t\t\t\tc.batchtext,\r\n\t\t\t\t\tc.quantity\r\n\t\t\t\tFROM ld_warehousetransfer a\r\n\t\t\t\tLEFT JOIN ld_warehousetransferdetail c ON c.id=a.warehousetransferid\r\n\t\t\t\tLEFT JOIN ld_products p ON p.productid=c.productid\r\n\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productname}',p.productname)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productno}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productno}',p.product_no)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productsheet}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productsheet}',p.productsheet)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{pici}',c.batchtext)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.inwarehouse='{warename}'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.transferstatus='已审核'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\tUNION ALL\r\n\t\t\t\tSELECT\r\n\t\t\t\t\ta.outwarehouse,\r\n\t\t\t\t\tc.productid,\r\n\t\t\t\t\tc.batchtext,\r\n\t\t\t\t\t0-c.quantity\r\n\t\t\t\tFROM ld_warehousetransfer a\r\n\t\t\t\tLEFT JOIN ld_warehousetransferdetail c ON c.id=a.warehousetransferid\r\n\t\t\t\tLEFT JOIN ld_products p ON p.productid=c.productid\r\n\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productname}',p.productname)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productno}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productno}',p.product_no)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productsheet}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productsheet}',p.productsheet)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{pici}',c.batchtext)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.outwarehouse='{warename}'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.transferstatus='已审核'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\tUNION ALL\r\n\t\t\t\tSELECT\r\n\t\t\t\t\ta.wareid,\r\n\t\t\t\t\tc.productid,\r\n\t\t\t\t\tc.batchtext,\r\n\t\t\t\t\tc.profitloss\r\n\t\t\t\tFROM ld_checks a\r\n\t\t\t\tLEFT JOIN ld_checksdetail c ON c.id=a.id\r\n\t\t\t\tLEFT JOIN ld_products p ON p.productid=c.productid\r\n\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productname}',p.productname)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productno}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productno}',p.product_no)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productsheet}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productsheet}',p.productsheet)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{pici}',c.batchtext)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.wareid='{warename}'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.presence='盘点结束'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t) a\r\n\t\t\tWHERE a.productid>0\r\n\t\t\tGROUP BY a.productid,IFNULL(a.batchtext,'')\r\n\t\t) a ON p.productid=a.productid\r\n\t\tLEFT JOIN (\r\n\t\t\tSELECT\r\n\t\t\t\tb.productid,\r\n\t\t\t\tSUM(b.balanceoutproductcount) AS qty_locked\r\n\t\t\tFROM (\r\n\t\t\t\tSELECT \r\n\t\t\t\t\ta.salesorderid AS order_id\r\n\t\t\t\tFROM ld_salesorder a \r\n\t\t\t\tWHERE a.deleted=0 \r\n\t\t\t\t\tAND a.approvestatus<>'已拒绝' \r\n\t\t\t\t\tAND IFNULL(a.sostatus,'')<>'已作废'\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.approvestatus='已批准'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\tUNION ALL\r\n\t\t\t\tSELECT \r\n\t\t\t\t\ta.servicecontractsid\r\n\t\t\t\tFROM ld_servicecontracts a \r\n\t\t\t\tWHERE a.deleted=0 \r\n\t\t\t\t\tAND a.approvestatus<>'已拒绝' \r\n\t\t\t\t\tAND IFNULL(a.contract_status,'')<>'已作废'\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.approvestatus='已批准'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t) a\r\n\t\t\tLEFT JOIN (\r\n\t\t\t\tSELECT id,productid,balanceoutproductcount FROM ld_salesorderdetail\r\n\t\t\t\tUNION ALL\r\n\t\t\t\tSELECT id,productid,balanceoutproductcount FROM ld_servicecontractsdetail\r\n\t\t\t) b ON a.order_id=b.id\r\n\t\t\tWHERE b.balanceoutproductcount>0\r\n\t\t\tGROUP BY b.productid\r\n\t\t) b ON a.productid=b.productid\r\n\t\tLEFT JOIN (\r\n\t\t\tSELECT\r\n\t\t\t\tb.productid,\r\n\t\t\t\tSUM(b.balancepurchasecount) AS qty_way\r\n\t\t\tFROM ld_purchaseorder a\r\n\t\t\tLEFT JOIN ld_purchaseorderdetail b ON a.purchaseorderid=b.id\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\tAND IFNULL(a.postatus,'')<>'已作废'\r\n\t\t\t\tAND b.balancepurchasecount>0\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\tELSE a.approvestatus='已批准'\r\n\t\t\t\t\tEND)\r\n\t\t\tGROUP BY b.productid\r\n\t\t) c ON c.productid=a.productid\r\n\t) tmp\r\n\tWHERE (\r\n\t\t\tCASE\r\n\t\t\t\tWHEN '{qty_range}'='true' THEN inventory_qty>0\r\n\t\t\t\tELSE 1=1\r\n\t\t\tEND)\r\n\t\tAND (\r\n\t\t\tCASE\r\n\t\t\t\tWHEN '{safety_range}'='true' THEN cha_qty<0\r\n\t\t\t\tELSE 1=1\r\n\t\t\tEND)\r\n) UNION ALL (\r\n\tSELECT\r\n\t\t1 AS billseq,\r\n\t\t(SELECT deploy_value FROM ld_systems_deploy WHERE deploy_type=49 LIMIT 1) AS diglength,\r\n\t\tproductid,\r\n\t\tCONCAT(productname,' - 小计') AS productname,\r\n\t\tproduct_no,\r\n\t\tproductsheet,\r\n\t\tusageunit,\r\n\t\t'' AS batchtext,\r\n\t\tSUM(inventory_qty) AS inventory_qty,\r\n\t\tqty_locked,\r\n\t\tqty_way,\r\n\t\tanquan_qty,\r\n\t\tSUM(inventory_qty)-qty_locked+qty_way-anquan_qty AS cha_qty\r\n\tFROM (\r\n\t\tSELECT\r\n\t\t\tp.productid,\r\n\t\t\tp.productname,\r\n\t\t\tp.product_no,\r\n\t\t\tp.productsheet,\r\n\t\t\tp.usageunit,\r\n\t\t\ta.batchtext,\r\n\t\t\tIFNULL(a.inventory_qty,0) AS inventory_qty,\r\n\t\t\tIFNULL(b.qty_locked,0) AS qty_locked,\r\n\t\t\tIFNULL(c.qty_way,0) AS qty_way,\r\n\t\t\tIFNULL(p.qtyearly,0) AS anquan_qty,\r\n\t\t\tIFNULL(a.inventory_qty,0)-IFNULL(b.qty_locked,0)+IFNULL(c.qty_way,0)-IFNULL(p.qtyearly,0) AS cha_qty\r\n\t\tFROM ld_products p\r\n\t\tLEFT JOIN (\r\n\t\t\tSELECT\r\n\t\t\t\ta.productid,\r\n\t\t\t\ta.batchtext,\r\n\t\t\t\tSUM(a.inventory_qty) AS inventory_qty\r\n\t\t\tFROM (\r\n\t\t\t\tSELECT\r\n\t\t\t\t\ta.warehouseid AS wareid,\r\n\t\t\t\t\ta.productid,\r\n\t\t\t\t\ta.batchtext,\r\n\t\t\t\t\ta.lastqty AS inventory_qty\r\n\t\t\t\tFROM ld_warehousecondtions a\r\n\t\t\t\tLEFT JOIN ld_products c ON c.productid=a.productid\r\n\t\t\t\tWHERE a.modulename='库存初始化'\r\n\t\t\t\t\tAND a.type='确认初始库存'\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productname}',c.productname)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productno}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productno}',c.product_no)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productsheet}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productsheet}',c.productsheet)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{pici}',a.batchtext)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.warehouseid='{warename}'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\tUNION ALL\r\n\t\t\t\tSELECT\r\n\t\t\t\t\ta.wareid,\r\n\t\t\t\t\tc.productid,\r\n\t\t\t\t\tc.batchtext,\r\n\t\t\t\t\tc.quantity\r\n\t\t\t\tFROM ld_stock a\r\n\t\t\t\tLEFT JOIN ld_stockdetail c ON c.id=a.stock_id\r\n\t\t\t\tLEFT JOIN ld_products p ON p.productid=c.productid\r\n\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productname}',p.productname)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productno}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productno}',p.product_no)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productsheet}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productsheet}',p.productsheet)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{pici}',c.batchtext)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.wareid='{warename}'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.approvestatus='已批准'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\tUNION ALL\r\n\t\t\t\tSELECT\r\n\t\t\t\t\ta.wareid,\r\n\t\t\t\t\tc.productid,\r\n\t\t\t\t\tc.batchtext,\r\n\t\t\t\t\tc.quantity\r\n\t\t\t\tFROM ld_salesback a\r\n\t\t\t\tLEFT JOIN ld_salesbackdetail c ON c.id=a.salesbackid\r\n\t\t\t\tLEFT JOIN ld_products p ON p.productid=c.productid\r\n\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\tAND a.salesbackstatus<>'中止'\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productname}',p.productname)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productno}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productno}',p.product_no)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productsheet}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productsheet}',p.productsheet)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{pici}',c.batchtext)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.wareid='{warename}'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.approvestatus='已批准'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\tUNION ALL\r\n\t\t\t\tSELECT\r\n\t\t\t\t\ta.wareid,\r\n\t\t\t\t\tc.productid,\r\n\t\t\t\t\tc.batchtext,\r\n\t\t\t\t\t0-c.quantity\r\n\t\t\t\tFROM ld_outboundorder a\r\n\t\t\t\tLEFT JOIN ld_outboundordercf b ON a.out_id=b.out_id\r\n\t\t\t\tLEFT JOIN ld_outboundorderdetail c ON c.id=a.out_id\r\n\t\t\t\tLEFT JOIN ld_outboundorderdetailscf d ON d.lineitem_id=c.lineitem_id\r\n\t\t\t\tLEFT JOIN ld_products p ON p.productid=c.productid\r\n\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productname}',p.productname)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productno}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productno}',p.product_no)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productsheet}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productsheet}',p.productsheet)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{pici}',c.batchtext)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\t\t\tELSE c.wareid='{warename}'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.approvestatus='已批准'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\tUNION ALL\r\n\t\t\t\tSELECT\r\n\t\t\t\t\ta.wareid,\r\n\t\t\t\t\tc.productid,\r\n\t\t\t\t\tc.batchtext,\r\n\t\t\t\t\t0-c.quantity\r\n\t\t\t\tFROM ld_purchaseback a\r\n\t\t\t\tLEFT JOIN ld_purchasebackdetail c ON c.id=a.purchasebackid\r\n\t\t\t\tLEFT JOIN ld_products p ON p.productid=c.productid\r\n\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\tAND a.purchasebackstatus<>'中止'\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productname}',p.productname)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productno}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productno}',p.product_no)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productsheet}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productsheet}',p.productsheet)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{pici}',c.batchtext)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.wareid='{warename}'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.purchasebackstatus='结束'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\tUNION ALL\r\n\t\t\t\tSELECT\r\n\t\t\t\t\ta.inwarehouse,\r\n\t\t\t\t\tc.productid,\r\n\t\t\t\t\tc.batchtext,\r\n\t\t\t\t\tc.quantity\r\n\t\t\t\tFROM ld_warehousetransfer a\r\n\t\t\t\tLEFT JOIN ld_warehousetransferdetail c ON c.id=a.warehousetransferid\r\n\t\t\t\tLEFT JOIN ld_products p ON p.productid=c.productid\r\n\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productname}',p.productname)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productno}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productno}',p.product_no)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productsheet}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productsheet}',p.productsheet)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{pici}',c.batchtext)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.inwarehouse='{warename}'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.transferstatus='已审核'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\tUNION ALL\r\n\t\t\t\tSELECT\r\n\t\t\t\t\ta.outwarehouse,\r\n\t\t\t\t\tc.productid,\r\n\t\t\t\t\tc.batchtext,\r\n\t\t\t\t\t0-c.quantity\r\n\t\t\t\tFROM ld_warehousetransfer a\r\n\t\t\t\tLEFT JOIN ld_warehousetransferdetail c ON c.id=a.warehousetransferid\r\n\t\t\t\tLEFT JOIN ld_products p ON p.productid=c.productid\r\n\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productname}',p.productname)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productno}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productno}',p.product_no)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productsheet}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productsheet}',p.productsheet)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{pici}',c.batchtext)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.outwarehouse='{warename}'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.transferstatus='已审核'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\tUNION ALL\r\n\t\t\t\tSELECT\r\n\t\t\t\t\ta.wareid,\r\n\t\t\t\t\tc.productid,\r\n\t\t\t\t\tc.batchtext,\r\n\t\t\t\t\tc.profitloss\r\n\t\t\t\tFROM ld_checks a\r\n\t\t\t\tLEFT JOIN ld_checksdetail c ON c.id=a.id\r\n\t\t\t\tLEFT JOIN ld_products p ON p.productid=c.productid\r\n\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productname}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productname}',p.productname)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productno}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productno}',p.product_no)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{productsheet}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{productsheet}',p.productsheet)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{pici}'='' THEN 1=1\r\n\t\t\t\t\t\t\tELSE LOCATE('{pici}',c.batchtext)>0\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{warename}'='0' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.wareid='{warename}'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.presence='盘点结束'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t) a\r\n\t\t\tWHERE a.productid>0\r\n\t\t\tGROUP BY a.productid,IFNULL(a.batchtext,'')\r\n\t\t) a ON p.productid=a.productid\r\n\t\tLEFT JOIN (\r\n\t\t\tSELECT\r\n\t\t\t\tb.productid,\r\n\t\t\t\tSUM(b.balanceoutproductcount) AS qty_locked\r\n\t\t\tFROM (\r\n\t\t\t\tSELECT \r\n\t\t\t\t\ta.salesorderid AS order_id\r\n\t\t\t\tFROM ld_salesorder a \r\n\t\t\t\tWHERE a.deleted=0 \r\n\t\t\t\t\tAND a.approvestatus<>'已拒绝' \r\n\t\t\t\t\tAND IFNULL(a.sostatus,'')<>'已作废'\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.approvestatus='已批准'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t\tUNION ALL\r\n\t\t\t\tSELECT \r\n\t\t\t\t\ta.servicecontractsid\r\n\t\t\t\tFROM ld_servicecontracts a \r\n\t\t\t\tWHERE a.deleted=0 \r\n\t\t\t\t\tAND a.approvestatus<>'已拒绝' \r\n\t\t\t\t\tAND IFNULL(a.contract_status,'')<>'已作废'\r\n\t\t\t\t\tAND (\r\n\t\t\t\t\t\tCASE\r\n\t\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\t\tELSE a.approvestatus='已批准'\r\n\t\t\t\t\t\tEND)\r\n\t\t\t) a\r\n\t\t\tLEFT JOIN (\r\n\t\t\t\tSELECT id,productid,balanceoutproductcount FROM ld_salesorderdetail \r\n\t\t\t\tUNION ALL \r\n\t\t\t\tSELECT id,productid,balanceoutproductcount FROM ld_servicecontractsdetail\r\n\t\t\t) b ON a.order_id=b.id\r\n\t\t\tWHERE b.balanceoutproductcount>0\r\n\t\t\tGROUP BY b.productid\r\n\t\t) b ON a.productid=b.productid\r\n\t\tLEFT JOIN (\r\n\t\t\tSELECT\r\n\t\t\t\tb.productid,\r\n\t\t\t\tSUM(b.balancepurchasecount) AS qty_way\r\n\t\t\tFROM ld_purchaseorder a\r\n\t\t\tLEFT JOIN ld_purchaseorderdetail b ON a.purchaseorderid=b.id\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\tAND IFNULL(a.postatus,'')<>'已作废'\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE\r\n\t\t\t\t\t\tWHEN '{shenpi}'='1' THEN 1=1\r\n\t\t\t\t\t\tELSE a.approvestatus='已批准'\r\n\t\t\t\t\tEND)\r\n\t\t\t\tAND b.balancepurchasecount>0\r\n\t\t\tGROUP BY b.productid\r\n\t\t) c ON c.productid=a.productid\r\n\t) tmp\r\n\tWHERE (\r\n\t\t\tCASE\r\n\t\t\t\tWHEN '{qty_range}'='true' THEN inventory_qty>0\r\n\t\t\t\tELSE 1=1\r\n\t\t\tEND)\r\n\t\tAND (\r\n\t\t\tCASE\r\n\t\t\t\tWHEN '{safety_range}'='true' THEN cha_qty<0\r\n\t\t\t\tELSE 1=1\r\n\t\t\tEND)\r\n\tGROUP BY productid\r\n\tHAVING COUNT(productid)>1\r\n\t)\r\n) a\r\nORDER BY product_no,productid,billseq,batchtext"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "ldcrm",
+        "Alias": "ldcrm",
+        "ConnectionStringEncrypted": "9Gx168ZcS1nhR9Wl6iV1n8JsaWBhT1mFQhWxkOkl9i/CYNfKTV1ClEZ4uYhjXK17gshxYMhtut1AReWN6oz1KtVgc+NWBdN1YkmsgOo9NEbJxHNIRlyp+UZbqLw="
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "Page1",
+      "Guid": "7a63ece74acd9b16d3cef16f83d3c036",
+      "Alias": "产品库存统计表",
+      "ComponentStyle": "column_odd",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:255,255,255",
+      "Components": {
+        "0": {
+          "Ident": "StiHeaderBand",
+          "Name": "HeaderBand1",
+          "ClientRectangle": "0,0.4,32,1.2",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text5",
+              "Guid": "3d2842290e609807937488055156d51d",
+              "ClientRectangle": "7,0,18,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "即时库存余额表"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;18;;",
+              "Border": ";Gray;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text57",
+              "Guid": "f5df23fc2e04777481d8e767316e73e6",
+              "ClientRectangle": "25,0.4,7,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownEnabled": true
+              },
+              "ToolTip": {
+                "Value": "{columnname.anniu_tips}"
+              },
+              "Hyperlink": {
+                "Value": "createPurchaseOrder.php?productid={purchase_data.json_products}"
+              },
+              "Text": {
+                "Value": "{columnname.anniu_name}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": ";Gray;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:52,132,226",
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text77",
+              "Guid": "38cbceb71eb65d2da117531d2d61920d",
+              "ClientRectangle": "0,0,7,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownEnabled": true
+              },
+              "ToolTip": {
+                "Value": "{columnname.anniu_tips}"
+              },
+              "Hyperlink": {
+                "Value": "createPurchaseOrder.php?productid={purchase_data.json_products}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": ";Gray;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:65,105,225",
+              "Type": "Expression"
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiColumnHeaderBand",
+          "Name": "ColumnHeaderBand1",
+          "ClientRectangle": "0,2.4,32,1.2",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text4",
+              "Guid": "caac0f27dbf5ab5f942bf17e09af7526",
+              "ClientRectangle": "0,0,5.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{columnname.productname}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text7",
+              "Guid": "584cd43922cd376bc3cdf17ffec01a24",
+              "ClientRectangle": "5.2,0,3.4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{columnname.product_no}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text15",
+              "Guid": "afb582aa136929965215c8c33a66739d",
+              "ClientRectangle": "8.6,0,5.4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{columnname.productsheet}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text20",
+              "Guid": "2b4695f247a36ebe5d60c8d4b099ee8c",
+              "ClientRectangle": "19,0,2.6,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "即时库存数量"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text70",
+              "Guid": "78fd6f2874586019955c87ac34794335",
+              "ClientRectangle": "15.6,0,3.4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "批次"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text12",
+              "Guid": "3af5a8715d4823ac76fb87fcb28b025e",
+              "ClientRectangle": "14,0,1.6,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "计量单位"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text24",
+              "Guid": "3a9cb670d9b8ea2c06a3c8e6b660828e",
+              "ClientRectangle": "21.6,0,2.6,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "产品已签单还没有出库的数量"
+              },
+              "Text": {
+                "Value": "锁定数量\r\n已签单未出库"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text35",
+              "Guid": "c66f6f1b6ca5892494b1c8e7a32be792",
+              "ClientRectangle": "24.2,0,2.6,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "产品已签订采购订单还没有入库的数量"
+              },
+              "Text": {
+                "Value": "在途数量\r\n已采购未入库"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text42",
+              "Guid": "f2ed6f49857205fd9fdac8f20e510976",
+              "ClientRectangle": "26.8,0,2.6,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "安全库存数量"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text75",
+              "Guid": "871cf747a3f966acfccbc8f29e0517d4",
+              "ClientRectangle": "29.4,0,2.6,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "安全库存差额=即时库存-锁定数量+在途数量-安全库存"
+              },
+              "Text": {
+                "Value": "安全库存差额"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            }
+          }
+        },
+        "2": {
+          "Ident": "StiGroupHeaderBand",
+          "Name": "GroupHeaderBand1",
+          "ClientRectangle": "0,4.4,32,0",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "SortDirection": "None",
+          "Condition": {
+            "Value": "{report.productid}"
+          }
+        },
+        "3": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand1",
+          "ClientRectangle": "0,5.2,32,1",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;2;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text74",
+              "Guid": "883bf6cdaf511b2c45eec89aad1b82ad",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "5.2,0,3.4,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{report.billseq == 1}"
+                  },
+                  "TextColor": "0,0,0",
+                  "BackColor": "238,238,238",
+                  "Font": "微软雅黑;9;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{report.product_no}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text6",
+              "Guid": "d4d08f68aa7c9d4e634af17fd0c6c298",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,5.2,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{report.billseq == 1}"
+                  },
+                  "TextColor": "0,0,0",
+                  "BackColor": "238,238,238",
+                  "Font": "微软雅黑;10;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{report.productname}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text10",
+              "Guid": "25f3156703c52ee18edec8c33a6605c5",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "8.6,0,5.4,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{report.billseq == 1}"
+                  },
+                  "TextColor": "0,0,0",
+                  "BackColor": "238,238,238",
+                  "Font": "微软雅黑;9;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{report.productsheet}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text19",
+              "Guid": "953acd9eb6221ed5934ac8e6b660e248",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "21.6,0,2.6,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{report.billseq == 1}"
+                  },
+                  "TextColor": "0,112,192",
+                  "BackColor": "238,238,238",
+                  "Font": "微软雅黑;9;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownEnabled": true,
+                "DrillDownPageGuid": "b23d79fe9ec34e17fd4ec95df67c3ccb",
+                "DrillDownParameter1": {
+                  "Name": "id",
+                  "Expression": {
+                    "Value": "report.productid"
+                  }
+                },
+                "DrillDownParameter2": {
+                  "Name": "batchnum",
+                  "Expression": {
+                    "Value": "report.batchtext"
+                  }
+                },
+                "DrillDownParameter3": {
+                  "Name": "type",
+                  "Expression": {
+                    "Value": "report.billseq"
+                  }
+                }
+              },
+              "ToolTip": {
+                "Value": "锁定数量"
+              },
+              "Tag": {
+                "Value": "{report.productid}-{report.billseq}"
+              },
+              "Text": {
+                "Value": "{report.qty_locked_show}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:52,132,226",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text29",
+              "Guid": "274acdd27debcaf9b1d4c8f20e511bef",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "26.8,0,2.6,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{report.billseq == 1}"
+                  },
+                  "TextColor": "0,0,0",
+                  "BackColor": "238,238,238",
+                  "Font": "微软雅黑;9;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "安全库存"
+              },
+              "Text": {
+                "Value": "{report.anquan_qty_show}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text40",
+              "Guid": "e51d65b70fc5695ce70cc8f29e05b9dd",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "29.4,0,2.6,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{report.billseq == 1}"
+                  },
+                  "TextColor": "0,0,0",
+                  "BackColor": "238,238,238,238",
+                  "Font": "微软雅黑;9;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "安全库存差额"
+              },
+              "Text": {
+                "Value": "{report.cha_qty_show}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text55",
+              "Guid": "89dd8ddf8ef5b37ce3e6c984c98650a8",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "24.2,0,2.6,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{report.billseq == 1}"
+                  },
+                  "TextColor": "0,112,192",
+                  "BackColor": "238,238,238",
+                  "Font": "微软雅黑;9;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownEnabled": true,
+                "DrillDownPageGuid": "9158d68cf8804d528fafc984328cb339",
+                "DrillDownParameter1": {
+                  "Name": "id",
+                  "Expression": {
+                    "Value": "report.productid"
+                  }
+                },
+                "DrillDownParameter2": {
+                  "Name": "pname",
+                  "Expression": {
+                    "Value": "report.productname"
+                  }
+                }
+              },
+              "ToolTip": {
+                "Value": "在途数量"
+              },
+              "Tag": {
+                "Value": "{report.productid}-{report.billseq}"
+              },
+              "Text": {
+                "Value": "{report.qty_way_show}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:52,132,226",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text58",
+              "Guid": "fdb8dda06c4f0fd41a178e065cc84305",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "19,0,2.6,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{report.billseq == 1}"
+                  },
+                  "TextColor": "0,112,192",
+                  "BackColor": "238,238,238",
+                  "Font": "微软雅黑;9;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownEnabled": true,
+                "DrillDownPageGuid": "947d382a266f52fd4be84ad44b4fbfda",
+                "DrillDownParameter1": {
+                  "Name": "id",
+                  "Expression": {
+                    "Value": "report.productid"
+                  }
+                },
+                "DrillDownParameter2": {
+                  "Name": "picihao",
+                  "Expression": {
+                    "Value": "report.batchtext"
+                  }
+                },
+                "DrillDownParameter3": {
+                  "Name": "issubtotal",
+                  "Expression": {
+                    "Value": "report.billseq"
+                  }
+                }
+              },
+              "ToolTip": {
+                "Value": "即时库存"
+              },
+              "Text": {
+                "Value": "{report.qty_show}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:52,132,226",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text13",
+              "Guid": "5e0fce4baf35814f2c3087ac3479574d",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "15.6,0,3.4,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{report.billseq == 1}"
+                  },
+                  "TextColor": "0,0,0",
+                  "BackColor": "238,238,238",
+                  "Font": "微软雅黑;9;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{report.batchtext}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text3",
+              "Guid": "2a9c3bfd34b39fed6f4f87fcb28bffb7",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "14,0,1.6,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{report.billseq == 1}"
+                  },
+                  "TextColor": "0,0,0",
+                  "BackColor": "238,238,238",
+                  "Font": "微软雅黑;9;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{report.usageunit}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "report",
+          "EvenStyle": "column_even",
+          "OddStyle": "column_odd"
+        }
+      },
+      "PageWidth": 34,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    },
+    "1": {
+      "Ident": "StiPage",
+      "Name": "Page2",
+      "Guid": "b23d79fe9ec34e17fd4ec95df67c3ccb",
+      "Alias": "待出库数量",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiHeaderBand",
+          "Name": "HeaderBand2",
+          "ClientRectangle": "0,0.4,19,2.4",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text54",
+              "Guid": "211be9584fabb9f5a705c96c7eca7798",
+              "ClientRectangle": "0,0,19,1.2",
+              "ComponentStyle": "Style1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "锁定数量 >> {columnname.pname}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;Bold;",
+              "Border": ";169,169,169;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text2",
+              "Guid": "e6b16ca49c00993809d9c96c7eca940c",
+              "ClientRectangle": "0,1.2,1.4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "#"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text8",
+              "Guid": "3c44b29871d76eb17648c96c7eca5a12",
+              "ClientRectangle": "1.4,1.2,5,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "单据编号"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text9",
+              "Guid": "b79a9a7c2b1f36ac0d6fc96c7eca427f",
+              "ClientRectangle": "6.4,1.2,2.6,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "签约日期"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text11",
+              "Guid": "7909a56a870be4f3bce9c96c7ecaa72d",
+              "ClientRectangle": "9,1.2,2.4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "单据状态"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text14",
+              "Guid": "ae9758ae6e77abc20d99c96c7eca98b2",
+              "ClientRectangle": "11.4,1.2,2.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "审批状态"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text17",
+              "Guid": "45ae03850b33c954a8c0c96c7ecaed52",
+              "ClientRectangle": "13.6,1.2,2.6,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "产品已签单还没有出库的数量"
+              },
+              "Text": {
+                "Value": "锁定数量"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text25",
+              "Guid": "9618e9856df7e5005cecc96c7eca2ce3",
+              "ClientRectangle": "16.2,1.2,2.8,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "安全库存差额=即时库存-锁定数量+在途数量-安全库存"
+              },
+              "Text": {
+                "Value": "负责人"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand3",
+          "Guid": "85948079295bd1c7054cc96c7eca18bf",
+          "ClientRectangle": "0,3.6,19,1",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;2;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text27",
+              "Guid": "ba24320ecd291d0c6b34c96c7ecaa5a6",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,1.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{LineThrough}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "SystemVariables"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text28",
+              "Guid": "5ccd3035341a0346c016c96c7eca4654",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "6.4,0,2.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{detail_locked.signed_data}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiCustomFormatService",
+                "StringFormat": "yyyy-MM-dd"
+              },
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text30",
+              "Guid": "4f77286c6c1c8e27cd0bc96c7ecab176",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "1.4,0,5,1",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownEnabled": true
+              },
+              "ToolTip": {
+                "Value": "点击查看明细"
+              },
+              "Hyperlink": {
+                "Value": "viewdetail.php?id={detail_locked.order_id}"
+              },
+              "Text": {
+                "Value": "{detail_locked.order_no}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:65,105,225",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text32",
+              "Guid": "a1528f2bdfdb9eab3fcac96c7eca085f",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "9,0,2.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{detail_locked.sostatus}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text43",
+              "Guid": "eaabe795aa5ae08eb034c96c7ecad5a2",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "16.2,0,2.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "安全库存差额"
+              },
+              "Text": {
+                "Value": "{detail_locked.last_name}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text21",
+              "Guid": "a55d3591ab6e82f60851c978c2727a15",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "11.4,0,2.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{detail_locked.approvestatus}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text33",
+              "Guid": "b764a41f42253aa1db04c9792ee76e80",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "13.6,0,2.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{detail_locked.qty_locked_show}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "detail_locked",
+          "EvenStyle": "column_even",
+          "OddStyle": "column_odd"
+        }
+      },
+      "PageWidth": 21,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    },
+    "2": {
+      "Ident": "StiPage",
+      "Name": "Page3",
+      "Guid": "9158d68cf8804d528fafc984328cb339",
+      "Alias": "待入库数量",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:0,0,0",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiHeaderBand",
+          "Name": "HeaderBand3",
+          "ClientRectangle": "0,0.4,19,2.4",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text56",
+              "Guid": "e55635c62ffe1eedd0efc984477ea200",
+              "ClientRectangle": "0,0,19,1.2",
+              "ComponentStyle": "Style1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "在途数量>>{columnname.pname}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;Bold;",
+              "Border": "Top, Left, Right;DarkGray;;;;;;solid:Black",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text18",
+              "Guid": "09e6e46a138c93773de5c984477e0ad6",
+              "ClientRectangle": "0,1.2,1.4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "#"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text34",
+              "Guid": "9b217c6a88b7f513f2eec984477e3d4a",
+              "ClientRectangle": "1.4,1.2,5,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "单据编号"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text36",
+              "Guid": "9fb0b0271165400d43fdc984477e69b4",
+              "ClientRectangle": "6.4,1.2,2.6,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "签约日期"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text38",
+              "Guid": "dc3b1b3418332b4b94e7c984477e622d",
+              "ClientRectangle": "9,1.2,2.4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "单据状态"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text44",
+              "Guid": "ef7039b15d4b67aaafb0c984477ee170",
+              "ClientRectangle": "11.4,1.2,2.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "审批状态"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text45",
+              "Guid": "71d459241319f0eb1c94c984477e4fa2",
+              "ClientRectangle": "13.6,1.2,2.6,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "产品已签订采购订单还没有入库的数量"
+              },
+              "Text": {
+                "Value": "在途数量"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text46",
+              "Guid": "7ef70746d4dffdf71838c984477eb052",
+              "ClientRectangle": "16.2,1.2,2.8,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "安全库存差额=即时库存-锁定数量+在途数量-安全库存"
+              },
+              "Text": {
+                "Value": "负责人"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand4",
+          "Guid": "97fb52c30af6aeaa3fd9c984477e096e",
+          "ClientRectangle": "0,3.6,19,1",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;2;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text47",
+              "Guid": "a77ced1b9c5cac237eeac984477e32a5",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,1.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{LineThrough}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "SystemVariables"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text48",
+              "Guid": "640238dea29fb5b315bcc984477eaf9e",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "6.4,0,2.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{detail_way.signed_data}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiCustomFormatService",
+                "StringFormat": "yyyy-MM-dd"
+              },
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text49",
+              "Guid": "788c0849771b01931801c984477e1b85",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "1.4,0,5,1",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownEnabled": true
+              },
+              "ToolTip": {
+                "Value": "点击查看明细"
+              },
+              "Hyperlink": {
+                "Value": "viewdetail.php?id={detail_way.purchaseorderid}"
+              },
+              "Text": {
+                "Value": "{detail_way.purchaseorder_no}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:65,105,225",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text50",
+              "Guid": "34391d6fe569008b55aac984477ef2b3",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "9,0,2.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{detail_way.postatus}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text51",
+              "Guid": "779bfef549827b5f353fc984477ee2eb",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "16.2,0,2.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "安全库存差额"
+              },
+              "Text": {
+                "Value": "{detail_way.last_name}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text52",
+              "Guid": "b2252d3fd6a6fdaae64ec984477e1aaf",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "11.4,0,2.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{detail_way.approvestatus}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text53",
+              "Guid": "e04e98a2ec32c69d6f61c984477e503e",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "13.6,0,2.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{detail_way.qty_locked_show}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "detail_way",
+          "EvenStyle": "column_even",
+          "OddStyle": "column_odd"
+        }
+      },
+      "PageWidth": 21,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    },
+    "3": {
+      "Ident": "StiPage",
+      "Name": "Page4",
+      "Guid": "947d382a266f52fd4be84ad44b4fbfda",
+      "Alias": "库存数量分布",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:0,0,0",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiPageFooterBand",
+          "Name": "PageFooterBand1",
+          "ClientRectangle": "0,27.1,30,0.6",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent"
+        },
+        "1": {
+          "Ident": "StiHeaderBand",
+          "Name": "HeaderBand4",
+          "ClientRectangle": "0,0.4,30,2.4",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text65",
+              "Guid": "523df3e1209eb572d5a74ae178b3f901",
+              "ClientRectangle": "0,0,30,1.2",
+              "ComponentStyle": "Style1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "库存数量分布统计 >> {columnname.pname}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;Bold;",
+              "Border": ";169,169,169;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text1",
+              "Guid": "3a481d3dabd5ea5d44604ae178b36eed",
+              "ClientRectangle": "0,1.2,1.4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "#"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text16",
+              "Guid": "82b5ec6e4ee8a7d913c74ae178b39aeb",
+              "ClientRectangle": "4.8,1.2,5.4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "产品名称"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text61",
+              "Guid": "895322799442573851494ae550f62a49",
+              "ClientRectangle": "10.2,1.2,4.6,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "规格型号"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text64",
+              "Guid": "8aa9bf7b00308ae79d4d4afeec6b6bc1",
+              "ClientRectangle": "1.4,1.2,3.4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "产品编号"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text67",
+              "Guid": "1350ee5dbe989503a8374b00157e35c5",
+              "ClientRectangle": "14.8,1.2,2.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "计量单位"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text22",
+              "Guid": "3b45cb3b0472ca4755654ae178b3971e",
+              "ClientRectangle": "17,1.2,4.6,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "仓库"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text23",
+              "Guid": "3941a848c8f859607d6a4ae178b335bb",
+              "ClientRectangle": "21.6,1.2,6.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "批次"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text26",
+              "Guid": "5d23d0093359859307814ae178b3c6a7",
+              "ClientRectangle": "27.8,1.2,2.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "库存数量"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            }
+          }
+        },
+        "2": {
+          "Ident": "StiGroupHeaderBand",
+          "Name": "GroupHeaderBand2",
+          "ClientRectangle": "0,3.6,30,0",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "SortDirection": "None",
+          "Condition": {
+            "Value": "{detai_ware.productid}"
+          }
+        },
+        "3": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand5",
+          "Guid": "8fec385cd007e9bf85184ae178b3c780",
+          "ClientRectangle": "0,4.4,30,1",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;2;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text39",
+              "Guid": "4f32d8c32ad2a1eb58f84ae178b317ef",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,1.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{LineThrough}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "SystemVariables"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text60",
+              "Guid": "f1864565d8eb1699bf594ae178b31b19",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "21.6,0,6.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{detai_ware.batchtext}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text62",
+              "Guid": "9f58d17914a72c0965744ae178b3519d",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "27.8,0,2.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{detai_ware.inventory_qty}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text37",
+              "Guid": "8240786b9dfe347b83c04afde15edbe9",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "4.8,0,5.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{detai_ware.productname}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text59",
+              "Guid": "f65b4e6e5a551fdfb1db4afe876f29dc",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "10.2,0,4.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{detai_ware.productsheet}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text31",
+              "Guid": "6354b53033b6fa1a3c194afeec6b34f9",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "1.4,0,3.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{detai_ware.product_no}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text63",
+              "Guid": "831da76b06947f8729194b00157e1159",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "14.8,0,2.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{detai_ware.usageunit}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text41",
+              "Guid": "6dcbaeefba10733d7b8f4ae178b34c39",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "17,0,4.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{detai_ware.name}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "detai_ware",
+          "EvenStyle": "column_even",
+          "OddStyle": "column_odd"
+        },
+        "4": {
+          "Ident": "StiGroupFooterBand",
+          "Name": "GroupFooterBand1",
+          "ClientRectangle": "0,6.2,30,1",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text68",
+              "Guid": "6cc84c9acaaeb6cc5baf4b0adf2bd426",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,1.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text73",
+              "Guid": "286a1b2698651befc35f4b0b202f1f07",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "4.8,0,5.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiCustomFormatService",
+                "StringFormat": "yyyy-MM-dd"
+              },
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text66",
+              "Guid": "0960f8671c5a33d9a7904b0b202f6dbe",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "10.2,0,4.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiCustomFormatService",
+                "StringFormat": "yyyy-MM-dd"
+              },
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text69",
+              "Guid": "744856a638d9848aff7e4b0b20303e0b",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "1.4,0,3.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "合计"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text71",
+              "Guid": "70940d31af5d89248c254b0b20308512",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "14.8,0,2.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiCustomFormatService",
+                "StringFormat": "yyyy-MM-dd"
+              },
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text72",
+              "Guid": "af0fcfbce8a94f600d944b0b6e858480",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "21.6,0,6.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text76",
+              "Guid": "2a7b3275216c6b955fd94b0b6e8584d8",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "27.8,0,2.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Sum(DataBand5,detai_ware.inventory_qty)}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 0,
+                "Right": 2,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Totals"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text78",
+              "Guid": "05f35497c972f77909a44b0b6e856001",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "17,0,4.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiCustomFormatService",
+                "StringFormat": "yyyy-MM-dd"
+              },
+              "Type": "Expression"
+            }
+          }
+        }
+      },
+      "PageWidth": 32,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    }
+  }
+}

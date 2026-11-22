@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+
+<style type="text/css">
+.font1 {
+	font-family: "宋体";
+	font-size: 11pt;
+	font-weight: bold;
+}
+.font2 {
+	font-family: "宋体";
+	font-size: 11pt;
+	font-weight: normal;
+}
+
+.font3 {
+	font-family: "宋体";
+	font-size: 24pt;
+	font-weight: bold;
+}
+
+
+.font5 {
+	font-family: "宋体";
+	font-size:8pt;
+	font-weight: normal;
+}
+
+.font6 {
+	font-family: "宋体";
+	font-size:8pt;
+	font-weight: bold;
+}
+
+.tdfont1 {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+
+.tdfont1 tr td {
+	border:1px solid #000;
+}
+
+</style>
+
+<body>
+<div>[var.company_logoname_company]</div>
+<div class="font3" align="center">请假单</div>
+
+<table class="tdfont1" cellpadding="0" cellspacing="0" style="width:100%; line-height:8mm; margin-top:4mm">
+    <tr>
+        <td style="width:25%; border:none" align="left" >
+        	<div class="font2" style="margin-left:1mm">申请人:[var.minusjobbill_assigned_user_id_MinusJobBill]</div>
+        </td>
+        <td style="width:75%; border:none" align="left" >
+        	<div class="font2" style="margin-left:1mm">单据编号:[var.minusjobbill_minusjobbill_no_MinusJobBill]</div>
+        </td>
+    </tr>
+</table>
+<table class="tdfont1" cellpadding="0" cellspacing="0" style="width:100%; line-height:6mm">
+  <tr>
+  	<td style="width:5%" align="center"><div class="font1" style="margin-left:1mm">#</div></td>
+    <td style="width:12%" align="left"><div class="font1" style="margin-left:1mm">假别</div></td>
+    <td style="width:25%" align="left"><div class="font1" style="margin-left:1mm">起始时间</div></td>
+	<td style="width:25%" align="left"><div class="font1" style="margin-left:1mm">截止时间</div></td>
+    <td style="width:10%" align="left"><div class="font1" style="margin-left:1mm">时长(h)</div></td>
+	<td style="width:33%" align="left"><div class="font1" style="margin-left:1mm">原因</div></td>
+  </tr>
+  <tr>
+    <td align="center"><div class="font2" style="margin-left:1mm">[var.minusjobbilldetails_#_minusjobbill]</div></td>
+    <td align="left"><div class="font2" style="margin-left:1mm">[var.minusjobbilldetails_minusjobtype_minusjobbill]</div></td>
+	<td align="left"><div class="font2" style="margin-left:1mm">[var.minusjobbilldetails_starttime_minusjobbill]</div></td>
+    <td align="left"><div class="font2" style="margin-left:1mm">[var.minusjobbilldetails_endtime_minusjobbill]</div></td>
+    <td align="left"><div class="font2" style="margin-left:1mm">[var.minusjobbilldetails_costtime_minusjobbill]</div></td>
+	<td align="left"><div class="font2" style="margin-left:1mm">[var.minusjobbilldetails_description_minusjobbill]</div></td>
+  </tr>
+</table>
+
+
+<table class="tdfont1" cellpadding="0" cellspacing="0" style="width:100%; margin-top:4mm">
+    <tr>
+		<td style="width:5%"><div class="font5" align="center">审<br>批<br>意<br>见</div></td>
+		<td style="width:95%">
+            <table class="tdfont1" cellpadding="0" cellspacing="0" style="width:100%">
+				<tbody>
+                <tr>
+                    <td style="width:12%; border:none">
+                        <div class="font5" align="left" style="margin-left:1mm">[var.approvedetails_operator_approve]</div>
+                    </td>
+                    <td style="width:22%; border:none">
+                        <div class="font5" align="left">[var.approvedetails_createdtime_approve]</div>
+                    </td>
+                    <td style="width:32%; border:none">
+                    	<div class="font5" align="left">[var.approvedetails_approveresult_approve]</div>
+                    </td>
+                    <td style="width:34%; border:none">
+                    	<div class="font5" align="left">[var.approvedetails_description_approve]</div>
+                    </td>
+                </tr>
+				</tbody>
+            </table>  
+        </td>
+	</tr>
+</table>
+ 
+</body>
+</html>

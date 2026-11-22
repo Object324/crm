@@ -1,0 +1,396 @@
+{
+  "ReportVersion": "2019.4.1",
+  "ReportGuid": "3d50b4de20b667fd8c087858c464d1fd",
+  "ReportName": "Report",
+  "ReportAlias": "Report",
+  "ReportFile": "jdcg_zhuanhua.mrt",
+  "ReportCreated": "/Date(1574458647000+0800)/",
+  "ReportChanged": "/Date(1574458647000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Styles": {
+    "0": {
+      "Ident": "StiStyle",
+      "Name": "column_odd",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:255,255,255",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    },
+    "1": {
+      "Ident": "StiStyle",
+      "Name": "column_even",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:252,252,252",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    }
+  },
+  "Dictionary": {
+    "Variables": {
+      "0": {
+        "Value": "DateSerial(Year(Today),Month(Today) -6 ,Day(Today))",
+        "Name": "start_date",
+        "Alias": "起始日期",
+        "Type": "System.DateTime",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      },
+      "1": {
+        "Value": "Today",
+        "Name": "end_date",
+        "Alias": "截止日期",
+        "Type": "System.DateTime",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      }
+    },
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "b",
+        "Alias": "b",
+        "Columns": {
+          "0": {
+            "Name": "lxto_zb",
+            "Index": -1,
+            "NameInSource": "lxto_zb",
+            "Alias": "lxto_zb",
+            "Type": "System.Decimal"
+          },
+          "1": {
+            "Name": "sj_to_zb",
+            "Index": -1,
+            "NameInSource": "sj_to_zb",
+            "Alias": "sj_to_zb",
+            "Type": "System.Decimal"
+          },
+          "2": {
+            "Name": "sw_to_zb",
+            "Index": -1,
+            "NameInSource": "sw_to_zb",
+            "Alias": "sw_to_zb",
+            "Type": "System.Decimal"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "Type": "Table",
+        "SqlCommand": "SELECT\r\n\tCASE\r\n\t\tWHEN a.qichushangji_qty>0 THEN IFNULL(a.zhongbiao_qty,0)/a.qichushangji_qty\r\n\tEND AS sj_to_zb,\r\n\tCASE\r\n\t\tWHEN a.qichulixiang_qty>0 THEN IFNULL(a.zhongbiao_qty,0)/a.qichulixiang_qty\r\n\tEND AS lxto_zb,\r\n\tCASE\r\n\t\tWHEN a.qichushangwu_qty>0 THEN IFNULL(a.zhongbiao_qty,0)/a.qichushangwu_qty\r\n\tEND AS sw_to_zb\r\nFROM (\r\n\tSELECT\r\n\t\t(\r\n\t\t\tSELECT\r\n\t\t\t\tCOUNT(DISTINCT potentialid)\r\n\t\t\tFROM (\r\n\t\t\t\tSELECT\r\n\t\t\t\t\ta.potentialid\r\n\t\t\t\tFROM ld_potential a\r\n\t\t\t\tINNER JOIN (\r\n\t\t\t\t\tSELECT DISTINCT\r\n\t\t\t\t\t\tuserid \r\n\t\t\t\t\tFROM (\r\n\t\t\t\t\t\tSELECT \r\n\t\t\t\t\t\t\tld_users.id AS userid \r\n\t\t\t\t\t\tFROM ld_users\r\n\t\t\t\t\t\tWHERE EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='Potentials' and scopeauthority=1 AND userid='[uuid]')\r\n\t\t\t\t\t\tUNION\r\n\t\t\t\t\t\tSELECT \r\n\t\t\t\t\t\t\tviewid AS userid \r\n\t\t\t\t\t\tFROM ld_scoperhigher\r\n\t\t\t\t\t\tWHERE userid='[uuid]' AND modulename ='Potentials' AND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE userid='[uuid]' AND scopeauthority=2 AND modulename ='Potentials')\t\t\t\r\n\t\t\t\t\t\tUNION\r\n\t\t\t\t\t\tSELECT DISTINCT \r\n\t\t\t\t\t\t\tld_users2group.userid AS userid \r\n\t\t\t\t\t\tFROM ld_scoperhigher \r\n\t\t\t\t\t\tINNER JOIN ld_groups ON ld_groups.groupid=ld_scoperhigher.viewid\r\n\t\t\t\t\t\tINNER JOIN ld_users2group ON ld_users2group.groupid=ld_groups.groupid\r\n\t\t\t\t\t\tWHERE ld_scoperhigher.userid='[uuid]' \r\n\t\t\t\t\t\t\tAND ld_scoperhigher.modulename ='Potentials'\r\n\t\t\t\t\t\t\tAND ld_scoperhigher.scopeauthority=3 \r\n\t\t\t\t\t\t\tAND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='Potentials' AND scopeauthority=3 AND userid='[uuid]')\r\n\t\t\t\t\t\tUNION \r\n\t\t\t\t\t\tSELECT \r\n\t\t\t\t\t\t\tid AS userid \r\n\t\t\t\t\t\tFROM ld_users  \r\n\t\t\t\t\t\tWHERE EXISTS(SELECT 1 FROM ld_users WHERE id='[uuid]' AND is_admin='on')\r\n\t\t\t\t\t\tUNION\r\n\t\t\t\t\t\tSELECT '[uuid]') AS vw_users\r\n\t\t\t\t) AS tmp_users ON tmp_users.userid=a.smownerid\r\n\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\tAND a.sales_stage='商机阶段'\r\n\t\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\t\tAND a.createdtime<DATE_FORMAT('{start_date}','%Y-%m-%d 00:00:00')\r\n\t\t\t\tUNION\r\n\t\t\t\tSELECT\r\n\t\t\t\t\ta.potentialid\r\n\t\t\t\tFROM ld_potential a\r\n\t\t\t\tINNER JOIN ld_tabshare s ON s.crmid=a.potentialid\r\n\t\t\t\tWHERE s.viewuserid='[uuid]'\r\n\t\t\t\t\tAND a.deleted=0\r\n\t\t\t\t\tAND a.sales_stage='商机阶段'\r\n\t\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\t\tAND a.createdtime<DATE_FORMAT('{start_date}','%Y-%m-%d 00:00:00')\r\n\t\t\t) a\r\n\t\t) AS qichushangji_qty,\r\n\t\t(\r\n\t\t\tSELECT\r\n\t\t\t\tCOUNT(DISTINCT potentialid)\r\n\t\t\tFROM (\r\n\t\t\t\tSELECT\r\n\t\t\t\t\ta.potentialid\r\n\t\t\t\tFROM ld_potential a\r\n\t\t\t\tINNER JOIN (\r\n\t\t\t\t\tSELECT DISTINCT\r\n\t\t\t\t\t\tuserid \r\n\t\t\t\t\tFROM (\r\n\t\t\t\t\t\tSELECT \r\n\t\t\t\t\t\t\tld_users.id AS userid \r\n\t\t\t\t\t\tFROM ld_users\r\n\t\t\t\t\t\tWHERE EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='Potentials' and scopeauthority=1 AND userid='[uuid]')\r\n\t\t\t\t\t\tUNION\r\n\t\t\t\t\t\tSELECT \r\n\t\t\t\t\t\t\tviewid AS userid \r\n\t\t\t\t\t\tFROM ld_scoperhigher\r\n\t\t\t\t\t\tWHERE userid='[uuid]' AND modulename ='Potentials' AND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE userid='[uuid]' AND scopeauthority=2 AND modulename ='Potentials')\t\t\t\r\n\t\t\t\t\t\tUNION\r\n\t\t\t\t\t\tSELECT DISTINCT \r\n\t\t\t\t\t\t\tld_users2group.userid AS userid \r\n\t\t\t\t\t\tFROM ld_scoperhigher \r\n\t\t\t\t\t\tINNER JOIN ld_groups ON ld_groups.groupid=ld_scoperhigher.viewid\r\n\t\t\t\t\t\tINNER JOIN ld_users2group ON ld_users2group.groupid=ld_groups.groupid\r\n\t\t\t\t\t\tWHERE ld_scoperhigher.userid='[uuid]' \r\n\t\t\t\t\t\t\tAND ld_scoperhigher.modulename ='Potentials'\r\n\t\t\t\t\t\t\tAND ld_scoperhigher.scopeauthority=3 \r\n\t\t\t\t\t\t\tAND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='Potentials' AND scopeauthority=3 AND userid='[uuid]')\r\n\t\t\t\t\t\tUNION \r\n\t\t\t\t\t\tSELECT \r\n\t\t\t\t\t\t\tid AS userid \r\n\t\t\t\t\t\tFROM ld_users  \r\n\t\t\t\t\t\tWHERE EXISTS(SELECT 1 FROM ld_users WHERE id='[uuid]' AND is_admin='on')\r\n\t\t\t\t\t\tUNION\r\n\t\t\t\t\t\tSELECT '[uuid]') AS vw_users\r\n\t\t\t\t) AS tmp_users ON tmp_users.userid=a.smownerid\r\n\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\tAND a.sales_stage='立项阶段'\r\n\t\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\t\tAND a.createdtime<DATE_FORMAT('{start_date}','%Y-%m-%d 00:00:00')\r\n\t\t\t\tUNION\r\n\t\t\t\tSELECT\r\n\t\t\t\t\ta.potentialid\r\n\t\t\t\tFROM ld_potential a\r\n\t\t\t\tINNER JOIN ld_tabshare s ON s.crmid=a.potentialid\r\n\t\t\t\tWHERE s.viewuserid='[uuid]'\r\n\t\t\t\t\tAND a.deleted=0\r\n\t\t\t\t\tAND a.sales_stage='立项阶段'\r\n\t\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\t\tAND a.createdtime<DATE_FORMAT('{start_date}','%Y-%m-%d 00:00:00')\r\n\t\t\t) a\r\n\t\t) AS qichulixiang_qty,\r\n\t\t(\r\n\t\t\tSELECT\r\n\t\t\t\tCOUNT(DISTINCT potentialid)\r\n\t\t\tFROM (\r\n\t\t\t\tSELECT\r\n\t\t\t\t\ta.potentialid\r\n\t\t\t\tFROM ld_potential a\r\n\t\t\t\tINNER JOIN (\r\n\t\t\t\t\tSELECT DISTINCT\r\n\t\t\t\t\t\tuserid \r\n\t\t\t\t\tFROM (\r\n\t\t\t\t\t\tSELECT \r\n\t\t\t\t\t\t\tld_users.id AS userid \r\n\t\t\t\t\t\tFROM ld_users\r\n\t\t\t\t\t\tWHERE EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='Potentials' and scopeauthority=1 AND userid='[uuid]')\r\n\t\t\t\t\t\tUNION\r\n\t\t\t\t\t\tSELECT \r\n\t\t\t\t\t\t\tviewid AS userid \r\n\t\t\t\t\t\tFROM ld_scoperhigher\r\n\t\t\t\t\t\tWHERE userid='[uuid]' AND modulename ='Potentials' AND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE userid='[uuid]' AND scopeauthority=2 AND modulename ='Potentials')\t\t\t\r\n\t\t\t\t\t\tUNION\r\n\t\t\t\t\t\tSELECT DISTINCT \r\n\t\t\t\t\t\t\tld_users2group.userid AS userid \r\n\t\t\t\t\t\tFROM ld_scoperhigher \r\n\t\t\t\t\t\tINNER JOIN ld_groups ON ld_groups.groupid=ld_scoperhigher.viewid\r\n\t\t\t\t\t\tINNER JOIN ld_users2group ON ld_users2group.groupid=ld_groups.groupid\r\n\t\t\t\t\t\tWHERE ld_scoperhigher.userid='[uuid]' \r\n\t\t\t\t\t\t\tAND ld_scoperhigher.modulename ='Potentials'\r\n\t\t\t\t\t\t\tAND ld_scoperhigher.scopeauthority=3 \r\n\t\t\t\t\t\t\tAND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='Potentials' AND scopeauthority=3 AND userid='[uuid]')\r\n\t\t\t\t\t\tUNION \r\n\t\t\t\t\t\tSELECT \r\n\t\t\t\t\t\t\tid AS userid \r\n\t\t\t\t\t\tFROM ld_users  \r\n\t\t\t\t\t\tWHERE EXISTS(SELECT 1 FROM ld_users WHERE id='[uuid]' AND is_admin='on')\r\n\t\t\t\t\t\tUNION\r\n\t\t\t\t\t\tSELECT '[uuid]') AS vw_users\r\n\t\t\t\t) AS tmp_users ON tmp_users.userid=a.smownerid\r\n\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\tAND a.sales_stage='商务谈判'\r\n\t\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\t\tAND a.createdtime<DATE_FORMAT('{start_date}','%Y-%m-%d 00:00:00')\r\n\t\t\t\tUNION\r\n\t\t\t\tSELECT\r\n\t\t\t\t\ta.potentialid\r\n\t\t\t\tFROM ld_potential a\r\n\t\t\t\tINNER JOIN ld_tabshare s ON s.crmid=a.potentialid\r\n\t\t\t\tWHERE s.viewuserid='[uuid]'\r\n\t\t\t\t\tAND a.deleted=0\r\n\t\t\t\t\tAND a.sales_stage='商务谈判'\r\n\t\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\t\tAND a.createdtime<DATE_FORMAT('{start_date}','%Y-%m-%d 00:00:00')\r\n\t\t\t) a\r\n\t\t) AS qichushangwu_qty,\r\n\t(\r\n\t\tSELECT\r\n\t\t\tCOUNT(DISTINCT potentialid)\r\n\t\tFROM (\r\n\t\t\tSELECT\r\n\t\t\t\tc.potentialid\r\n\t\t\tFROM ld_customform50 a\r\n\t\t\tLEFT JOIN ld_customform50scf b ON b.customform50id=a.customform50id\r\n\t\t\tLEFT JOIN ld_potential c ON c.potentialid=a.potentialid\r\n\t\t\tINNER JOIN (\r\n\t\t\t\tSELECT DISTINCT\r\n\t\t\t\t\tuserid \r\n\t\t\t\tFROM (\r\n\t\t\t\t\tSELECT \r\n\t\t\t\t\t\tld_users.id AS userid \r\n\t\t\t\t\tFROM ld_users\r\n\t\t\t\t\tWHERE EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='Potentials' and scopeauthority=1 AND userid='[uuid]')\r\n\t\t\t\t\tUNION\r\n\t\t\t\t\tSELECT \r\n\t\t\t\t\t\tviewid AS userid \r\n\t\t\t\t\tFROM ld_scoperhigher\r\n\t\t\t\t\tWHERE userid='[uuid]' AND modulename ='Potentials' AND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE userid='[uuid]' AND scopeauthority=2 AND modulename ='Potentials')\t\t\t\r\n\t\t\t\t\tUNION\r\n\t\t\t\t\tSELECT DISTINCT \r\n\t\t\t\t\t\tld_users2group.userid AS userid \r\n\t\t\t\t\tFROM ld_scoperhigher \r\n\t\t\t\t\tINNER JOIN ld_groups ON ld_groups.groupid=ld_scoperhigher.viewid\r\n\t\t\t\t\tINNER JOIN ld_users2group ON ld_users2group.groupid=ld_groups.groupid\r\n\t\t\t\t\tWHERE ld_scoperhigher.userid='[uuid]' \r\n\t\t\t\t\t\tAND ld_scoperhigher.modulename ='Potentials'\r\n\t\t\t\t\t\tAND ld_scoperhigher.scopeauthority=3 \r\n\t\t\t\t\t\tAND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='Potentials' AND scopeauthority=3 AND userid='[uuid]')\r\n\t\t\t\t\tUNION \r\n\t\t\t\t\tSELECT \r\n\t\t\t\t\t\tid AS userid \r\n\t\t\t\t\tFROM ld_users  \r\n\t\t\t\t\tWHERE EXISTS(SELECT 1 FROM ld_users WHERE id='[uuid]' AND is_admin='on')\r\n\t\t\t\t\tUNION\r\n\t\t\t\t\tSELECT '[uuid]') AS vw_users\r\n\t\t\t) AS tmp_users ON tmp_users.userid=a.smownerid\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND c.deleted=0\r\n\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\tAND c.approvestatus<>'已拒绝'\r\n\t\t\t\tAND b.cf_4927='方案中标-转交付阶段'\r\n\t\t\t\tAND b.cf_4929 BETWEEN DATE_FORMAT('{start_date}','%Y-%m-%d') AND DATE_FORMAT('{end_date}','%Y-%m-%d')\r\n\t\t\tUNION\r\n\t\t\tSELECT\r\n\t\t\t\tc.potentialid\r\n\t\t\tFROM ld_customform50 a\r\n\t\t\tLEFT JOIN ld_customform50scf b ON b.customform50id=a.customform50id\r\n\t\t\tLEFT JOIN ld_potential c ON c.potentialid=a.potentialid\r\n\t\t\tINNER JOIN ld_tabshare s ON s.crmid=a.potentialid\r\n\t\t\tWHERE s.viewuserid='[uuid]'\r\n\t\t\t\tAND a.deleted=0\r\n\t\t\t\tAND c.deleted=0\r\n\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\tAND c.approvestatus<>'已拒绝'\r\n\t\t\t\tAND b.cf_4927='方案中标-转交付阶段'\r\n\t\t\t\tAND b.cf_4929 BETWEEN DATE_FORMAT('{start_date}','%Y-%m-%d') AND DATE_FORMAT('{end_date}','%Y-%m-%d')\r\n\t\t) a\r\n\t) AS zhongbiao_qty\r\n) a"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "ldcrm",
+        "Alias": "ldcrm",
+        "ConnectionStringEncrypted": "42zRCUhMMbxGRymFS0kibtXWzcPGWVntYluhzGFxt17C0PUCTAj7gcNNVcxiEPR3xMRlAkZXSYjMbISYSwkya41W96POZ3KZQB6EheGIdwOH"
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "Page1",
+      "Guid": "5d4b27b46a74e040391803bfd0a0787f",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiText",
+          "Name": "Text2",
+          "Guid": "1feb1d57e57e71e5d2bbcc12eafcb0ad",
+          "CanGrow": true,
+          "GrowToHeight": true,
+          "ClientRectangle": "0,0,18,0.8",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Tag": {
+            "Value": "{b.tagid}"
+          },
+          "Text": {
+            "Value": "中标转换率分析"
+          },
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;9;;",
+          "Border": ";221,221,221;;;;;;solid:0,0,0",
+          "Brush": "solid:Transparent",
+          "TextBrush": "solid:Black",
+          "TextOptions": {
+            "WordWrap": true
+          },
+          "Margins": {
+            "Left": 3,
+            "Right": 0,
+            "Top": 0,
+            "Bottom": 0
+          },
+          "Type": "Expression"
+        },
+        "1": {
+          "Ident": "StiText",
+          "Name": "Text6",
+          "Guid": "6d43366c5aed4d078178465e73ec444a",
+          "CanGrow": true,
+          "GrowToHeight": true,
+          "ClientRectangle": "0,0.8,4.8,0.8",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Tag": {
+            "Value": "{b.tagid}"
+          },
+          "Text": {
+            "Value": "阶段"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;9;;",
+          "Border": "All;221,221,221;;;;;;solid:0,0,0",
+          "Brush": "solid:Transparent",
+          "TextBrush": "solid:Black",
+          "TextOptions": {
+            "WordWrap": true
+          },
+          "Type": "Expression"
+        },
+        "2": {
+          "Ident": "StiText",
+          "Name": "Text1",
+          "Guid": "9f26c283268a5fe7cda38bf9e78101bc",
+          "CanGrow": true,
+          "GrowToHeight": true,
+          "ClientRectangle": "0,1.6,4.8,0.8",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Tag": {
+            "Value": "{b.tagid}"
+          },
+          "Text": {
+            "Value": "转换率"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;9;;",
+          "Border": "All;221,221,221;;;;;;solid:0,0,0",
+          "Brush": "solid:Transparent",
+          "TextBrush": "solid:Black",
+          "TextOptions": {
+            "WordWrap": true
+          },
+          "Type": "Expression"
+        },
+        "3": {
+          "Ident": "StiText",
+          "Name": "Text3",
+          "Guid": "c73b2ddac8795df44ebe11b4320342f6",
+          "CanGrow": true,
+          "GrowToHeight": true,
+          "ClientRectangle": "4.8,0.8,4.4,0.8",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Tag": {
+            "Value": "{b.tagid}"
+          },
+          "Text": {
+            "Value": "商机到中标"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;9;;",
+          "Border": "All;221,221,221;;;;;;solid:0,0,0",
+          "Brush": "solid:Transparent",
+          "TextBrush": "solid:Black",
+          "TextOptions": {
+            "WordWrap": true
+          },
+          "Type": "Expression"
+        },
+        "4": {
+          "Ident": "StiText",
+          "Name": "Text4",
+          "Guid": "20656dccef462b54fb00568011d35612",
+          "CanGrow": true,
+          "GrowToHeight": true,
+          "ClientRectangle": "4.8,1.6,4.4,0.8",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Tag": {
+            "Value": "{b.tagid}"
+          },
+          "Text": {
+            "Value": "{b.sj_to_zb}"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;9;;",
+          "Border": "All;221,221,221;;;;;;solid:0,0,0",
+          "Brush": "solid:Transparent",
+          "TextBrush": "solid:Black",
+          "TextOptions": {
+            "WordWrap": true
+          },
+          "TextFormat": {
+            "Ident": "StiPercentageFormatService",
+            "NegativePattern": 1,
+            "GroupSeparator": ",",
+            "PositivePattern": 1,
+            "Symbol": "%"
+          },
+          "Type": "DataColumn"
+        },
+        "5": {
+          "Ident": "StiText",
+          "Name": "Text5",
+          "Guid": "5b045b71651a3f1e3acefdf55c19d834",
+          "CanGrow": true,
+          "GrowToHeight": true,
+          "ClientRectangle": "9.2,0.8,4.4,0.8",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Tag": {
+            "Value": "{b.tagid}"
+          },
+          "Text": {
+            "Value": "立项到中标"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;9;;",
+          "Border": "All;221,221,221;;;;;;solid:0,0,0",
+          "Brush": "solid:Transparent",
+          "TextBrush": "solid:Black",
+          "TextOptions": {
+            "WordWrap": true
+          },
+          "Type": "Expression"
+        },
+        "6": {
+          "Ident": "StiText",
+          "Name": "Text7",
+          "Guid": "1229e01849d145ff0e4a90ca8dd3a8ae",
+          "CanGrow": true,
+          "GrowToHeight": true,
+          "ClientRectangle": "9.2,1.6,4.4,0.8",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Tag": {
+            "Value": "{b.tagid}"
+          },
+          "Text": {
+            "Value": "{b.lxto_zb}"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;9;;",
+          "Border": "All;221,221,221;;;;;;solid:0,0,0",
+          "Brush": "solid:Transparent",
+          "TextBrush": "solid:Black",
+          "TextOptions": {
+            "WordWrap": true
+          },
+          "TextFormat": {
+            "Ident": "StiPercentageFormatService",
+            "NegativePattern": 1,
+            "GroupSeparator": ",",
+            "PositivePattern": 1,
+            "Symbol": "%"
+          },
+          "Type": "DataColumn"
+        },
+        "7": {
+          "Ident": "StiText",
+          "Name": "Text8",
+          "Guid": "77223aeaf0d4b7aa3967a8e1d6cd983e",
+          "CanGrow": true,
+          "GrowToHeight": true,
+          "ClientRectangle": "13.6,0.8,4.4,0.8",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Tag": {
+            "Value": "{b.tagid}"
+          },
+          "Text": {
+            "Value": "商务谈判到中标"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;9;;",
+          "Border": "All;221,221,221;;;;;;solid:0,0,0",
+          "Brush": "solid:Transparent",
+          "TextBrush": "solid:Black",
+          "TextOptions": {
+            "WordWrap": true
+          },
+          "Type": "Expression"
+        },
+        "8": {
+          "Ident": "StiText",
+          "Name": "Text10",
+          "Guid": "aec660ccc304f3d4d14320e9f5bf1271",
+          "CanGrow": true,
+          "GrowToHeight": true,
+          "ClientRectangle": "13.6,1.6,4.4,0.8",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Tag": {
+            "Value": "{b.tagid}"
+          },
+          "Text": {
+            "Value": "{b.sw_to_zb}"
+          },
+          "HorAlignment": "Center",
+          "VertAlignment": "Center",
+          "Font": "Microsoft YaHei;9;;",
+          "Border": "All;221,221,221;;;;;;solid:0,0,0",
+          "Brush": "solid:Transparent",
+          "TextBrush": "solid:Black",
+          "TextOptions": {
+            "WordWrap": true
+          },
+          "TextFormat": {
+            "Ident": "StiPercentageFormatService",
+            "NegativePattern": 1,
+            "GroupSeparator": ",",
+            "PositivePattern": 1,
+            "Symbol": "%"
+          },
+          "Type": "DataColumn"
+        }
+      },
+      "PageWidth": 20,
+      "PageHeight": 29.69,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    }
+  }
+}

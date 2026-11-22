@@ -1,0 +1,381 @@
+{
+  "ReportVersion": "2019.4.1",
+  "ReportGuid": "694633de9c354221fcb6a89c6eea265b",
+  "ReportName": "Report",
+  "ReportAlias": "Report",
+  "ReportFile": "default_project_progress.mrt",
+  "ReportCreated": "/Date(1638135446000+0800)/",
+  "ReportChanged": "/Date(1638135446000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Dictionary": {
+    "Variables": {
+      "0": {
+        "Name": "xm_name",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime",
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "list_xmjh.xmid",
+          "ValuesColumn": "list_xmjh.xmname",
+          "AllowUserValues": false
+        },
+        "Alias": "项目名称",
+        "Type": "System.String",
+        "RequestFromUser": true,
+        "SelectionMode": "First"
+      },
+      "1": {
+        "Name": "jh_name",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime",
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "list_xmjh.xmjh_id",
+          "ValuesColumn": "list_xmjh.xmjh_name",
+          "BindingValuesColumn": "list_xmjh.xmid",
+          "AllowUserValues": false,
+          "BindingValue": true,
+          "BindingVariable": "xm_name"
+        },
+        "Alias": "项目计划",
+        "Type": "Stimulsoft.Report.StringList",
+        "RequestFromUser": true
+      }
+    },
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "a",
+        "Alias": "a",
+        "Columns": {
+          "0": {
+            "Name": "argumnt",
+            "Index": -1,
+            "NameInSource": "argumnt",
+            "Alias": "argumnt",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "color",
+            "Index": -1,
+            "NameInSource": "color",
+            "Alias": "color",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "enddate",
+            "Index": -1,
+            "NameInSource": "enddate",
+            "Alias": "enddate",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "keyid",
+            "Index": -1,
+            "NameInSource": "keyid",
+            "Alias": "keyid",
+            "Type": "System.Int32"
+          },
+          "4": {
+            "Name": "mytips",
+            "Index": -1,
+            "NameInSource": "mytips",
+            "Alias": "mytips",
+            "Type": "System.String"
+          },
+          "5": {
+            "Name": "progress",
+            "Index": -1,
+            "NameInSource": "progress",
+            "Alias": "progress",
+            "Type": "System.String"
+          },
+          "6": {
+            "Name": "seq",
+            "Index": -1,
+            "NameInSource": "seq",
+            "Alias": "seq",
+            "Type": "System.Decimal"
+          },
+          "7": {
+            "Name": "startdate",
+            "Index": -1,
+            "NameInSource": "startdate",
+            "Alias": "startdate",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT\r\n\ta.projecttaskid AS keyid,\r\n\ta.argumnt,\r\n\ta.progress,\r\n\ta.startdate,\r\n\ta.enddate,\r\n\ta.tips AS mytips,\r\n\tb.color,\r\n\ta.seq\r\nFROM (\r\n\tSELECT\r\n\t\ta.projectid,\r\n\t\ta.projecttaskid,\r\n\t\ta.argumnt,\r\n\t\ta.progress,\r\n\t\ta.startdate,\r\n\t\ta.enddate,\r\n\t\ta.tips,\r\n\t\t(@i:=@i+1) AS seq\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\ta.projectid,\r\n\t\t\ta.projecttaskid,\r\n\t\t\tb.projectname,\r\n\t\t\ta.projecttaskname,\r\n\t\t\ta.projecttaskprogress AS progress,\r\n\t\t\tDATE_FORMAT(a.startdate,'%Y-%m-%d 00:00:00') AS startdate,\r\n\t\t\tDATE_FORMAT(a.enddate,'%Y-%m-%d 23:59:59') AS enddate,\r\n\t\t\tCONCAT('『',IFNULL(b.projectname,''),'』-『',IFNULL(a.projecttaskname,''),'』') AS argumnt,\r\n\t\t\tCONCAT('『',IFNULL(b.projectname,''),'』-『',IFNULL(a.projecttaskname,''),'』',CHAR(13),\r\n\t\t\t\t'开始：',IFNULL(a.startdate,''),CHAR(13),\r\n\t\t\t\t'结束：',IFNULL(a.enddate,''),CHAR(13),\r\n\t\t\t\t'进度：',IFNULL(a.projecttaskprogress,'')\r\n\t\t\t\t) AS tips\r\n\t\tFROM ld_projecttask a\r\n\t\tLEFT JOIN ld_project b ON b.projectid=a.projectid\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{xm_name}'='' THEN \r\n\t\t\t\t\t\ta.projectid=(\r\n\t\t\t\t\t\t\tSELECT\r\n\t\t\t\t\t\t\t\ta.projectid\r\n\t\t\t\t\t\t\tFROM ld_projecttask a\r\n\t\t\t\t\t\t\tINNER JOIN ld_project b ON b.projectid=a.projectid\r\n\t\t\t\t\t\t\tWHERE a.deleted=0\r\n\t\t\t\t\t\t\t\tAND b.deleted=0\r\n\t\t\t\t\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\t\t\t\t\tAND b.approvestatus<>'已拒绝'\r\n\t\t\t\t\t\t\tORDER BY CONVERT(b.projectname USING GBK),a.startdate,a.enddate,a.projecttaskid\r\n\t\t\t\t\t\t\tLIMIT 1)\r\n\t\t\t\t\tELSE a.projectid='{xm_name}'\r\n\t\t\t\tEND)\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{jh_name}'='' THEN 1=1\r\n\t\t\t\t\tELSE FIND_IN_SET(a.projecttaskid,'{jh_name}')\r\n\t\t\t\tEND)\r\n\t) a,(SELECT @i:=0) b\r\n\tORDER BY a.projectid,a.projecttaskid\r\n) a\r\nLEFT JOIN ld_usercolor b ON b.id=a.seq\r\nORDER BY a.seq DESC"
+      },
+      "1": {
+        "Ident": "StiMySqlSource",
+        "Name": "list_xmjh",
+        "Alias": "list_xmjh",
+        "Columns": {
+          "0": {
+            "Name": "xmid",
+            "Index": -1,
+            "NameInSource": "xmid",
+            "Alias": "xmid",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "xmjh_id",
+            "Index": -1,
+            "NameInSource": "xmjh_id",
+            "Alias": "xmjh_id",
+            "Type": "System.Int32"
+          },
+          "2": {
+            "Name": "xmjh_name",
+            "Index": -1,
+            "NameInSource": "xmjh_name",
+            "Alias": "xmjh_name",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "xmname",
+            "Index": -1,
+            "NameInSource": "xmname",
+            "Alias": "xmname",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT\r\n\ta.projectid AS xmid,\r\n\tb.projectname AS xmname,\r\n\ta.projecttaskid AS xmjh_id,\r\n\ta.projecttaskname AS xmjh_name\r\nFROM ld_projecttask a\r\nINNER JOIN ld_project b ON b.projectid=a.projectid\r\nWHERE a.deleted=0\r\n\tAND b.deleted=0\r\n\tAND a.approvestatus<>'已拒绝'\r\n\tAND b.approvestatus<>'已拒绝'\r\nORDER BY CONVERT(b.projectname USING GBK),a.startdate,a.enddate,a.projecttaskid"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "ldcrm",
+        "Alias": "ldcrm",
+        "ConnectionStringEncrypted": "41bR60hBMdVGR7lY+0l0YtVUc8JhV1uMaVqx9ORxNWfUdtGDxkoBkPMVpMxgXPYT1VTPiFVLqfVDXITEygl1Z99WZaNiBas1QlvJvWMY44Ke3I2jTw9RiGAb7azp"
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "Page1",
+      "Guid": "3e9faa779913785279d785a03362d1cc",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "empty",
+      "Components": {
+        "0": {
+          "Ident": "StiChart",
+          "Name": "Chart1",
+          "ShiftMode": "None",
+          "GrowToHeight": true,
+          "ClientRectangle": "0,0,36,18",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:50,63,79",
+          "Series": {
+            "0": {
+              "Ident": "StiGanttSeries",
+              "ShowInLegend": false,
+              "ShowSeriesLabels": "FromSeries",
+              "ShowShadow": false,
+              "YAxis": "RightYAxis",
+              "SeriesLabels": {
+                "Ident": "StiCenterAxisLabels",
+                "AllowApplyStyle": false,
+                "MarkerSize": {
+                  "Width": 8,
+                  "Height": 6
+                },
+                "ValueType": "Tag",
+                "ValueTypeSeparator": "-",
+                "DrawBorder": false,
+                "LabelColor": "88,86,75",
+                "BorderColor": "88,86,75",
+                "Brush": "empty"
+              },
+              "ValueDataColumn": "a.startdate",
+              "ArgumentDataColumn": "a.argumnt",
+              "AutoSeriesTitleDataColumn": "a.mytips",
+              "AutoSeriesKeyDataColumn": "a.keyid",
+              "AutoSeriesColorDataColumn": "a.color",
+              "TagDataColumn": "a.progress",
+              "DrillDownEnabled": true,
+              "Title": {
+                "Value": "Series 1"
+              },
+              "ShowZeros": true,
+              "Width": 0.2,
+              "BorderColor": "Transparent",
+              "Brush": "solid:46,198,200",
+              "BrushNegative": "empty",
+              "AllowApplyBrushNegative": true,
+              "ValueDataColumnEnd": "a.enddate"
+            }
+          },
+          "Area": {
+            "Ident": "StiGanttArea",
+            "AllowApplyStyle": false,
+            "BorderColor": "171,172,173",
+            "Brush": "solid:50,63,79",
+            "InterlacingHor": {
+              "AllowApplyStyle": false,
+              "InterlacedBrush": "solid:10,155,155,155",
+              "Visible": false,
+              "Area": true
+            },
+            "InterlacingVert": {
+              "AllowApplyStyle": false,
+              "InterlacedBrush": "solid:10,155,155,155",
+              "Visible": false,
+              "Area": true
+            },
+            "GridLinesHor": {
+              "AllowApplyStyle": false,
+              "Color": "255,255,255",
+              "MinorColor": "100,105,105,105",
+              "Area": true
+            },
+            "GridLinesHorRight": {
+              "AllowApplyStyle": false,
+              "Visible": false,
+              "Area": true
+            },
+            "GridLinesVert": {
+              "AllowApplyStyle": false,
+              "Color": "233,244,252",
+              "MinorColor": "233,244,252",
+              "Area": true
+            },
+            "YAxis": {
+              "Ident": "StiYLeftAxis",
+              "AllowApplyStyle": false,
+              "StartFromZero": false,
+              "Labels": {
+                "AllowApplyStyle": false,
+                "Font": "Microsoft YaHei;10;;",
+                "Color": "233,244,252"
+              },
+              "LineColor": "233,244,252",
+              "LineWidth": 0,
+              "Title": {
+                "Color": "233,244,252",
+                "Direction": "BottomToTop"
+              }
+            },
+            "YRightAxis": {
+              "Ident": "StiYRightAxis",
+              "AllowApplyStyle": false,
+              "StartFromZero": false,
+              "Labels": {
+                "AllowApplyStyle": false,
+                "Color": "233,244,252",
+                "TextAlignment": "Left"
+              },
+              "LineColor": "233,244,252",
+              "Title": {
+                "Color": "233,244,252",
+                "Direction": "TopToBottom"
+              }
+            },
+            "XAxis": {
+              "Ident": "StiXBottomAxis",
+              "AllowApplyStyle": false,
+              "StartFromZero": false,
+              "Labels": {
+                "Color": "140,140,140"
+              },
+              "Visible": false,
+              "LineColor": "140,140,140",
+              "Title": {
+                "Color": "140,140,140",
+                "Direction": "LeftToRight"
+              },
+              "ShowXAxis": "Center",
+              "DateTimeStep": {
+                "NumberOfValues": 0
+              }
+            },
+            "XTopAxis": {
+              "Ident": "StiXTopAxis",
+              "AllowApplyStyle": false,
+              "StartFromZero": false,
+              "Interaction": {
+                "RangeScrollEnabled": false
+              },
+              "Labels": {
+                "AllowApplyStyle": false,
+                "Angle": 45,
+                "Font": "Microsoft YaHei;10;;",
+                "Color": "233,244,252"
+              },
+              "LineColor": "140,140,140",
+              "LineWidth": 0,
+              "Title": {
+                "Color": "140,140,140",
+                "Direction": "LeftToRight"
+              },
+              "Visible": true
+            }
+          },
+          "Table": {
+            "GridLineColor": "225,225,225",
+            "Header": {
+              "Brush": "solid:White",
+              "WordWrap": true
+            },
+            "DataCells": {
+              "TextColor": "140,140,140"
+            }
+          },
+          "SeriesLabels": {
+            "Ident": "StiNoneLabels",
+            "AllowApplyStyle": false,
+            "MarkerSize": {
+              "Width": 8,
+              "Height": 6
+            },
+            "ValueType": "Tag",
+            "ValueTypeSeparator": "-"
+          },
+          "Legend": {
+            "ShowShadow": false,
+            "BorderColor": "225,225,225",
+            "Brush": "solid:255,255,255",
+            "TitleColor": "105,105,105",
+            "LabelsColor": "140,140,140",
+            "MarkerSize": {
+              "Width": 10,
+              "Height": 10
+            },
+            "Columns": 0,
+            "Size": "0,0"
+          },
+          "Title": {
+            "Brush": "solid:140,140,140"
+          },
+          "AllowApplyStyle": false,
+          "Style": {
+            "Ident": "StiStyle26"
+          }
+        }
+      },
+      "PageWidth": 36,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 0,
+        "Right": 0,
+        "Top": 0,
+        "Bottom": 0
+      }
+    }
+  }
+}

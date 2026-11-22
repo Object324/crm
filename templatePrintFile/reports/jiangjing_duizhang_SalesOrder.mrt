@@ -1,0 +1,1267 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Flex" application="StiReport">
+  <Dictionary type="Dictionary" isKey="true" Ref="1">
+    <Databases isList="true" count="1">
+      <ldcrm type="Stimulsoft.Report.Dictionary.StiMySqlDatabase" isKey="true" Ref="2">
+        <Alias>ldcrm</Alias>
+        <ConnectionStringEncrypted>9Gxz62FcS83hR9WI6CU0n8LQdWBhD1GFwxWx3GqEdy/CyPvKxgvziEYa0fBhXKQvgW5lr+9tM+1r
+E8H06vgyI4NgaS3GT0O8Z0n9jcR0tWf/FN3CYVFagUZcoOBnVHTv</ConnectionStringEncrypted>
+        <Name>ldcrm</Name>
+      </ldcrm>
+    </Databases>
+    <DataSources isList="true" count="2">
+      <invoice type="Stimulsoft.Report.Dictionary.StiMySqlSource" isKey="true" Ref="3">
+        <Alias>invoice</Alias>
+        <Columns isList="true" count="2">
+          <value>accountid,System.Int32</value>
+          <value>entitytypeid,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1"/>
+        <Name>invoice</Name>
+        <NameInSource>ldcrm</NameInSource>
+        <Parameters isList="true" count="0"/>
+        <SqlCommand>SELECT DISTINCT
+	a.accountid,
+	GROUP_CONCAT(DISTINCT a.salesorderid) AS entitytypeid
+FROM ld_salesorder a
+LEFT JOIN ld_inventoryproductrel b ON a.salesorderid=b.id
+LEFT JOIN ld_account d ON d.accountid=a.accountid
+LEFT JOIN ld_accountscf e ON d.accountid=e.accountid
+LEFT JOIN ld_salesordercf g ON g.salesorderid=a.salesorderid
+WHERE a.deleted=0
+	AND IFNULL(a.sostatus,'')&lt;&gt;'已作废'
+	AND a.approvestatus&lt;&gt;'已拒绝'
+	AND a.stockpresence='全部出库'
+	AND e.cf_2209='销售合同'
+	AND a.signed_data BETWEEN STR_TO_DATE('{start_date}','%m/%d/%Y') AND STR_TO_DATE('{end_date}','%m/%d/%Y')
+	AND (
+		CASE
+			WHEN '{needinvoice}'='全部' THEN 1=1
+			ELSE g.cf_2317='{needinvoice}'
+		END)
+	AND (
+		CASE
+			WHEN TRIM('{company}')='' THEN 1=1
+			ELSE LOCATE(TRIM('{company}'),d.accountname)
+		END)
+	AND b.balanceinvoicecount&gt;0
+GROUP BY a.accountid
+ORDER BY CONVERT(d.accountname USING GBK),a.signed_data,a.salesorder_no,a.salesorderid,b.sequence_no LIMIT 1</SqlCommand>
+      </invoice>
+      <report type="Stimulsoft.Report.Dictionary.StiMySqlSource" isKey="true" Ref="4">
+        <Alias>report</Alias>
+        <Columns isList="true" count="18">
+          <value>accountid,System.Int32</value>
+          <value>salesorderid,System.Int32</value>
+          <value>accountname,System.String</value>
+          <value>createddate,System.String</value>
+          <value>salesorder_no,System.String</value>
+          <value>stockpresence,System.String</value>
+          <value>pname,System.String</value>
+          <value>productname,System.String</value>
+          <value>usageunit,System.String</value>
+          <value>quantity,System.Decimal</value>
+          <value>discount_percent,System.Decimal</value>
+          <value>listprice,System.Decimal</value>
+          <value>tax2,System.Decimal</value>
+          <value>taxprice,System.Decimal</value>
+          <value>list_amount,System.Decimal</value>
+          <value>tax_total,System.Decimal</value>
+          <value>tax_amount,System.Decimal</value>
+          <value>remark,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1"/>
+        <Name>report</Name>
+        <NameInSource>ldcrm</NameInSource>
+        <Parameters isList="true" count="0"/>
+        <SqlCommand>SELECT
+	a.accountid,
+	a.salesorderid,
+	d.accountname,
+	DATE_FORMAT(a.createdtime,'%Y-%m-%d') AS createddate,
+	a.salesorder_no,
+	a.stockpresence,
+	cf.cf_2089 AS pname,
+	c.productname,
+	bf.sf2561 AS usageunit,
+	b.quantity,
+	b.discount_percent,
+	b.listprice,
+	b.tax2,
+	b.taxprice,
+	b.list_amount,
+	b.list_amount*0.01*b.tax2 AS tax_total,
+	b.tax_amount,
+	b.comment AS remark
+FROM ld_salesorder a
+LEFT JOIN ld_inventoryproductrel b ON a.salesorderid=b.id
+LEFT JOIN ld_inventoryproductrelscf bf ON b.lineitem_id=bf.lineitem_id
+LEFT JOIN ld_products c ON c.productid=b.productid
+LEFT JOIN ld_productcf cf ON cf.productid=c.productid
+LEFT JOIN ld_account d ON d.accountid=a.accountid
+LEFT JOIN ld_accountscf e ON d.accountid=e.accountid
+LEFT JOIN ld_salesordercf g ON g.salesorderid=a.salesorderid
+WHERE a.deleted=0
+	AND IFNULL(a.sostatus,'')&lt;&gt;'已作废'
+	AND a.approvestatus&lt;&gt;'已拒绝'
+	AND a.stockpresence='全部出库'
+	AND e.cf_2209='销售合同'
+	AND a.signed_data BETWEEN STR_TO_DATE('{start_date}','%m/%d/%Y') AND STR_TO_DATE('{end_date}','%m/%d/%Y')
+	AND (
+		CASE
+			WHEN '{needinvoice}'='全部' THEN 1=1
+			ELSE g.cf_2317='{needinvoice}'
+		END)
+	AND (
+		CASE
+			WHEN TRIM('{company}')='' THEN 1=1
+			ELSE LOCATE(TRIM('{company}'),d.accountname)
+		END)
+	AND (
+		CASE
+			WHEN '{invoice_range}'='true' THEN b.balanceinvoicecount&gt;0
+			ELSE 1=1
+		END)
+ORDER BY CONVERT(d.accountname USING GBK),createddate,a.salesorder_no,a.salesorderid,b.sequence_no</SqlCommand>
+      </report>
+    </DataSources>
+    <Relations isList="true" count="0"/>
+    <Report isRef="0"/>
+    <Variables isList="true" count="5">
+      <value>,start_date,起始日期,,System.DateTime,Today,False,True,True</value>
+      <value>,company,客户名称,,System.String,,False,False,True</value>
+      <value>,end_date,截止日期,,System.DateTime,Today,False,True,True</value>
+      <value>,invoice_range,只显示未开票的产品,,System.Boolean,false,False,False,True</value>
+      <value>,needinvoice,是否开票,,System.String,是,False,False,True,False,_x003C__x003F_xml_x0020_version_x003D__x0022_1_x002E_0_x0022__x0020_encoding_x003D__x0022_utf_x002D_8_x0022__x0020_standalone_x003D__x0022_yes_x0022__x003F__x003E__x003C_StiSerializer_x0020_version_x003D__x0022_1_x002E_02_x0022__x0020_type_x003D__x0022_Flex_x0022__x0020_application_x003D__x0022_State_x0022__x003E__x003C_AllowUserValues_x003E_False_x003C__x002F_AllowUserValues_x003E__x003C_Keys_x0020_isList_x003D__x0022_true_x0022__x0020_count_x003D__x0022_3_x0022__x003E__x003C_value_x003E_是_x003C__x002F_value_x003E__x003C_value_x003E_否_x003C__x002F_value_x003E__x003C_value_x003E_全部_x003C__x002F_value_x003E__x003C__x002F_Keys_x003E__x003C_Values_x0020_isList_x003D__x0022_true_x0022__x0020_count_x003D__x0022_3_x0022__x003E__x003C_value_x003E_是_x003C__x002F_value_x003E__x003C_value_x003E_否_x003C__x002F_value_x003E__x003C_value_x003E_全部_x003C__x002F_value_x003E__x003C__x002F_Values_x003E__x003C__x002F_StiSerializer_x003E_</value>
+    </Variables>
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0"/>
+  <MetaTags isList="true" count="0"/>
+  <Pages isList="true" count="1">
+    <Page1 type="Page" isKey="true" Ref="5">
+      <Alias>合同对账表</Alias>
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="3">
+        <PageHeaderBand1 type="PageHeaderBand" isKey="true" Ref="6">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.4,36,3.2</ClientRectangle>
+          <Components isList="true" count="21">
+            <Text3 type="Text" isKey="true" Ref="7">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>0,2.4,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,10</Font>
+              <Guid>f5d0f72140ad0324c5e0f17d22e35c48</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text3</Name>
+              <Page isRef="5"/>
+              <Parent isRef="6"/>
+              <Text>#</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text3>
+            <Text4 type="Text" isKey="true" Ref="8">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>6.6,2.4,2.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,10</Font>
+              <Guid>caac0f27dbf5ab5f942bf17e09af7526</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text4</Name>
+              <Page isRef="5"/>
+              <Parent isRef="6"/>
+              <Text>创建日期</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text4>
+            <Text6 type="Text" isKey="true" Ref="9">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>8.8,2.4,3.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,10</Font>
+              <Guid>43ea95ee150a68d151e8fff309df8725</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text6</Name>
+              <Page isRef="5"/>
+              <Parent isRef="6"/>
+              <Text>产品称</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text6>
+            <Text9 type="Text" isKey="true" Ref="10">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>20.8,2.4,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,10</Font>
+              <Guid>53a0abfc7e3acaba5d7afff399ff9702</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text9</Name>
+              <Page isRef="5"/>
+              <Parent isRef="6"/>
+              <Text>单位</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text9>
+            <Text11 type="Text" isKey="true" Ref="11">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>21.8,2.4,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,10</Font>
+              <Guid>7284622d173c79b59d51fff3d62bc616</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text11</Name>
+              <Page isRef="5"/>
+              <Parent isRef="6"/>
+              <Text>数量</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text11>
+            <Text13 type="Text" isKey="true" Ref="12">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>22.8,2.4,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,10</Font>
+              <Guid>dfe8c8fe7d846cff1a34fff44d816f32</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text13</Name>
+              <Page isRef="5"/>
+              <Parent isRef="6"/>
+              <Text>未税单价</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text13>
+            <Text22 type="Text" isKey="true" Ref="13">
+              <Border>None;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>10,0,16,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,12</Font>
+              <Guid>ac2c4c33bf3b7b0c2e4f00021aeb4b78</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text22</Name>
+              <Page isRef="5"/>
+              <Parent isRef="6"/>
+              <Text>上海起泓精密机械有限公司</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text22>
+            <Text23 type="Text" isKey="true" Ref="14">
+              <Border>None;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>10,0.6,16,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,12</Font>
+              <Guid>e65e48118df5e055cba600042623a6b3</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text23</Name>
+              <Page isRef="5"/>
+              <Parent isRef="6"/>
+              <Text>地址：上海市闵行区新龙路1333弄69号706室（万科七宝国际）</Text>
+              <TextBrush>[0:0:0]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text23>
+            <Text24 type="Text" isKey="true" Ref="15">
+              <Border>None;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>10,1.2,16,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,12</Font>
+              <Guid>5c585cb2a82cc4c41fe1000520c2dc38</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text24</Name>
+              <Page isRef="5"/>
+              <Parent isRef="6"/>
+              <Text>TEL:021-6405-1112   FAX:021-6405-2752</Text>
+              <TextBrush>[0:0:0]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text24>
+            <Text25 type="Text" isKey="true" Ref="16">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Border>Bottom;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>10,1.8,16,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,12</Font>
+              <Guid>693c4b81466dda6613080006e5401237</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text25</Name>
+              <Page isRef="5"/>
+              <Parent isRef="6"/>
+              <Text>销 售 合 同 对 账 表</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text25>
+            <Image1 type="Image" isKey="true" Ref="17">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>1,0.2,2.4,2</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <DataColumn isNull="true"/>
+              <Image>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</Image>
+              <Name>Image1</Name>
+              <Page isRef="5"/>
+              <Parent isRef="6"/>
+            </Image1>
+            <Text27 type="Text" isKey="true" Ref="18">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>1,2.4,5.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,10</Font>
+              <Guid>0b3fa234672f1b0611730a539a578190</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text27</Name>
+              <Page isRef="5"/>
+              <Parent isRef="6"/>
+              <Text>客户名称</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text27>
+            <Text21 type="Text" isKey="true" Ref="19">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Border>Bottom;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>26,1.8,8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,12</Font>
+              <Guid>8c8bf540d00cebcb809f0a59d3f832fb</Guid>
+              <Hyperlink>createInvoice.php?accountid={invoice.accountid}&amp;report_sourcemodule=SalesOrder&amp;report_sourceid={invoice.entitytypeid}</Hyperlink>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text21</Name>
+              <Page isRef="5"/>
+              <Parent isRef="6"/>
+              <Text>创建销售发票（每次只能对一个客户开票）</Text>
+              <TextBrush>[65:105:225]</TextBrush>
+              <ToolTip>创建销售发票</ToolTip>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text21>
+            <Text29 type="Text" isKey="true" Ref="20">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>12,2.4,3.4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,10</Font>
+              <Guid>d1da7b737610c27274d60a5465c41086</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text29</Name>
+              <Page isRef="5"/>
+              <Parent isRef="6"/>
+              <Text>合同编号</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text29>
+            <Text30 type="Text" isKey="true" Ref="21">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>15.4,2.4,2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,10</Font>
+              <Guid>549d548fde40ea25a9d964c54dcc292f</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text30</Name>
+              <Page isRef="5"/>
+              <Parent isRef="6"/>
+              <Text>出库状态</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text30>
+            <Text32 type="Text" isKey="true" Ref="22">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>17.4,2.4,3.4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,10</Font>
+              <Guid>6f30201224f534b7415564c5973c90b8</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text32</Name>
+              <Page isRef="5"/>
+              <Parent isRef="6"/>
+              <Text>产品型号</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text32>
+            <Text34 type="Text" isKey="true" Ref="23">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>24.4,2.4,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,10</Font>
+              <Guid>b7279bd16ff42fbee31464e4b2774648</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text34</Name>
+              <Page isRef="5"/>
+              <Parent isRef="6"/>
+              <Text>含税单价</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text34>
+            <Text36 type="Text" isKey="true" Ref="24">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>26,2.4,2.4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,10</Font>
+              <Guid>5eee090c95026a9ba7d264e582ab31e4</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text36</Name>
+              <Page isRef="5"/>
+              <Parent isRef="6"/>
+              <Text>未税小计</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text36>
+            <Text38 type="Text" isKey="true" Ref="25">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>28.4,2.4,2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,10</Font>
+              <Guid>c78ca01aa9624b77f94c64e607a1dbea</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text38</Name>
+              <Page isRef="5"/>
+              <Parent isRef="6"/>
+              <Text>税额</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text38>
+            <Text40 type="Text" isKey="true" Ref="26">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>30.4,2.4,2.4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,10</Font>
+              <Guid>d8c6ffcecde5cb50cdc664e67689f7e8</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text40</Name>
+              <Page isRef="5"/>
+              <Parent isRef="6"/>
+              <Text>价税小计</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text40>
+            <Text15 type="Text" isKey="true" Ref="27">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>32.8,2.4,3.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,10</Font>
+              <Guid>46393f0ffb812ebc9bdf64e715f681ee</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text15</Name>
+              <Page isRef="5"/>
+              <Parent isRef="6"/>
+              <Text>备注</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text15>
+          </Components>
+          <Conditions isList="true" count="0"/>
+          <Name>PageHeaderBand1</Name>
+          <Page isRef="5"/>
+          <Parent isRef="5"/>
+        </PageHeaderBand1>
+        <DataBand1 type="DataBand" isKey="true" Ref="28">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,4.4,36,0.8</ClientRectangle>
+          <Components isList="true" count="15">
+            <Text5 type="Text" isKey="true" Ref="29">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>a28a5b018edbc121ab66f17f7a6f88e2</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text5</Name>
+              <Page isRef="5"/>
+              <Parent isRef="28"/>
+              <Text>{LineThrough}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>SystemVariables</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text5>
+            <Text7 type="Text" isKey="true" Ref="30">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>6.6,0,2.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>74f6675fcbf263d42064c248e55179fc</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text7</Name>
+              <Page isRef="5"/>
+              <Parent isRef="28"/>
+              <Text>{report.createddate}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat type="CustomFormat" isKey="true" Ref="31">
+                <StringFormat>yyyy-MM-dd</StringFormat>
+              </TextFormat>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text7>
+            <Text1 type="Text" isKey="true" Ref="32">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>8.8,0,3.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>e4f33e85f318b34dba99fff309e06d01</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>2,0,0,0</Margins>
+              <Name>Text1</Name>
+              <Page isRef="5"/>
+              <Parent isRef="28"/>
+              <Text>{report.pname}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text1>
+            <Text2 type="Text" isKey="true" Ref="33">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>20.8,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>e866c4baa0d36c89c133fff399fff401</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text2</Name>
+              <Page isRef="5"/>
+              <Parent isRef="28"/>
+              <Text>{report.usageunit}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text2>
+            <Text8 type="Text" isKey="true" Ref="34">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>21.8,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,10,Italic</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>f5307f8d26ecdd42c1fffff3d62ba312</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text8</Name>
+              <Page isRef="5"/>
+              <Parent isRef="28"/>
+              <Text>{report.quantity}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat type="NumberFormat" isKey="true" Ref="35">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text8>
+            <Text10 type="Text" isKey="true" Ref="36">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>22.8,0,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,10,Italic</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>c04b0ba161cbdc58f48efff44d81ea24</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text10</Name>
+              <Page isRef="5"/>
+              <Parent isRef="28"/>
+              <Text>{report.listprice}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat type="NumberFormat" isKey="true" Ref="37">
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text10>
+            <Text20 type="Text" isKey="true" Ref="38">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>1,0,5.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>ad7f6d8fa1d219607c7d0a539a576b07</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>2,0,0,0</Margins>
+              <Name>Text20</Name>
+              <Page isRef="5"/>
+              <Parent isRef="28"/>
+              <Text>{report.accountname}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text20>
+            <Text26 type="Text" isKey="true" Ref="39">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>12,0,3.4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>f3c80df97a6e8d6fe5b40a5465c43be5</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Hyperlink>viewdetail.php?id={report.salesorderid}</Hyperlink>
+              <Interaction type="Stimulsoft.Report.Components.StiInteraction" isKey="true" Ref="40">
+                <DrillDownEnabled>True</DrillDownEnabled>
+              </Interaction>
+              <Margins>2,0,0,0</Margins>
+              <Name>Text26</Name>
+              <Page isRef="5"/>
+              <Parent isRef="28"/>
+              <Text>{report.salesorder_no}</Text>
+              <TextBrush>[65:105:225]</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <ToolTip>{report.salesorder_no} {report.accountname}</ToolTip>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text26>
+            <Text31 type="Text" isKey="true" Ref="41">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>17.4,0,3.4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>7af8eef9303e851566d664db29b1c44c</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>2,0,0,0</Margins>
+              <Name>Text31</Name>
+              <Page isRef="5"/>
+              <Parent isRef="28"/>
+              <Text>{report.productname}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text31>
+            <Text28 type="Text" isKey="true" Ref="42">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>15.4,0,2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>83bf09f9c98708b7798c64db81977327</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>2,0,0,0</Margins>
+              <Name>Text28</Name>
+              <Page isRef="5"/>
+              <Parent isRef="28"/>
+              <Text>{report.stockpresence}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text28>
+            <Text18 type="Text" isKey="true" Ref="43">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>24.4,0,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,10,Italic</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>1602328e7f769944879364e4b277d4a0</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text18</Name>
+              <Page isRef="5"/>
+              <Parent isRef="28"/>
+              <Text>{report.taxprice}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat type="NumberFormat" isKey="true" Ref="44">
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text18>
+            <Text33 type="Text" isKey="true" Ref="45">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>26,0,2.4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,10,Italic</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>b901db21831c006cd2a664e582ab0b7b</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text33</Name>
+              <Page isRef="5"/>
+              <Parent isRef="28"/>
+              <Text>{report.list_amount}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat type="NumberFormat" isKey="true" Ref="46">
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text33>
+            <Text35 type="Text" isKey="true" Ref="47">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>28.4,0,2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,10,Italic</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>2482fc838083472ba4ce64e607a1382a</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text35</Name>
+              <Page isRef="5"/>
+              <Parent isRef="28"/>
+              <Text>{report.tax_total}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat type="NumberFormat" isKey="true" Ref="48">
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text35>
+            <Text37 type="Text" isKey="true" Ref="49">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>30.4,0,2.4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,10,Italic</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>3edc4f3a6ad308344f4964e67689ac2d</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text37</Name>
+              <Page isRef="5"/>
+              <Parent isRef="28"/>
+              <Text>{report.tax_amount}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat type="NumberFormat" isKey="true" Ref="50">
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text37>
+            <Text12 type="Text" isKey="true" Ref="51">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>32.8,0,3.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>2c64263517aa814ed42d64e715f6711b</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text12</Name>
+              <Page isRef="5"/>
+              <Parent isRef="28"/>
+              <Text>{report.remark}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat type="NumberFormat" isKey="true" Ref="52">
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text12>
+          </Components>
+          <Conditions isList="true" count="0"/>
+          <DataSourceName>report</DataSourceName>
+          <EvenStyle>even</EvenStyle>
+          <Filters isList="true" count="0"/>
+          <Name>DataBand1</Name>
+          <OddStyle>odd</OddStyle>
+          <Page isRef="5"/>
+          <Parent isRef="5"/>
+          <Sort isList="true" count="0"/>
+        </DataBand1>
+        <ReportSummaryBand1 type="ReportSummaryBand" isKey="true" Ref="53">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,6,36,0.8</ClientRectangle>
+          <Components isList="true" count="9">
+            <Text45 type="Text" isKey="true" Ref="54">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,0,20.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>6c960eaa288e589d19d265351a91e3fb</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text45</Name>
+              <Page isRef="5"/>
+              <Parent isRef="53"/>
+              <Text>合计</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text45>
+            <Text14 type="Text" isKey="true" Ref="55">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>20.8,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>976f266ac47c9ee699d265351a91e16b</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text14</Name>
+              <Page isRef="5"/>
+              <Parent isRef="53"/>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text14>
+            <Text16 type="Text" isKey="true" Ref="56">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>21.8,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,10,Italic</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>6b78c4f886ff5226a93465351a918440</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text16</Name>
+              <Page isRef="5"/>
+              <Parent isRef="53"/>
+              <Text>{Sum(DataBand1,report.quantity)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat type="NumberFormat" isKey="true" Ref="57">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Totals</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text16>
+            <Text17 type="Text" isKey="true" Ref="58">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>22.8,0,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,10,Italic</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>da3c7e301fe640df645f65351a91a3d7</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text17</Name>
+              <Page isRef="5"/>
+              <Parent isRef="53"/>
+              <TextBrush>Black</TextBrush>
+              <TextFormat type="NumberFormat" isKey="true" Ref="59">
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text17>
+            <Text19 type="Text" isKey="true" Ref="60">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>24.4,0,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,10,Italic</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>48e5f49a52eae7722cc265351a912910</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text19</Name>
+              <Page isRef="5"/>
+              <Parent isRef="53"/>
+              <TextBrush>Black</TextBrush>
+              <TextFormat type="NumberFormat" isKey="true" Ref="61">
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text19>
+            <Text39 type="Text" isKey="true" Ref="62">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>26,0,2.4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,10,Italic</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>ff5ae665aff0b934742b65351a91f00c</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text39</Name>
+              <Page isRef="5"/>
+              <Parent isRef="53"/>
+              <Text>{Sum(DataBand1,report.list_amount)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat type="NumberFormat" isKey="true" Ref="63">
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Totals</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text39>
+            <Text41 type="Text" isKey="true" Ref="64">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>28.4,0,2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,10,Italic</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>476d9bcf0a02d3b6a39065351a91f801</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text41</Name>
+              <Page isRef="5"/>
+              <Parent isRef="53"/>
+              <Text>{Sum(DataBand1,report.tax_total)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat type="NumberFormat" isKey="true" Ref="65">
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Totals</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text41>
+            <Text42 type="Text" isKey="true" Ref="66">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>30.4,0,2.4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,10,Italic</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>604b2c6e7711d0bb551265351a91cee0</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text42</Name>
+              <Page isRef="5"/>
+              <Parent isRef="53"/>
+              <Text>{Sum(DataBand1,report.tax_amount)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat type="NumberFormat" isKey="true" Ref="67">
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Totals</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text42>
+            <Text43 type="Text" isKey="true" Ref="68">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>32.8,0,3.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>9ef48ab39d0ac29cc78765351a92cc46</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text43</Name>
+              <Page isRef="5"/>
+              <Parent isRef="53"/>
+              <TextBrush>Black</TextBrush>
+              <TextFormat type="NumberFormat" isKey="true" Ref="69">
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text43>
+          </Components>
+          <Conditions isList="true" count="0"/>
+          <Guid>fe53f155673f55e18f2265351a91d84b</Guid>
+          <Name>ReportSummaryBand1</Name>
+          <Page isRef="5"/>
+          <Parent isRef="5"/>
+        </ReportSummaryBand1>
+      </Components>
+      <Conditions isList="true" count="0"/>
+      <Guid>7a63ece74acd9b16d3cef16f83d3c036</Guid>
+      <Margins>1,1,1,1</Margins>
+      <Name>Page1</Name>
+      <PageHeight>29.7</PageHeight>
+      <PageWidth>38</PageWidth>
+      <Report isRef="0"/>
+      <Watermark type="Stimulsoft.Report.Components.StiWatermark" isKey="true" Ref="70">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Page1>
+  </Pages>
+  <PrinterSettings type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" Ref="71"/>
+  <ReportAlias>合同对账表</ReportAlias>
+  <ReportChanged>07/04/2018 04:12:29 PM</ReportChanged>
+  <ReportCreated>05/10/2017 04:17:49 PM</ReportCreated>
+  <ReportFile>D:\xampp\www\crm\templatePrintFile\reports\jiangjing_duizhang_SalesOrder.mrt</ReportFile>
+  <ReportGuid>3f6921b81fb66940194e64599260c0ce</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2016.3</ReportVersion>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="2">
+    <odd type="Stimulsoft.Report.StiStyle" isKey="true" Ref="72">
+      <Brush>Transparent</Brush>
+      <Conditions isList="true" count="0"/>
+      <Font>微软雅黑,9</Font>
+      <Name>odd</Name>
+      <TextBrush>Black</TextBrush>
+    </odd>
+    <even type="Stimulsoft.Report.StiStyle" isKey="true" Ref="73">
+      <Brush>WhiteSmoke</Brush>
+      <Conditions isList="true" count="0"/>
+      <Font>微软雅黑,9</Font>
+      <Name>even</Name>
+      <TextBrush>Black</TextBrush>
+    </even>
+  </Styles>
+</StiSerializer>

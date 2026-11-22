@@ -1,0 +1,762 @@
+{
+  "ReportVersion": "2019.3.1",
+  "ReportGuid": "7b83ba0489d632777840ff2af90c92f1",
+  "ReportName": "Report",
+  "ReportAlias": "成员使用分析",
+  "ReportFile": "default_userlogin_info.mrt",
+  "ReportCreated": "/Date(1588349808000+0800)/",
+  "ReportChanged": "/Date(1588349808000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Dictionary": {
+    "Variables": {
+      "0": {
+        "Value": "Today",
+        "Name": "start_date",
+        "Alias": "参考日期",
+        "Type": "System.DateTime",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      },
+      "1": {
+        "Value": "全部",
+        "Name": "login_type",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime",
+          "Keys": {
+            "0": "全部",
+            "1": "企业微信"
+          },
+          "Values": {
+            "0": "全部",
+            "1": "企业微信"
+          }
+        },
+        "Alias": "登录方式",
+        "Type": "System.String",
+        "RequestFromUser": true
+      }
+    },
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "a",
+        "Alias": "a",
+        "Columns": {
+          "0": {
+            "Name": "chart_type",
+            "Index": -1,
+            "NameInSource": "chart_type",
+            "Alias": "chart_type",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "chart_value",
+            "Index": -1,
+            "NameInSource": "chart_value",
+            "Alias": "chart_value",
+            "Type": "System.Int32"
+          },
+          "2": {
+            "Name": "myshow",
+            "Index": -1,
+            "NameInSource": "myshow",
+            "Alias": "myshow",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT\r\n\tchart_type,\r\n\tchart_value,\r\n\tCONCAT('总人数:',IFNULL(total,0),'\\n使用人数:',IFNULL(chart_value,0),'\\n未使用人数:',IFNULL(total,0)-IFNULL(chart_value,0)) AS myshow\r\nFROM (\r\n\tSELECT\r\n\t\tlogin_day AS chart_type,\r\n\t\tlogin_cnt AS chart_value,\r\n\t\t(\r\n\t\t\tSELECT \r\n\t\t\t\tCOUNT(id) \r\n\t\t\tFROM ld_users \r\n\t\t\tWHERE deleted=0 \r\n\t\t\t\tAND status='Active' \r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE \r\n\t\t\t\t\t\tWHEN '{login_type}'='企业微信' THEN TRIM(IFNULL(wx_userid,''))<>''\r\n\t\t\t\t\t\tELSE 1=1\r\n\t\t\t\t\tEND)\r\n\t\t) AS total\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tDATE_FORMAT(a.login_time,'%m-%d') AS login_day,\r\n\t\t\tCOUNT(DISTINCT a.user_name) AS login_cnt\r\n\t\tFROM ld_loginhistory a\r\n\t\tWHERE 1=1\r\n\t\t\tAND a.login_time BETWEEN DATE_SUB(DATE_FORMAT('{start_date}','%Y-%m-%d 00:00:00'),INTERVAL 29 DAY) AND DATE_FORMAT('{start_date}','%Y-%m-%d 23:59:59')\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{login_type}'='企业微信' THEN a.login_type='qiyeweixin'\r\n\t\t\t\t\tELSE 1=1\r\n\t\t\t\tEND)\r\n\t\tGROUP BY DATE_FORMAT(a.login_time,'%Y-%m-%d')\r\n\t) a\r\n) tmp"
+      },
+      "1": {
+        "Ident": "StiMySqlSource",
+        "Name": "b",
+        "Alias": "b",
+        "Columns": {
+          "0": {
+            "Name": "groupname",
+            "Index": -1,
+            "NameInSource": "groupname",
+            "Alias": "groupname",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "last_name",
+            "Index": -1,
+            "NameInSource": "last_name",
+            "Alias": "last_name",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "login_day",
+            "Index": -1,
+            "NameInSource": "login_day",
+            "Alias": "login_day",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "user_name",
+            "Index": -1,
+            "NameInSource": "user_name",
+            "Alias": "user_name",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "user_type",
+            "Index": -1,
+            "NameInSource": "user_type",
+            "Alias": "user_type",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "Type": "Table",
+        "SqlCommand": "SELECT\r\n\tCASE\r\n\t\tWHEN b.user_name IS NULL THEN '未使用'\r\n\t\tELSE '有使用'\r\n\tEND AS user_type,\r\n\ta.last_name,\r\n\ta.user_name,\r\n\tb.login_day,\r\n\tg.groupname\r\nFROM ld_users a\r\nLEFT JOIN (\r\n\tSELECT \r\n\t\ta.user_name,\r\n\t\tDATE_FORMAT(a.login_time,'%m-%d') AS login_day\r\n\tFROM ld_loginhistory a\r\n\tWHERE 1=1\r\n\t\tAND a.login_time BETWEEN DATE_SUB(DATE_FORMAT('{start_date}','%Y-%m-%d 00:00:00'),INTERVAL 29 DAY) AND DATE_FORMAT('{start_date}','%Y-%m-%d 23:59:59')\r\n\t\tAND (\r\n\t\t\tCASE\r\n\t\t\t\tWHEN '{login_type}'='企业微信' THEN a.login_type='qiyeweixin'\r\n\t\t\t\tELSE 1=1\r\n\t\t\tEND)\r\n\t\tAND DATE_FORMAT(a.login_time,'%m-%d')='{this[\"SeriesArgument\"]}'\r\n\tGROUP BY a.user_name,DATE_FORMAT(a.login_time,'%Y-%m-%d')\r\n) b ON b.user_name=a.user_name\r\nLEFT JOIN(\r\n\tSELECT\r\n\t\ta.userid,\r\n\t\tGROUP_CONCAT(b.groupname ORDER BY b.depth) AS groupname,\r\n\t\tMIN(b.depth) AS depth\r\n\tFROM ld_users2group a\r\n\tLEFT JOIN ld_groups b ON b.groupid=a.groupid\r\n\tWHERE 1=1\r\n\tGROUP BY a.userid\r\n) g ON g.userid=a.id\r\nWHERE a.deleted=0 \r\n\tAND a.status='Active'\r\n\tAND (\r\n\t\tCASE \r\n\t\t\tWHEN '{login_type}'='企业微信' THEN TRIM(IFNULL(a.wx_userid,''))<>''\r\n\t\t\tELSE 1=1\r\n\t\tEND)\r\nORDER BY user_type DESC,g.depth,CONVERT(g.groupname USING GBK),CONVERT(a.last_name USING GBK)"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "ldcrm",
+        "Alias": "ldcrm",
+        "ConnectionStringEncrypted": "41bRCUhcS4VGRymNxJxiXovS+ythA0GJYhWhzGMJ42eQWmnryFnz9cwZsJjoPeJn3nh3604DUfBAeKT0TRQlZsd42cLOCVmkfBp5leoJ"
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "Page1",
+      "Guid": "953f1075d89cab1a0982a03d58d62f2f",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiChart",
+          "Name": "Chart1",
+          "ClientRectangle": "0,2,28,13.4",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:0,0,0",
+          "Brush": "solid:255,255,255",
+          "Series": {
+            "0": {
+              "Ident": "StiLineSeries",
+              "AllowApplyStyle": false,
+              "ShowShadow": false,
+              "SeriesLabels": {
+                "Ident": "StiOutsideEndAxisLabels",
+                "MarkerSize": {
+                  "Width": 8,
+                  "Height": 6
+                },
+                "ValueTypeSeparator": "-",
+                "LabelColor": "50,58,69",
+                "BorderColor": "Transparent",
+                "Brush": "solid:Transparent",
+                "Font": ";10;;"
+              },
+              "TrendLine": {
+                "Ident": "StiTrendLineNone",
+                "ShowShadow": true,
+                "Position": "LeftBottom"
+              },
+              "ValueDataColumn": "a.chart_value",
+              "ArgumentDataColumn": "a.chart_type",
+              "ToolTipDataColumn": "a.myshow",
+              "DrillDownEnabled": true,
+              "DrillDownPageGuid": "55519abdf2aef65111a71c6edff2fc36",
+              "Interaction": {
+                "DrillDownPageGuid": "55519abdf2aef65111a71c6edff2fc36"
+              },
+              "Title": {
+                "Value": "成员使用分析"
+              },
+              "Marker": {
+                "Brush": "solid:152,252,255",
+                "BorderColor": "0,52,119"
+              },
+              "LineMarker": {
+                "Brush": "solid:102,202,255",
+                "BorderColor": "0,2,69"
+              },
+              "LineColor": "52,152,219",
+              "Lighting": false
+            }
+          },
+          "Area": {
+            "Ident": "StiClusteredColumnArea",
+            "AllowApplyStyle": false,
+            "BorderColor": "0,255,255,255",
+            "Brush": "solid:255,255,255",
+            "InterlacingHor": {
+              "InterlacedBrush": "solid:10,155,155,155",
+              "Visible": false,
+              "Area": true
+            },
+            "InterlacingVert": {
+              "InterlacedBrush": "solid:10,155,155,155",
+              "Visible": false,
+              "Area": true
+            },
+            "GridLinesHor": {
+              "Color": "100,105,105,105",
+              "MinorColor": "100,105,105,105",
+              "Area": true
+            },
+            "GridLinesHorRight": {
+              "Visible": false,
+              "Area": true
+            },
+            "GridLinesVert": {
+              "Color": "100,105,105,105",
+              "MinorColor": "100,105,105,105",
+              "Visible": false,
+              "Area": true
+            },
+            "YAxis": {
+              "Ident": "StiYLeftAxis",
+              "AllowApplyStyle": false,
+              "Labels": {
+                "AllowApplyStyle": false,
+                "Color": "140,140,140"
+              },
+              "LineColor": "140,140,140",
+              "LineWidth": 0,
+              "Title": {
+                "Color": "140,140,140",
+                "Direction": "BottomToTop"
+              },
+              "Ticks": {
+                "Visible": false
+              }
+            },
+            "YRightAxis": {
+              "Ident": "StiYRightAxis",
+              "Labels": {
+                "Color": "140,140,140",
+                "TextAlignment": "Left"
+              },
+              "LineColor": "140,140,140",
+              "Title": {
+                "Color": "140,140,140",
+                "Direction": "TopToBottom"
+              }
+            },
+            "XAxis": {
+              "Ident": "StiXBottomAxis",
+              "AllowApplyStyle": false,
+              "Labels": {
+                "AllowApplyStyle": false,
+                "Angle": 60,
+                "Color": "140,140,140",
+                "Step": 1
+              },
+              "LineColor": "140,140,140",
+              "LineWidth": 0,
+              "Title": {
+                "Color": "140,140,140"
+              },
+              "Ticks": {
+                "Visible": false
+              }
+            },
+            "XTopAxis": {
+              "Ident": "StiXTopAxis",
+              "Labels": {
+                "Color": "140,140,140"
+              },
+              "LineColor": "140,140,140",
+              "Title": {
+                "Color": "140,140,140"
+              }
+            }
+          },
+          "Table": {
+            "GridLineColor": "225,225,225",
+            "Header": {
+              "Brush": "solid:White"
+            },
+            "DataCells": {
+              "TextColor": "140,140,140"
+            }
+          },
+          "SeriesLabels": {
+            "Ident": "StiCenterAxisLabels",
+            "MarkerSize": {
+              "Width": 8,
+              "Height": 6
+            },
+            "ValueTypeSeparator": "-",
+            "Visible": false,
+            "LabelColor": "50,58,69",
+            "BorderColor": "Transparent",
+            "Brush": "solid:Transparent",
+            "Font": ";10;;"
+          },
+          "Legend": {
+            "ShowShadow": false,
+            "BorderColor": "225,225,225",
+            "Brush": "solid:255,255,255",
+            "TitleColor": "105,105,105",
+            "LabelsColor": "140,140,140",
+            "Visible": false,
+            "MarkerSize": {
+              "Width": 10,
+              "Height": 10
+            },
+            "Columns": 0,
+            "Size": "0,0"
+          },
+          "Title": {
+            "Brush": "solid:140,140,140"
+          },
+          "AllowApplyStyle": false,
+          "Style": {
+            "Ident": "StiStyle29"
+          }
+        },
+        "1": {
+          "Ident": "StiReportTitleBand",
+          "Name": "ReportTitleBand1",
+          "ClientRectangle": "0,0.4,28,1.2",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text1",
+              "Guid": "eaf96779c455b5a543916b57a13ba9f1",
+              "ClientRectangle": "0,0,30,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "成员使用分析"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;20;;",
+              "Border": ";;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            }
+          }
+        }
+      },
+      "PageWidth": 30,
+      "PageHeight": 29.69,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    },
+    "1": {
+      "Ident": "StiPage",
+      "Name": "Page2",
+      "Guid": "55519abdf2aef65111a71c6edff2fc36",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiPageHeaderBand",
+          "Name": "PageHeaderBand1",
+          "ClientRectangle": "0,0.4,18,1.2",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text7",
+              "Guid": "7435a45c18aa3855430057f3f47d6c96",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,18,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "数据钻取：{this[\"SeriesArgument\"]} 成员使用情况由下列数据得出"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;14;;",
+              "Border": ";;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiColumnHeaderBand",
+          "Name": "ColumnHeaderBand1",
+          "ClientRectangle": "0,2.4,18,1.2",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text8",
+              "Guid": "e7fb01f44043ff6a8dcc09cc7193c38e",
+              "ClientRectangle": "0,0,3.8,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "使用情况"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:92,92,92",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text2",
+              "Guid": "10024c16ae60aaaf6de362af40ea17a7",
+              "ClientRectangle": "3.8,0,3.6,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "用户姓名"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:92,92,92",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text9",
+              "Guid": "7a27063896f3d2ed188c5d545bdf7244",
+              "ClientRectangle": "7.4,0,10.6,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "所属部门"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:92,92,92",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            }
+          }
+        },
+        "2": {
+          "Ident": "StiGroupHeaderBand",
+          "Name": "GroupHeaderBand1",
+          "ClientRectangle": "0,4.4,18,0",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "SortDirection": "None",
+          "Condition": {
+            "Value": "{b.user_type}"
+          }
+        },
+        "3": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand1",
+          "ClientRectangle": "0,5.2,18,1",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text24",
+              "Guid": "3c1435a16ac4c44b73d17fe6f52d00b7",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,3.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ProcessingDuplicates": "Merge",
+              "Text": {
+                "Value": "{b.user_type}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text3",
+              "Guid": "d3041489f2613abfc4651c9eb4ff01ef",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "3.8,0,3.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.last_name}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text10",
+              "Guid": "46ac0cb1e1f0b352e0af65033bba550f",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "7.4,0,10.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.groupname}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "b"
+        },
+        "4": {
+          "Ident": "StiGroupFooterBand",
+          "Name": "GroupFooterBand1",
+          "ClientRectangle": "0,7,18,1",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text4",
+              "Guid": "87333795885e166c79eee026434d09a7",
+              "ClientRectangle": "0,0,3.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "小计"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:238,238,238",
+              "TextBrush": "solid:92,92,92",
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text5",
+              "Guid": "959ab4c2dec79cecf35f985bad6a018e",
+              "ClientRectangle": "3.8,0,3.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Count(DataBand1)}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:238,238,238",
+              "TextBrush": "solid:92,92,92",
+              "Type": "Totals"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text11",
+              "Guid": "555bd703d947f408a9a6b0f0bf08ed1d",
+              "ClientRectangle": "7.4,0,10.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:238,238,238",
+              "TextBrush": "solid:92,92,92",
+              "Type": "Expression"
+            }
+          }
+        },
+        "5": {
+          "Ident": "StiFooterBand",
+          "Name": "FooterBand1",
+          "ClientRectangle": "0,8.8,18,1",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text54",
+              "Guid": "335e3289b570d4da738153d6e175ee64",
+              "ClientRectangle": "0,0,3.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "合计"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:92,92,92",
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text6",
+              "Guid": "7a9cbaac52716990bce09f226f3646e0",
+              "ClientRectangle": "3.8,0,3.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Count(DataBand1)}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:92,92,92",
+              "Type": "Totals"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text12",
+              "Guid": "1e3e553a22e842e10c40eb7f4c1f7c7f",
+              "ClientRectangle": "7.4,0,10.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:92,92,92",
+              "Type": "Expression"
+            }
+          }
+        }
+      },
+      "PageWidth": 20,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    }
+  }
+}

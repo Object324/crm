@@ -1,0 +1,1508 @@
+{
+  "ReportVersion": "2019.4.1",
+  "ReportGuid": "1bccf612ff6a42088792f424b8fcf094",
+  "ReportName": "Report",
+  "ReportAlias": "Report",
+  "ReportFile": "yashi_bigproject_gengzong.mrt",
+  "ReportCreated": "/Date(1647446233000+0800)/",
+  "ReportChanged": "/Date(1648425790000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Styles": {
+    "0": {
+      "Ident": "StiStyle",
+      "Name": "表头文字",
+      "HorAlignment": "Center",
+      "Font": "微软雅黑;14;;",
+      "Border": "All;191,191,191;;;;;;solid:0,0,0",
+      "Brush": "solid:240,244,255",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:0,0,0"
+    },
+    "1": {
+      "Ident": "StiStyle",
+      "Name": "表体文字",
+      "Font": "微软雅黑;12;;",
+      "Border": "All;191,191,191;;;;;;solid:0,0,0",
+      "Brush": "solid:Transparent",
+      "TextBrush": "solid:89,89,89",
+      "NegativeTextBrush": "solid:89,89,89"
+    }
+  },
+  "Dictionary": {
+    "Resources": {
+      "0": {
+        "Name": "download",
+        "Alias": "download",
+        "Image": "ctLWopVql59ce5YzM2ioMFtv/YH6v7HR+Znav/UAnw9c9d5gaan/4VNErUt9yRcMzenkrkOfSOrAT7HlgUlVfTsOCTSmcKMO7swUIuhnenlghSy2f+X/b5OasQKU80/owP/92TV2gpBAcgVZHzQIZPE++NVe8M/VNKQKAOPnDj7TNJeyV1WQsc42MSptmLf4rgk19ul/zmxoes664r+3aAUWyfkA5HIhAozKp44HY2EzkcgrzcFkC1cjmvAz4KrAc6dr8zrMPbGSwRJvJk0Ola5sve4LoFZ7h9XBmQ8f7sCQ+XauiPxIS9HikhzYvndRgEP96vCHLYxhTrK1vmR+xGpxbGYXgxtij5TdoPc+ufITtlFKyy2wnTLcDVHBttwOaS5ccU+1jJu90tV22cHBzTId2qibj84wmkUxo91dkkESUuiQRS6F+t6lTf81MpDmRxpMOjHiqc7l1I+U9fiA6EjQZqoM7xpiNqiI9v+9VN0RZIOZY10BVSNAmUXIMUA5NGk5fi4ebzo5NdwC1RZw8VRZRdp1W5brzEOMM07CX5t9TU1iEljpktKkYCzo3HPLNXHA7J3oIE+7pWy3B9GlZP4uqxEkvZQDBCILfqbwQQ1KjRJtZyup/Tg7nz2Cxw34ko3Hi+H1m1ZKiCGAnqt0LsyiL5WmT/Iq1RIdreqqqN+LdLhKR0RN6YPIA18Xcur8AkvculaBNHaHfraoK77V8BC1Oe7SbNYbIS4CtbSPX6SDeXG+m+03h4svMKyL0DvVUV82iYdG9rVb8ZPJn7qGKHPlvI+7gWmerItQVun/G4Bk3XyHRi7ExZ9gEbtB3QHCCr0//uTM2/Zw+pLJgFppKtGeDW2NuySwZy/fpkj4uX1BDl0dHsYGPwqYfM3R6LHAWyolFqK5de7jyn3twSawsLQBcsGkgxRMdg4cFUJXAFd1ED912PZIBrs2bM6L89bPqsqEFeT54r7eOr0rj3wvOumsTunlD3GgS1sTlG+66FtSoyXdoU7Wxu+G7Qffe03EPKNysydacQBhvdAu3KrxliIXh2wpiuiimxN0mkeDeVzTREiUn45C9ZCTPlOl84U+k6HmExdfpmDm5ci1bA=="
+      }
+    },
+    "Variables": {
+      "0": {
+        "Value": "1",
+        "Name": "weidu",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime",
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "data_range.list_key",
+          "ValuesColumn": "data_range.list_value",
+          "AllowUserValues": false
+        },
+        "Alias": "查询方式",
+        "Type": "System.String",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      },
+      "1": {
+        "Name": "ziweidu",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime",
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "data_range.list_key2",
+          "ValuesColumn": "data_range.list_value2",
+          "BindingValuesColumn": "data_range.list_key",
+          "AllowUserValues": false,
+          "BindingValue": true,
+          "BindingVariable": "weidu"
+        },
+        "Alias": "查询范围",
+        "Type": "Stimulsoft.Report.StringList",
+        "RequestFromUser": true
+      },
+      "2": {
+        "Value": "DateSerial(Year(Today),1,1) ",
+        "Name": "start_date",
+        "Alias": "开始日期",
+        "Type": "System.DateTime",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      },
+      "3": {
+        "Value": "Today",
+        "Name": "end_date",
+        "Alias": "截至日期",
+        "Type": "System.DateTime",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      },
+      "4": {
+        "Name": "product_type",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime",
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "list_producttype.listvalue",
+          "ValuesColumn": "list_producttype.listvalue",
+          "AllowUserValues": false
+        },
+        "Alias": "产品机型",
+        "Type": "Stimulsoft.Report.StringList",
+        "RequestFromUser": true
+      },
+      "5": {
+        "Value": "0",
+        "Name": "amount_start",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime"
+        },
+        "Alias": "金额大于等于",
+        "Type": "System.Int32",
+        "RequestFromUser": true,
+        "Description": "元"
+      },
+      "6": {
+        "Value": "0",
+        "Name": "amount_end",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime"
+        },
+        "Alias": "金额小于",
+        "Type": "System.Int32",
+        "RequestFromUser": true
+      }
+    },
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "data_range",
+        "Alias": "data_range",
+        "Key": "3c7b303fc945463e8296616709494d14",
+        "Columns": {
+          "0": {
+            "Name": "list_key",
+            "Index": -1,
+            "NameInSource": "list_key",
+            "Alias": "list_key",
+            "Type": "System.Int32"
+          },
+          "1": {
+            "Name": "list_key2",
+            "Index": -1,
+            "NameInSource": "list_key2",
+            "Alias": "list_key2",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "list_value",
+            "Index": -1,
+            "NameInSource": "list_value",
+            "Alias": "list_value",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "list_value2",
+            "Index": -1,
+            "NameInSource": "list_value2",
+            "Alias": "list_value2",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm ",
+        "Type": "Table",
+        "SqlCommand": "select* from(\r\nSELECT\r\n\t\t1 AS list_key,\r\n\t\t'销售区域' AS list_value,\r\n\t\tf.groupid AS list_key2,\r\n\t\tf.groupname AS list_value2\r\n\tFROM ld_groups f \r\n\tWHERE f.parentgroup like '1::2::7::%' and depth=3\r\nunion all \r\nSELECT\r\n\t\t2 AS list_key,\r\n\t\t'销售分支' AS list_value,\r\n\t\tf.groupid AS list_key2,\r\n\t\tf.groupname AS list_value2\r\n\tFROM ld_groups f \r\n\tWHERE f.parentgroup like '1::2::7::%' and depth=4\r\nunion all \r\nSELECT\r\n\t\t3 AS list_key,\r\n\t\t'销售经理' AS list_value,\r\n\t\ta.id AS list_key2,\r\n\t\ta.last_name AS list_value2\r\n\tFROM ld_users a\r\n\tINNER JOIN ld_users2group e ON e.userid=a.id\r\n\tINNER JOIN ld_groups f ON f.groupid=e.groupid\r\n\tWHERE a.deleted=0\t\r\n\tand FIND_IN_SET(f.groupname,(SELECT \r\n\t\t\tgroup_concat(REPLACE(REPLACE(REPLACE(a.targetvalues,'\"',''),'[',''),']','')) \r\n\t\tFROM ld_picklist_dependency a\r\n\t\tLEFT JOIN ld_picklist_values c ON c.listid=107 AND c.listvalue=a.sourcevalue\r\n\t\tWHERE a.tabid=6\r\n\t\t\tAND a.sourcefield='cf_4402'\r\n\t\t\tAND a.targetfield='cf_4404'))\r\n\tand f.parentgroup like '1::2::7::%'\r\n\tgroup by a.id\r\n)a \r\nORDER BY a.list_key\r\n\r\n\r\n\r\n\r\n\t\t "
+      },
+      "1": {
+        "Ident": "StiMySqlSource",
+        "Name": "list_nian",
+        "Alias": "list_nian",
+        "Key": "e1fdd7edd17b4cc8a3403039f0d87c6c",
+        "Columns": {
+          "0": {
+            "Name": "list_value",
+            "Index": -1,
+            "NameInSource": "list_value",
+            "Alias": "list_value",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm ",
+        "SqlCommand": "SELECT YEAR(CURDATE()) AS list_value\r\nUNION\r\nSELECT YEAR(CURDATE())-1\r\nUNION\r\nSELECT YEAR(CURDATE())-2\r\nUNION\r\nSELECT YEAR(CURDATE())-3\r\nUNION\r\nSELECT YEAR(CURDATE())-4"
+      },
+      "2": {
+        "Ident": "StiMySqlSource",
+        "Name": "Data1",
+        "Alias": "Data1",
+        "Key": "e5d2878ff2e64fc9a5b214fb3981ccd3",
+        "Columns": {
+          "0": {
+            "Name": "Designer",
+            "Index": -1,
+            "NameInSource": "Designer",
+            "Alias": "Designer",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "Productype",
+            "Index": -1,
+            "NameInSource": "Productype",
+            "Alias": "Productype",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "SalesArea",
+            "Index": -1,
+            "NameInSource": "SalesArea",
+            "Alias": "SalesArea",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "SalesBranch",
+            "Index": -1,
+            "NameInSource": "SalesBranch",
+            "Alias": "SalesBranch",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "Stage",
+            "Index": -1,
+            "NameInSource": "Stage",
+            "Alias": "Stage",
+            "Type": "System.String"
+          },
+          "5": {
+            "Name": "accountid",
+            "Index": -1,
+            "NameInSource": "accountid",
+            "Alias": "accountid",
+            "Type": "System.Int32"
+          },
+          "6": {
+            "Name": "accountname",
+            "Index": -1,
+            "NameInSource": "accountname",
+            "Alias": "accountname",
+            "Type": "System.String"
+          },
+          "7": {
+            "Name": "closingdate",
+            "Index": -1,
+            "NameInSource": "closingdate",
+            "Alias": "closingdate",
+            "Type": "System.DateTime"
+          },
+          "8": {
+            "Name": "count_record",
+            "Index": -1,
+            "NameInSource": "count_record",
+            "Alias": "count_record",
+            "Type": "System.Int32"
+          },
+          "9": {
+            "Name": "jianchen",
+            "Index": -1,
+            "NameInSource": "jianchen",
+            "Alias": "jianchen",
+            "Type": "System.String"
+          },
+          "10": {
+            "Name": "last_name",
+            "Index": -1,
+            "NameInSource": "last_name",
+            "Alias": "last_name",
+            "Type": "System.String"
+          },
+          "11": {
+            "Name": "nolinkdays",
+            "Index": -1,
+            "NameInSource": "nolinkdays",
+            "Alias": "nolinkdays",
+            "Type": "System.Int32"
+          },
+          "12": {
+            "Name": "potential_no",
+            "Index": -1,
+            "NameInSource": "potential_no",
+            "Alias": "potential_no",
+            "Type": "System.String"
+          },
+          "13": {
+            "Name": "potentialname",
+            "Index": -1,
+            "NameInSource": "potentialname",
+            "Alias": "potentialname",
+            "Type": "System.String"
+          },
+          "14": {
+            "Name": "producttypes",
+            "Index": -1,
+            "NameInSource": "producttypes",
+            "Alias": "producttypes",
+            "Type": "System.String"
+          },
+          "15": {
+            "Name": "quantity",
+            "Index": -1,
+            "NameInSource": "quantity",
+            "Alias": "quantity",
+            "Type": "System.Decimal"
+          },
+          "16": {
+            "Name": "sales_stage",
+            "Index": -1,
+            "NameInSource": "sales_stage",
+            "Alias": "sales_stage",
+            "Type": "System.String"
+          },
+          "17": {
+            "Name": "smownerid",
+            "Index": -1,
+            "NameInSource": "smownerid",
+            "Alias": "smownerid",
+            "Type": "System.Int32"
+          },
+          "18": {
+            "Name": "tax_amount",
+            "Index": -1,
+            "NameInSource": "tax_amount",
+            "Alias": "tax_amount",
+            "Type": "System.Decimal"
+          }
+        },
+        "NameInSource": "ldcrm ",
+        "Type": "Table",
+        "SqlCommand": "SELECT \r\ncf_4412 as SalesArea, \r\ncf_4413 as SalesBranch, \r\npotential_no, \r\npotentialname, \r\ncf_4741 as Designer, \r\nREPLACE(cf_4708,'|##|',',') as Productype,\r\ncf_4432 as jianchen,\r\nld_potential.accountid,\r\naccountname,\r\nld_potential.smownerid,\r\nu.last_name,\r\ncf_4449 as Stage,\r\nsales_stage,\r\nclosingdate,\r\nld_potential.nolinkdays,\r\npdetail.quantity,\r\npdetail.producttypes,\r\n(ld_potential.total/10000) as tax_amount,\r\nifnull(record.count_record,0)as count_record\r\nfrom ld_potential \r\nLEFT JOIN ld_potentialscf ON ld_potential.potentialid=ld_potentialscf.potentialid\r\nLEFT JOIN ld_account ON ld_account.accountid=ld_potential.accountid\r\nLEFT JOIN ld_users u ON u.id=ld_potential.smownerid\r\nleft join ld_users2group u2g on u2g.userid=u.id\r\nleft join ld_groups g on g.groupid=u2g.groupid\r\nleft join ld_groups g2 on g2.groupid=g.parentid\r\nINNER JOIN (\r\n\t\tSELECT DISTINCT\r\n\t\t\tuserid \r\n\t\tFROM (\r\n\t\t\tSELECT \r\n\t\t\t\tld_users.id AS userid \r\n\t\t\tFROM ld_users\r\n\t\t\tWHERE EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='Potentials' and scopeauthority=1 AND userid='[uuid]')\r\n\t\t\tUNION\r\n\t\t\tSELECT \r\n\t\t\t\tviewid AS userid \r\n\t\t\tFROM ld_scoperhigher\r\n\t\t\tWHERE userid='[uuid]' AND modulename ='Potentials' AND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE userid='[uuid]' AND scopeauthority=2 AND modulename ='Potentials')\t\t\t\r\n\t\t\tUNION\r\n\t\t\tSELECT DISTINCT \r\n\t\t\t\tld_users2group.userid AS userid \r\n\t\t\tFROM ld_scoperhigher \r\n\t\t\tINNER JOIN ld_groups ON ld_groups.groupid=ld_scoperhigher.viewid\r\n\t\t\tINNER JOIN ld_users2group ON ld_users2group.groupid=ld_groups.groupid\r\n\t\t\tWHERE ld_scoperhigher.userid='[uuid]' \r\n\t\t\t\tAND ld_scoperhigher.modulename ='Potentials'\r\n\t\t\t\tAND ld_scoperhigher.scopeauthority=3 \r\n\t\t\t\tAND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='Potentials' AND scopeauthority=3 AND userid='[uuid]')\r\n\t\t\tUNION \r\n\t\t\tSELECT \r\n\t\t\t\tid AS userid \r\n\t\t\tFROM ld_users  \r\n\t\t\tWHERE EXISTS(SELECT 1 FROM ld_users WHERE id='[uuid]' AND is_admin='on')\r\n\t\t\tUNION\r\n\t\t\tSELECT '[uuid]') AS vw_users\r\n\t) AS tmp_users ON tmp_users.userid=u.id \r\nleft join (\r\n\tselect \r\n\tGROUP_CONCAT(ifnull(ld_productcf.cf_4835,'')) as producttypes,\r\n\tsum(ifnull(ld_potentialsdetail.quantity,0)) as quantity,ld_potential.potentialid\r\n\tfrom ld_potentialsdetail\r\n\tleft join ld_productcf on ld_productcf.productid=ld_potentialsdetail.productid\r\n\tleft join ld_potential on ld_potential.potentialid=ld_potentialsdetail.id\r\n\twhere ld_potential.deleted=0\r\n\tgroup by ld_potentialsdetail.id\r\n)pdetail on pdetail.potentialid=ld_potential.potentialid\r\nleft join (\r\n\tselect \r\n\t\tCOUNT(DISTINCT contactrecordid)as count_record,\r\n\t\tpotentialid\r\n\tfrom ld_contactrecords\r\n\twhere deleted=0 and potentialid>0\r\n\tgroup by potentialid\r\n)record on record.potentialid=ld_potential.potentialid \r\nwhere ld_potential.deleted=0\r\nand  g.parentgroup like '1::2::7::%' and g2.parentgroup like '1::2::7::%'\r\n\tand FIND_IN_SET(g.groupname,(SELECT \r\n\t\t\tgroup_concat(REPLACE(REPLACE(REPLACE(a.targetvalues,'\"',''),'[',''),']',''),',',a.sourcevalue) \r\n\t\tFROM ld_picklist_dependency a\r\n\t\tLEFT JOIN ld_picklist_values c ON c.listid=107 AND c.listvalue=a.sourcevalue\r\n\t\tWHERE a.tabid=6\r\n\t\t\tAND a.sourcefield='cf_4402'\r\n\t\t\tAND a.targetfield='cf_4404'))\r\n\tand FIND_IN_SET(u.userlevel,'销售经理,分公司经理,分公司副经理,办事处经理,大区经理,大区副经理')\r\n\tand (\r\n\t\tcase when '{weidu}'=3 and '{ziweidu}'!='' then FIND_IN_SET(u.id ,'{ziweidu}')\r\n\t\twhen '{weidu}'=3 and '{ziweidu}'='' then 1=1\r\n\t\twhen '{weidu}'=2 and '{ziweidu}'!=''  then FIND_IN_SET( g.groupid ,'{ziweidu}') and g.depth=4\r\n\t\twhen '{weidu}'=2 and '{ziweidu}'=''  then g.depth=4\r\n\t\twhen '{weidu}'=1 and '{ziweidu}'!=''  then FIND_IN_SET( g.parentid ,'{ziweidu}') \r\n\t\twhen '{weidu}'=1 and '{ziweidu}'=''  then 1=1\r\n\t\telse 1=1\r\n\t\tend \r\n\t) \r\nand (case when '{amount_start}'=0 then 1=1 else ld_potential.total>='{amount_start}'end )\r\nand (case when '{amount_end}'=0 then 1=1 else ld_potential.total<'{amount_end}'end )\r\nand ld_potential.closingdate >= DATE_FORMAT(CONCAT('{start_date}'),'%Y-%m-%d')\r\nand ld_potential.closingdate <= DATE_FORMAT(CONCAT('{end_date}'),'%Y-%m-%d')\r\nand ld_potential.sales_stage!='已丢单' and ld_potential.sales_stage!='已发货'\r\nand (case when '{product_type}'!='' then cf_4708  REGEXP REPLACE('[[:<:]]{product_type}[[:>:]]',',','|') else 1=1 end)"
+      },
+      "3": {
+        "Ident": "StiMySqlSource",
+        "Name": "Data2",
+        "Alias": "Data2",
+        "Key": "6d48e86c34704ca4ab76801925002353",
+        "Columns": {
+          "0": {
+            "Name": "descrip",
+            "Index": -1,
+            "NameInSource": "descrip",
+            "Alias": "descrip",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "ordernum",
+            "Index": -1,
+            "NameInSource": "ordernum",
+            "Alias": "ordernum",
+            "Type": "System.Int32"
+          },
+          "2": {
+            "Name": "rate",
+            "Index": -1,
+            "NameInSource": "rate",
+            "Alias": "rate",
+            "Type": "System.Decimal"
+          },
+          "3": {
+            "Name": "sales_stage",
+            "Index": -1,
+            "NameInSource": "sales_stage",
+            "Alias": "sales_stage",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "total",
+            "Index": -1,
+            "NameInSource": "total",
+            "Alias": "total",
+            "Type": "System.Decimal"
+          }
+        },
+        "NameInSource": "ldcrm ",
+        "Type": "Table",
+        "SqlCommand": "\r\nselect \r\n\ta.ordernum,\r\n\ta.descrip,\r\n\ta .listvalue as sales_stage,\r\n\tb.total/10000 as total,\r\n\t(case when c.total=0 then 0 else (b.total/c.total) end )as rate\r\nfrom (\r\n\tselect \r\n\t\tlistvalue,'a'as totalkey,\r\n\t\t(\r\n\t\t\tcase when listvalue='100%热度' then 1\r\n\t\t\twhen listvalue='90%热度' then 2\r\n\t\t\twhen listvalue='80%热度' then 3\r\n\t\t\twhen listvalue='70%热度' then 4\r\n\t\t\twhen listvalue='60%热度' then 5\r\n\t\t\twhen listvalue='50%热度' then 6\r\n\t\t\twhen listvalue='40%热度' then 7\r\n\t\t\twhen listvalue='30%热度' then 8\r\n\t\t\twhen listvalue='20%热度' then 9\r\n\t\t\tend\r\n\t\t)as ordernum,\r\n\t\t(\r\n\t\t\tcase when listvalue='100%热度' then '已签订合同并肯定能付定金'\r\n\t\t\twhen listvalue='90%热度' then '已经签订合同，未付定金'\r\n\t\t\twhen listvalue='80%热度' then '已经中标，进入商务技术谈判阶段'\r\n\t\t\twhen listvalue='70%热度' then '预中标或甲方决策层已确认选用雅士产品'\r\n\t\t\twhen listvalue='60%热度' then '进入筛选后的三家中'\r\n\t\t\twhen listvalue='50%热度' then '按照雅士有利机型设计，已深入跟踪，有资格投标入围'\r\n\t\t\twhen listvalue='40%热度' then '明确了解设计方案，已做初步方案、报价'\r\n\t\t\twhen listvalue='30%热度' then '了解项目的具体情况，已经初步接触甲方决策层，已初步设备选型'\r\n\t\t\twhen listvalue='20%热度' then '只了解到项目信息，具体项目情况不是很了解'\r\n\t\t\tend \r\n\t\t)as descrip\r\n\tfrom ld_picklist_set left join ld_picklist_values on  ld_picklist_set.listid=ld_picklist_values.listid\r\n\twhere ld_picklist_set.listname='sales_stage'\r\n\tand listvalue!='已丢单' and listvalue!='已发货'\r\n)a left join (\r\n\tselect \r\n\t\tsum(total)as total,\r\n\t\tsales_stage\r\n\tfrom ld_potential \r\n\tLEFT JOIN ld_potentialscf ON ld_potential.potentialid=ld_potentialscf.potentialid\r\n\tLEFT JOIN ld_users u ON u.id=ld_potential.smownerid\r\n\tleft join ld_users2group u2g on u2g.userid=u.id\r\n\tleft join ld_groups g on g.groupid=u2g.groupid\r\n\tleft join ld_groups g2 on g2.groupid=g.parentid\r\n\tINNER JOIN (\r\n\t\tSELECT DISTINCT\r\n\t\t\tuserid \r\n\t\tFROM (\r\n\t\t\tSELECT \r\n\t\t\t\tld_users.id AS userid \r\n\t\t\tFROM ld_users\r\n\t\t\tWHERE EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='Potentials' and scopeauthority=1 AND userid='[uuid]')\r\n\t\t\tUNION\r\n\t\t\tSELECT \r\n\t\t\t\tviewid AS userid \r\n\t\t\tFROM ld_scoperhigher\r\n\t\t\tWHERE userid='[uuid]' AND modulename ='Potentials' AND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE userid='[uuid]' AND scopeauthority=2 AND modulename ='Potentials')\t\t\t\r\n\t\t\tUNION\r\n\t\t\tSELECT DISTINCT \r\n\t\t\t\tld_users2group.userid AS userid \r\n\t\t\tFROM ld_scoperhigher \r\n\t\t\tINNER JOIN ld_groups ON ld_groups.groupid=ld_scoperhigher.viewid\r\n\t\t\tINNER JOIN ld_users2group ON ld_users2group.groupid=ld_groups.groupid\r\n\t\t\tWHERE ld_scoperhigher.userid='[uuid]' \r\n\t\t\t\tAND ld_scoperhigher.modulename ='Potentials'\r\n\t\t\t\tAND ld_scoperhigher.scopeauthority=3 \r\n\t\t\t\tAND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='Potentials' AND scopeauthority=3 AND userid='[uuid]')\r\n\t\t\tUNION \r\n\t\t\tSELECT \r\n\t\t\t\tid AS userid \r\n\t\t\tFROM ld_users  \r\n\t\t\tWHERE EXISTS(SELECT 1 FROM ld_users WHERE id='[uuid]' AND is_admin='on')\r\n\t\t\tUNION\r\n\t\t\tSELECT '[uuid]') AS vw_users\r\n\t) AS tmp_users ON tmp_users.userid=u.id \r\n\twhere ld_potential.deleted=0\r\n\tand  g.parentgroup like '1::2::7::%' and g2.parentgroup like '1::2::7::%'\r\n\tand FIND_IN_SET(g.groupname,(SELECT \r\n\t\t\tgroup_concat(REPLACE(REPLACE(REPLACE(a.targetvalues,'\"',''),'[',''),']',''),',',a.sourcevalue) \r\n\t\tFROM ld_picklist_dependency a\r\n\t\tLEFT JOIN ld_picklist_values c ON c.listid=107 AND c.listvalue=a.sourcevalue\r\n\t\tWHERE a.tabid=6\r\n\t\t\tAND a.sourcefield='cf_4402'\r\n\t\t\tAND a.targetfield='cf_4404'))\r\n\tand FIND_IN_SET(u.userlevel,'销售经理,分公司经理,分公司副经理,办事处经理,大区经理,大区副经理')\r\n\tand (\r\n\t\tcase when '{weidu}'=3 and '{ziweidu}'!='' then FIND_IN_SET(u.id ,'{ziweidu}')\r\n\t\twhen '{weidu}'=3 and '{ziweidu}'='' then 1=1\r\n\t\twhen '{weidu}'=2 and '{ziweidu}'!=''  then FIND_IN_SET( g.groupid ,'{ziweidu}') and g.depth=4\r\n\t\twhen '{weidu}'=2 and '{ziweidu}'=''  then g.depth=4\r\n\t\twhen '{weidu}'=1 and '{ziweidu}'!=''  then FIND_IN_SET( g.parentid ,'{ziweidu}') \r\n\t\twhen '{weidu}'=1 and '{ziweidu}'=''  then 1=1\r\n\t\telse 1=1\r\n\t\tend \r\n\t) \r\nand (case when '{amount_start}'=0 then 1=1 else ld_potential.total>='{amount_start}'end )\r\nand (case when '{amount_end}'=0 then 1=1 else ld_potential.total<'{amount_end}'end )\r\nand ld_potential.closingdate >= DATE_FORMAT(CONCAT('{start_date}'),'%Y-%m-%d')\r\nand ld_potential.closingdate <= DATE_FORMAT(CONCAT('{end_date}'),'%Y-%m-%d')\r\nand (case when '{product_type}'!='' then cf_4708  REGEXP REPLACE('[[:<:]]{product_type}[[:>:]]',',','|') else 1=1 end)\r\n\tgroup by sales_stage\r\n)b on a.listvalue=b.sales_stage\r\nleft join (\r\n\tselect\r\n\tsum(total)as total ,'a'as totalkey\r\n\tfrom ld_potential \r\n\tLEFT JOIN ld_potentialscf ON ld_potential.potentialid=ld_potentialscf.potentialid\r\n\tLEFT JOIN ld_users u ON u.id=ld_potential.smownerid\r\n\tleft join ld_users2group u2g on u2g.userid=u.id\r\n\tleft join ld_groups g on g.groupid=u2g.groupid\r\n\tleft join ld_groups g2 on g2.groupid=g.parentid\r\n\tINNER JOIN (\r\n\t\tSELECT DISTINCT\r\n\t\t\tuserid \r\n\t\tFROM (\r\n\t\t\tSELECT \r\n\t\t\t\tld_users.id AS userid \r\n\t\t\tFROM ld_users\r\n\t\t\tWHERE EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='Potentials' and scopeauthority=1 AND userid='[uuid]')\r\n\t\t\tUNION\r\n\t\t\tSELECT \r\n\t\t\t\tviewid AS userid \r\n\t\t\tFROM ld_scoperhigher\r\n\t\t\tWHERE userid='[uuid]' AND modulename ='Potentials' AND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE userid='[uuid]' AND scopeauthority=2 AND modulename ='Potentials')\t\t\t\r\n\t\t\tUNION\r\n\t\t\tSELECT DISTINCT \r\n\t\t\t\tld_users2group.userid AS userid \r\n\t\t\tFROM ld_scoperhigher \r\n\t\t\tINNER JOIN ld_groups ON ld_groups.groupid=ld_scoperhigher.viewid\r\n\t\t\tINNER JOIN ld_users2group ON ld_users2group.groupid=ld_groups.groupid\r\n\t\t\tWHERE ld_scoperhigher.userid='[uuid]' \r\n\t\t\t\tAND ld_scoperhigher.modulename ='Potentials'\r\n\t\t\t\tAND ld_scoperhigher.scopeauthority=3 \r\n\t\t\t\tAND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='Potentials' AND scopeauthority=3 AND userid='[uuid]')\r\n\t\t\tUNION \r\n\t\t\tSELECT \r\n\t\t\t\tid AS userid \r\n\t\t\tFROM ld_users  \r\n\t\t\tWHERE EXISTS(SELECT 1 FROM ld_users WHERE id='[uuid]' AND is_admin='on')\r\n\t\t\tUNION\r\n\t\t\tSELECT '[uuid]') AS vw_users\r\n\t) AS tmp_users ON tmp_users.userid=u.id \r\n\twhere ld_potential.deleted=0\r\n\tand  g.parentgroup like '1::2::7::%' and g2.parentgroup like '1::2::7::%'\r\n\tand FIND_IN_SET(g.groupname,(SELECT \r\n\t\t\tgroup_concat(REPLACE(REPLACE(REPLACE(a.targetvalues,'\"',''),'[',''),']',''),',',a.sourcevalue) \r\n\t\tFROM ld_picklist_dependency a\r\n\t\tLEFT JOIN ld_picklist_values c ON c.listid=107 AND c.listvalue=a.sourcevalue\r\n\t\tWHERE a.tabid=6\r\n\t\t\tAND a.sourcefield='cf_4402'\r\n\t\t\tAND a.targetfield='cf_4404'))\r\n\tand FIND_IN_SET(u.userlevel,'销售经理,分公司经理,分公司副经理,办事处经理,大区经理,大区副经理')\r\n\tand (\r\n\t\tcase when '{weidu}'=3 and '{ziweidu}'!='' then FIND_IN_SET(u.id ,'{ziweidu}')\r\n\t\twhen '{weidu}'=3 and '{ziweidu}'='' then 1=1\r\n\t\twhen '{weidu}'=2 and '{ziweidu}'!=''  then FIND_IN_SET( g.groupid ,'{ziweidu}') and g.depth=4\r\n\t\twhen '{weidu}'=2 and '{ziweidu}'=''  then g.depth=4\r\n\t\twhen '{weidu}'=1 and '{ziweidu}'!=''  then FIND_IN_SET( g.parentid ,'{ziweidu}') \r\n\t\twhen '{weidu}'=1 and '{ziweidu}'=''  then 1=1\r\n\t\telse 1=1\r\n\t\tend \r\n\t) \r\nand (case when '{amount_start}'=0 then 1=1 else ld_potential.total>='{amount_start}'end )\r\nand (case when '{amount_end}'=0 then 1=1 else ld_potential.total<'{amount_end}'end )\r\nand ld_potential.closingdate >= DATE_FORMAT(CONCAT('{start_date}'),'%Y-%m-%d')\r\nand ld_potential.closingdate <= DATE_FORMAT(CONCAT('{end_date}'),'%Y-%m-%d')\r\nand (case when '{product_type}'!='' then cf_4708  REGEXP REPLACE('[[:<:]]{product_type}[[:>:]]',',','|') else 1=1 end)\r\n)c on c.totalkey=a.totalkey\r\norder by a.ordernum asc "
+      },
+      "4": {
+        "Ident": "StiMySqlSource",
+        "Name": "list_producttype",
+        "Alias": "list_producttype",
+        "Key": "70d276ef7cf0430fa532eef3cfeb6d9b",
+        "Columns": {
+          "0": {
+            "Name": "listvalue",
+            "Index": -1,
+            "NameInSource": "listvalue",
+            "Alias": "listvalue",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm ",
+        "SqlCommand": "SELECT\r\nlistvalue\r\nfrom ld_picklist_set \r\nleft join ld_picklist_values on ld_picklist_set.listid=ld_picklist_values.listid\r\nwhere listname='cf_4708';"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "ldcrm ",
+        "Alias": "ldcrm",
+        "ConnectionStringEncrypted": "42zR68ZaMc3hRymJTkn1btU6z8PGWWmFRVuxpWoJ9mbf1nEC1wMihENczcxhAGo/w8RPo08FqdnMfbSF6QFiYoRW4QlIS1uEYFrt6GclJUaA3PsCSwg="
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "page1",
+      "Guid": "61d0da3584e17f4c3df5ec1e97dac943",
+      "Alias": "大项目_模块机及大项目跟踪表",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiReportTitleBand",
+          "Name": "ReportTitleBand2",
+          "Guid": "ebd2622d5b744f838d5c16f70000c5cd",
+          "ClientRectangle": "0,0.4,37.6,1",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text49",
+              "Guid": "eb83a6ca358dfa8679b1b60f1bee502b",
+              "ClientRectangle": "0,0,37.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "大项目、模块机及大项目跟踪表"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;Bold;",
+              "Border": ";;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text50",
+              "Guid": "b70779a61867d5941d484af427b864ad",
+              "ClientRectangle": "35.4,0,2.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "单位：万元"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": ";191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiColumnHeaderBand",
+          "Name": "ColumnHeaderBand2",
+          "Guid": "5832bc4fdf600c4dd0eb97754875fcd5",
+          "ClientRectangle": "0,2.2,37.6,0.8",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text51",
+              "Guid": "3eb4679a2fc2193795e399f5115492bf",
+              "ClientRectangle": "0,0,2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "销售区域"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,255",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text52",
+              "Guid": "bb2ce002b7705bad360ff62dc5b5480b",
+              "ClientRectangle": "2,0,2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "销售分支"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,255",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text53",
+              "Guid": "d9b75083c3ee4ad5e2fefb783462826a",
+              "ClientRectangle": "4,0,2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "销售经理"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,255",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text54",
+              "Guid": "8f551eb73e99cccdc1be63bf9160e732",
+              "ClientRectangle": "6,0,3.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "项目编号"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,255",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text55",
+              "Guid": "8df1830a2e9b7308ed6c09f87f7426b0",
+              "ClientRectangle": "9.2,0,3.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "经销商全称"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,255",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text56",
+              "Guid": "47e56e333ae402273ca03c0e336eeb14",
+              "ClientRectangle": "12.4,0,3.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "项目名称"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,255",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text57",
+              "Guid": "b2382ea12124e51b874e749863101b31",
+              "ClientRectangle": "15.6,0,2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "设计师"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,255",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text58",
+              "Guid": "8b431e9700ddb3ced0a6e4306651e6af",
+              "ClientRectangle": "17.6,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "项目类型"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,255",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text59",
+              "Guid": "00e4fee8f2ce6c5f23fc78d1f7ab8311",
+              "ClientRectangle": "20.6,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "产品机型"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,255",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text60",
+              "Guid": "3cc728d28281f8f36504eb4010285463",
+              "ClientRectangle": "23.6,0,1.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "数量"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,255",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "10": {
+              "Ident": "StiText",
+              "Name": "Text61",
+              "Guid": "7740f3b517b7e36307c633864735ff11",
+              "ClientRectangle": "24.8,0,2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "金额"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,255",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "11": {
+              "Ident": "StiText",
+              "Name": "Text62",
+              "Guid": "8a4064666cea76dab9635fbbf6519af9",
+              "ClientRectangle": "26.8,0,1.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "与甲方接触阶段"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "12": {
+              "Ident": "StiText",
+              "Name": "Text63",
+              "Guid": "ca5211f39cf37dab0ea86fa1007f4354",
+              "ClientRectangle": "28.6,0,2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "项目状态"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,255",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "13": {
+              "Ident": "StiText",
+              "Name": "Text64",
+              "Guid": "4310ac0c62c01da672cb94be1783e935",
+              "ClientRectangle": "30.6,0,2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "预计签单日期"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "14": {
+              "Ident": "StiText",
+              "Name": "Text65",
+              "Guid": "8c3e0e807a06862cefc021f1ba6aabd2",
+              "ClientRectangle": "32.6,0,1.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "拜访次数"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "15": {
+              "Ident": "StiText",
+              "Name": "Text66",
+              "Guid": "8dda744ba8f9174abb9511e7dad108a2",
+              "ClientRectangle": "33.8,0,2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "未联系天数"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "16": {
+              "Ident": "StiText",
+              "Name": "Text67",
+              "Guid": "3e9a3013e35619f0b479b6b35e4e15b7",
+              "ClientRectangle": "35.8,0,1.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "提升热点的关键成功要素"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            }
+          }
+        },
+        "2": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand3",
+          "Guid": "4b4ae78c2d7afa8fb9d13beca0c29550",
+          "ClientRectangle": "0,3.8,37.6,0.8",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text68",
+              "Guid": "f9c7a41370a3b072b852936e2cd6ee93",
+              "ClientRectangle": "0,0,2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Data1.SalesArea}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:89,89,89",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text69",
+              "Guid": "9256c340479e3423a6d8dee99a4940da",
+              "ClientRectangle": "2,0,2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Data1.SalesBranch}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:89,89,89",
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text70",
+              "Guid": "f989cb4d6017f9ccf54f5b9787e09d44",
+              "ClientRectangle": "4,0,2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Data1.last_name}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:89,89,89",
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text71",
+              "Guid": "9a9245c6d9b232de121a56c6a467f42a",
+              "ClientRectangle": "6,0,3.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Data1.potential_no}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:89,89,89",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text72",
+              "Guid": "b0229c87ddceed7ca51f850d481073e7",
+              "ClientRectangle": "9.2,0,3.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Data1.accountname}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:89,89,89",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text73",
+              "Guid": "e223fb5d94d82628f81f88f794b7ecc3",
+              "ClientRectangle": "12.4,0,3.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Data1.potentialname}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:89,89,89",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text74",
+              "Guid": "d670d74f09dfc8a49ee96a9ac6869858",
+              "ClientRectangle": "15.6,0,2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Data1.Designer}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:89,89,89",
+              "Type": "DataColumn"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text75",
+              "Guid": "dea090230984e335842e58b47ab23cae",
+              "ClientRectangle": "17.6,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Data1.Productype}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:89,89,89",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text76",
+              "Guid": "46f04025d7e90b0468ccdc9fc862a85b",
+              "ClientRectangle": "24.8,0,2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Data1.tax_amount}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:89,89,89",
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "DataColumn"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text77",
+              "Guid": "86c9c975db9a65a2a8c7030e22f66f8b",
+              "ClientRectangle": "20.6,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Data1.producttypes}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:89,89,89",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "10": {
+              "Ident": "StiText",
+              "Name": "Text78",
+              "Guid": "7afba2f2ab4acaec50b483d51afaa8a6",
+              "ClientRectangle": "23.6,0,1.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Data1.quantity}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:89,89,89",
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "DataColumn"
+            },
+            "11": {
+              "Ident": "StiText",
+              "Name": "Text79",
+              "Guid": "473a3eb56238fabdf3fab1fab739d3fb",
+              "ClientRectangle": "26.8,0,1.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Data1.Stage}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:89,89,89",
+              "Type": "DataColumn"
+            },
+            "12": {
+              "Ident": "StiText",
+              "Name": "Text80",
+              "Guid": "61128486d719d01001fcea0f7933ed54",
+              "ClientRectangle": "28.6,0,2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Data1.sales_stage}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:89,89,89",
+              "Type": "DataColumn"
+            },
+            "13": {
+              "Ident": "StiText",
+              "Name": "Text81",
+              "Guid": "3abc25fffa72dec0bce03b373118ed59",
+              "ClientRectangle": "30.6,0,2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Data1.closingdate}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:89,89,89",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiDateFormatService"
+              },
+              "Type": "DataColumn"
+            },
+            "14": {
+              "Ident": "StiText",
+              "Name": "Text82",
+              "Guid": "ed44e7c418629b81ce4897f29496c1d0",
+              "ClientRectangle": "32.6,0,1.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Data1.count_record}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:89,89,89",
+              "Type": "DataColumn"
+            },
+            "15": {
+              "Ident": "StiText",
+              "Name": "Text83",
+              "Guid": "f923a588c14be1ffb7ce61da35c66a0c",
+              "ClientRectangle": "33.8,0,2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Data1.nolinkdays}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:89,89,89",
+              "Type": "DataColumn"
+            },
+            "16": {
+              "Ident": "StiText",
+              "Name": "Text84",
+              "Guid": "508ef33cdd907e4481fd3b0025b92049",
+              "ClientRectangle": "35.8,0,1.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:89,89,89",
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "Data1"
+        },
+        "3": {
+          "Ident": "StiColumnFooterBand",
+          "Name": "ColumnFooterBand3",
+          "Guid": "dee74cb708f6c17b166ba2778fa2399b",
+          "ClientRectangle": "0,5.4,37.6,2",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text85",
+              "Guid": "875e31fe79ffa62a6bdebd4c82f740ca",
+              "ClientRectangle": "0,0,23.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "合计"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text86",
+              "Guid": "5cef8eef2725f06973e7d5acf9a5c657",
+              "ClientRectangle": "24.8,0,2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Sum(Data1.tax_amount)}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,255",
+              "TextBrush": "solid:0,0,0",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "Totals"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text87",
+              "Guid": "c0c361d7d5b992ae6686ed856b5cf80d",
+              "ClientRectangle": "23.6,0,1.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Sum(Data1.quantity)}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,255",
+              "TextBrush": "solid:Black",
+              "Type": "Totals"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text88",
+              "Guid": "8ae8d58ea417b272bdab9f77a2af1508",
+              "ClientRectangle": "26.8,0,10.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;216,216,216;;;;;;solid:0,0,0",
+              "Brush": "solid:240,242,255",
+              "TextBrush": "solid:89,89,89",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            }
+          }
+        },
+        "4": {
+          "Ident": "StiColumnFooterBand",
+          "Name": "ColumnFooterBand4",
+          "Guid": "f16e3ddc2e71488165c4e38a7c159f58",
+          "ClientRectangle": "0,8.2,37.6,0.8",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text90",
+              "Guid": "571d41297303ee159796ad7c74967e18",
+              "ClientRectangle": "0,0,17.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "项目状态说明(参考)"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text91",
+              "Guid": "d1d87bcfdb6298460a0c64c6fc0b047a",
+              "ClientRectangle": "17.8,0,2.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "金额"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,255",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text92",
+              "Guid": "6a80c5bdcd19a7d382e7dedc1e182f15",
+              "ClientRectangle": "20.4,0,4.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "占比"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,255",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text93",
+              "Guid": "b4b49fdd6e15a3f1b37952654f0623d1",
+              "ClientRectangle": "24.8,0,12.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "分公司自定义项目状态说明"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,255",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            }
+          }
+        },
+        "5": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand4",
+          "Guid": "9d20277251c743c5474247ca622bf26b",
+          "ClientRectangle": "0,9.8,37.6,0.8",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text94",
+              "Guid": "b45d725874a86a46e83cd88faff62f62",
+              "ClientRectangle": "0,0,2.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Data2.sales_stage}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:89,89,89",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text95",
+              "Guid": "3678cec66912e3434071dbc847acfc6c",
+              "ClientRectangle": "2.2,0,15.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Data2.descrip}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:89,89,89",
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text96",
+              "Guid": "cae8bf86a93fc2728c92b681a3a2d8db",
+              "ClientRectangle": "17.8,0,2.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Data2.total}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:89,89,89",
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text97",
+              "Guid": "fc7333630cc141d9283a190121e97ef2",
+              "ClientRectangle": "20.4,0,4.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Data2.rate}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:89,89,89",
+              "TextFormat": {
+                "Ident": "StiPercentageFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ",",
+                "PositivePattern": 1,
+                "Symbol": "%"
+              },
+              "Type": "DataColumn"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text98",
+              "Guid": "0a26f471aaa1820154150476ecef1d83",
+              "ClientRectangle": "24.8,0,12.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;;;",
+              "Border": "All;191,191,191;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:89,89,89",
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "Data2"
+        }
+      },
+      "PageWidth": 39.6,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    }
+  }
+}

@@ -1,0 +1,256 @@
+{
+  "ReportVersion": "2019.4.1",
+  "ReportGuid": "635f6bf06ddc429b739ad371252ee900",
+  "ReportName": "Report",
+  "ReportAlias": "Report",
+  "ReportFile": "dm_kehujiaotong.mrt",
+  "ReportCreated": "/Date(1635100353000+0800)/",
+  "ReportChanged": "/Date(1635100353000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Dictionary": {
+    "Variables": {
+      "0": {
+        "Name": "aa",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime"
+        },
+        "Alias": "aa",
+        "Type": "System.String",
+        "ReadOnly": true
+      }
+    },
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "b",
+        "Alias": "b",
+        "Columns": {
+          "0": {
+            "Name": "mytype",
+            "Index": -1,
+            "NameInSource": "mytype",
+            "Alias": "mytype",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "mytype_value",
+            "Index": -1,
+            "NameInSource": "mytype_value",
+            "Alias": "mytype_value",
+            "Type": "System.Int32"
+          }
+        },
+        "NameInSource": "crm",
+        "Type": "Table",
+        "SqlCommand": "SELECT\r\n\tmytype,\r\n\tmytype_value\r\nFROM (\r\n\tSELECT\r\n\t\tmytype,\r\n\t\tCOUNT(1) AS mytype_value\r\n\tFROM (\r\n\t\tSELECT\r\n\t\t\ta.accountid,\r\n\t\t\tsubstring_index(substring_index(REPLACE(b.cf_4639,' |##| ',','),',', c.seq+1 ),',',- 1) AS mytype\r\n\t\tFROM ld_account a\r\n\t\tLEFT JOIN ld_accountscf b ON b.accountid=a.accountid\r\n\t\tLEFT JOIN sequence c ON c.seq <(length(REPLACE(b.cf_4639,' |##| ',',')) - length(REPLACE(REPLACE(b.cf_4639,' |##| ',','),',',''))+1) \r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND a.customform10_id=1095\r\n\t\t\tAND b.cf_4639<>''\r\n\t\t\tAND b.cf_4639 IS NOT NULL\r\n\t) a\r\n\tGROUP BY mytype\r\n) a\r\nLEFT JOIN ld_picklist_values b ON listid=202 AND b.listvalue=a.mytype\r\nORDER BY IFNULL(b.sequence,100),a.mytype;"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "crm",
+        "Alias": "crm",
+        "ConnectionStringEncrypted": "42z7CUhZS4VGRymNxJxibovcwQLGA0GZYhWhzGoJ4hOQ1NvrSFox9cMYhMzoGGJnje5lK00DSfBAeJyBSlThbo14z6tPDqKI4k152OoU9Q=="
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "Page1",
+      "Guid": "a54a010a4c8856a241c791d102890614",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiChart",
+          "Name": "Chart1",
+          "ClientRectangle": "0,0,38,19.6",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:255,255,255",
+          "Series": {
+            "0": {
+              "Ident": "StiClusteredColumnSeries",
+              "AllowApplyStyle": false,
+              "ShowSeriesLabels": "FromSeries",
+              "ShowShadow": false,
+              "SeriesLabels": {
+                "Ident": "StiOutsideAxisLabels",
+                "AllowApplyStyle": false,
+                "MarkerSize": {
+                  "Width": 8,
+                  "Height": 6
+                },
+                "ValueTypeSeparator": "-",
+                "LabelColor": "50,58,69",
+                "BorderColor": "Transparent",
+                "Brush": "solid:Transparent",
+                "Font": "Tahoma;8;;",
+                "LineLength": 10
+              },
+              "TrendLine": {
+                "Ident": "StiTrendLineNone",
+                "ShowShadow": true,
+                "Position": "LeftBottom"
+              },
+              "ValueDataColumn": "b.mytype_value",
+              "ArgumentDataColumn": "b.mytype",
+              "ToolTipDataColumn": "b.mytype_value",
+              "Title": {
+                "Value": "Series 1"
+              },
+              "BorderColor": "Transparent",
+              "Brush": "solid:52,152,219",
+              "BrushNegative": "solid:Firebrick"
+            }
+          },
+          "Area": {
+            "Ident": "StiClusteredColumnArea",
+            "AllowApplyStyle": false,
+            "ColorEach": true,
+            "BorderColor": "171,172,173",
+            "Brush": "solid:255,255,255",
+            "InterlacingHor": {
+              "InterlacedBrush": "solid:10,155,155,155",
+              "Area": true
+            },
+            "InterlacingVert": {
+              "InterlacedBrush": "solid:10,155,155,155",
+              "Area": true
+            },
+            "GridLinesHor": {
+              "Color": "100,105,105,105",
+              "MinorColor": "100,105,105,105",
+              "Area": true
+            },
+            "GridLinesHorRight": {
+              "Visible": false,
+              "Area": true
+            },
+            "GridLinesVert": {
+              "AllowApplyStyle": false,
+              "Color": "100,105,105,105",
+              "MinorColor": "100,105,105,105",
+              "Visible": false,
+              "Area": true
+            },
+            "YAxis": {
+              "Ident": "StiYLeftAxis",
+              "Labels": {
+                "Color": "140,140,140"
+              },
+              "LineColor": "140,140,140",
+              "Title": {
+                "Color": "140,140,140",
+                "Direction": "BottomToTop"
+              }
+            },
+            "YRightAxis": {
+              "Ident": "StiYRightAxis",
+              "Labels": {
+                "Color": "140,140,140",
+                "TextAlignment": "Left"
+              },
+              "LineColor": "140,140,140",
+              "Title": {
+                "Color": "140,140,140",
+                "Direction": "TopToBottom"
+              }
+            },
+            "XAxis": {
+              "Ident": "StiXBottomAxis",
+              "AllowApplyStyle": false,
+              "Interaction": {
+                "RangeScrollEnabled": false
+              },
+              "Labels": {
+                "AllowApplyStyle": false,
+                "Angle": 60,
+                "Font": "Microsoft YaHei;9;;",
+                "Color": "89,89,89"
+              },
+              "LineColor": "140,140,140",
+              "Title": {
+                "Color": "140,140,140",
+                "Direction": "LeftToRight"
+              }
+            },
+            "XTopAxis": {
+              "Ident": "StiXTopAxis",
+              "Labels": {
+                "Color": "140,140,140"
+              },
+              "LineColor": "140,140,140",
+              "Title": {
+                "Color": "140,140,140",
+                "Direction": "LeftToRight"
+              }
+            }
+          },
+          "Table": {
+            "GridLineColor": "225,225,225",
+            "Header": {
+              "Brush": "solid:White"
+            },
+            "DataCells": {
+              "TextColor": "140,140,140"
+            }
+          },
+          "SeriesLabels": {
+            "Ident": "StiNoneLabels",
+            "AllowApplyStyle": false,
+            "MarkerSize": {
+              "Width": 8,
+              "Height": 6
+            },
+            "ValueTypeSeparator": "-",
+            "LegendValueType": "Argument"
+          },
+          "Legend": {
+            "AllowApplyStyle": false,
+            "ShowShadow": false,
+            "BorderColor": "0,255,255,255",
+            "Brush": "empty",
+            "TitleColor": "105,105,105",
+            "LabelsColor": "140,140,140",
+            "VertAlignment": "TopOutside",
+            "Font": "Microsoft YaHei;;;",
+            "MarkerSize": {
+              "Width": 10,
+              "Height": 10
+            },
+            "Columns": 0,
+            "Size": "0,0"
+          },
+          "Title": {
+            "Brush": "solid:140,140,140"
+          },
+          "AllowApplyStyle": false,
+          "Style": {
+            "Ident": "StiStyle29"
+          }
+        }
+      },
+      "PageWidth": 40,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    }
+  }
+}

@@ -1,0 +1,756 @@
+{
+  "ReportVersion": "2019.4.1",
+  "ReportGuid": "1faa1097e606c16c9a14c03b7d59e074",
+  "ReportName": "Report",
+  "ReportAlias": "营业额目标支撑分析",
+  "ReportFile": "jdcg_yingyefenxi.mrt",
+  "ReportCreated": "/Date(1574343447000+0800)/",
+  "ReportChanged": "/Date(1574343447000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Styles": {
+    "0": {
+      "Ident": "StiStyle",
+      "Name": "column_odd",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:255,255,255",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    },
+    "1": {
+      "Ident": "StiStyle",
+      "Name": "column_even",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:252,252,252",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    }
+  },
+  "Dictionary": {
+    "Variables": {
+      "0": {
+        "Value": "Year(Today)",
+        "Name": "nian",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime",
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "list_nian.list_value",
+          "ValuesColumn": "list_nian.list_value"
+        },
+        "Alias": "年度",
+        "Type": "System.String",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      },
+      "1": {
+        "Value": "1",
+        "Name": "weidu",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime",
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "list_weidu.list_key",
+          "ValuesColumn": "list_weidu.list_value",
+          "AllowUserValues": false
+        },
+        "Alias": "查询范围",
+        "Type": "System.String",
+        "RequestFromUser": true
+      },
+      "2": {
+        "Name": "chanpinxian",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime",
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "list_chanpinxian.listvalue",
+          "ValuesColumn": "list_chanpinxian.listvalue",
+          "AllowUserValues": false
+        },
+        "Alias": "产品线",
+        "Type": "Stimulsoft.Report.StringList",
+        "RequestFromUser": true
+      },
+      "3": {
+        "Name": "yue",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime",
+          "AllowUserValues": false,
+          "Keys": {
+            "0": "1",
+            "1": "2",
+            "2": "3",
+            "3": "4",
+            "4": "5",
+            "5": "6",
+            "6": "7",
+            "7": "8",
+            "8": "9",
+            "9": "10",
+            "10": "11",
+            "11": "12"
+          },
+          "Values": {
+            "0": "1",
+            "1": "2",
+            "2": "3",
+            "3": "4",
+            "4": "5",
+            "5": "6",
+            "6": "7",
+            "7": "8",
+            "8": "9",
+            "9": "10",
+            "10": "11",
+            "11": "12"
+          }
+        },
+        "Alias": "月份",
+        "Type": "Stimulsoft.Report.StringList",
+        "RequestFromUser": true
+      },
+      "4": {
+        "Value": "2",
+        "Name": "ziweidu",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime",
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "list_weidu.list_key2",
+          "ValuesColumn": "list_weidu.list_value2",
+          "BindingValuesColumn": "list_weidu.list_key",
+          "AllowUserValues": false,
+          "BindingValue": true,
+          "BindingVariable": "weidu"
+        },
+        "Alias": "范围明细",
+        "Type": "Stimulsoft.Report.StringList",
+        "RequestFromUser": true,
+        "SelectionMode": "First"
+      }
+    },
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "b",
+        "Alias": "b",
+        "Columns": {
+          "0": {
+            "Name": "amount_mb",
+            "Index": -1,
+            "NameInSource": "amount_mb",
+            "Alias": "amount_mb",
+            "Type": "System.Decimal"
+          },
+          "1": {
+            "Name": "amount_yuce",
+            "Index": -1,
+            "NameInSource": "amount_yuce",
+            "Alias": "amount_yuce",
+            "Type": "System.Decimal"
+          },
+          "2": {
+            "Name": "mubiao_desp",
+            "Index": -1,
+            "NameInSource": "mubiao_desp",
+            "Alias": "mubiao_desp",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "mubiao_type",
+            "Index": -1,
+            "NameInSource": "mubiao_type",
+            "Alias": "mubiao_type",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "rate",
+            "Index": -1,
+            "NameInSource": "rate",
+            "Alias": "rate",
+            "Type": "System.Decimal"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "Type": "Table",
+        "SqlCommand": "SELECT\r\n\tmubiao_desp,\r\n\tCASE\r\n\t\tWHEN '{weidu}'=2 THEN CONCAT(mubiao_type,'  (负责人：',IFNULL((SELECT last_name FROM ld_users WHERE deleted=0 AND userlevel='区域负责人' AND user_pianqu=t.mubiao_type LIMIT 1),''),')')\r\n\t\tELSE mubiao_type\r\n\tEND AS mubiao_type,\r\n\tamount_yuce,\r\n\tamount_mb,\r\n\trate\r\nFROM (\r\nSELECT\r\n\tCASE\r\n\t\tWHEN '{weidu}'=1 THEN '客户经理'\r\n\t\tWHEN '{weidu}'=2 THEN '片区'\r\n\t\tWHEN '{weidu}'=3 THEN '大区'\r\n\t\tELSE '公司整体'\r\n\tEND AS mubiao_desp,\r\n\tmubiao_type,\r\n\tSUM(amount_yuce) AS amount_yuce,\r\n\tSUM(amount_mb) AS amount_mb,\r\n\tCASE\r\n\t\tWHEN IFNULL(SUM(amount_mb),0)=0 THEN 1\r\n\t\tELSE SUM(amount_yuce)/SUM(amount_mb)\r\n\tEND AS rate\r\nFROM (\r\n\tSELECT\r\n\t\ta.id,\r\n\t\tCASE\r\n\t\t\tWHEN '{weidu}'=1 THEN a.last_name\r\n\t\t\tWHEN '{weidu}'=2 THEN a.user_pianqu\r\n\t\t\tWHEN '{weidu}'=3 THEN a.user_daqu\r\n\t\t\tELSE '公司整体'\r\n\t\tEND AS mubiao_type,\r\n\t\tb.amount_yuce,\r\n\t\tc.amount_mb\r\n\tFROM ld_users a\r\n\tINNER JOIN ld_users2group e ON e.userid=a.id\r\n\tINNER JOIN ld_groups f ON f.groupid=e.groupid\r\n\tINNER JOIN (\r\n\t\tSELECT DISTINCT\r\n\t\t\tuserid \r\n\t\tFROM (\r\n\t\t\tSELECT \r\n\t\t\t\tld_users.id AS userid \r\n\t\t\tFROM ld_users\r\n\t\t\tWHERE EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='Potentials' and scopeauthority=1 AND userid='[uuid]')\r\n\t\t\tUNION\r\n\t\t\tSELECT \r\n\t\t\t\tviewid AS userid \r\n\t\t\tFROM ld_scoperhigher\r\n\t\t\tWHERE userid='[uuid]' AND modulename ='Potentials' AND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE userid='[uuid]' AND scopeauthority=2 AND modulename ='Potentials')\t\t\t\r\n\t\t\tUNION\r\n\t\t\tSELECT DISTINCT \r\n\t\t\t\tld_users2group.userid AS userid \r\n\t\t\tFROM ld_scoperhigher \r\n\t\t\tINNER JOIN ld_groups ON ld_groups.groupid=ld_scoperhigher.viewid\r\n\t\t\tINNER JOIN ld_users2group ON ld_users2group.groupid=ld_groups.groupid\r\n\t\t\tWHERE ld_scoperhigher.userid='[uuid]' \r\n\t\t\t\tAND ld_scoperhigher.modulename ='Potentials'\r\n\t\t\t\tAND ld_scoperhigher.scopeauthority=3 \r\n\t\t\t\tAND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='Potentials' AND scopeauthority=3 AND userid='[uuid]')\r\n\t\t\tUNION \r\n\t\t\tSELECT \r\n\t\t\t\tid AS userid \r\n\t\t\tFROM ld_users  \r\n\t\t\tWHERE EXISTS(SELECT 1 FROM ld_users WHERE id='[uuid]' AND is_admin='on')\r\n\t\t\tUNION\r\n\t\t\tSELECT '[uuid]') AS vw_users\r\n\t) AS tmp_users ON tmp_users.userid=a.id\r\n\tLEFT JOIN (\r\n\t\tSELECT\r\n\t\t\ta.smownerid,\r\n\t\t\tSUM(CASE\r\n\t\t\t\tWHEN a.sales_stage='线索阶段' THEN a.amount*2.5*0.01\r\n\t\t\t\tWHEN a.sales_stage='商机阶段' THEN a.amount*25*0.01\r\n\t\t\t\tWHEN a.sales_stage='立项阶段' THEN a.amount*50*0.01\r\n\t\t\t\tWHEN a.sales_stage='商务谈判' THEN a.amount*80*0.01\r\n\t\t\t\tWHEN a.sales_stage='合同签订' THEN a.amount*100*0.01\r\n\t\t\t\tELSE 0\r\n\t\t\tEND) AS amount_yuce\r\n\t\tFROM ld_potential a\r\n\t\tLEFT JOIN ld_potentialscf b ON b.potentialid=a.potentialid\r\n\t\tLEFT JOIN ld_users u ON u.id=a.smownerid\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\tAND IFNULL(a.sales_stage,'')<>'项目关闭'\r\n\t\t\tAND YEAR(a.createdtime)='{nian}'\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{yue}'='' THEN 1=1\r\n\t\t\t\t\tELSE FIND_IN_SET(MONTH(a.createdtime),'{yue}')\r\n\t\t\t\tEND)\r\n\t\tGROUP BY a.smownerid\r\n\t) b ON b.smownerid=a.id\r\n\tLEFT JOIN (\r\n\t\tSELECT\r\n\t\t\tlin_users_id,\r\n\t\t\tSUM(amount_mb) AS amount_mb\r\n\t\tFROM (\r\n\t\t\tSELECT\r\n\t\t\t\tc.lin_users_id,\r\n\t\t\t\t1 AS mb_month,\r\n\t\t\t\td.sf284 AS amount_mb\r\n\t\t\tFROM ld_customform22 a\r\n\t\t\tLEFT JOIN ld_customform22scf b ON b.customform22id=a.customform22id\r\n\t\t\tLEFT JOIN ld_customform22detail c ON c.id=a.customform22id\r\n\t\t\tLEFT JOIN ld_customform22detailscf d ON d.lineitem_id=c.lineitem_id\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\tAND b.cf_5277='合同额'\r\n\t\t\t\tAND c.lin_users_id>0\r\n\t\t\t\tAND b.cf_5276='{nian}'\r\n\t\t\tUNION\r\n\t\t\tSELECT\r\n\t\t\t\tc.lin_users_id,\r\n\t\t\t\t2 AS mb_month,\r\n\t\t\t\td.sf285 AS amount_mb\r\n\t\t\tFROM ld_customform22 a\r\n\t\t\tLEFT JOIN ld_customform22scf b ON b.customform22id=a.customform22id\r\n\t\t\tLEFT JOIN ld_customform22detail c ON c.id=a.customform22id\r\n\t\t\tLEFT JOIN ld_customform22detailscf d ON d.lineitem_id=c.lineitem_id\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\tAND b.cf_5277='合同额'\r\n\t\t\t\tAND c.lin_users_id>0\r\n\t\t\t\tAND b.cf_5276='{nian}'\r\n\t\t\tUNION\r\n\t\t\tSELECT\r\n\t\t\t\tc.lin_users_id,\r\n\t\t\t\t3 AS mb_month,\r\n\t\t\t\td.sf286 AS amount_mb\r\n\t\t\tFROM ld_customform22 a\r\n\t\t\tLEFT JOIN ld_customform22scf b ON b.customform22id=a.customform22id\r\n\t\t\tLEFT JOIN ld_customform22detail c ON c.id=a.customform22id\r\n\t\t\tLEFT JOIN ld_customform22detailscf d ON d.lineitem_id=c.lineitem_id\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\tAND b.cf_5277='合同额'\r\n\t\t\t\tAND c.lin_users_id>0\r\n\t\t\t\tAND b.cf_5276='{nian}'\r\n\t\t\tUNION\r\n\t\t\tSELECT\r\n\t\t\t\tc.lin_users_id,\r\n\t\t\t\t4 AS mb_month,\r\n\t\t\t\td.sf287 AS amount_mb\r\n\t\t\tFROM ld_customform22 a\r\n\t\t\tLEFT JOIN ld_customform22scf b ON b.customform22id=a.customform22id\r\n\t\t\tLEFT JOIN ld_customform22detail c ON c.id=a.customform22id\r\n\t\t\tLEFT JOIN ld_customform22detailscf d ON d.lineitem_id=c.lineitem_id\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\tAND b.cf_5277='合同额'\r\n\t\t\t\tAND c.lin_users_id>0\r\n\t\t\t\tAND b.cf_5276='{nian}'\r\n\t\t\tUNION\r\n\t\t\tSELECT\r\n\t\t\t\tc.lin_users_id,\r\n\t\t\t\t5 AS mb_month,\r\n\t\t\t\td.sf288 AS amount_mb\r\n\t\t\tFROM ld_customform22 a\r\n\t\t\tLEFT JOIN ld_customform22scf b ON b.customform22id=a.customform22id\r\n\t\t\tLEFT JOIN ld_customform22detail c ON c.id=a.customform22id\r\n\t\t\tLEFT JOIN ld_customform22detailscf d ON d.lineitem_id=c.lineitem_id\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\tAND b.cf_5277='合同额'\r\n\t\t\t\tAND c.lin_users_id>0\r\n\t\t\t\tAND b.cf_5276='{nian}'\r\n\t\t\tUNION\r\n\t\t\tSELECT\r\n\t\t\t\tc.lin_users_id,\r\n\t\t\t\t6 AS mb_month,\r\n\t\t\t\td.sf289 AS amount_mb\r\n\t\t\tFROM ld_customform22 a\r\n\t\t\tLEFT JOIN ld_customform22scf b ON b.customform22id=a.customform22id\r\n\t\t\tLEFT JOIN ld_customform22detail c ON c.id=a.customform22id\r\n\t\t\tLEFT JOIN ld_customform22detailscf d ON d.lineitem_id=c.lineitem_id\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\tAND b.cf_5277='合同额'\r\n\t\t\t\tAND c.lin_users_id>0\r\n\t\t\t\tAND b.cf_5276='{nian}'\r\n\t\t\tUNION\r\n\t\t\tSELECT\r\n\t\t\t\tc.lin_users_id,\r\n\t\t\t\t7 AS mb_month,\r\n\t\t\t\td.sf290 AS amount_mb\r\n\t\t\tFROM ld_customform22 a\r\n\t\t\tLEFT JOIN ld_customform22scf b ON b.customform22id=a.customform22id\r\n\t\t\tLEFT JOIN ld_customform22detail c ON c.id=a.customform22id\r\n\t\t\tLEFT JOIN ld_customform22detailscf d ON d.lineitem_id=c.lineitem_id\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\tAND b.cf_5277='合同额'\r\n\t\t\t\tAND c.lin_users_id>0\r\n\t\t\t\tAND b.cf_5276='{nian}'\r\n\t\t\tUNION\r\n\t\t\tSELECT\r\n\t\t\t\tc.lin_users_id,\r\n\t\t\t\t8 AS mb_month,\r\n\t\t\t\td.sf291 AS amount_mb\r\n\t\t\tFROM ld_customform22 a\r\n\t\t\tLEFT JOIN ld_customform22scf b ON b.customform22id=a.customform22id\r\n\t\t\tLEFT JOIN ld_customform22detail c ON c.id=a.customform22id\r\n\t\t\tLEFT JOIN ld_customform22detailscf d ON d.lineitem_id=c.lineitem_id\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\tAND b.cf_5277='合同额'\r\n\t\t\t\tAND c.lin_users_id>0\r\n\t\t\t\tAND b.cf_5276='{nian}'\r\n\t\t\tUNION\r\n\t\t\tSELECT\r\n\t\t\t\tc.lin_users_id,\r\n\t\t\t\t9 AS mb_month,\r\n\t\t\t\td.sf292 AS amount_mb\r\n\t\t\tFROM ld_customform22 a\r\n\t\t\tLEFT JOIN ld_customform22scf b ON b.customform22id=a.customform22id\r\n\t\t\tLEFT JOIN ld_customform22detail c ON c.id=a.customform22id\r\n\t\t\tLEFT JOIN ld_customform22detailscf d ON d.lineitem_id=c.lineitem_id\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\tAND b.cf_5277='合同额'\r\n\t\t\t\tAND c.lin_users_id>0\r\n\t\t\t\tAND b.cf_5276='{nian}'\r\n\t\t\tUNION\r\n\t\t\tSELECT\r\n\t\t\t\tc.lin_users_id,\r\n\t\t\t\t10 AS mb_month,\r\n\t\t\t\td.sf293 AS amount_mb\r\n\t\t\tFROM ld_customform22 a\r\n\t\t\tLEFT JOIN ld_customform22scf b ON b.customform22id=a.customform22id\r\n\t\t\tLEFT JOIN ld_customform22detail c ON c.id=a.customform22id\r\n\t\t\tLEFT JOIN ld_customform22detailscf d ON d.lineitem_id=c.lineitem_id\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\tAND b.cf_5277='合同额'\r\n\t\t\t\tAND c.lin_users_id>0\r\n\t\t\t\tAND b.cf_5276='{nian}'\r\n\t\t\tUNION\r\n\t\t\tSELECT\r\n\t\t\t\tc.lin_users_id,\r\n\t\t\t\t11 AS mb_month,\r\n\t\t\t\td.sf294 AS amount_mb\r\n\t\t\tFROM ld_customform22 a\r\n\t\t\tLEFT JOIN ld_customform22scf b ON b.customform22id=a.customform22id\r\n\t\t\tLEFT JOIN ld_customform22detail c ON c.id=a.customform22id\r\n\t\t\tLEFT JOIN ld_customform22detailscf d ON d.lineitem_id=c.lineitem_id\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\tAND b.cf_5277='合同额'\r\n\t\t\t\tAND c.lin_users_id>0\r\n\t\t\t\tAND b.cf_5276='{nian}'\r\n\t\t\tUNION\r\n\t\t\tSELECT\r\n\t\t\t\tc.lin_users_id,\r\n\t\t\t\t12 AS mb_month,\r\n\t\t\t\td.sf295 AS amount_mb\r\n\t\t\tFROM ld_customform22 a\r\n\t\t\tLEFT JOIN ld_customform22scf b ON b.customform22id=a.customform22id\r\n\t\t\tLEFT JOIN ld_customform22detail c ON c.id=a.customform22id\r\n\t\t\tLEFT JOIN ld_customform22detailscf d ON d.lineitem_id=c.lineitem_id\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\tAND b.cf_5277='合同额'\r\n\t\t\t\tAND c.lin_users_id>0\r\n\t\t\t\tAND b.cf_5276='{nian}'\r\n\t\t) a\r\n\t\tWHERE 1=1\r\n\t\t\tAND (\r\n\t\t\t\tCASE\r\n\t\t\t\t\tWHEN '{yue}'='' THEN 1=1\r\n\t\t\t\t\tELSE FIND_IN_SET(mb_month,'{yue}')\r\n\t\t\t\tEND)\r\n\t\tGROUP BY lin_users_id\r\n\t) c ON c.lin_users_id=a.id\r\n\tWHERE a.deleted=0\r\n\t\tAND (f.groupid=2 OR f.parentgroup LIKE '1::2::%')\r\n\t\tAND a.profileid IN (64,65)\r\n\t\tAND (\r\n\t\t\tCASE\r\n\t\t\t\tWHEN '{weidu}'=1 AND TRIM('{ziweidu}')='' THEN 1=1\r\n\t\t\t\tWHEN '{weidu}'=1 AND TRIM('{ziweidu}')<>'' THEN FIND_IN_SET(a.id,'{ziweidu}')\r\n\t\t\t\t\r\n\t\t\t\tWHEN '{weidu}'=2 AND TRIM('{ziweidu}')='' THEN a.user_pianqu IN ('山东区','北京区','河南区','西南区','青岛金东','应急安全产品线')\r\n\t\t\t\tWHEN '{weidu}'=2 THEN FIND_IN_SET(a.user_pianqu,'{ziweidu}')\r\n\r\n\t\t\t\tWHEN '{weidu}'=3 AND TRIM('{ziweidu}')='' THEN a.user_daqu IN ('东部大区','南部大区','西部大区','北部大区','青岛金东','应急安全产品线')\r\n\t\t\t\tWHEN '{weidu}'=3 THEN FIND_IN_SET(a.user_daqu,'{ziweidu}')\r\n\t\t\t\tELSE 1=1\r\n\t\t\tEND) \r\n\t\tAND (\r\n\t\t\tCASE\r\n\t\t\t\tWHEN '{chanpinxian}'='' OR '{chanpinxian}'=(SELECT GROUP_CONCAT(listvalue ORDER BY sequence) FROM ld_picklist_values WHERE listid=130) THEN 1=1\r\n\t\t\t\tELSE FIND_IN_SET(a.user_chanpinxian,'{chanpinxian}')\r\n\t\t\tEND) \r\n) t\r\nWHERE IFNULL(mubiao_type,'')<>''\r\nGROUP BY mubiao_type\r\n) t\r\nWHERE 1=1\r\nORDER BY rate DESC"
+      },
+      "1": {
+        "Ident": "StiMySqlSource",
+        "Name": "list_weidu",
+        "Alias": "list_weidu",
+        "Columns": {
+          "0": {
+            "Name": "list_key",
+            "Index": -1,
+            "NameInSource": "list_key",
+            "Alias": "list_key",
+            "Type": "System.Int32"
+          },
+          "1": {
+            "Name": "list_key2",
+            "Index": -1,
+            "NameInSource": "list_key2",
+            "Alias": "list_key2",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "list_value",
+            "Index": -1,
+            "NameInSource": "list_value",
+            "Alias": "list_value",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "list_value2",
+            "Index": -1,
+            "NameInSource": "list_value2",
+            "Alias": "list_value2",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "Type": "Table",
+        "SqlCommand": "SELECT\r\n\tlist_key,\r\n\tlist_key2,\r\n\tlist_value,\r\n\tlist_value2\r\nFROM (\r\n\tSELECT\r\n\t\t1 AS list_key,\r\n\t\t'客户经理/市场专员' AS list_value,\r\n\t\ta.id AS list_key2,\r\n\t\ta.last_name AS list_value2\r\n\tFROM ld_users a\r\n\tINNER JOIN ld_users2group e ON e.userid=a.id\r\n\tINNER JOIN ld_groups f ON f.groupid=e.groupid\r\n\tWHERE a.deleted=0\r\n\t\tAND (f.groupid=2 OR f.parentgroup LIKE '1::2::%')\r\n\t\tAND a.profileid IN (64,65)\r\n\tUNION\r\n\tSELECT\r\n\t\t2 AS list_key,\r\n\t\t'片区' AS list_value,\r\n\t\ta.user_pianqu AS list_key2,\r\n\t\ta.user_pianqu AS list_value2\r\n\tFROM ld_users a\r\n\tINNER JOIN ld_users2group e ON e.userid=a.id\r\n\tINNER JOIN ld_groups f ON f.groupid=e.groupid\r\n\tWHERE a.deleted=0\r\n\t\tAND (f.groupid=2 OR f.parentgroup LIKE '1::2::%')\r\n\t\tAND a.profileid IN (64,65)\r\n\t\tAND a.user_pianqu IN ('山东区','北京区','河南区','西南区','青岛金东','应急安全产品线')\r\n\tGROUP BY a.user_pianqu\r\n\tUNION\r\n\tSELECT\r\n\t\t3 AS list_key,\r\n\t\t'大区' AS list_value,\r\n\t\ta.user_daqu AS list_key2,\r\n\t\ta.user_daqu AS list_value2\r\n\tFROM ld_users a\r\n\tINNER JOIN ld_users2group e ON e.userid=a.id\r\n\tINNER JOIN ld_groups f ON f.groupid=e.groupid\r\n\tWHERE a.deleted=0\r\n\t\tAND (f.groupid=2 OR f.parentgroup LIKE '1::2::%')\r\n\t\tAND a.profileid IN (64,65)\r\n\t\tAND a.user_daqu IN ('东部大区','南部大区','西部大区','北部大区','青岛金东','应急安全产品线')\r\n\tGROUP BY a.user_daqu\r\n\tUNION\r\n\tSELECT \r\n\t\t4 AS list_key,\r\n\t\t'公司整体' AS list_value,\r\n\t\t'公司整体' AS list_key2,\r\n\t\t'公司整体' AS list_value2\r\n) a\r\nORDER BY a.list_key,\r\n\t(CASE \r\n\t\tWHEN list_key=1 THEN CONVERT(a.list_value2 USING GBK) \r\n\t\tWHEN list_key=2 THEN FIELD(a.list_value2,'山东区','北京区','河南区','西南区','青岛金东','应急安全产品线')\r\n\t\tWHEN list_key=3 THEN FIELD(a.list_value2,'东部大区','南部大区','西部大区','北部大区','青岛金东','应急安全产品线')\r\n\tEND)"
+      },
+      "2": {
+        "Ident": "StiMySqlSource",
+        "Name": "list_chanpinxian",
+        "Alias": "list_chanpinxian",
+        "Columns": {
+          "0": {
+            "Name": "listvalue",
+            "Index": -1,
+            "NameInSource": "listvalue",
+            "Alias": "listvalue",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT listvalue FROM ld_picklist_values WHERE listid=130 ORDER BY sequence"
+      },
+      "3": {
+        "Ident": "StiMySqlSource",
+        "Name": "list_nian",
+        "Alias": "list_nian",
+        "Columns": {
+          "0": {
+            "Name": "list_value",
+            "Index": -1,
+            "NameInSource": "list_value",
+            "Alias": "list_value",
+            "Type": "System.Int32"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT YEAR(NOW())-4 AS list_value\r\nUNION\r\nSELECT YEAR(NOW())-3 AS list_value\r\nUNION\r\nSELECT YEAR(NOW())-2 AS list_value\r\nUNION\r\nSELECT YEAR(NOW())-1 AS list_value\r\nUNION\r\nSELECT YEAR(NOW()) AS list_value"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "ldcrm",
+        "Alias": "ldcrm",
+        "ConnectionStringEncrypted": "42zRCUhMMbxGRymFS0kibtXWzcPGWVntYluhzGFxt17C0PUCTAj7gcNNVcxiEPR3xMRlAkZXSYjMbISYSwkya41W96POZ3KZQB6EheGIdwOH"
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "Page1",
+      "Guid": "5d4b27b46a74e040391803bfd0a0787f",
+      "Alias": "营业额目标支撑分析",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiColumnHeaderBand",
+          "Name": "ColumnHeaderBand1",
+          "ClientRectangle": "0,0.4,21,1.2",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text7",
+              "Guid": "7d53c21436335f43c8779ce9a4ff62d4",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "6.4,0,5.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "目标"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text1",
+              "Guid": "064ab2ce1191db9ac51797bd4ee15a05",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "1.2,0,5.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.mubiao_desp}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text3",
+              "Guid": "63d5b27be9727097a35f754291fdd6cb",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "11.6,0,5.4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "预测营业额"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text6",
+              "Guid": "eb171d21f96ea62c0dc44f0a85cbe199",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "17,0,4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "项目支撑率"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text12",
+              "Guid": "cb2a955a86a3abc59e65334d86aa1ea4",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,1.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "#"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand1",
+          "ClientRectangle": "0,2.4,21,1",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text8",
+              "Guid": "23c96870c68983aabdc0f5eb9726757b",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "6.4,0,5.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.amount_mb}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "State": "DecimalDigits"
+              },
+              "Type": "DataColumn"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text2",
+              "Guid": "1feb1d57e57e71e5d2bbcc12eafcb0ad",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "1.2,0,5.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.mubiao_type}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text4",
+              "Guid": "720f1abfe1024c708b4179e3e2b3c94e",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "11.6,0,5.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.amount_yuce}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ",",
+                "State": "DecimalDigits"
+              },
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text9",
+              "Guid": "725e5394c9c09a4ebf5d74dc88f385e2",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "17,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.rate}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiPercentageFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ",",
+                "PositivePattern": 1,
+                "Symbol": "%"
+              },
+              "Type": "DataColumn"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text13",
+              "Guid": "72ca6e402b8c1febf3f676a4fb5f6547",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,1.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{LineThrough}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "State": "DecimalDigits"
+              },
+              "Type": "SystemVariables"
+            }
+          },
+          "DataSourceName": "b"
+        },
+        "2": {
+          "Ident": "StiReportSummaryBand",
+          "Name": "ReportSummaryBand1",
+          "ClientRectangle": "0,4.2,21,1",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text14",
+              "Guid": "4ffedae7c3cdc369c6da1bdb560363b7",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "6.4,0,5.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ProcessingDuplicates": "BasedOnTagMerge",
+              "Text": {
+                "Value": "{Sum(DataBand1,b.amount_mb)}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:238,238,238",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "State": "DecimalDigits"
+              },
+              "Type": "Totals"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text11",
+              "Guid": "98cbdc23404c6db3d4d7a6243f21cce1",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "1.2,0,5.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ProcessingDuplicates": "BasedOnTagMerge",
+              "Text": {
+                "Value": "合计"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:238,238,238",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text5",
+              "Guid": "5abf5bf66d1a96e74248fcd90274cc07",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "11.6,0,5.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ProcessingDuplicates": "BasedOnTagMerge",
+              "Text": {
+                "Value": "{Sum(DataBand1,b.amount_yuce)}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:238,238,238",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ",",
+                "State": "DecimalDigits"
+              },
+              "Type": "Totals"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text15",
+              "Guid": "96b4ded20f280f12ca859aa2e6ee12a2",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,1.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ProcessingDuplicates": "BasedOnTagMerge",
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:238,238,238",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "State": "DecimalDigits"
+              },
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text10",
+              "Guid": "3e016040fd79521963f44882e3c048e9",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "17,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ProcessingDuplicates": "BasedOnTagMerge",
+              "Text": {
+                "Value": "{Sum(DataBand1,b.amount_yc)/Sum(DataBand1,b.amount_yc)}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:238,238,238",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiPercentageFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ",",
+                "PositivePattern": 1,
+                "Symbol": "%"
+              },
+              "Type": "Totals"
+            }
+          }
+        }
+      },
+      "PageWidth": 23,
+      "PageHeight": 29.69,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    }
+  }
+}

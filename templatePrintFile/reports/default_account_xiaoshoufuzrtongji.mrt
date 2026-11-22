@@ -1,0 +1,1730 @@
+{
+  "ReportVersion": "2019.4.1",
+  "ReportGuid": "4944ee7a4b2fe71671314ec3a7395eb9",
+  "ReportName": "Report",
+  "ReportAlias": "统计图表",
+  "ReportFile": "default_account_xiaoshoufuzrtongji.mrt",
+  "ReportCreated": "/Date(-28800000+0800)/",
+  "ReportChanged": "/Date(-28800000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Dictionary": {
+    "Variables": {
+      "0": {
+        "Name": "nolinkdays_from",
+        "Alias": "N天未联系从",
+        "Type": "System.Int32",
+        "RequestFromUser": true
+      },
+      "1": {
+        "Name": "createdtime",
+        "DialogInfo": {
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "Period.Period",
+          "AllowUserValues": false
+        },
+        "Alias": "创建时间",
+        "Type": "System.String",
+        "RequestFromUser": true
+      },
+      "2": {
+        "Value": "NULL",
+        "Name": "modifiedtime",
+        "DialogInfo": {
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "Period.Period",
+          "AllowUserValues": false
+        },
+        "Alias": "更新时间",
+        "Type": "System.String",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      },
+      "3": {
+        "Name": "nolinkdays_to",
+        "Alias": "N天未联系至",
+        "Type": "System.Int32",
+        "RequestFromUser": true
+      },
+      "4": {
+        "Name": "userid",
+        "DialogInfo": {
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "users.id",
+          "ValuesColumn": "users.last_name",
+          "AllowUserValues": false
+        },
+        "Alias": "人员范围",
+        "Type": "Stimulsoft.Report.IntList",
+        "RequestFromUser": true
+      }
+    },
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "label",
+        "Alias": "label",
+        "Columns": {
+          "0": {
+            "Name": "report_title",
+            "Index": -1,
+            "NameInSource": "report_title",
+            "Alias": "report_title",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "accountname",
+            "Index": -1,
+            "NameInSource": "accountname",
+            "Alias": "accountname",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "bill_state",
+            "Index": -1,
+            "NameInSource": "bill_state",
+            "Alias": "bill_state",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "createdtime",
+            "Index": -1,
+            "NameInSource": "createdtime",
+            "Alias": "createdtime",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "modifiedtime",
+            "Index": -1,
+            "NameInSource": "modifiedtime",
+            "Alias": "modifiedtime",
+            "Type": "System.String"
+          },
+          "5": {
+            "Name": "nolinkdays",
+            "Index": -1,
+            "NameInSource": "nolinkdays",
+            "Alias": "nolinkdays",
+            "Type": "System.String"
+          },
+          "6": {
+            "Name": "accounttype",
+            "Index": -1,
+            "NameInSource": "accounttype",
+            "Alias": "accounttype",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "select \r\nreport_title,\r\naccountname,\r\nbill_state,\r\ncreatedtime,\r\nmodifiedtime,\r\nnolinkdays,\r\naccounttype\r\nfrom (\r\n\t\t\tselect \r\n\t\t\t1 as id,\r\n\t\t\tb.fieldlabel as report_title\r\n\t\t\tfrom ld_field a\r\n\t\t\tLEFT JOIN ld_tranlabel b on b.trantable='ld_field' and b.languagetype='zh' and b.Relateid=a.fieldid\r\n\t\t\twhere a.tabid=6 and a.columnname='smownerid'\r\n\t\t\tLIMIT 1) a\r\nLEFT JOIN (\r\nselect \r\n1 as id,\r\nb.fieldlabel as accountname\r\nfrom ld_field a\r\nLEFT JOIN ld_tranlabel b on b.trantable='ld_field' and b.languagetype='zh' and b.Relateid=a.fieldid\r\nwhere a.tabid=6 and a.columnname='accountname'\r\nLIMIT 1) b on a.id=b.id\r\nLEFT JOIN (\r\nselect \r\n1 as id,\r\nb.fieldlabel as bill_state\r\nfrom ld_field a\r\nLEFT JOIN ld_tranlabel b on b.trantable='ld_field' and b.languagetype='zh' and b.Relateid=a.fieldid\r\nwhere a.tabid=6 and a.columnname='bill_state'\r\nLIMIT 1) c on a.id=c.id\r\nLEFT JOIN (\r\nselect \r\n1 as id,\r\nb.fieldlabel as createdtime\r\nfrom ld_field a\r\nLEFT JOIN ld_tranlabel b on b.trantable='ld_field' and b.languagetype='zh' and b.Relateid=a.fieldid\r\nwhere a.tabid=6 and a.columnname='createdtime'\r\nLIMIT 1) d on a.id=d.id\r\nLEFT JOIN (\r\nselect \r\n1 as id,\r\nb.fieldlabel as modifiedtime\r\nfrom ld_field a\r\nLEFT JOIN ld_tranlabel b on b.trantable='ld_field' and b.languagetype='zh' and b.Relateid=a.fieldid\r\nwhere a.tabid=6 and a.columnname='modifiedtime'\r\nLIMIT 1) e on a.id=e.id\r\nLEFT JOIN (\r\nselect \r\n1 as id,\r\nb.fieldlabel as nolinkdays\r\nfrom ld_field a\r\nLEFT JOIN ld_tranlabel b on b.trantable='ld_field' and b.languagetype='zh' and b.Relateid=a.fieldid\r\nwhere a.tabid=6 and a.columnname='nolinkdays'\r\nLIMIT 1) f on a.id=f.id\r\nLEFT JOIN (\r\nselect \r\n1 as id,\r\nb.fieldlabel as accounttype\r\nfrom ld_field a\r\nLEFT JOIN ld_tranlabel b on b.trantable='ld_field' and b.languagetype='zh' and b.Relateid=a.fieldid\r\nwhere a.tabid=6 and a.columnname='account_type'\r\nLIMIT 1) h on a.id=h.id"
+      },
+      "1": {
+        "Ident": "StiMySqlSource",
+        "Name": "Period",
+        "Alias": "Period",
+        "Columns": {
+          "0": {
+            "Name": "Period",
+            "Index": -1,
+            "NameInSource": "Period",
+            "Alias": "Period",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT '全部' as Period\r\nUNION \r\nselect'本年' \r\nUNION \r\nselect'本月'\r\nUNION \r\nselect'本周'\r\nUNION \r\nselect'今天'\r\nUNION \r\nselect'去年'\r\nUNION \r\nselect'去年' \r\nUNION \r\nselect'上月'\r\nUNION \r\nselect'上周'\r\nUNION \r\nselect'昨天'"
+      },
+      "2": {
+        "Ident": "StiMySqlSource",
+        "Name": "users",
+        "Alias": "users",
+        "Columns": {
+          "0": {
+            "Name": "id",
+            "Index": -1,
+            "NameInSource": "id",
+            "Alias": "id",
+            "Type": "System.Int32"
+          },
+          "1": {
+            "Name": "last_name",
+            "Index": -1,
+            "NameInSource": "last_name",
+            "Alias": "last_name",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT\r\n\ta.id,\r\n\ta.last_name\r\nFROM ld_users a\r\nINNER JOIN (\r\n\tSELECT DISTINCT\r\n\t\tuserid \r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tld_users.id as userid \r\n\t\tFROM ld_users\r\n\t\tWHERE EXISTS(select 1 from ld_setscoperhigher where modulename='Accounts' and scopeauthority=1 and userid='[uuid]')\r\n\t\tUNION\r\n\t\tselect \r\n\t\t\tviewid as userid \r\n\t\tfrom ld_scoperhigher\r\n\t\twhere userid='[uuid]' and modulename='Accounts' and EXISTS(select 1 from ld_setscoperhigher where userid='[uuid]' and scopeauthority=2 and modulename='Accounts')\t\t\t\r\n\t\tUNION\r\n\t\tselect DISTINCT \r\n\t\t\tld_users2group.userid as userid \r\n\t\tfrom ld_scoperhigher \r\n\t\tINNER JOIN ld_groups on ld_groups.groupid=ld_scoperhigher.viewid\r\n\t\tINNER JOIN ld_users2group on ld_users2group.groupid=ld_groups.groupid\r\n\t\tWHERE ld_scoperhigher.userid='[uuid]' \r\n\t\t\tand ld_scoperhigher.modulename='Accounts'\r\n\t\t\tand ld_scoperhigher.scopeauthority=3 \r\n\t\t\tand EXISTS(select 1 from ld_setscoperhigher where modulename='Accounts' and scopeauthority=3 and userid='[uuid]')\r\n\t\tUNION \r\n\t\tselect \r\n\t\t\tid as userid \r\n\t\tfrom ld_users  \r\n\t\twhere exists(select 1 from ld_users where id='[uuid]' and is_admin='on')\r\n\t\tUNION\r\n\t\tselect '[uuid]')as vw_users\r\n) as tmp_users ON tmp_users.userid=a.id\r\norder by CONVERT(a.last_name USING gbk)"
+      },
+      "3": {
+        "Ident": "StiMySqlSource",
+        "Name": "details",
+        "Alias": "details",
+        "Columns": {
+          "0": {
+            "Name": "smownerid",
+            "Index": -1,
+            "NameInSource": "smownerid",
+            "Alias": "smownerid",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "argument_column",
+            "Index": -1,
+            "NameInSource": "argument_column",
+            "Alias": "argument_column",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "accountname",
+            "Index": -1,
+            "NameInSource": "accountname",
+            "Alias": "accountname",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "account_type",
+            "Index": -1,
+            "NameInSource": "account_type",
+            "Alias": "account_type",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "ship_state",
+            "Index": -1,
+            "NameInSource": "ship_state",
+            "Alias": "ship_state",
+            "Type": "System.String"
+          },
+          "5": {
+            "Name": "bill_state",
+            "Index": -1,
+            "NameInSource": "bill_state",
+            "Alias": "bill_state",
+            "Type": "System.String"
+          },
+          "6": {
+            "Name": "nolinkdays",
+            "Index": -1,
+            "NameInSource": "nolinkdays",
+            "Alias": "nolinkdays",
+            "Type": "System.Int32"
+          },
+          "7": {
+            "Name": "last_name",
+            "Index": -1,
+            "NameInSource": "last_name",
+            "Alias": "last_name",
+            "Type": "System.String"
+          },
+          "8": {
+            "Name": "createdtime",
+            "Index": -1,
+            "NameInSource": "createdtime",
+            "Alias": "createdtime",
+            "Type": "System.DateTime"
+          },
+          "9": {
+            "Name": "modifiedtime",
+            "Index": -1,
+            "NameInSource": "modifiedtime",
+            "Alias": "modifiedtime",
+            "Type": "System.DateTime"
+          },
+          "10": {
+            "Name": "accountid",
+            "Index": -1,
+            "NameInSource": "accountid",
+            "Alias": "accountid",
+            "Type": "System.Int32"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "Type": "Table",
+        "SqlCommand": "select\r\nCASE\r\n\tWHEN a.smownerid is NULL or a.smownerid='' or a.smownerid='--无--' THEN '空' \r\n\tELSE a.smownerid \r\nEND as smownerid,\r\nb.last_name as argument_column,\r\na.accountname,\r\na.account_type,\r\n'' AS ship_state,\r\na.bill_state,\r\na.nolinkdays,\r\nb.last_name,\r\na.createdtime,\r\na.modifiedtime,\r\na.accountid\r\nfrom ld_account a\r\nLEFT JOIN ld_users b on a.smownerid=b.id\r\nwhere a.deleted=0\r\n\tand CONCAT('全部',\r\n\t\t\t\t'/',CASE WHEN YEAR(a.createdtime)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n\t\t\t\t'/',CASE WHEN YEAR(a.createdtime)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n\t\t\t\t'/',CASE WHEN YEAR(a.createdtime)=YEAR(CURDATE()) AND MONTH(a.createdtime)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n\t\t\t\t'/',CASE WHEN YEAR(a.createdtime)=YEAR(CURDATE()) AND MONTH(a.createdtime)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n\t\t\t\t'/',CASE WHEN YEAR(a.createdtime)=YEAR(CURDATE()) AND WEEK(a.createdtime)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n\t\t\t\t'/',CASE WHEN YEAR(a.createdtime)=YEAR(CURDATE()) AND WEEK(a.createdtime)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n\t\t\t\t'/',CASE WHEN DATE_FORMAT(a.createdtime,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n\t\t\t\t'/',CASE WHEN DATE_FORMAT(a.createdtime,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{createdtime}%'\r\n\tand CONCAT('全部',\r\n\t\t\t'/',CASE WHEN YEAR(a.modifiedtime)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n\t\t\t'/',CASE WHEN YEAR(a.modifiedtime)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n\t\t\t'/',CASE WHEN YEAR(a.modifiedtime)=YEAR(CURDATE()) AND MONTH(a.modifiedtime)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n\t\t\t'/',CASE WHEN YEAR(a.modifiedtime)=YEAR(CURDATE()) AND MONTH(a.modifiedtime)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n\t\t\t'/',CASE WHEN YEAR(a.modifiedtime)=YEAR(CURDATE()) AND WEEK(a.modifiedtime)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n\t\t\t'/',CASE WHEN YEAR(a.modifiedtime)=YEAR(CURDATE()) AND WEEK(a.modifiedtime)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n\t\t\t'/',CASE WHEN DATE_FORMAT(a.modifiedtime,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n\t\t\t'/',CASE WHEN DATE_FORMAT(a.modifiedtime,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{modifiedtime}%'\t\r\nand IFNULL(a.nolinkdays,0)>='{nolinkdays_from}'+0\r\n\tand IFNULL(a.nolinkdays,0)<=if('{nolinkdays_to}'+0=0,36000000,'{nolinkdays_to}'+0)\r\nand a.smownerid='{this[\"smownerid\"]}'"
+      },
+      "4": {
+        "Ident": "StiMySqlSource",
+        "Name": "details2",
+        "Alias": "details2",
+        "Columns": {
+          "0": {
+            "Name": "argument_column",
+            "Index": -1,
+            "NameInSource": "argument_column",
+            "Alias": "argument_column",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "accountname",
+            "Index": -1,
+            "NameInSource": "accountname",
+            "Alias": "accountname",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "bill_state",
+            "Index": -1,
+            "NameInSource": "bill_state",
+            "Alias": "bill_state",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "account_type",
+            "Index": -1,
+            "NameInSource": "account_type",
+            "Alias": "account_type",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "nolinkdays",
+            "Index": -1,
+            "NameInSource": "nolinkdays",
+            "Alias": "nolinkdays",
+            "Type": "System.Int32"
+          },
+          "5": {
+            "Name": "last_name",
+            "Index": -1,
+            "NameInSource": "last_name",
+            "Alias": "last_name",
+            "Type": "System.String"
+          },
+          "6": {
+            "Name": "createdtime",
+            "Index": -1,
+            "NameInSource": "createdtime",
+            "Alias": "createdtime",
+            "Type": "System.DateTime"
+          },
+          "7": {
+            "Name": "modifiedtime",
+            "Index": -1,
+            "NameInSource": "modifiedtime",
+            "Alias": "modifiedtime",
+            "Type": "System.DateTime"
+          },
+          "8": {
+            "Name": "accountid",
+            "Index": -1,
+            "NameInSource": "accountid",
+            "Alias": "accountid",
+            "Type": "System.Int32"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "Type": "Table",
+        "SqlCommand": "select\r\nCASE\r\n\tWHEN a.smownerid is NULL or a.smownerid='' or a.smownerid='--无--' THEN '空' \r\n\tELSE a.smownerid \r\nEND as argument_column,\r\na.accountname,\r\na.bill_state,\r\na.account_type,\r\na.nolinkdays,\r\nb.last_name,\r\na.createdtime,\r\na.modifiedtime,\r\na.accountid\r\nfrom ld_account a\r\nLEFT JOIN ld_users b on a.smownerid=b.id\r\nwhere a.deleted=0\r\n\tand FIND_IN_SET(CASE WHEN a.smownerid is NULL THEN 1 ELSE a.smownerid END,'{userid}')\r\n\tand CONCAT('全部',\r\n\t\t\t\t'/',CASE WHEN YEAR(a.createdtime)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n\t\t\t\t'/',CASE WHEN YEAR(a.createdtime)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n\t\t\t\t'/',CASE WHEN YEAR(a.createdtime)=YEAR(CURDATE()) AND MONTH(a.createdtime)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n\t\t\t\t'/',CASE WHEN YEAR(a.createdtime)=YEAR(CURDATE()) AND MONTH(a.createdtime)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n\t\t\t\t'/',CASE WHEN YEAR(a.createdtime)=YEAR(CURDATE()) AND WEEK(a.createdtime)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n\t\t\t\t'/',CASE WHEN YEAR(a.createdtime)=YEAR(CURDATE()) AND WEEK(a.createdtime)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n\t\t\t\t'/',CASE WHEN DATE_FORMAT(a.createdtime,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n\t\t\t\t'/',CASE WHEN DATE_FORMAT(a.createdtime,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{createdtime}%'\r\n\tand CONCAT('全部',\r\n\t\t\t'/',CASE WHEN YEAR(a.modifiedtime)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n\t\t\t'/',CASE WHEN YEAR(a.modifiedtime)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n\t\t\t'/',CASE WHEN YEAR(a.modifiedtime)=YEAR(CURDATE()) AND MONTH(a.modifiedtime)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n\t\t\t'/',CASE WHEN YEAR(a.modifiedtime)=YEAR(CURDATE()) AND MONTH(a.modifiedtime)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n\t\t\t'/',CASE WHEN YEAR(a.modifiedtime)=YEAR(CURDATE()) AND WEEK(a.modifiedtime)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n\t\t\t'/',CASE WHEN YEAR(a.modifiedtime)=YEAR(CURDATE()) AND WEEK(a.modifiedtime)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n\t\t\t'/',CASE WHEN DATE_FORMAT(a.modifiedtime,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n\t\t\t'/',CASE WHEN DATE_FORMAT(a.modifiedtime,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{modifiedtime}%'\r\n\tand IFNULL(a.nolinkdays,0)>='{nolinkdays_from}'+0\r\n\tand IFNULL(a.nolinkdays,0)<=if('{nolinkdays_to}'+0=0,36000000,'{nolinkdays_to}'+0)\r\n\tand (CASE WHEN b.last_name is NULL or b.last_name='' or b.last_name='--无--' THEN '空' ELSE b.last_name END)='{this[\"SeriesArgument\"]}'"
+      },
+      "5": {
+        "Ident": "StiMySqlSource",
+        "Name": "report",
+        "Alias": "report",
+        "Columns": {
+          "0": {
+            "Name": "argument_column",
+            "Index": -1,
+            "NameInSource": "argument_column",
+            "Alias": "argument_column",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "value_column",
+            "Index": -1,
+            "NameInSource": "value_column",
+            "Alias": "value_column",
+            "Type": "System.Int32"
+          },
+          "2": {
+            "Name": "smownerid",
+            "Index": -1,
+            "NameInSource": "smownerid",
+            "Alias": "smownerid",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "tip",
+            "Index": -1,
+            "NameInSource": "tip",
+            "Alias": "tip",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "Type": "Table",
+        "SqlCommand": "select\r\n argument_column,\r\nvalue_column,\r\nsmownerid,\r\nconcat(argument_column,' ,   ',value_column,' ,   ',round(value_column*100/(\r\n\t\tselect\r\n\t\tcount(1) as value_column\r\n\t\tfrom ld_account a\r\n\t\tLEFT JOIN ld_users b on a.smownerid=b.id\r\n\t\twhere a.deleted=0\r\n\t\t\t\t\t\t\tand (CASE\r\n\t\t\t\t\tWHEN '{userid}'='' THEN \r\n\t\t\t\t\t\tFIND_IN_SET(CASE WHEN a.smownerid is NULL THEN 1 ELSE a.smownerid END,(\r\n\t\t\t\t\t\t\tSELECT\r\n\t\t\t\t\t\t\t\tGROUP_CONCAT(userid)\r\n\t\t\t\t\t\t\tFROM (\r\n\t\t\t\t\t\t\t\tSELECT DISTINCT\r\n\t\t\t\t\t\t\t\t\tuserid \r\n\t\t\t\t\t\t\t\tFROM (\r\n\t\t\t\t\t\t\t\t\tSELECT \r\n\t\t\t\t\t\t\t\t\t\tld_users.id as userid \r\n\t\t\t\t\t\t\t\t\tFROM ld_users\r\n\t\t\t\t\t\t\t\t\tWHERE EXISTS(select 1 from ld_setscoperhigher where modulename='Accounts' and scopeauthority=1 and userid='[uuid]')\r\n\t\t\t\t\t\t\t\t\tUNION\r\n\t\t\t\t\t\t\t\t\tselect \r\n\t\t\t\t\t\t\t\t\t\tviewid as userid \r\n\t\t\t\t\t\t\t\t\tfrom ld_scoperhigher\r\n\t\t\t\t\t\t\t\t\twhere userid='[uuid]' and modulename='Accounts' and EXISTS(select 1 from ld_setscoperhigher where userid='[uuid]' and scopeauthority=2 and modulename='Accounts')\t\t\t\r\n\t\t\t\t\t\t\t\t\tUNION\r\n\t\t\t\t\t\t\t\t\tselect DISTINCT \r\n\t\t\t\t\t\t\t\t\t\tld_users2group.userid as userid \r\n\t\t\t\t\t\t\t\t\tfrom ld_scoperhigher \r\n\t\t\t\t\t\t\t\t\tINNER JOIN ld_groups on ld_groups.groupid=ld_scoperhigher.viewid\r\n\t\t\t\t\t\t\t\t\tINNER JOIN ld_users2group on ld_users2group.groupid=ld_groups.groupid\r\n\t\t\t\t\t\t\t\t\tWHERE ld_scoperhigher.userid='[uuid]' \r\n\t\t\t\t\t\t\t\t\t\tand ld_scoperhigher.modulename='Accounts'\r\n\t\t\t\t\t\t\t\t\t\tand ld_scoperhigher.scopeauthority=3 \r\n\t\t\t\t\t\t\t\t\t\tand EXISTS(select 1 from ld_setscoperhigher where modulename='Accounts' and scopeauthority=3 and userid='[uuid]')\r\n\t\t\t\t\t\t\t\t\tUNION \r\n\t\t\t\t\t\t\t\t\tselect \r\n\t\t\t\t\t\t\t\t\t\tid as userid \r\n\t\t\t\t\t\t\t\t\tfrom ld_users  \r\n\t\t\t\t\t\t\t\t\twhere exists(select 1 from ld_users where id='[uuid]' and is_admin='on')\r\n\t\t\t\t\t\t\t\t\tUNION\r\n\t\t\t\t\t\t\t\t\tselect '[uuid]')as vw_users\r\n\t\t\t\t\t\t\t) as tmp_users))\r\n\t\t\t\t\tELSE FIND_IN_SET(CASE WHEN a.smownerid is NULL THEN 1 ELSE a.smownerid END,'{userid}')\r\n\t\t\t\tEND)\r\n\t\t\tand CONCAT('全部',\r\n\t\t\t\t\t'/',CASE WHEN YEAR(a.createdtime)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n\t\t\t\t\t'/',CASE WHEN YEAR(a.createdtime)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n\t\t\t\t\t'/',CASE WHEN YEAR(a.createdtime)=YEAR(CURDATE()) AND MONTH(a.createdtime)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n\t\t\t\t\t'/',CASE WHEN YEAR(a.createdtime)=YEAR(CURDATE()) AND MONTH(a.createdtime)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n\t\t\t\t\t'/',CASE WHEN YEAR(a.createdtime)=YEAR(CURDATE()) AND WEEK(a.createdtime)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n\t\t\t\t\t'/',CASE WHEN YEAR(a.createdtime)=YEAR(CURDATE()) AND WEEK(a.createdtime)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n\t\t\t\t\t'/',CASE WHEN DATE_FORMAT(a.createdtime,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n\t\t\t\t\t'/',CASE WHEN DATE_FORMAT(a.createdtime,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{createdtime}%'\r\n\t\t\tand CONCAT('全部',\r\n\t\t\t\t\t'/',CASE WHEN YEAR(a.modifiedtime)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n\t\t\t\t\t'/',CASE WHEN YEAR(a.modifiedtime)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n\t\t\t\t\t'/',CASE WHEN YEAR(a.modifiedtime)=YEAR(CURDATE()) AND MONTH(a.modifiedtime)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n\t\t\t\t\t'/',CASE WHEN YEAR(a.modifiedtime)=YEAR(CURDATE()) AND MONTH(a.modifiedtime)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n\t\t\t\t\t'/',CASE WHEN YEAR(a.modifiedtime)=YEAR(CURDATE()) AND WEEK(a.modifiedtime)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n\t\t\t\t\t'/',CASE WHEN YEAR(a.modifiedtime)=YEAR(CURDATE()) AND WEEK(a.modifiedtime)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n\t\t\t\t\t'/',CASE WHEN DATE_FORMAT(a.modifiedtime,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n\t\t\t\t\t'/',CASE WHEN DATE_FORMAT(a.modifiedtime,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{modifiedtime}%'\r\n\t\t\tand a.nolinkdays>='{nolinkdays_from}'+0\r\n\t\t\tand a.nolinkdays<=if('{nolinkdays_to}'+0=0,36000000,'{nolinkdays_to}'+0)),2),'%') as tip\r\nfrom (\r\nselect\r\nCASE\r\n\tWHEN a.smownerid is NULL or a.smownerid='' or a.smownerid='--无--' THEN '空' \r\n\tELSE a.smownerid\r\nEND as smownerid,\r\ncount(1) as value_column,b.last_name as argument_column\r\nfrom ld_account a\r\nLEFT JOIN ld_users b on a.smownerid=b.id\r\nwhere a.deleted=0\r\n\t\t\t\t\tand (CASE\r\n\t\t\t\t\tWHEN '{userid}'='' THEN \r\n\t\t\t\t\t\tFIND_IN_SET(CASE WHEN a.smownerid is NULL THEN 1 ELSE a.smownerid END,(\r\n\t\t\t\t\t\t\tSELECT\r\n\t\t\t\t\t\t\t\tGROUP_CONCAT(userid)\r\n\t\t\t\t\t\t\tFROM (\r\n\t\t\t\t\t\t\t\tSELECT DISTINCT\r\n\t\t\t\t\t\t\t\t\tuserid \r\n\t\t\t\t\t\t\t\tFROM (\r\n\t\t\t\t\t\t\t\t\tSELECT \r\n\t\t\t\t\t\t\t\t\t\tld_users.id as userid \r\n\t\t\t\t\t\t\t\t\tFROM ld_users\r\n\t\t\t\t\t\t\t\t\tWHERE EXISTS(select 1 from ld_setscoperhigher where modulename='Accounts' and scopeauthority=1 and userid='[uuid]')\r\n\t\t\t\t\t\t\t\t\tUNION\r\n\t\t\t\t\t\t\t\t\tselect \r\n\t\t\t\t\t\t\t\t\t\tviewid as userid \r\n\t\t\t\t\t\t\t\t\tfrom ld_scoperhigher\r\n\t\t\t\t\t\t\t\t\twhere userid='[uuid]' and modulename='Accounts' and EXISTS(select 1 from ld_setscoperhigher where userid='[uuid]' and scopeauthority=2 and modulename='Accounts')\t\t\t\r\n\t\t\t\t\t\t\t\t\tUNION\r\n\t\t\t\t\t\t\t\t\tselect DISTINCT \r\n\t\t\t\t\t\t\t\t\t\tld_users2group.userid as userid \r\n\t\t\t\t\t\t\t\t\tfrom ld_scoperhigher \r\n\t\t\t\t\t\t\t\t\tINNER JOIN ld_groups on ld_groups.groupid=ld_scoperhigher.viewid\r\n\t\t\t\t\t\t\t\t\tINNER JOIN ld_users2group on ld_users2group.groupid=ld_groups.groupid\r\n\t\t\t\t\t\t\t\t\tWHERE ld_scoperhigher.userid='[uuid]' \r\n\t\t\t\t\t\t\t\t\t\tand ld_scoperhigher.modulename='Accounts'\r\n\t\t\t\t\t\t\t\t\t\tand ld_scoperhigher.scopeauthority=3 \r\n\t\t\t\t\t\t\t\t\t\tand EXISTS(select 1 from ld_setscoperhigher where modulename='Accounts' and scopeauthority=3 and userid='[uuid]')\r\n\t\t\t\t\t\t\t\t\tUNION \r\n\t\t\t\t\t\t\t\t\tselect \r\n\t\t\t\t\t\t\t\t\t\tid as userid \r\n\t\t\t\t\t\t\t\t\tfrom ld_users  \r\n\t\t\t\t\t\t\t\t\twhere exists(select 1 from ld_users where id='[uuid]' and is_admin='on')\r\n\t\t\t\t\t\t\t\t\tUNION\r\n\t\t\t\t\t\t\t\t\tselect '[uuid]')as vw_users\r\n\t\t\t\t\t\t\t) as tmp_users))\r\n\t\t\t\t\tELSE FIND_IN_SET(CASE WHEN a.smownerid is NULL THEN 1 ELSE a.smownerid END,'{userid}')\r\n\t\t\t\tEND)\r\n\tand CONCAT('全部',\r\n\t\t\t\t'/',CASE WHEN YEAR(a.createdtime)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n\t\t\t\t'/',CASE WHEN YEAR(a.createdtime)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n\t\t\t\t'/',CASE WHEN YEAR(a.createdtime)=YEAR(CURDATE()) AND MONTH(a.createdtime)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n\t\t\t\t'/',CASE WHEN YEAR(a.createdtime)=YEAR(CURDATE()) AND MONTH(a.createdtime)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n\t\t\t\t'/',CASE WHEN YEAR(a.createdtime)=YEAR(CURDATE()) AND WEEK(a.createdtime)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n\t\t\t\t'/',CASE WHEN YEAR(a.createdtime)=YEAR(CURDATE()) AND WEEK(a.createdtime)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n\t\t\t\t'/',CASE WHEN DATE_FORMAT(a.createdtime,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n\t\t\t\t'/',CASE WHEN DATE_FORMAT(a.createdtime,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{createdtime}%'\r\n\tand CONCAT('全部',\r\n\t\t\t'/',CASE WHEN YEAR(a.modifiedtime)=YEAR(CURDATE()) THEN '本年' ELSE '' END,\r\n\t\t\t'/',CASE WHEN YEAR(a.modifiedtime)=YEAR(CURDATE())-1 THEN '去年' ELSE '' END,\r\n\t\t\t'/',CASE WHEN YEAR(a.modifiedtime)=YEAR(CURDATE()) AND MONTH(a.modifiedtime)=MONTH(CURDATE()) THEN '本月' ELSE '' END,\r\n\t\t\t'/',CASE WHEN YEAR(a.modifiedtime)=YEAR(CURDATE()) AND MONTH(a.modifiedtime)=MONTH(CURDATE())-1 THEN '上月' ELSE '' END,\r\n\t\t\t'/',CASE WHEN YEAR(a.modifiedtime)=YEAR(CURDATE()) AND WEEK(a.modifiedtime)=WEEK(CURDATE()) THEN '本周' ELSE '' END,\r\n\t\t\t'/',CASE WHEN YEAR(a.modifiedtime)=YEAR(CURDATE()) AND WEEK(a.modifiedtime)=WEEK(CURDATE())-1 THEN '上周' ELSE '' END,\r\n\t\t\t'/',CASE WHEN DATE_FORMAT(a.modifiedtime,'%Y-%m-%d')=DATE_FORMAT(CURDATE(),'%Y-%m-%d') THEN '今天' ELSE '' END,\r\n\t\t\t'/',CASE WHEN DATE_FORMAT(a.modifiedtime,'%Y-%m-%d')=DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 day),'%Y-%m-%d') THEN '昨天' ELSE '' END) like '%{modifiedtime}%'\r\n\tand IFNULL(a.nolinkdays,0)>='{nolinkdays_from}'+0\r\n\tand IFNULL(a.nolinkdays,0)<=if('{nolinkdays_to}'+0=0,36000000,'{nolinkdays_to}'+0)\r\nGROUP BY smownerid) T"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "ldcrm",
+        "Alias": "ldcrm",
+        "ConnectionStringEncrypted": "9Gxx68YLS83hR9Wl6iV1n8JudaNhT1m8YhWxkGMltS/CYI3KTV3z8EZMoZjiXGJejW5zg+8PuplyBpzMYow1Z4tgf0NJCVpZ4X2gvWQId0bjXE8K10FL3WIZ/YTq"
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "Page1",
+      "Guid": "37dcab0860c2b7929341969a88aa6807",
+      "Alias": "统计图表",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";255,255,0;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiReportTitleBand",
+          "Name": "ReportTitleBand1",
+          "ClientRectangle": "0,0.4,21,10.8",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text2",
+              "Guid": "8cab7f5ee26d9753a477bbcd936016fb",
+              "ClientRectangle": "0,0,21,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.report_title}分布统计图"
+              },
+              "VertAlignment": "Center",
+              "Font": "宋体;11;Bold;",
+              "Border": ";;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:255,0,0",
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiChart",
+              "Name": "Chart1",
+              "ClientRectangle": "0,0.6,21,10.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Border": "All;153,153,153;;;;;;solid:Black",
+              "Brush": "solid:255,255,255",
+              "HorSpacing": 40,
+              "VertSpacing": 40,
+              "Series": {
+                "0": {
+                  "Ident": "StiPieSeries",
+                  "ShowInLegend": false,
+                  "ShowSeriesLabels": "FromSeries",
+                  "ShowShadow": false,
+                  "SeriesLabels": {
+                    "Ident": "StiOutsidePieLabels",
+                    "MarkerSize": {
+                      "Width": 8,
+                      "Height": 6
+                    },
+                    "ValueType": "ArgumentValue",
+                    "ValueTypeSeparator": ",",
+                    "LabelColor": "51,71,91",
+                    "BorderColor": "Transparent",
+                    "Brush": "solid:Transparent",
+                    "Font": ";10;;",
+                    "LineColor": "Transparent"
+                  },
+                  "ValueDataColumn": "report.value_column",
+                  "ArgumentDataColumn": "report.argument_column",
+                  "ToolTipDataColumn": "report.tip",
+                  "DrillDownEnabled": true,
+                  "DrillDownPageGuid": "04f3cb79c9aa50eab32f0784cbd4a0a5",
+                  "Interaction": {
+                    "DrillDownPageGuid": "04f3cb79c9aa50eab32f0784cbd4a0a5"
+                  },
+                  "Title": {
+                    "Value": "{label.report_title}"
+                  },
+                  "BorderColor": "255,255,255",
+                  "Brush": "solid:112,173,71",
+                  "Lighting": false
+                }
+              },
+              "Area": {
+                "Ident": "StiPieArea",
+                "AllowApplyStyle": false,
+                "BorderColor": "White",
+                "Brush": "solid:255,255,255"
+              },
+              "Table": {
+                "GridLineColor": "225,225,225",
+                "Header": {
+                  "Brush": "solid:White"
+                },
+                "DataCells": {
+                  "Font": "Tahoma;;;",
+                  "TextColor": "140,140,140"
+                }
+              },
+              "SeriesLabels": {
+                "Ident": "StiCenterPieLabels",
+                "MarkerSize": {
+                  "Width": 8,
+                  "Height": 6
+                },
+                "ValueTypeSeparator": "-",
+                "LabelColor": "51,71,91",
+                "BorderColor": "Transparent",
+                "Brush": "solid:Transparent",
+                "Font": ";10;;"
+              },
+              "Legend": {
+                "ShowShadow": false,
+                "BorderColor": "225,225,225",
+                "Brush": "solid:255,255,255",
+                "TitleColor": "105,105,105",
+                "LabelsColor": "140,140,140",
+                "MarkerSize": {
+                  "Width": 10,
+                  "Height": 10
+                },
+                "Columns": 0,
+                "Size": "0,0"
+              },
+              "Title": {
+                "Brush": "solid:140,140,140"
+              },
+              "Style": {
+                "Ident": "StiStyle25"
+              }
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiGroupHeaderBand",
+          "Name": "GroupHeaderBand1",
+          "ClientRectangle": "0,12,21,1.2",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text4",
+              "Guid": "001fcdd8836b2e6bf39ba145373662ca",
+              "ClientRectangle": "5.2,0.6,3.2,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "数量"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "宋体;9;Bold;",
+              "Border": "All;138,138,138;;;;;;solid:Black",
+              "Brush": "solid:230,230,230",
+              "TextBrush": "solid:92,92,92",
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text9",
+              "Guid": "994d2e92cb34775a6d5fa14d9b35fcde",
+              "ClientRectangle": "8.4,0.6,3.6,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "占比"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "宋体;9;Bold;",
+              "Border": "All;138,138,138;;;;;;solid:Black",
+              "Brush": "solid:230,230,230",
+              "TextBrush": "solid:92,92,92",
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text11",
+              "Guid": "ca74e6ac3c3cad10e7b1a1510057acec",
+              "ClientRectangle": "12,0.6,9,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "VertAlignment": "Center",
+              "Font": "宋体;9;Bold;",
+              "Border": "All;138,138,138;;;;;;solid:Black",
+              "Brush": "solid:230,230,230",
+              "TextBrush": "solid:92,92,92",
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text5",
+              "Guid": "a42fd4141027fe8b22a7a141dc6b222d",
+              "ClientRectangle": "0,0.6,5.2,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.report_title}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "宋体;9;Bold;",
+              "Border": "All;138,138,138;;;;;;solid:Black",
+              "Brush": "solid:230,230,230",
+              "TextBrush": "solid:92,92,92",
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text18",
+              "Guid": "0846d65b83d404634e0afef950c5d5df",
+              "ClientRectangle": "0,0,21,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.report_title}分布统计图"
+              },
+              "VertAlignment": "Center",
+              "Font": "宋体;11;Bold;",
+              "Border": ";;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:255,0,0",
+              "Type": "Expression"
+            }
+          }
+        },
+        "2": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand1",
+          "ClientRectangle": "0,14,21,0.6",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text1",
+              "Guid": "1cfc9817f04eea0d7a38463015050ca4",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,5.2,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{report.argument_column}"
+              },
+              "VertAlignment": "Center",
+              "Font": "宋体;9;;",
+              "Border": "All;184,184,184;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:92,92,92",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text6",
+              "Guid": "1357f5ee0dd6757f3250a1456f9f7dca",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "5.2,0,3.2,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownEnabled": true,
+                "DrillDownPageGuid": "37d22b43b14059b84a4e030aa928332d",
+                "DrillDownParameter1": {
+                  "Name": "smownerid",
+                  "Expression": {
+                    "Value": "report.smownerid"
+                  }
+                },
+                "DrillDownParameter2": {
+                  "Name": "qty",
+                  "Expression": {
+                    "Value": "report.value_column"
+                  }
+                },
+                "DrillDownParameter3": {
+                  "Name": "rate",
+                  "Expression": {
+                    "Value": "Round(report.value_column*100/Sum(DataBand1,report.value_column),2)"
+                  }
+                },
+                "DrillDownParameter4": {
+                  "Name": "argument_column",
+                  "Expression": {
+                    "Value": "report.argument_column"
+                  }
+                }
+              },
+              "ToolTip": {
+                "Value": "{report.argument_column} ,   {report.value_column},   {Round(report.value_column*100/Sum(DataBand1,report.value_column),2)}%"
+              },
+              "Text": {
+                "Value": "{report.value_column}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": ";9;;",
+              "Border": "All;184,184,184;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:65,105,225",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "UseLocalSetting": false
+              },
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text10",
+              "Guid": "4dee0f468531116e1edaa14e0a94d5fd",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "8.4,0,3.6,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{report.value_column/Sum(DataBand1,report.value_column)}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": ";9;;",
+              "Border": "All;184,184,184;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:92,92,92",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiPercentageFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ",",
+                "UseLocalSetting": false,
+                "PositivePattern": 1,
+                "Symbol": "%"
+              },
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text12",
+              "Guid": "6ff14aef19ecbdb940e0a15126587b1a",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "12,0,9,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": ";9;;",
+              "Border": "All;184,184,184;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:92,92,92",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            }
+          },
+          "DataSourceName": "report",
+          "Sort": {
+            "0": "DESC",
+            "1": "value_column"
+          }
+        },
+        "3": {
+          "Ident": "StiGroupFooterBand",
+          "Name": "GroupFooterBand1",
+          "ClientRectangle": "0,15.4,21,0.6",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text13",
+              "Guid": "69066f1369a74e3a9de6a151f357db62",
+              "ClientRectangle": "0,0,5.2,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "合计"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "宋体;9;;",
+              "Border": "All;184,184,184;;;;;;solid:Black",
+              "Brush": "solid:255,255,0",
+              "TextBrush": "solid:92,92,92",
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text15",
+              "Guid": "d9206d34afbce1629f14a15305cfa442",
+              "ClientRectangle": "5.2,0,3.2,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{Sum(DataBand1,report.value_column)}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": ";9;;",
+              "Border": "All;184,184,184;;;;;;solid:Black",
+              "Brush": "solid:255,255,0",
+              "TextBrush": "solid:92,92,92",
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "UseLocalSetting": false
+              },
+              "Type": "Totals"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text16",
+              "Guid": "5127a29597f0d814680aa1531449d9e6",
+              "ClientRectangle": "8.4,0,3.6,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": ";9;;",
+              "Border": "All;184,184,184;;;;;;solid:Black",
+              "Brush": "solid:255,255,0",
+              "TextBrush": "solid:92,92,92",
+              "TextFormat": {
+                "Ident": "StiCurrencyFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ",",
+                "UseLocalSetting": false,
+                "PositivePattern": 0,
+                "Symbol": "¥"
+              },
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text17",
+              "Guid": "98d495de0c7d43fb78a8a153203e7f6d",
+              "ClientRectangle": "12,0,9,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": ";9;;",
+              "Border": "All;184,184,184;;;;;;solid:Black",
+              "Brush": "solid:255,255,0",
+              "TextBrush": "solid:92,92,92",
+              "TextFormat": {
+                "Ident": "StiCurrencyFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ",",
+                "UseLocalSetting": false,
+                "PositivePattern": 0,
+                "Symbol": "¥"
+              },
+              "Type": "Expression"
+            }
+          }
+        }
+      },
+      "ColumnGaps": 1,
+      "ColumnWidth": 1,
+      "Columns": 1,
+      "PageWidth": 23,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    },
+    "1": {
+      "Ident": "StiPage",
+      "Name": "Page2",
+      "Guid": "37d22b43b14059b84a4e030aa928332d",
+      "Alias": "数据钻取列表",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Hyperlink": {
+        "Value": "viewdetails.php?id={details.accountid}"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiReportTitleBand",
+          "Name": "ReportTitleBand2",
+          "ClientRectangle": "0,0.4,26,0.8",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text7",
+              "Guid": "84f640e22026a402320a030e9e375443",
+              "ClientRectangle": "0,0,14.4,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "数据钻取：表中统计值由下列数据得出"
+              },
+              "VertAlignment": "Center",
+              "Font": "宋体;11;Bold;",
+              "Border": ";;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:255,0,0",
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text46",
+              "Guid": "f6e1f63de1637617f6490904ed41a76e",
+              "ClientRectangle": "14.4,0,11.6,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.report_title}-{this[\"argument_column\"]} 共{this[\"qty\"]}条记录"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Bottom",
+              "Font": "宋体;9;;",
+              "Border": ";;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:61,61,61",
+              "Type": "Expression"
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiGroupHeaderBand",
+          "Name": "GroupHeaderBand2",
+          "ClientRectangle": "0,2,26,0.6",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text8",
+              "Guid": "d6d0bbc2ab29be8638b903366976c89d",
+              "ClientRectangle": "0,0,8.6,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.accountname}"
+              },
+              "VertAlignment": "Center",
+              "Font": "宋体;9;Bold;",
+              "Border": "All;138,138,138;;;;;;solid:Black",
+              "Brush": "solid:230,230,230",
+              "TextBrush": "solid:92,92,92",
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text14",
+              "Guid": "6656533af6bcb0a089d60336bc124201",
+              "ClientRectangle": "8.6,0,3.2,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.accounttype}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "宋体;9;Bold;",
+              "Border": "All;138,138,138;;;;;;solid:Black",
+              "Brush": "solid:230,230,230",
+              "TextBrush": "solid:92,92,92",
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text19",
+              "Guid": "e43aa29cf3f44d647e3b0337e62fb7ad",
+              "ClientRectangle": "11.8,0,2.4,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.report_title}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "宋体;9;Bold;",
+              "Border": "All;138,138,138;;;;;;solid:Black",
+              "Brush": "solid:230,230,230",
+              "TextBrush": "solid:92,92,92",
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text20",
+              "Guid": "dc4cf504c0a93eebb6350338098db707",
+              "ClientRectangle": "14.2,0,2.4,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.nolinkdays}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "宋体;9;Bold;",
+              "Border": "All;138,138,138;;;;;;solid:Black",
+              "Brush": "solid:230,230,230",
+              "TextBrush": "solid:92,92,92",
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text22",
+              "Guid": "4b9a886763cc1c70c5ac0339a8a4cf7b",
+              "ClientRectangle": "18.8,0,3.6,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.createdtime}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "宋体;9;Bold;",
+              "Border": "All;138,138,138;;;;;;solid:Black",
+              "Brush": "solid:230,230,230",
+              "TextBrush": "solid:92,92,92",
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text23",
+              "Guid": "5f632815fd4cc49d7fe10339e513709c",
+              "ClientRectangle": "22.4,0,3.6,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.modifiedtime}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "宋体;9;Bold;",
+              "Border": "All;138,138,138;;;;;;solid:Black",
+              "Brush": "solid:230,230,230",
+              "TextBrush": "solid:92,92,92",
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text24",
+              "Guid": "2e9da6c8874a5a4ba4ac751beb49a536",
+              "ClientRectangle": "16.6,0,2.2,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.bill_state}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "宋体;9;Bold;",
+              "Border": "All;138,138,138;;;;;;solid:Black",
+              "Brush": "solid:230,230,230",
+              "TextBrush": "solid:92,92,92",
+              "Type": "DataColumn"
+            }
+          }
+        },
+        "2": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand2",
+          "ClientRectangle": "0,3.4,26,0.6",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text25",
+              "Guid": "81fc764ff1dea697f7ef751232567ffd",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,8.6,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownEnabled": true
+              },
+              "ToolTip": {
+                "Value": "{details.accountname}"
+              },
+              "Hyperlink": {
+                "Value": "viewdetails.php?id={details.accountid}"
+              },
+              "Text": {
+                "Value": "{details.accountname}"
+              },
+              "VertAlignment": "Center",
+              "Font": "宋体;9;;",
+              "Border": "All;184,184,184;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:65,105,225",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text29",
+              "Guid": "ecd99b97cc685cce599d751cbb27656e",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "16.6,0,2.2,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{details.bill_state}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "宋体;9;;",
+              "Border": "All;184,184,184;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:92,92,92",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text26",
+              "Guid": "f3d619b9ddfa3d6bd1dc751d0d6bda4b",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "8.6,0,3.2,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{details.account_type}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "宋体;9;;",
+              "Border": "All;184,184,184;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:92,92,92",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text27",
+              "Guid": "87877ff77cae532a2551751d1e562b3a",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "11.8,0,2.4,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{details.last_name}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "宋体;9;;",
+              "Border": "All;184,184,184;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:92,92,92",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text28",
+              "Guid": "31cb30806add900abd2e751d2d74b147",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "14.2,0,2.4,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{details.nolinkdays}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "宋体;9;;",
+              "Border": "All;184,184,184;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:92,92,92",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text30",
+              "Guid": "a9a2bdb1a6d3f09951ac751d3a5eede3",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "18.8,0,3.6,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{details.createdtime}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "宋体;9;;",
+              "Border": "All;184,184,184;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:92,92,92",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiCustomFormatService",
+                "StringFormat": "yyyy-MM-dd"
+              },
+              "Type": "DataColumn"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text31",
+              "Guid": "0974f6055507632e57de751d4a12f45f",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "22.4,0,3.6,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{details.modifiedtime}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "宋体;9;;",
+              "Border": "All;184,184,184;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:92,92,92",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiCustomFormatService",
+                "StringFormat": "yyyy-MM-dd"
+              },
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "details",
+          "Sort": {
+            "0": "DESC",
+            "1": "modifiedtime"
+          }
+        }
+      },
+      "PageWidth": 28,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    },
+    "2": {
+      "Ident": "StiPage",
+      "Name": "Page3",
+      "Guid": "04f3cb79c9aa50eab32f0784cbd4a0a5",
+      "Alias": "数据钻取列表",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiReportTitleBand",
+          "Name": "ReportTitleBand4",
+          "Guid": "1c08697fc7ca45a108c8078b7588197b",
+          "ClientRectangle": "0,0.4,26,1.2",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text47",
+              "Guid": "1465ebf968ae1cd42077078b7588159b",
+              "ClientRectangle": "0,0,14.4,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "数据钻取：表中统计值由下列数据得出"
+              },
+              "VertAlignment": "Center",
+              "Font": "宋体;11;Bold;",
+              "Border": ";;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:255,0,0",
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text3",
+              "Guid": "478578abaa1634c2f5ab078b7588e10d",
+              "ClientRectangle": "14.4,0,11.6,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.report_title}-{this[\"SeriesArgument\"]} 共{this[\"SeriesValue\"]}条记录"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Bottom",
+              "Font": "宋体;9;;",
+              "Border": ";184,184,184;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:61,61,61",
+              "Type": "Expression"
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiGroupHeaderBand",
+          "Name": "GroupHeaderBand4",
+          "Guid": "1c87b891561d3eb7077e078b7588d8c4",
+          "ClientRectangle": "0,2.4,26,0.6",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text32",
+              "Guid": "b37121a13aa43177e5a8078b7588a7d8",
+              "ClientRectangle": "0,0,8.6,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.accountname}"
+              },
+              "VertAlignment": "Center",
+              "Font": "宋体;9;Bold;",
+              "Border": "All;138,138,138;;;;;;solid:Black",
+              "Brush": "solid:230,230,230",
+              "TextBrush": "solid:92,92,92",
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text33",
+              "Guid": "b96c241051347d8be592078b7588f7a8",
+              "ClientRectangle": "8.6,0,3.2,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.accounttype}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "宋体;9;Bold;",
+              "Border": "All;138,138,138;;;;;;solid:Black",
+              "Brush": "solid:230,230,230",
+              "TextBrush": "solid:92,92,92",
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text34",
+              "Guid": "1d24d9291acafa807f78078b75889ecd",
+              "ClientRectangle": "11.8,0,2.4,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.bill_state}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "宋体;9;Bold;",
+              "Border": "All;138,138,138;;;;;;solid:Black",
+              "Brush": "solid:230,230,230",
+              "TextBrush": "solid:92,92,92",
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text35",
+              "Guid": "78561feae944fdcf4289078b7588faab",
+              "ClientRectangle": "14.2,0,2.4,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.nolinkdays}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "宋体;9;Bold;",
+              "Border": "All;138,138,138;;;;;;solid:Black",
+              "Brush": "solid:230,230,230",
+              "TextBrush": "solid:92,92,92",
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text36",
+              "Guid": "ddc0971fb7243d2837c1078b75886aac",
+              "ClientRectangle": "16.6,0,2.2,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "销售负责人"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "宋体;9;Bold;",
+              "Border": "All;138,138,138;;;;;;solid:Black",
+              "Brush": "solid:230,230,230",
+              "TextBrush": "solid:92,92,92",
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text37",
+              "Guid": "940b090fdfd0a1e1c466078b75889bda",
+              "ClientRectangle": "18.8,0,3.6,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.createdtime}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "宋体;9;Bold;",
+              "Border": "All;138,138,138;;;;;;solid:Black",
+              "Brush": "solid:230,230,230",
+              "TextBrush": "solid:92,92,92",
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text38",
+              "Guid": "69dd4f6ab96229760d8e078b7588af32",
+              "ClientRectangle": "22.4,0,3.6,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.modifiedtime}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "宋体;9;Bold;",
+              "Border": "All;138,138,138;;;;;;solid:Black",
+              "Brush": "solid:230,230,230",
+              "TextBrush": "solid:92,92,92",
+              "Type": "Expression"
+            }
+          }
+        },
+        "2": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand4",
+          "Guid": "30467721b19829c4ace2078b758822db",
+          "ClientRectangle": "0,3.8,26,0.6",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text39",
+              "Guid": "9d678ef91bba8db706e3078b75885096",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,8.6,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownEnabled": true
+              },
+              "ToolTip": {
+                "Value": "{details2.accountname}"
+              },
+              "Hyperlink": {
+                "Value": "viewdetails.php?id={details2.accountid}"
+              },
+              "Text": {
+                "Value": "{details2.accountname}"
+              },
+              "VertAlignment": "Center",
+              "Font": "宋体;9;;",
+              "Border": "All;184,184,184;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:65,105,225",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text40",
+              "Guid": "f479b2c46dd9614b43fe078b75883712",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "8.6,0,3.2,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{details2.account_type}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "宋体;9;;",
+              "Border": "All;184,184,184;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:92,92,92",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text41",
+              "Guid": "23519a958e6e75dda644078b758839a0",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "11.8,0,2.4,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{details2.bill_state}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "宋体;9;;",
+              "Border": "All;184,184,184;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:92,92,92",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text42",
+              "Guid": "1501960184a87ec7d6af078b75880705",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "14.2,0,2.4,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{details2.nolinkdays}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "宋体;9;;",
+              "Border": "All;184,184,184;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:92,92,92",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "DecimalSeparator": ",",
+                "DecimalDigits": 0,
+                "GroupSeparator": "",
+                "UseLocalSetting": false
+              },
+              "Type": "DataColumn"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text43",
+              "Guid": "60fc2fd67bc9d90a6b3b078b75887f99",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "16.6,0,2.2,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{details2.last_name}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "宋体;9;;",
+              "Border": "All;184,184,184;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:92,92,92",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text44",
+              "Guid": "13678c0147cb791fac32078b7588c580",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "18.8,0,3.6,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{details2.createdtime}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "宋体;9;;",
+              "Border": "All;184,184,184;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:92,92,92",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiCustomFormatService",
+                "StringFormat": "yyyy-MM-dd hh:mm:ss"
+              },
+              "Type": "DataColumn"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text45",
+              "Guid": "20b5a7d920a2078c4096078b7588b5a1",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "22.4,0,3.6,0.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{details2.modifiedtime}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "宋体;9;;",
+              "Border": "All;184,184,184;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:92,92,92",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiCustomFormatService",
+                "StringFormat": "yyyy-MM-dd hh:mm:ss"
+              },
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "details2",
+          "Sort": {
+            "0": "DESC",
+            "1": "modifiedtime"
+          }
+        }
+      },
+      "PageWidth": 28,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    }
+  }
+}

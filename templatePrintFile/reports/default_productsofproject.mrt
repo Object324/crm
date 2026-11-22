@@ -1,0 +1,2233 @@
+{
+  "ReportVersion": "2019.3.1",
+  "ReportGuid": "a14cd1f477890345a0446e76e1d2858f",
+  "ReportName": "Booking_Form",
+  "ReportAlias": "Booking Form",
+  "ReportFile": "default_productsofproject.mrt",
+  "ReportCreated": "/Date(2736000000+0800)/",
+  "ReportChanged": "/Date(2736000000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Styles": {
+    "0": {
+      "Ident": "StiStyle",
+      "Name": "column_odd",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:255,255,255",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    },
+    "1": {
+      "Ident": "StiStyle",
+      "Name": "column_even",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:252,252,252",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    }
+  },
+  "Dictionary": {
+    "Variables": {
+      "0": {
+        "Value": "DateSerial(Year(Today),1,1)",
+        "Name": "starttime",
+        "Alias": "开始日期",
+        "Type": "System.DateTime",
+           "InitBy": "Expression",
+        "RequestFromUser": true
+      },
+      "1": {
+        "Value": "Today",
+        "Name": "endtime",
+        "Alias": "截至日期",
+        "Type": "System.DateTime",
+           "InitBy": "Expression",
+        "RequestFromUser": true
+      },
+      "2": {
+        "Name": "projectname",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime"
+        },
+        "Alias": "项目名称",
+        "Type": "System.String",
+        "RequestFromUser": true
+      },
+      "3": {
+        "Name": "form14_type",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime",
+          "AllowUserValues": false,
+          "Keys": {
+            "0": "材料采购",
+            "1": "分包",
+            "2": "劳务",
+            "3": "租赁"
+          },
+          "Values": {
+            "0": "材料采购",
+            "1": "分包",
+            "2": "劳务",
+            "3": "租赁"
+          }
+        },
+        "Alias": "预算单类型",
+        "Type": "Stimulsoft.Report.StringList",
+        "RequestFromUser": true
+      }
+    },
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "a",
+        "Alias": "a",
+        "Columns": {
+          "0": {
+            "Name": "budget_amount",
+            "Index": -1,
+            "NameInSource": "budget_amount",
+            "Alias": "budget_amount",
+            "Type": "System.Object"
+          },
+          "1": {
+            "Name": "budget_quantity",
+            "Index": -1,
+            "NameInSource": "budget_quantity",
+            "Alias": "budget_quantity",
+            "Type": "System.Object"
+          },
+          "2": {
+            "Name": "budget_total",
+            "Index": -1,
+            "NameInSource": "budget_total",
+            "Alias": "budget_total",
+            "Type": "System.Object"
+          },
+          "3": {
+            "Name": "cf_3967",
+            "Index": -1,
+            "NameInSource": "cf_3967",
+            "Alias": "cf_3967",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "costprice",
+            "Index": -1,
+            "NameInSource": "costprice",
+            "Alias": "costprice",
+            "Type": "System.Object"
+          },
+          "5": {
+            "Name": "dol",
+            "Index": -1,
+            "NameInSource": "dol",
+            "Alias": "dol",
+            "Type": "System.String"
+          },
+          "6": {
+            "Name": "last_name",
+            "Index": -1,
+            "NameInSource": "last_name",
+            "Alias": "last_name",
+            "Type": "System.String"
+          },
+          "7": {
+            "Name": "non_amount",
+            "Index": -1,
+            "NameInSource": "non_amount",
+            "Alias": "non_amount",
+            "Type": "System.Object"
+          },
+          "8": {
+            "Name": "non_quantity",
+            "Index": -1,
+            "NameInSource": "non_quantity",
+            "Alias": "non_quantity",
+            "Type": "System.Object"
+          },
+          "9": {
+            "Name": "non_total",
+            "Index": -1,
+            "NameInSource": "non_total",
+            "Alias": "non_total",
+            "Type": "System.Object"
+          },
+          "10": {
+            "Name": "productid",
+            "Index": -1,
+            "NameInSource": "productid",
+            "Alias": "productid",
+            "Type": "System.Int32"
+          },
+          "11": {
+            "Name": "productname",
+            "Index": -1,
+            "NameInSource": "productname",
+            "Alias": "productname",
+            "Type": "System.String"
+          },
+          "12": {
+            "Name": "project_no",
+            "Index": -1,
+            "NameInSource": "project_no",
+            "Alias": "project_no",
+            "Type": "System.String"
+          },
+          "13": {
+            "Name": "projectid",
+            "Index": -1,
+            "NameInSource": "projectid",
+            "Alias": "projectid",
+            "Type": "System.Int32"
+          },
+          "14": {
+            "Name": "projectname",
+            "Index": -1,
+            "NameInSource": "projectname",
+            "Alias": "projectname",
+            "Type": "System.String"
+          },
+          "15": {
+            "Name": "purchase_amount",
+            "Index": -1,
+            "NameInSource": "purchase_amount",
+            "Alias": "purchase_amount",
+            "Type": "System.Object"
+          },
+          "16": {
+            "Name": "purchase_quantity",
+            "Index": -1,
+            "NameInSource": "purchase_quantity",
+            "Alias": "purchase_quantity",
+            "Type": "System.Object"
+          },
+          "17": {
+            "Name": "purchase_total",
+            "Index": -1,
+            "NameInSource": "purchase_total",
+            "Alias": "purchase_total",
+            "Type": "System.Object"
+          },
+          "18": {
+            "Name": "refund_amount",
+            "Index": -1,
+            "NameInSource": "refund_amount",
+            "Alias": "refund_amount",
+            "Type": "System.Object"
+          },
+          "19": {
+            "Name": "refund_quantity",
+            "Index": -1,
+            "NameInSource": "refund_quantity",
+            "Alias": "refund_quantity",
+            "Type": "System.Object"
+          },
+          "20": {
+            "Name": "should_refund_amount",
+            "Index": -1,
+            "NameInSource": "should_refund_amount",
+            "Alias": "should_refund_amount",
+            "Type": "System.Object"
+          },
+          "21": {
+            "Name": "should_refund_quantity",
+            "Index": -1,
+            "NameInSource": "should_refund_quantity",
+            "Alias": "should_refund_quantity",
+            "Type": "System.Object"
+          },
+          "22": {
+            "Name": "smownerid",
+            "Index": -1,
+            "NameInSource": "smownerid",
+            "Alias": "smownerid",
+            "Type": "System.Int32"
+          }
+        },
+        "NameInSource": "crm",
+        "Type": "Table",
+        "SqlCommand": "SELECT\r\n\ta.productid,\r\n\ta.productname,\r\n\tb.projectid,\r\n\tb.projectname,\r\n\tb.project_no,\r\n\tb.smownerid,\r\n\tb.last_name,\r\n\tb.budget_total,\r\n\tb.purchase_total,\r\n\tifnull(b.budget_total, 0) - ifnull(b.purchase_total, 0) AS non_total,\r\n\tcostprice,\r\n\tcf_3967,\r\n\tbudget_quantity,\r\n\tpurchase_quantity,\r\n\t(\r\n\t\tbudget_quantity - purchase_quantity\r\n\t) AS non_quantity,\r\n\tbudget_amount,\r\n\tpurchase_amount,\r\n\t(\r\n\t\tbudget_amount - purchase_amount\r\n\t) AS non_amount,\r\nshould_refund_quantity,should_refund_amount,\r\n\trefund_quantity,refund_amount\r\nFROM\r\n\t(\r\n\t\tSELECT\r\n\t\ta.*, ifnull(b.purchase_quantity, 0) AS purchase_quantity,\r\n\t\tifnull(b.purchase_amount, 0) AS purchase_amount,\r\n\t\tifnull(c.should_refund_quantity, 0)as should_refund_quantity,\r\n\t\tifnull(c.should_refund_amount, 0)as should_refund_amount,\r\n\t\tifnull(d.refund_quantity, 0)as refund_quantity,\r\n\t\tifnull(d.refund_amount, 0)as refund_amount\r\n\tFROM\r\n\t\t(\r\n\t\t\tSELECT\r\n\t\t\t\ta.productid,\r\n\t\t\t\tb.productname,\r\n\t\t\t\tb.costprice,\r\n\t\t\t\tc.cf_3967,\r\n\t\t\t\tconcat(d.projectid,'-', a.productid) AS dol,\r\n\t\t\t\ta.quantity AS budget_quantity,\r\n\t\t\t\td.projectid,\r\n\t\t\t\tsum(ifnull(a.tax_amount,0)) AS budget_amount\r\n\t\t\tFROM\r\n\t\t\t\tld_customform14detail a\r\n\t\t\tLEFT JOIN ld_products b ON a.productid = b.productid\r\n\t\t\tLEFT JOIN ld_productcf c ON a.productid = c.productid\r\n\t\t\tLEFT JOIN ld_customform14 d ON a.id = d.customform14id\r\n\t\t\tWHERE\r\n\t\t\t\t(\r\n\t\t\t\t\ta.productid IS NOT NULL\r\n\t\t\t\t\tOR d.projectid IS NOT NULL\r\n\t\t\t\t)\r\n\t\t\t\r\n\t\t\tAND (\r\n\t\t\t\tCASE WHEN '{form14_type}'='' THEN 1=1 \r\n\t\t\t\tELSE FIND_IN_SET(d.form14_type,'{form14_type}')\r\n\t\t\t\tEND\r\n\t\t\t) \r\n\t\t\tAND b.deleted = 0\r\n\t\t\tAND d.deleted = 0\r\n\t\t\tGROUP BY\r\n\t\t\ta.productid,\r\n\t\t\td.projectid\r\n\t\t\t\t\r\n\t\t) a\r\n\tLEFT JOIN (\r\n\t\tSELECT\r\n\t\t\ta.productid,\r\n\t\t\td.projectid,\r\n\t\t\tconcat(d.projectid,'-', a.productid) AS dol,\r\n\t\t\tsum(ifnull(a.quantity,0)) AS purchase_quantity,\r\n\t\t\tsum(ifnull(a.tax_amount,0)) AS purchase_amount\r\n\t\tFROM\r\n\t\t\tld_purchaseorderdetail  a\r\n\t\tLEFT JOIN ld_products b ON a.productid = b.productid \r\n\t\tLEFT JOIN ld_productcf c ON a.productid = c.productid\r\n\t\tLEFT JOIN ld_purchaseorder d ON a.id = d.purchaseorderid\r\n\t\tWHERE\r\n\t\t\t(\r\n\t\t\t\ta.productid IS NOT NULL\r\n\t\t\t\tOR d.projectid IS NOT NULL\r\n\t\t\t)\r\n\t\tAND b.deleted = 0\r\n\t\tAND d.deleted = 0 \r\n\t\tGROUP BY\r\n\t\t\ta.productid,\r\n\t\t\td.projectid\r\n\t) b ON a.dol = b.dol\r\n\tleft join (\r\n\t\tSELECT\r\n\t\t\ta.productid,\r\n\t\t\te.projectid,\r\n\t\t\tconcat(e.projectid,'-', a.productid) AS dol,\r\n\t\t\tsum(ifnull(a.quantity,0)) AS should_refund_quantity,\r\n\t\t\tsum(ifnull(a.tax_amount,0)) AS should_refund_amount\r\n\t\tFROM\r\n\t\t\tld_purchasebackdetail  a\r\n\t\tLEFT JOIN ld_products b ON a.productid = b.productid \r\n\t\tLEFT JOIN ld_productcf c ON a.productid = c.productid\r\n\t\tLEFT JOIN ld_purchaseback d ON a.id = d.purchasebackid\r\n\t\tleft join ld_purchaseorder e on e.purchaseorderid=d.purchaseorder_id\r\n\t\tWHERE\r\n\t\t\t(\r\n\t\t\t\ta.productid IS NOT NULL\r\n\t\t\t\tOR e.projectid IS NOT NULL\r\n\t\t\t)\r\n\t\tAND b.deleted = 0\r\n\t\tAND e.deleted = 0  \r\n\t\tGROUP BY\r\n\t\t\ta.productid,\r\n\t\t\te.projectid\r\n\t)\tc on a.dol=c.dol\r\n\tleft join (\r\n\t\tSELECT\r\n\t\t\ta.productid,\r\n\t\t\tf.projectid,\r\n\t\t\tconcat(f.projectid,'-', a.productid) AS dol,\r\n\t\t\tsum(ifnull(a.quantity,0)) AS refund_quantity,\r\n\t\t\tsum(ifnull(a.tax_amount,0)) AS refund_amount\r\n\t\tFROM\r\n\t\t\tld_purchasecashbackdetail  a\r\n\t\tLEFT JOIN ld_products b ON a.productid = b.productid \r\n\t\tLEFT JOIN ld_productcf c ON a.productid = c.productid\r\n\t\tLEFT JOIN ld_purchasecashback d ON a.id = d.purchasecashbackid\r\n\t\tLEFT JOIN ld_purchaseback e ON d.purchaseback_id = e.purchasebackid\r\n\t\tleft join ld_purchaseorder f on f.purchaseorderid=e.purchaseorder_id\r\n\t\tWHERE\r\n\t\t\t(\r\n\t\t\t\ta.productid IS NOT NULL\r\n\t\t\t\tOR f.projectid IS NOT NULL\r\n\t\t\t)\r\n\t\tAND b.deleted = 0\r\n\t\tAND f.deleted = 0  \r\n\t\tGROUP BY\r\n\t\t\ta.productid,\r\n\t\t\tf.projectid\r\n\t)d on a.dol=d.dol\r\n) a\r\n\tLEFT JOIN (\r\n\t\tSELECT\r\n\t\t\ta.*, b.purchase_total\r\n\t\tFROM\r\n\t\t\t(\r\n\t\t\t\tSELECT\r\n\t\t\t\t\ta.projectid,\r\n\t\t\t\t\tb.projectname,\r\n\t\t\t\t\tb.project_no,\r\n\t\t\t\t\tb.smownerid,\r\n\t\t\t\t\tu.last_name,\r\n\t\t\t\t\tsum(\r\n\t\t\t\t\t\tifnull(adetail.tax_amount, 0)\r\n\t\t\t\t\t) AS budget_total\r\n\t\t\t\tFROM\r\n\t\t\t\t\tld_customform14  a\r\n\t\t\t\tLEFT JOIN ld_users u ON u.id = a.smownerid\r\n\t\t\t\tLEFT JOIN  ld_project b ON a.projectid = b.projectid\r\n\t\t\t\tLEFT JOIN ld_customform14detail adetail ON a.customform14id = adetail.id\r\n\t\t\t\tWHERE\r\n\t\t\t\t\ta.deleted = 0\r\n\t\t\t\tAND b.createdtime >='{starttime}' and b.createdtime <='{endtime}'\r\n\t\t\t\tAND b.projectname like '%{projectname}%'\r\n\t\t\t\tAND (\r\n\t\t\t\t\tCASE WHEN '{form14_type}'='' THEN 1=1 \r\n\t\t\t\t\tELSE FIND_IN_SET(a.form14_type,'{form14_type}')\r\n\t\t\t\t\tEND\r\n\t\t\t\t) \r\n\t\t\t\tAND b.deleted = 0\r\n\t\t\t\tGROUP BY\r\n\t\t\t\t\ta.projectid\r\n\t\t\t) a\r\n\t\tLEFT JOIN (\r\n\t\t\tSELECT\r\n\t\t\t\ta.projectid,\r\n\t\t\t\tsum(\r\n\t\t\t\t\tifnull(adetail.tax_amount, 0)\r\n\t\t\t\t) AS purchase_total\r\n\t\t\tFROM\r\n\t\t\t\tld_purchaseorder  a\r\n\t\t\tLEFT JOIN  ld_project b ON a.projectid = b.projectid\r\n\t\t\tLEFT JOIN ld_purchaseorderdetail adetail ON a.purchaseorderid = adetail.id\r\n\t\t\tWHERE\r\n\t\t\t\ta.deleted = 0 \r\n\t\t\tAND b.createdtime >='{starttime}' and b.createdtime <='{endtime}'\r\n\t\t\tAND b.projectname like '%{projectname}%'\r\n\t\t\tAND b.deleted = 0 AND a.entitytype='CustomForm14'\r\n\t\t\tGROUP BY\r\n\t\t\t\ta.projectid\r\n\t\t) b ON a.projectid = b.projectid\r\n) b ON b.projectid = a.projectid\r\nwhere b.projectid is not null and b.projectid>0\r\nGROUP BY  b.projectid,a.productid\r\n\r\n\r\n"
+      },
+      "1": {
+        "Ident": "StiMySqlSource",
+        "Name": "budget",
+        "Alias": "budget",
+        "Columns": {
+          "0": {
+            "Name": "customform14_no",
+            "Index": -1,
+            "NameInSource": "customform14_no",
+            "Alias": "customform14_no",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "form14_type",
+            "Index": -1,
+            "NameInSource": "form14_type",
+            "Alias": "form14_type",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "projectname",
+            "Index": -1,
+            "NameInSource": "projectname",
+            "Alias": "projectname",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "productname",
+            "Index": -1,
+            "NameInSource": "productname",
+            "Alias": "productname",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "costprice",
+            "Index": -1,
+            "NameInSource": "costprice",
+            "Alias": "costprice",
+            "Type": "System.String"
+          },
+          "5": {
+            "Name": "cf_3967",
+            "Index": -1,
+            "NameInSource": "cf_3967",
+            "Alias": "cf_3967",
+            "Type": "System.String"
+          },
+          "6": {
+            "Name": "quantity",
+            "Index": -1,
+            "NameInSource": "quantity",
+            "Alias": "quantity",
+            "Type": "System.String"
+          },
+          "7": {
+            "Name": "tax_amount",
+            "Index": -1,
+            "NameInSource": "tax_amount",
+            "Alias": "tax_amount",
+            "Type": "System.String"
+          },
+          "8": {
+            "Name": "total",
+            "Index": -1,
+            "NameInSource": "total",
+            "Alias": "total",
+            "Type": "System.String"
+          },
+          "9": {
+            "Name": "modifiedtime",
+            "Index": -1,
+            "NameInSource": "modifiedtime",
+            "Alias": "modifiedtime",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "crm",
+        "SqlCommand": "SELECT\r\n\t\t\t\ta.customform14_no,a.form14_type,p.projectname,\r\n\t\t\t\td.productid,\r\n\t\t\t\tb.productname,\r\n\t\t\t\tb.costprice,\r\n\t\t\t\tc.cf_3967,\r\n\t\t\t\td.quantity,d.tax_amount,\r\n\t\t\t\ta.projectid,\r\n\t\t\t\ta.total,a.modifiedtime\r\n\t\t\tFROM\r\n\t\t\tld_customform14 a\r\n\t\t\t\r\n\t\t\tLEFT JOIN ld_customform14detail d ON d.id = a.customform14id\r\n\t\t\tLEFT JOIN ld_products b ON d.productid = b.productid\r\n\t\t\tLEFT JOIN ld_productcf c ON d.productid = c.productid\r\n\t\t\tLEFT JOIN ld_project p on p.projectid=a.projectid\r\n\t\t\tWHERE\r\n\t\t\t\t(\r\n\t\t\t\t\td.productid IS NOT NULL\r\n\t\t\t\t\tOR a.projectid IS NOT NULL\r\n\t\t\t\t)\r\n\t\t\tAND (\r\n\t\t\t\tCASE WHEN '{form14_type}'='{form14_type}' THEN 1=1 \r\n\t\t\t\tELSE FIND_IN_SET(a.form14_type,'{form14_type}')\r\n\t\t\t\tEND\r\n\t\t\t)  \r\n\t\t\tAND b.deleted = 0\r\n\t\t\tAND a.deleted = 0\r\n\t\t\tAND p.projectid='{this[\"projectid\"]}'\r\n\t\t\tGROUP BY\r\n\t\t\td.productid,\r\n\t\t\ta.projectid;\r\n\r\n\r\n\r\n"
+      },
+      "2": {
+        "Ident": "StiMySqlSource",
+        "Name": "purchase",
+        "Alias": "purchase",
+        "Columns": {
+          "0": {
+            "Name": "projectname",
+            "Index": -1,
+            "NameInSource": "projectname",
+            "Alias": "projectname",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "purchaseorder_no",
+            "Index": -1,
+            "NameInSource": "purchaseorder_no",
+            "Alias": "purchaseorder_no",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "contracttype",
+            "Index": -1,
+            "NameInSource": "contracttype",
+            "Alias": "contracttype",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "vendorname",
+            "Index": -1,
+            "NameInSource": "vendorname",
+            "Alias": "vendorname",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "total",
+            "Index": -1,
+            "NameInSource": "total",
+            "Alias": "total",
+            "Type": "System.String"
+          },
+          "5": {
+            "Name": "have_invoicetotal",
+            "Index": -1,
+            "NameInSource": "have_invoicetotal",
+            "Alias": "have_invoicetotal",
+            "Type": "System.String"
+          },
+          "6": {
+            "Name": "nothave_invoicetotal",
+            "Index": -1,
+            "NameInSource": "nothave_invoicetotal",
+            "Alias": "nothave_invoicetotal",
+            "Type": "System.String"
+          },
+          "7": {
+            "Name": "pay_balance",
+            "Index": -1,
+            "NameInSource": "pay_balance",
+            "Alias": "pay_balance",
+            "Type": "System.String"
+          },
+          "8": {
+            "Name": "duedate",
+            "Index": -1,
+            "NameInSource": "duedate",
+            "Alias": "duedate",
+            "Type": "System.String"
+          },
+          "9": {
+            "Name": "signed_data",
+            "Index": -1,
+            "NameInSource": "signed_data",
+            "Alias": "signed_data",
+            "Type": "System.String"
+          },
+          "10": {
+            "Name": "total",
+            "Index": -1,
+            "NameInSource": "total",
+            "Alias": "total",
+            "Type": "System.String"
+          },
+          "11": {
+            "Name": "postatus",
+            "Index": -1,
+            "NameInSource": "postatus",
+            "Alias": "postatus",
+            "Type": "System.String"
+          },
+          "12": {
+            "Name": "pay_amount",
+            "Index": -1,
+            "NameInSource": "pay_amount",
+            "Alias": "pay_amount",
+            "Type": "System.String"
+          },
+          "13": {
+            "Name": "last_name",
+            "Index": -1,
+            "NameInSource": "last_name",
+            "Alias": "last_name",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "crm",
+        "SqlCommand": "SELECT\r\n\ta.*, p.projectname,\r\n\tv.vendorname,\r\n\tu.last_name\r\nFROM\r\n\tld_purchaseorder a\r\nLEFT JOIN ld_project p ON a.projectid = p.projectid\r\nLEFT JOIN ld_vendor v ON v.vendorid = a.vendorid\r\nLEFT JOIN ld_users u ON u.id = a.smownerid\r\nWHERE\r\n\ta.projectid IS NOT NULL\r\nAND p.deleted = 0\r\nAND a.deleted = 0\r\nAND a.entitytype = 'CustomForm14'\r\nAND p.projectid = '{this[\"projectid\"]}'"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "crm",
+        "Alias": "crm",
+        "ConnectionStringEncrypted": "40Kby8MKMc1iSaX0a5xqO9XWd2DLWQGk40qhmGIEImbKcHOvyEv79UJBtcDkBWI/3njdCE5MqcVpWu2J5BX2ft/EU8tDCvOZ4B0pgU0d8mPEVtHCyU5LhUVM3axhtPZ70tDNy2cFm9VNS6yt5CA1Z4HeZcLEVZPwbR/l"
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "Page1",
+      "Guid": "4aa6a8611b4e68cbae769fcaae8c6461",
+      "Alias": "项目材料统计表",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;Dash;;;;solid:0,0,0",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiReportTitleBand",
+          "Name": "ReportTitleBand1",
+          "ClientRectangle": "0,0.4,70,0.8",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text39",
+              "Guid": "537aa89c354c4dd8a6f33bd20182d8cf",
+              "ClientRectangle": "0,0,7.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "项目名称"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text40",
+              "Guid": "aceda917ae78ddf08396cb26827f85f5",
+              "ClientRectangle": "7.4,0,5.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "项目编号"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text41",
+              "Guid": "770e079a9e12986afa677e73a8598af2",
+              "ClientRectangle": "12.6,0,4.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "负责人"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text42",
+              "Guid": "bc73efd5f36253e426d2907855911de8",
+              "ClientRectangle": "17.2,0,7.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "产品名称"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text43",
+              "Guid": "fcffca9d5f502d53d8ec515dea401db8",
+              "ClientRectangle": "25,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "规格型号"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text44",
+              "Guid": "39be6c3f9c5ba7bef464c3be25e627e8",
+              "ClientRectangle": "28,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "应采购数量"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text45",
+              "Guid": "82d8a7d2a489db49828663edde2cb88e",
+              "ClientRectangle": "31,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "采购价格"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text46",
+              "Guid": "8e2c5bc14cc97c6a952573ebabddb47d",
+              "ClientRectangle": "34,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "应付总额"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text47",
+              "Guid": "ddf11c715856c388d4637ce26da9ef19",
+              "ClientRectangle": "37,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "已采购数量"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text48",
+              "Guid": "326ffbac1b142c949d74fbc3b7ea46af",
+              "ClientRectangle": "40,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "已采购金额"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "10": {
+              "Ident": "StiText",
+              "Name": "Text93",
+              "Guid": "a6fd5ea89d918013616e6b08aa672d18",
+              "ClientRectangle": "55,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "未采购数量"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "11": {
+              "Ident": "StiText",
+              "Name": "Text94",
+              "Guid": "4873ff5696db10cb02154520b5843f94",
+              "ClientRectangle": "58,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "未支付金额"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "12": {
+              "Ident": "StiText",
+              "Name": "Text95",
+              "Guid": "6224151a87af1800d9eb9820017a81cf",
+              "ClientRectangle": "61,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "项目应付总额"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "13": {
+              "Ident": "StiText",
+              "Name": "Text96",
+              "Guid": "fa66b5ff06e007a0c09a9d6b217df823",
+              "ClientRectangle": "64,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "项目已付总额"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "14": {
+              "Ident": "StiText",
+              "Name": "Text97",
+              "Guid": "8ec3bc43f5ab44c5e3d2476c66aa36ed",
+              "ClientRectangle": "67,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "项目未付余额"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "15": {
+              "Ident": "StiText",
+              "Name": "Text98",
+              "Guid": "ce7201d4dbed9b248b7581595a6d83fa",
+              "ClientRectangle": "43,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "应退款数量"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "16": {
+              "Ident": "StiText",
+              "Name": "Text99",
+              "Guid": "c729d73c019c8066287bdee59eefbb01",
+              "ClientRectangle": "46,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "应退款金额"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "17": {
+              "Ident": "StiText",
+              "Name": "Text100",
+              "Guid": "d2ae836d4eb8b3555dc33c7b753beece",
+              "ClientRectangle": "49,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "已退款数量"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "18": {
+              "Ident": "StiText",
+              "Name": "Text101",
+              "Guid": "46153d6b7638d50b66723f253cb00490",
+              "ClientRectangle": "52,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "已退款金额"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand1",
+          "ClientRectangle": "0,2,70,0.8",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text16",
+              "Guid": "54ca9f9043911507ef7905c4a1bd4fc8",
+              "ClientRectangle": "0,0,7.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Hyperlink": {
+                "Value": "viewdetail.php?id={a.projectid}"
+              },
+              "Tag": {
+                "Value": "{a.projectid}"
+              },
+              "ProcessingDuplicates": "BasedOnTagMerge",
+              "Text": {
+                "Value": "{a.projectname}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:68,114,196",
+              "Type": "DataColumn"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text17",
+              "Guid": "71a574f02f351f5ead04946402540655",
+              "ClientRectangle": "7.4,0,5.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{a.projectid}"
+              },
+              "ProcessingDuplicates": "BasedOnTagMerge",
+              "Text": {
+                "Value": "{a.project_no}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text18",
+              "Guid": "af00d092e19f67058645d13b0043bba9",
+              "ClientRectangle": "12.6,0,4.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{a.projectid}"
+              },
+              "ProcessingDuplicates": "BasedOnTagMerge",
+              "Text": {
+                "Value": "{a.last_name}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text19",
+              "Guid": "9e0f8c352d2fc2cda9152c47d390369e",
+              "ClientRectangle": "17.2,0,7.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Hyperlink": {
+                "Value": "viewdetail.php?id={a.productid}"
+              },
+              "Text": {
+                "Value": "{a.productname}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:68,114,196",
+              "Type": "DataColumn"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text20",
+              "Guid": "ade87e5e7bb47b0eb434376bb58c1988",
+              "ClientRectangle": "25,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{a.cf_3967}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "DataColumn"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text21",
+              "Guid": "2f3b10610ff08138e41d1d320450dc50",
+              "ClientRectangle": "28,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{a.budget_quantity}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "DataColumn"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text22",
+              "Guid": "7561a04ba64d9599af3999b99fb5c255",
+              "ClientRectangle": "31,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{a.costprice}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextFormat": {
+                "Ident": "StiCurrencyFormatService",
+                "NegativePattern": 2,
+                "GroupSeparator": ",",
+                "PositivePattern": 0
+              },
+              "Type": "DataColumn"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text23",
+              "Guid": "f93eaf0918ee9a9c34fcbb4f79057422",
+              "ClientRectangle": "34,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{a.budget_amount}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextFormat": {
+                "Ident": "StiCurrencyFormatService",
+                "NegativePattern": 2,
+                "GroupSeparator": ",",
+                "PositivePattern": 0
+              },
+              "Type": "DataColumn"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text24",
+              "Guid": "d7c854e9d7b9da8aa318087031496e5f",
+              "ClientRectangle": "37,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{a.purchase_quantity}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "DataColumn"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text25",
+              "Guid": "3b2a58e38133ea50088afedc8da07185",
+              "ClientRectangle": "40,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{a.purchase_amount}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextFormat": {
+                "Ident": "StiCurrencyFormatService",
+                "NegativePattern": 2,
+                "GroupSeparator": ",",
+                "PositivePattern": 0
+              },
+              "Type": "DataColumn"
+            },
+            "10": {
+              "Ident": "StiText",
+              "Name": "Text26",
+              "Guid": "bae4d2b355991d87d512592461a47bd3",
+              "ClientRectangle": "55,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{a.non_quantity}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "DataColumn"
+            },
+            "11": {
+              "Ident": "StiText",
+              "Name": "Text27",
+              "Guid": "42950c801e1babef235f3b516207cb44",
+              "ClientRectangle": "58,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{a.non_amount}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextFormat": {
+                "Ident": "StiCurrencyFormatService",
+                "NegativePattern": 2,
+                "GroupSeparator": ",",
+                "PositivePattern": 0
+              },
+              "Type": "DataColumn"
+            },
+            "12": {
+              "Ident": "StiText",
+              "Name": "Text28",
+              "Guid": "2262fed1cb9d08ecc3fc78a6cb94c597",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "61,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownEnabled": true,
+                "DrillDownMode": "SinglePage",
+                "DrillDownPageGuid": "e423556fe427349776da4a0a9d56b601",
+                "DrillDownParameter1": {
+                  "Name": "projectid",
+                  "Expression": {
+                    "Value": "a.projectid"
+                  }
+                }
+              },
+              "Tag": {
+                "Value": "{a.projectid}"
+              },
+              "ProcessingDuplicates": "BasedOnTagMerge",
+              "Text": {
+                "Value": "{a.budget_total}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:68,114,196",
+              "TextFormat": {
+                "Ident": "StiCurrencyFormatService",
+                "NegativePattern": 2,
+                "GroupSeparator": ",",
+                "PositivePattern": 0
+              },
+              "Type": "DataColumn"
+            },
+            "13": {
+              "Ident": "StiText",
+              "Name": "Text29",
+              "Guid": "c0ac30913c3032f78650ba59d10eec61",
+              "CanGrow": true,
+              "ClientRectangle": "64,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownEnabled": true,
+                "DrillDownMode": "SinglePage",
+                "DrillDownPageGuid": "6faccbf08bfd50dc0c8096cad83d0ab5",
+                "DrillDownParameter1": {
+                  "Name": "projectid",
+                  "Expression": {
+                    "Value": "a.projectid"
+                  }
+                }
+              },
+              "Tag": {
+                "Value": "{a.projectid}"
+              },
+              "ProcessingDuplicates": "BasedOnTagMerge",
+              "Text": {
+                "Value": "{a.purchase_total}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:68,114,196",
+              "TextFormat": {
+                "Ident": "StiCurrencyFormatService",
+                "NegativePattern": 2,
+                "GroupSeparator": ",",
+                "PositivePattern": 0
+              },
+              "Type": "DataColumn"
+            },
+            "14": {
+              "Ident": "StiText",
+              "Name": "Text30",
+              "Guid": "8c10de358909027d92505f750e2dc03c",
+              "ClientRectangle": "67,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{a.projectid}"
+              },
+              "ProcessingDuplicates": "BasedOnTagMerge",
+              "Text": {
+                "Value": "{a.non_total}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextFormat": {
+                "Ident": "StiCurrencyFormatService",
+                "NegativePattern": 2,
+                "GroupSeparator": ",",
+                "PositivePattern": 0
+              },
+              "Type": "DataColumn"
+            },
+            "15": {
+              "Ident": "StiText",
+              "Name": "Text35",
+              "Guid": "77cee1806879a8b51db3d196b6f34b13",
+              "ClientRectangle": "43,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{a.should_refund_quantity}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "DataColumn"
+            },
+            "16": {
+              "Ident": "StiText",
+              "Name": "Text36",
+              "Guid": "3aec2557430a1409edc3035d12c63d87",
+              "ClientRectangle": "46,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{a.should_refund_amount}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "DataColumn"
+            },
+            "17": {
+              "Ident": "StiText",
+              "Name": "Text37",
+              "Guid": "09113ee2a14a598e55d1cdf383cf1b4d",
+              "ClientRectangle": "49,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{a.refund_quantity}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "DataColumn"
+            },
+            "18": {
+              "Ident": "StiText",
+              "Name": "Text38",
+              "Guid": "534e86c2fc8c4c80cc65e489fb2e223c",
+              "ClientRectangle": "52,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{a.refund_amount}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "a"
+        }
+      },
+      "PageWidth": 72,
+      "PageHeight": 38,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 0,
+        "Bottom": 0
+      }
+    },
+    "1": {
+      "Ident": "StiPage",
+      "Name": "Page4",
+      "Guid": "e423556fe427349776da4a0a9d56b601",
+      "Alias": "预算单详情",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiHeaderBand",
+          "Name": "HeaderBand2",
+          "ClientRectangle": "0,0.4,26,0.8",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text75",
+              "Guid": "9d0ff8c4c63044567ff7ce40a70d6c4c",
+              "ClientRectangle": "0,0,6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "项目名称"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text76",
+              "Guid": "75e4668c857f2bd71c2cba0daf7e332a",
+              "ClientRectangle": "6,0,2.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "预算单编号"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text77",
+              "Guid": "12ef852dbd85168044d1ac7d2f698813",
+              "ClientRectangle": "8.2,0,2.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "单据类型"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text78",
+              "Guid": "652467732f0ceec651f8f74e0c56f17a",
+              "ClientRectangle": "10.6,0,3.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "产品名称"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text79",
+              "Guid": "c38bd7ce828db11bb3560b06ffea635b",
+              "ClientRectangle": "14.2,0,2.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "规格型号"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text80",
+              "Guid": "719b4618d87be220f86d6d5d153d3729",
+              "ClientRectangle": "16.4,0,2.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "价格"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text81",
+              "Guid": "dcc82cea2ddf3ce4efa96423c2b8893a",
+              "ClientRectangle": "18.6,0,2.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "数量"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text82",
+              "Guid": "b68be7040fd55427b2b518b82b957969",
+              "ClientRectangle": "20.8,0,2.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "小计"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text83",
+              "Guid": "98cbdb55d611e7860edb4ffde3b28b07",
+              "ClientRectangle": "23,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "更新时间"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand2",
+          "ClientRectangle": "0,2,26,0.8",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text84",
+              "Guid": "a636ba93a3ae7144a7f78bdf1cc5c381",
+              "ClientRectangle": "0,0,6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{budget.projectname}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "DataColumn"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text85",
+              "Guid": "04b12c7c38f77ebbb5ce7dec41cc6029",
+              "ClientRectangle": "6,0,2.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{budget.customform14_no}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text86",
+              "Guid": "8ad130d60f262090d22f5d9af03a7532",
+              "ClientRectangle": "8.2,0,2.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{budget.form14_type}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text87",
+              "Guid": "2e47ad800ae675907b4362e0d6b3622f",
+              "ClientRectangle": "10.6,0,3.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{budget.productname}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "DataColumn"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text88",
+              "Guid": "e3d707e61b9faaeb2fdad571ef14769a",
+              "ClientRectangle": "14.2,0,2.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{budget.cf_3967}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "DataColumn"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text89",
+              "Guid": "0c5ee81ad402fbfb8b31741d0c1df12d",
+              "ClientRectangle": "16.4,0,2.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{budget.costprice}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "TextFormat": {
+                "Ident": "StiCurrencyFormatService",
+                "NegativePattern": 2,
+                "GroupSeparator": ",",
+                "PositivePattern": 0
+              },
+              "Type": "DataColumn"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text91",
+              "Guid": "0ea0e3ef6d1dfa67e0cae032b9bf2b93",
+              "ClientRectangle": "20.8,0,2.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{budget.total}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextFormat": {
+                "Ident": "StiCurrencyFormatService",
+                "NegativePattern": 2,
+                "GroupSeparator": ",",
+                "PositivePattern": 0
+              },
+              "Type": "DataColumn"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text90",
+              "Guid": "4019dd5e2d8f89eeb67dc8fb3ccd52c7",
+              "ClientRectangle": "18.6,0,2.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{budget.quantity}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "DataColumn"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text92",
+              "Guid": "07f979d80b57b2c1ebf6424d2335e330",
+              "ClientRectangle": "23,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{budget.modifiedtime}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "TextFormat": {
+                "Ident": "StiDateFormatService"
+              },
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "budget"
+        }
+      },
+      "PageWidth": 28,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    },
+    "2": {
+      "Ident": "StiPage",
+      "Name": "Page3",
+      "Guid": "6faccbf08bfd50dc0c8096cad83d0ab5",
+      "Alias": "采购单详情",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiHeaderBand",
+          "Name": "HeaderBand3",
+          "Guid": "c9a17719b26180a7a54502e7a35aadad",
+          "ClientRectangle": "0,0.4,36,0.8",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": "All;;;;;;;solid:0,0,0",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text49",
+              "Guid": "02b5df89a2b7d086956bcd93ccb1ec01",
+              "ClientRectangle": "0,0,6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "项目名称"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text50",
+              "Guid": "5d45b41a14eca28625242b901e7881d2",
+              "ClientRectangle": "6,0,2.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "编号"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text51",
+              "Guid": "118532045c7b67c95678fe537c81840b",
+              "ClientRectangle": "8.2,0,2.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "单据类型"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text52",
+              "Guid": "61d3633a66bed6fc3aedfaf464cdab7c",
+              "ClientRectangle": "10.6,0,3.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "供应商名称"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text53",
+              "Guid": "2c9bdc4b5e9d72b749caf2c76ea37f74",
+              "ClientRectangle": "14.2,0,2.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "已付总额"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text54",
+              "Guid": "9bdd0fd9be154e045d08c9e1a3d00ef0",
+              "ClientRectangle": "16.4,0,2.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "已开票金额"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text55",
+              "Guid": "6e9488b056224cb7158cd6df97243207",
+              "ClientRectangle": "18.6,0,2.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "未开票金额"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text56",
+              "Guid": "d2ab42776c111256d176fe8df7e5b7c9",
+              "ClientRectangle": "20.8,0,2.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "应付余额"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text57",
+              "Guid": "29ac44d34f0b3b33edd80aab52103895",
+              "ClientRectangle": "23,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "交付日期"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text58",
+              "Guid": "765e7b6fa10448e39a0b985a6a0fa178",
+              "ClientRectangle": "26,0,2.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "签约日期"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "10": {
+              "Ident": "StiText",
+              "Name": "Text59",
+              "Guid": "c0a210f81ec7ae6cd0fd12ae6f65db70",
+              "ClientRectangle": "28.2,0,2.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "订单状态"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            },
+            "11": {
+              "Ident": "StiText",
+              "Name": "Text60",
+              "Guid": "3527e8c87a0ae2a87c5b0b4677d33e88",
+              "ClientRectangle": "30.4,0,2.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "采购负责人"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "12": {
+              "Ident": "StiText",
+              "Name": "Text61",
+              "Guid": "80402f3505ed3425bd5ba98a2fdffda4",
+              "ClientRectangle": "32.6,0,3.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "订单合计"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "Expression"
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand3",
+          "ClientRectangle": "0,2,36,0.8",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text62",
+              "Guid": "d811026b3e995649963a5ac17d897441",
+              "ClientRectangle": "0,0,6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{purchase.projectname}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "DataColumn"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text63",
+              "Guid": "a8831d7ee7716fab2b481477119a9bad",
+              "ClientRectangle": "6,0,2.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{purchase.purchaseorder_no}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text64",
+              "Guid": "45d9bbaf479b9894527528c0f130590a",
+              "ClientRectangle": "8.2,0,2.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{purchase.contracttype}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text65",
+              "Guid": "cb44eb8d27def20fff7557a0223b961e",
+              "ClientRectangle": "10.6,0,3.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{purchase.vendorname}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "DataColumn"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text66",
+              "Guid": "9265bc76dacf70f845f701cc02d2371d",
+              "ClientRectangle": "14.2,0,2.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{purchase.pay_amount}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "DataColumn"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text67",
+              "Guid": "1989e5ec658e13947b4ecb7a3b5dc6a1",
+              "ClientRectangle": "16.4,0,2.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{purchase.have_invoicetotal}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "DataColumn"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text68",
+              "Guid": "e8efb3a5901afb72616b2058f693b832",
+              "ClientRectangle": "18.6,0,2.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{purchase.nothave_invoicetotal}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "DataColumn"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text69",
+              "Guid": "6ab14855d9bcf614c5eae7ef56939666",
+              "ClientRectangle": "20.8,0,2.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{purchase.pay_banlance}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "DataColumn"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text70",
+              "Guid": "9ec206977973fa3fac0471bd9894baeb",
+              "ClientRectangle": "23,0,3,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{purchase.duedate}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "DataColumn"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text71",
+              "Guid": "3b6cdd5b3471077cb666b73718996f97",
+              "ClientRectangle": "26,0,2.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{purchase.signed_data}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "DataColumn"
+            },
+            "10": {
+              "Ident": "StiText",
+              "Name": "Text72",
+              "Guid": "13dba95cbba94a9dc53fc2c3a571bb9e",
+              "ClientRectangle": "28.2,0,2.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{purchase.postatus}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "DataColumn"
+            },
+            "11": {
+              "Ident": "StiText",
+              "Name": "Text73",
+              "Guid": "a3a034ff783e224d801efe7a57d7bb02",
+              "ClientRectangle": "30.4,0,2.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{purchase.last_name}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "DataColumn"
+            },
+            "12": {
+              "Ident": "StiText",
+              "Name": "Text74",
+              "Guid": "f040a9f60fbf197ddcddf7156c55300b",
+              "ClientRectangle": "32.6,0,3.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{purchase.total}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:0,0,0",
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "purchase"
+        }
+      },
+      "PageWidth": 38,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    }
+  }
+}

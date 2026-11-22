@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+
+<style type="text/css">
+.font1 {
+	font-family: "宋体";
+	font-size: 11pt;
+	font-weight: bold;
+}
+.font2 {
+	font-family: "宋体";
+	font-size: 11pt;
+	font-weight: normal;
+}
+
+.font3 {
+	font-family: "宋体";
+	font-size: 24pt;
+	font-weight: bold;
+}
+
+
+.font5 {
+	font-family: "宋体";
+	font-size:8pt;
+	font-weight: normal;
+}
+
+.tdfont1 {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+
+.tdfont1 tr td {
+	border:1px solid #000;
+}
+
+</style>
+
+<body>
+<div>[var.company_logoname_company]</div>
+<div class="font3" align="center">借款申请单</div>
+
+<table class="tdfont1" cellpadding="0" cellspacing="0" style="width:100%; margin-top:4mm">
+    <tr style="line-height:8mm">
+        <td style="width:12%" align="left"><div class="font2" style="margin-left:1mm">申请人</div></td>
+        <td style="width:38%"><div class="font2" style="margin-left:1mm">[var.loanapply_assigned_user_id_LoanApply]</div></td>
+        <td style="width:12%" align="left"><div class="font2" style="margin-left:1mm">单据编号</div></td>
+        <td style="width:38%"><div class="font2" style="margin-left:1mm">[var.loanapply_loanapply_no_LoanApply]</div></td>
+    </tr>
+    <tr style="line-height:8mm">
+        <td><div class="font2" style="margin-left:1mm" align="left">借款金额</div></td>
+        <td><div class="font2" style="margin-left:1mm">[var.loanapply_loanmoney_LoanApply]</div></td>
+        <td><div class="font2" style="margin-left:1mm" align="left">预计还款日期</div></td>
+        <td><div class="font2" style="margin-left:1mm">[var.loanapply_paymentdate_LoanApply]</div></td>
+    </tr>
+    <tr style="height:15mm; line-height:6mm">
+        <td><div class="font2" style="margin-left:1mm" align="left">借款事由</div></td>
+        <td colspan="3"><div class="font2" style="margin-left:1mm">[var.loanapply_loanreason_LoanApply]</div></td>
+    </tr>
+    <tr style="height:20mm; line-height:6mm">
+        <td><div class="font2" style="margin-left:1mm" align="left">审批意见</div></td>
+        <td colspan="3">
+            <table class="tdfont1" cellpadding="0" cellspacing="0" style="width:100%">
+				<tbody>
+                <tr>
+                    <td style="width:12%; border:none">
+                        <div class="font5" align="left" style="margin-left:1mm">[var.approvedetails_operator_approve]</div>
+                    </td>
+                    <td style="width:22%; border:none">
+                        <div class="font5" align="left">[var.approvedetails_createdtime_approve]</div>
+                    </td>
+                    <td style="width:32%; border:none">
+                    	<div class="font5" align="left">[var.approvedetails_approveresult_approve]</div>
+                    </td>
+                    <td style="width:34%; border:none">
+                    	<div class="font5" align="left">[var.approvedetails_description_approve]</div>
+                    </td>
+                </tr>
+				</tbody>
+            </table>  
+        </td>
+    </tr>
+</table>
+ 
+</body>
+</html>

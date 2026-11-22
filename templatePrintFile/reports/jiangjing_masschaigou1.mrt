@@ -1,0 +1,892 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" application="StiReport" type="Flex">
+  <Dictionary isKey="true" Ref="1" type="Dictionary">
+    <Databases isList="true" count="1">
+      <ldcrm isKey="true" Ref="2" type="Stimulsoft.Report.Dictionary.StiMySqlDatabase">
+        <Alias>ldcrm</Alias>
+        <ConnectionStringEncrypted>9Gxz62FcS83hR9WI6CU0n8LQdWBhD1GFwxWx3GqEdy/CyPvKxgvziEYa0fBhXKQvgW5lr+9tM+1r
+E8H06vgyI4NgaS3GT0O8Z0n9jcR0tWf/FN3CYVFagUZcoOBnVHTv</ConnectionStringEncrypted>
+        <Name>ldcrm</Name>
+      </ldcrm>
+    </Databases>
+    <DataSources isList="true" count="3">
+      <users isKey="true" Ref="3" type="Stimulsoft.Report.Dictionary.StiMySqlSource">
+        <Alias>users</Alias>
+        <Columns isList="true" count="2">
+          <value>id,System.Int32</value>
+          <value>last_name,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1"/>
+        <Name>users</Name>
+        <NameInSource>ldcrm</NameInSource>
+        <Parameters isList="true" count="0"/>
+        <SqlCommand>SELECT
+	id,
+	last_name
+FROM ld_users WHERE `status`='Active'</SqlCommand>
+      </users>
+      <report isKey="true" Ref="4" type="Stimulsoft.Report.Dictionary.StiMySqlSource">
+        <Alias>report</Alias>
+        <Columns isList="true" count="14">
+          <value>salesorderid,System.Int32</value>
+          <value>salesorder_no,System.String</value>
+          <value>signed_data,System.DateTime</value>
+          <value>accountname,System.String</value>
+          <value>productname,System.String</value>
+          <value>productsheet,System.String</value>
+          <value>stockpresence,System.String</value>
+          <value>smownerid,System.Int32</value>
+          <value>last_name,System.String</value>
+          <value>quantity,System.Decimal</value>
+          <value>haveoutproductcount,System.Decimal</value>
+          <value>balanceoutproductcount,System.Decimal</value>
+          <value>balancepurchasecount,System.Decimal</value>
+          <value>comment,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1"/>
+        <Name>report</Name>
+        <NameInSource>ldcrm</NameInSource>
+        <Parameters isList="true" count="0"/>
+        <SqlCommand>SELECT
+	a.salesorderid,
+	a.salesorder_no,
+	a.signed_data,
+	c.accountname,
+	d.productname,
+	d.productsheet,
+	a.stockpresence,
+	a.smownerid,
+	e.last_name,
+	b.quantity,
+	b.haveoutproductcount,
+	b.balanceoutproductcount,
+	b.balancepurchasecount,
+	b.`comment`
+FROM ld_salesorder a
+LEFT JOIN ld_inventoryproductrel b ON a.salesorderid=b.id
+LEFT JOIN ld_account c ON c.accountid=a.accountid
+LEFT JOIN ld_products d ON d.productid=b.productid
+LEFT JOIN ld_users e ON e.id=a.smownerid
+WHERE a.deleted=0
+	AND a.approvestatus&lt;&gt;'已拒绝'
+	AND signed_data BETWEEN STR_TO_DATE('{start_date}','%m/%d/%Y') AND STR_TO_DATE('{end_date}','%m/%d/%Y')
+	AND LOCATE(TRIM('{custname}'),c.accountname)&gt;0
+	AND LOCATE(TRIM('{orderno}'),a.salesorder_no)&gt;0
+	AND (
+		CASE
+			WHEN '{ckzt}'='全部' THEN 1=1
+			ELSE a.stockpresence='{ckzt}'
+		END)
+	AND (
+		CASE
+			WHEN '{userid}'='' THEN 1=1
+			ELSE FIND_IN_SET(a.smownerid,'{userid}')
+		END)</SqlCommand>
+      </report>
+      <purchase_data isKey="true" Ref="5" type="Stimulsoft.Report.Dictionary.StiMySqlSource">
+        <Alias>purchase_data</Alias>
+        <Columns isList="true" count="1">
+          <value>json_products,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1"/>
+        <Name>purchase_data</Name>
+        <NameInSource>ldcrm</NameInSource>
+        <Parameters isList="true" count="0"/>
+        <SqlCommand>SELECT
+	CONCAT('[',GROUP_CONCAT(CONCAT((select symbol from tmp_symbol where id=1),'"productid":',b.productid,',"quantity":',REPLACE(b.balanceoutproductcount,',',''),',"lineitem_id":',b.lineitem_id,',"entitytype":','"SalesOrder"',(select symbol from tmp_symbol where id=2))),']') AS json_products
+FROM ld_salesorder a
+LEFT JOIN ld_inventoryproductrel b ON a.salesorderid=b.id
+LEFT JOIN ld_account c ON c.accountid=a.accountid
+LEFT JOIN ld_products d ON d.productid=b.productid
+LEFT JOIN ld_users e ON e.id=a.smownerid
+WHERE a.deleted=0
+	AND a.approvestatus&lt;&gt;'已拒绝'
+	AND b.balanceoutproductcount&gt;0
+	AND signed_data BETWEEN STR_TO_DATE('11/01/2017 00:00:00 AM','%m/%d/%Y') AND STR_TO_DATE('11/27/2017 00:00:00 AM','%m/%d/%Y')
+	AND LOCATE(TRIM(''),c.accountname)&gt;0
+	AND LOCATE(TRIM(''),a.salesorder_no)&gt;0
+	AND (
+		CASE
+			WHEN '全部'='全部' THEN 1=1
+			ELSE a.stockpresence='全部'
+		END)
+	AND (
+		CASE
+			WHEN ''='' THEN 1=1
+			ELSE FIND_IN_SET(a.smownerid,'')
+		END)</SqlCommand>
+      </purchase_data>
+    </DataSources>
+    <Relations isList="true" count="0"/>
+    <Report isRef="0"/>
+    <Variables isList="true" count="6">
+      <value>,start_date,起始日期,,System.DateTime,DateSerial_x0028_Year_x0028_Today_x0029__x002C_Month_x0028_Today_x0029__x002C_1_x0029_,False,True,True</value>
+      <value>,custname,客户名称,,System.String,,False,True,True</value>
+      <value>,ckzt,出库状态,,System.String,全部,False,False,True,False,_x003C__x003F_xml_x0020_version_x003D__x0022_1_x002E_0_x0022__x0020_encoding_x003D__x0022_utf_x002D_8_x0022__x0020_standalone_x003D__x0022_yes_x0022__x003F__x003E__x003C_StiSerializer_x0020_version_x003D__x0022_1_x002E_02_x0022__x0020_application_x003D__x0022_State_x0022__x0020_type_x003D__x0022_Flex_x0022__x003E__x003C_Keys_x0020_isList_x003D__x0022_true_x0022__x0020_count_x003D__x0022_5_x0022__x003E__x003C_value_x003E_全部_x003C__x002F_value_x003E__x003C_value_x003E_未出库_x003C__x002F_value_x003E__x003C_value_x003E_全部出库_x003C__x002F_value_x003E__x003C_value_x003E_部分出库_x003C__x002F_value_x003E__x003C_value_x003E_生成出库单_x003C__x002F_value_x003E__x003C__x002F_Keys_x003E__x003C_Values_x0020_isList_x003D__x0022_true_x0022__x0020_count_x003D__x0022_5_x0022__x003E__x003C_value_x003E_全部_x003C__x002F_value_x003E__x003C_value_x003E_未出库_x003C__x002F_value_x003E__x003C_value_x003E_全部出库_x003C__x002F_value_x003E__x003C_value_x003E_部分出库_x003C__x002F_value_x003E__x003C_value_x003E_生成出库单_x003C__x002F_value_x003E__x003C__x002F_Values_x003E__x003C__x002F_StiSerializer_x003E_</value>
+      <value>,end_date,结束日期,,System.DateTime,Today,False,True,True</value>
+      <value>,orderno,合同编号,,System.String,,False,False,True</value>
+      <value>,userid,销售负责人,,Stimulsoft.Report.StringList,,False,False,True,False,_x003C__x003F_xml_x0020_version_x003D__x0022_1_x002E_0_x0022__x0020_encoding_x003D__x0022_utf_x002D_8_x0022__x0020_standalone_x003D__x0022_yes_x0022__x003F__x003E__x003C_StiSerializer_x0020_version_x003D__x0022_1_x002E_02_x0022__x0020_application_x003D__x0022_State_x0022__x0020_type_x003D__x0022_Flex_x0022__x003E__x003C_AllowUserValues_x003E_False_x003C__x002F_AllowUserValues_x003E__x003C_ItemsInitializationType_x003E_Columns_x003C__x002F_ItemsInitializationType_x003E__x003C_Keys_x0020_isList_x003D__x0022_true_x0022__x0020_count_x003D__x0022_0_x0022__x002F__x003E__x003C_KeysColumn_x003E_users_x002E_id_x003C__x002F_KeysColumn_x003E__x003C_Values_x0020_isList_x003D__x0022_true_x0022__x0020_count_x003D__x0022_0_x0022__x002F__x003E__x003C_ValuesColumn_x003E_users_x002E_last_name_x003C__x002F_ValuesColumn_x003E__x003C__x002F_StiSerializer_x003E_</value>
+    </Variables>
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0"/>
+  <MetaTags isList="true" count="0"/>
+  <Pages isList="true" count="1">
+    <Page1 isKey="true" Ref="6" type="Page">
+      <Alias>产品库存统计表</Alias>
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="3">
+        <ReportTitleBand1 isKey="true" Ref="7" type="ReportTitleBand">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.4,30,2.4</ClientRectangle>
+          <Components isList="true" count="13">
+            <Text1 isKey="true" Ref="8" type="Text">
+              <Border>Top, Left, Right;Gray;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0,30,1.2</ClientRectangle>
+              <ComponentStyle>Style1</ComponentStyle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,20</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text1</Name>
+              <Page isRef="6"/>
+              <Parent isRef="7"/>
+              <Text>批量采购报表</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text1>
+            <Text3 isKey="true" Ref="9" type="Text">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>0,1.2,1.2,1.2</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,10,Bold</Font>
+              <Guid>f5d0f72140ad0324c5e0f17d22e35c48</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text3</Name>
+              <Page isRef="6"/>
+              <Parent isRef="7"/>
+              <Text>#</Text>
+              <TextBrush>[0:0:0]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text3>
+            <Text4 isKey="true" Ref="10" type="Text">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>1.2,1.2,3.6,1.2</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,10,Bold</Font>
+              <Guid>caac0f27dbf5ab5f942bf17e09af7526</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text4</Name>
+              <Page isRef="6"/>
+              <Parent isRef="7"/>
+              <Text>合同编号</Text>
+              <TextBrush>[0:0:0]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text4>
+            <Text7 isKey="true" Ref="11" type="Text">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>6.8,1.2,5.8,1.2</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,10,Bold</Font>
+              <Guid>584cd43922cd376bc3cdf17ffec01a24</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text7</Name>
+              <Page isRef="6"/>
+              <Parent isRef="7"/>
+              <Text>客户名称</Text>
+              <TextBrush>[0:0:0]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text7>
+            <Text15 isKey="true" Ref="12" type="Text">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>12.6,1.2,2.8,1.2</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,10,Bold</Font>
+              <Guid>afb582aa136929965215c8c33a66739d</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text15</Name>
+              <Page isRef="6"/>
+              <Parent isRef="7"/>
+              <Text>产品型号</Text>
+              <TextBrush>[0:0:0]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text15>
+            <Text20 isKey="true" Ref="13" type="Text">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>15.4,1.2,2,1.2</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,10,Bold</Font>
+              <Guid>2b4695f247a36ebe5d60c8d4b099ee8c</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text20</Name>
+              <Page isRef="6"/>
+              <Parent isRef="7"/>
+              <Text>出库状态</Text>
+              <TextBrush>[0:0:0]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text20>
+            <Text24 isKey="true" Ref="14" type="Text">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>19,1.2,2,1.2</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,10,Bold</Font>
+              <Guid>3a9cb670d9b8ea2c06a3c8e6b660828e</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text24</Name>
+              <Page isRef="6"/>
+              <Parent isRef="7"/>
+              <Text>已出库数量</Text>
+              <TextBrush>[0:0:0]</TextBrush>
+              <ToolTip>产品已签单还没有出库的数量</ToolTip>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text24>
+            <Text35 isKey="true" Ref="15" type="Text">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>21,1.2,2,1.2</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,10,Bold</Font>
+              <Guid>c66f6f1b6ca5892494b1c8e7a32be792</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text35</Name>
+              <Page isRef="6"/>
+              <Parent isRef="7"/>
+              <Text>未出库数量</Text>
+              <TextBrush>[0:0:0]</TextBrush>
+              <ToolTip>产品已签订采购订单还没有入库的数量</ToolTip>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text35>
+            <Text42 isKey="true" Ref="16" type="Text">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>23,1.2,2,1.2</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,10,Bold</Font>
+              <Guid>f2ed6f49857205fd9fdac8f20e510976</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text42</Name>
+              <Page isRef="6"/>
+              <Parent isRef="7"/>
+              <Text>未采购数量</Text>
+              <TextBrush>[0:0:0]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text42>
+            <Text75 isKey="true" Ref="17" type="Text">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>25,1.2,5,1.2</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,10,Bold</Font>
+              <Guid>871cf747a3f966acfccbc8f29e0517d4</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text75</Name>
+              <Page isRef="6"/>
+              <Parent isRef="7"/>
+              <Text>备注</Text>
+              <TextBrush>[0:0:0]</TextBrush>
+              <ToolTip>安全库存差额=即时库存-锁定数量+在途数量-安全库存</ToolTip>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text75>
+            <Text57 isKey="true" Ref="18" type="Text">
+              <Border>None;Gray;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>22,0,8,1.2</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,10,Bold|Underline</Font>
+              <Guid>f5df23fc2e04777481d8e767316e73e6</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Hyperlink>createPurchaseOrder.php?productid={purchase_data.json_products}</Hyperlink>
+              <Interaction isKey="true" Ref="19" type="Stimulsoft.Report.Components.StiInteraction">
+                <DrillDownEnabled>True</DrillDownEnabled>
+              </Interaction>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text57</Name>
+              <Page isRef="6"/>
+              <Parent isRef="7"/>
+              <Text>创建采购订单</Text>
+              <TextBrush>[65:105:225]</TextBrush>
+              <ToolTip>创建采购订单</ToolTip>
+              <Type>Expression</Type>
+              <VertAlignment>Bottom</VertAlignment>
+            </Text57>
+            <Text60 isKey="true" Ref="20" type="Text">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>17.2,1.2,1.8,1.2</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,10,Bold</Font>
+              <Guid>4a87ed03bba8c5edf29ff23b7c878d64</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text60</Name>
+              <Page isRef="6"/>
+              <Parent isRef="7"/>
+              <Text>销售负责人</Text>
+              <TextBrush>[0:0:0]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text60>
+            <Text62 isKey="true" Ref="21" type="Text">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>4.8,1.2,2,1.2</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,10,Bold</Font>
+              <Guid>0e4b14b9eec66da2992df245fa9e5783</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text62</Name>
+              <Page isRef="6"/>
+              <Parent isRef="7"/>
+              <Text>签约日期</Text>
+              <TextBrush>[0:0:0]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text62>
+          </Components>
+          <Conditions isList="true" count="0"/>
+          <Name>ReportTitleBand1</Name>
+          <Page isRef="6"/>
+          <Parent isRef="6"/>
+        </ReportTitleBand1>
+        <DataBand1 isKey="true" Ref="22" type="DataBand">
+          <Border>None;Black;2;Solid;False;4;Black</Border>
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,3.6,30,1</ClientRectangle>
+          <Components isList="true" count="11">
+            <Text5 isKey="true" Ref="23" type="Text">
+              <Border>All;Gray;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,0,1.2,1</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,9</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>a28a5b018edbc121ab66f17f7a6f88e2</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text5</Name>
+              <Page isRef="6"/>
+              <Parent isRef="22"/>
+              <Text>{LineThrough}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>SystemVariables</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text5>
+            <Text74 isKey="true" Ref="24" type="Text">
+              <Border>All;Gray;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>6.8,0,5.8,1</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,9</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>883bf6cdaf511b2c45eec89aad1b82ad</Guid>
+              <Margins>2,0,0,0</Margins>
+              <Name>Text74</Name>
+              <Page isRef="6"/>
+              <Parent isRef="22"/>
+              <ProcessingDuplicates>Merge</ProcessingDuplicates>
+              <Text>{report.accountname}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text74>
+            <Text6 isKey="true" Ref="25" type="Text">
+              <Border>All;Gray;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>1.2,0,3.6,1</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,9</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>d4d08f68aa7c9d4e634af17fd0c6c298</Guid>
+              <Margins>2,0,0,0</Margins>
+              <Name>Text6</Name>
+              <Page isRef="6"/>
+              <Parent isRef="22"/>
+              <Text>{report.salesorder_no}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text6>
+            <Text10 isKey="true" Ref="26" type="Text">
+              <Border>All;Gray;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>12.6,0,2.8,1</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,9</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>25f3156703c52ee18edec8c33a6605c5</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text10</Name>
+              <Page isRef="6"/>
+              <Parent isRef="22"/>
+              <Text>{report.productname}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text10>
+            <Text13 isKey="true" Ref="27" type="Text">
+              <Border>All;Gray;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>15.4,0,1.8,1</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,9</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>70f6e99410d7ed8534d5c8d4b09ae127</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text13</Name>
+              <Page isRef="6"/>
+              <Parent isRef="22"/>
+              <Text>{report.stockpresence}</Text>
+              <TextBrush>[0:0:0]</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <ToolTip>出库状态</ToolTip>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text13>
+            <Text29 isKey="true" Ref="28" type="Text">
+              <Border>All;Gray;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>23,0,2,1</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,9</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>274acdd27debcaf9b1d4c8f20e511bef</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text29</Name>
+              <Page isRef="6"/>
+              <Parent isRef="22"/>
+              <Text>{report.balancepurchasecount}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <ToolTip>未采购数量</ToolTip>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text29>
+            <Text40 isKey="true" Ref="29" type="Text">
+              <Border>All;Gray;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>25,0,5,1</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,9</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>e51d65b70fc5695ce70cc8f29e05b9dd</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text40</Name>
+              <Page isRef="6"/>
+              <Parent isRef="22"/>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <ToolTip>备注</ToolTip>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text40>
+            <Text23 isKey="true" Ref="30" type="Text">
+              <Border>All;Gray;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>17.2,0,1.8,1</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,9</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>28bad103870e597d1c94f23b7c874d71</Guid>
+              <Margins>2,0,0,0</Margins>
+              <Name>Text23</Name>
+              <Page isRef="6"/>
+              <Parent isRef="22"/>
+              <Text>{report.last_name}</Text>
+              <TextBrush>[0:0:0]</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <ToolTip>销售负责人</ToolTip>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text23>
+            <Text55 isKey="true" Ref="31" type="Text">
+              <Border>All;Gray;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>19,0,2,1</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,9</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>d665fde184a738b89db1f23d98c09e54</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text55</Name>
+              <Page isRef="6"/>
+              <Parent isRef="22"/>
+              <Text>{report.haveoutproductcount}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <ToolTip>已出库数量</ToolTip>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text55>
+            <Text59 isKey="true" Ref="32" type="Text">
+              <Border>All;Gray;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>21,0,2,1</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,9</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>a608a62fe1cb93559c92f23dae48da11</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text59</Name>
+              <Page isRef="6"/>
+              <Parent isRef="22"/>
+              <Text>{report.balanceoutproductcount}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <ToolTip>未出库数量</ToolTip>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text59>
+            <Text19 isKey="true" Ref="33" type="Text">
+              <Border>All;Gray;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>4.8,0,2,1</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,9</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>3a46b4b3101079d82e18f245fa9e9d05</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text19</Name>
+              <Page isRef="6"/>
+              <Parent isRef="22"/>
+              <Text>{report.signed_data}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat isKey="true" Ref="34" type="CustomFormat">
+                <StringFormat>yyyy-MM-dd</StringFormat>
+              </TextFormat>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text19>
+          </Components>
+          <Conditions isList="true" count="0"/>
+          <DataSourceName>report</DataSourceName>
+          <EvenStyle>column_even</EvenStyle>
+          <Filters isList="true" count="0"/>
+          <Name>DataBand1</Name>
+          <OddStyle>column_odd</OddStyle>
+          <Page isRef="6"/>
+          <Parent isRef="6"/>
+          <Sort isList="true" count="2">
+            <value>ASC</value>
+            <value>productid</value>
+          </Sort>
+        </DataBand1>
+        <ReportSummaryBand1 isKey="true" Ref="35" type="ReportSummaryBand">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,5.4,30,1</ClientRectangle>
+          <Components isList="true" count="11">
+            <Text39 isKey="true" Ref="36" type="Text">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[255:255:0]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>1.2,0,3.6,1</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,9</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>b0ccefb6825b36e69abcf18d1928366d</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text39</Name>
+              <Page isRef="6"/>
+              <Parent isRef="35"/>
+              <Text>合计</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text39>
+            <Text41 isKey="true" Ref="37" type="Text">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[255:255:0]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>4.8,0,2,1</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,9</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>08fc362d79b2550bdcb2f18d19281d43</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text41</Name>
+              <Page isRef="6"/>
+              <Parent isRef="35"/>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text41>
+            <Text31 isKey="true" Ref="38" type="Text">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[255:255:0]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,0,1.2,1</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,9</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>07cda0ae27435f036655f5a1aae09de9</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text31</Name>
+              <Page isRef="6"/>
+              <Parent isRef="35"/>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text31>
+            <Text12 isKey="true" Ref="39" type="Text">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[255:255:0]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>6.8,0,5.8,1</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,9</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>32f0b6275360165b4addc8c33a6603aa</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text12</Name>
+              <Page isRef="6"/>
+              <Parent isRef="35"/>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text12>
+            <Text22 isKey="true" Ref="40" type="Text">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[255:255:0]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>17.2,0,1.8,1</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,9</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>d49064acbba1af7ee19fc8e6b6607c96</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text22</Name>
+              <Page isRef="6"/>
+              <Parent isRef="35"/>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <ToolTip>锁定数量-合计</ToolTip>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text22>
+            <Text26 isKey="true" Ref="41" type="Text">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[255:255:0]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>19,0,2,1</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,9</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>f1c83e09ee35f93fb903c8e7a32b0c0d</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text26</Name>
+              <Page isRef="6"/>
+              <Parent isRef="35"/>
+              <Text>{Sum(DataBand1,report.haveoutproductcount)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <ToolTip>在途数量-合计</ToolTip>
+              <Type>Totals</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text26>
+            <Text72 isKey="true" Ref="42" type="Text">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[255:255:0]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>25,0,5,1</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,9</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>32e892463b79ca88b9f0c8f29e055c34</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text72</Name>
+              <Page isRef="6"/>
+              <Parent isRef="35"/>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <ToolTip>安全库存差额-合计</ToolTip>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text72>
+            <Text58 isKey="true" Ref="43" type="Text">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[255:255:0]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>12.6,0,2.8,1</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,9</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>f86d04ded768b7be1535f247fa34d5ef</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text58</Name>
+              <Page isRef="6"/>
+              <Parent isRef="35"/>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text58>
+            <Text61 isKey="true" Ref="44" type="Text">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[255:255:0]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>15.4,0,1.8,1</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,9</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>11c06db9ab379c66f12ef2482fcf8c3d</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text61</Name>
+              <Page isRef="6"/>
+              <Parent isRef="35"/>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text61>
+            <Text37 isKey="true" Ref="45" type="Text">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[255:255:0]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>21,0,2,1</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,9</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>efc1db6d53ed1161d702f2488d9066de</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text37</Name>
+              <Page isRef="6"/>
+              <Parent isRef="35"/>
+              <Text>{Sum(DataBand1,report.balanceoutproductcount)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <ToolTip>在途数量-合计</ToolTip>
+              <Type>Totals</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text37>
+            <Text63 isKey="true" Ref="46" type="Text">
+              <Border>All;[153:153:153];1;Solid;False;4;Black</Border>
+              <Brush>[255:255:0]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>23,0,2,1</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,9</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>780a618a2f6ec6e483e3f248a976ed38</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text63</Name>
+              <Page isRef="6"/>
+              <Parent isRef="35"/>
+              <Text>{Sum(DataBand1,report.balancepurchasecount)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <ToolTip>在途数量-合计</ToolTip>
+              <Type>Totals</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text63>
+          </Components>
+          <Conditions isList="true" count="0"/>
+          <Name>ReportSummaryBand1</Name>
+          <Page isRef="6"/>
+          <Parent isRef="6"/>
+        </ReportSummaryBand1>
+      </Components>
+      <Conditions isList="true" count="0"/>
+      <Guid>7a63ece74acd9b16d3cef16f83d3c036</Guid>
+      <Margins>1,1,1,1</Margins>
+      <Name>Page1</Name>
+      <PageHeight>29.7</PageHeight>
+      <PageWidth>32</PageWidth>
+      <Report isRef="0"/>
+      <Watermark isKey="true" Ref="47" type="Stimulsoft.Report.Components.StiWatermark">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Page1>
+  </Pages>
+  <PrinterSettings isKey="true" Ref="48" type="Stimulsoft.Report.Print.StiPrinterSettings"/>
+  <ReportAlias>批量采购报表</ReportAlias>
+  <ReportChanged>11/27/2017 07:08:34 PM</ReportChanged>
+  <ReportCreated>05/10/2017 04:17:49 PM</ReportCreated>
+  <ReportFile>D:\xampp\www\crm\templatePrintFile\reports\jiangjing_masschaigou.mrt</ReportFile>
+  <ReportGuid>0c0376d03ee92afb67cefd2a15758940</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2016.3</ReportVersion>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="2">
+    <column_odd isKey="true" Ref="49" type="Stimulsoft.Report.StiStyle">
+      <AllowUseBorderSidesFromLocation>True</AllowUseBorderSidesFromLocation>
+      <AllowUseHorAlignment>True</AllowUseHorAlignment>
+      <AllowUseVertAlignment>True</AllowUseVertAlignment>
+      <Border>None;Gray;1;Solid;False;4;Black</Border>
+      <Brush>EmptyBrush</Brush>
+      <Conditions isList="true" count="0"/>
+      <Font>微软雅黑,9</Font>
+      <Image/>
+      <Name>column_odd</Name>
+      <TextBrush>Black</TextBrush>
+      <VertAlignment>Center</VertAlignment>
+    </column_odd>
+    <column_even isKey="true" Ref="50" type="Stimulsoft.Report.StiStyle">
+      <AllowUseBorderSidesFromLocation>True</AllowUseBorderSidesFromLocation>
+      <AllowUseHorAlignment>True</AllowUseHorAlignment>
+      <AllowUseVertAlignment>True</AllowUseVertAlignment>
+      <Border>None;Gray;1;Solid;False;4;Black</Border>
+      <Brush>[244:244:244]</Brush>
+      <Conditions isList="true" count="0"/>
+      <Font>微软雅黑,9</Font>
+      <Image/>
+      <Name>column_even</Name>
+      <TextBrush>Black</TextBrush>
+      <VertAlignment>Center</VertAlignment>
+    </column_even>
+  </Styles>
+</StiSerializer>

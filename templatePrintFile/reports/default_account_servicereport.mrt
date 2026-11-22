@@ -1,0 +1,2168 @@
+{
+  "ReportVersion": "2019.4.1",
+  "ReportGuid": "23c06b02ad1a710afdf430ebbb1ccd60",
+  "ReportName": "Report",
+  "ReportAlias": "客户年度服务报告",
+  "ReportFile": "default_account_servicereport.mrt",
+  "ReportCreated": "/Date(86400000+0800)/",
+  "ReportChanged": "/Date(86400000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Styles": {
+    "0": {
+      "Ident": "StiStyle",
+      "Name": "column_odd",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:255,255,255",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    },
+    "1": {
+      "Ident": "StiStyle",
+      "Name": "column_even",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:252,252,252",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    }
+  },
+  "Dictionary": {
+    "Variables": {
+      "0": {
+        "Value": "DateSerial(Year(Today),1,1)",
+        "Name": "start_date",
+        "Alias": "起始日期",
+        "Type": "System.DateTime",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      },
+      "1": {
+        "Name": "custname",
+        "Alias": "客户名称",
+        "Type": "System.String",
+        "RequestFromUser": true
+      },
+      "2": {
+        "Value": "Today",
+        "Name": "end_date",
+        "Alias": "截止日期",
+        "Type": "System.DateTime",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      }
+    },
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "label",
+        "Alias": "label",
+        "Columns": {
+          "0": {
+            "Name": "enabled",
+            "Index": -1,
+            "NameInSource": "enabled",
+            "Alias": "enabled",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "lab_report",
+            "Index": -1,
+            "NameInSource": "lab_report",
+            "Alias": "lab_report",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "lab_acc1",
+            "Index": -1,
+            "NameInSource": "lab_acc1",
+            "Alias": "lab_acc1",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "lab_acc2",
+            "Index": -1,
+            "NameInSource": "lab_acc2",
+            "Alias": "lab_acc2",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "lab_acc3",
+            "Index": -1,
+            "NameInSource": "lab_acc3",
+            "Alias": "lab_acc3",
+            "Type": "System.String"
+          },
+          "5": {
+            "Name": "lab_acc4",
+            "Index": -1,
+            "NameInSource": "lab_acc4",
+            "Alias": "lab_acc4",
+            "Type": "System.String"
+          },
+          "6": {
+            "Name": "lab_acc5",
+            "Index": -1,
+            "NameInSource": "lab_acc5",
+            "Alias": "lab_acc5",
+            "Type": "System.String"
+          },
+          "7": {
+            "Name": "lab_acc6",
+            "Index": -1,
+            "NameInSource": "lab_acc6",
+            "Alias": "lab_acc6",
+            "Type": "System.String"
+          },
+          "8": {
+            "Name": "lab_con1",
+            "Index": -1,
+            "NameInSource": "lab_con1",
+            "Alias": "lab_con1",
+            "Type": "System.String"
+          },
+          "9": {
+            "Name": "lab_con2",
+            "Index": -1,
+            "NameInSource": "lab_con2",
+            "Alias": "lab_con2",
+            "Type": "System.String"
+          },
+          "10": {
+            "Name": "lab_con3",
+            "Index": -1,
+            "NameInSource": "lab_con3",
+            "Alias": "lab_con3",
+            "Type": "System.String"
+          },
+          "11": {
+            "Name": "lab_con4",
+            "Index": -1,
+            "NameInSource": "lab_con4",
+            "Alias": "lab_con4",
+            "Type": "System.String"
+          },
+          "12": {
+            "Name": "lab_con5",
+            "Index": -1,
+            "NameInSource": "lab_con5",
+            "Alias": "lab_con5",
+            "Type": "System.String"
+          },
+          "13": {
+            "Name": "lab_con6",
+            "Index": -1,
+            "NameInSource": "lab_con6",
+            "Alias": "lab_con6",
+            "Type": "System.String"
+          },
+          "14": {
+            "Name": "lab_pro1",
+            "Index": -1,
+            "NameInSource": "lab_pro1",
+            "Alias": "lab_pro1",
+            "Type": "System.String"
+          },
+          "15": {
+            "Name": "lab_pro2",
+            "Index": -1,
+            "NameInSource": "lab_pro2",
+            "Alias": "lab_pro2",
+            "Type": "System.String"
+          },
+          "16": {
+            "Name": "lab_pro3",
+            "Index": -1,
+            "NameInSource": "lab_pro3",
+            "Alias": "lab_pro3",
+            "Type": "System.String"
+          },
+          "17": {
+            "Name": "lab_pro4",
+            "Index": -1,
+            "NameInSource": "lab_pro4",
+            "Alias": "lab_pro4",
+            "Type": "System.String"
+          },
+          "18": {
+            "Name": "lab_pro5",
+            "Index": -1,
+            "NameInSource": "lab_pro5",
+            "Alias": "lab_pro5",
+            "Type": "System.String"
+          },
+          "19": {
+            "Name": "lab_pro6",
+            "Index": -1,
+            "NameInSource": "lab_pro6",
+            "Alias": "lab_pro6",
+            "Type": "System.String"
+          },
+          "20": {
+            "Name": "lab_sertime",
+            "Index": -1,
+            "NameInSource": "lab_sertime",
+            "Alias": "lab_sertime",
+            "Type": "System.String"
+          },
+          "21": {
+            "Name": "lab_ser1",
+            "Index": -1,
+            "NameInSource": "lab_ser1",
+            "Alias": "lab_ser1",
+            "Type": "System.String"
+          },
+          "22": {
+            "Name": "lab_ser2",
+            "Index": -1,
+            "NameInSource": "lab_ser2",
+            "Alias": "lab_ser2",
+            "Type": "System.String"
+          },
+          "23": {
+            "Name": "lab_ser3",
+            "Index": -1,
+            "NameInSource": "lab_ser3",
+            "Alias": "lab_ser3",
+            "Type": "System.String"
+          },
+          "24": {
+            "Name": "lab_ser4",
+            "Index": -1,
+            "NameInSource": "lab_ser4",
+            "Alias": "lab_ser4",
+            "Type": "System.String"
+          },
+          "25": {
+            "Name": "lab_ser5",
+            "Index": -1,
+            "NameInSource": "lab_ser5",
+            "Alias": "lab_ser5",
+            "Type": "System.String"
+          },
+          "26": {
+            "Name": "lab_ser6",
+            "Index": -1,
+            "NameInSource": "lab_ser6",
+            "Alias": "lab_ser6",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT\r\n(SELECT \r\n\tCASE \r\n\t\tWHEN EXISTS (SELECT 1 FROM ld_account WHERE accountname=TRIM('{custname}') AND deleted=0) THEN 'yes'\r\n\t\tELSE 'no'\r\n\tEND) AS enabled,\r\n(SELECT \r\n\tCASE \r\n\t\tWHEN TRIM('{custname}')='' THEN \r\n\t\t\t'******公司******年度服务报告'\r\n\t\tWHEN EXISTS (SELECT 1 FROM ld_account WHERE accountname=TRIM('{custname}') AND deleted=0) THEN\r\n\t\t\t(SELECT CONCAT(accountname,'年度服务报告') FROM ld_account WHERE accountname=TRIM('{custname}') AND deleted=0 ORDER BY accountid LIMIT 1)\r\n\t\tELSE\r\n\t\t\t'******公司******年度服务报告'\r\n\tEND) AS lab_report,\r\n(SELECT\r\n\tb.fieldlabel\r\nFROM ld_field a\r\nLEFT JOIN ld_tranlabel b ON a.fieldid=b.Relateid AND b.trantable='ld_field' AND b.languagetype='zh'\r\nWHERE a.tabid=6\r\n\tAND a.columnname='accountname' LIMIT 1) AS lab_acc1,\r\n(SELECT \r\n\tCASE \r\n\tWHEN TRIM('{custname}')='' THEN '请输入完整客户名称进行精确查找'\r\n\tWHEN EXISTS (SELECT 1 FROM ld_account WHERE accountname=TRIM('{custname}') AND deleted=0) THEN\r\n\t\t(SELECT accountname FROM ld_account WHERE accountname=TRIM('{custname}') AND deleted=0 ORDER BY accountid LIMIT 1)\r\n\tELSE\r\n\t\t'未找到任何记录，请重新输入完整的客户名称进行精确查找'\r\nEND) lab_acc2,\r\n(SELECT\r\n\tb.fieldlabel\r\nFROM ld_field a\r\nLEFT JOIN ld_tranlabel b ON a.fieldid=b.Relateid AND b.trantable='ld_field' AND b.languagetype='zh'\r\nWHERE a.tabid=6\r\n\tAND a.columnname='bill_street' LIMIT 1) AS lab_acc3,\r\n(SELECT bill_street FROM ld_account WHERE accountname=TRIM('{custname}') AND deleted=0 ORDER BY accountid DESC LIMIT 1) AS lab_acc4,\r\n(SELECT\r\n\tb.fieldlabel\r\nFROM ld_field a\r\nLEFT JOIN ld_tranlabel b ON a.fieldid=b.Relateid AND b.trantable='ld_field' AND b.languagetype='zh'\r\nWHERE a.tabid=6\r\n\tAND a.columnname='phone' LIMIT 1) AS lab_acc5,\r\n(SELECT phone FROM ld_account WHERE accountname=TRIM('{custname}') AND deleted=0 ORDER BY accountid DESC LIMIT 1) AS lab_acc6,\r\n'联系人' AS lab_con1,\r\n(SELECT\r\n\tb.fieldlabel\r\nFROM ld_field a\r\nLEFT JOIN ld_tranlabel b ON a.fieldid=b.Relateid AND b.trantable='ld_field' AND b.languagetype='zh'\r\nWHERE a.tabid=4\r\n\tAND a.columnname='title' LIMIT 1) AS lab_con2,\r\n(SELECT\r\n\tb.fieldlabel\r\nFROM ld_field a\r\nLEFT JOIN ld_tranlabel b ON a.fieldid=b.Relateid AND b.trantable='ld_field' AND b.languagetype='zh'\r\nWHERE a.tabid=4\r\n\tAND a.columnname='pphone' LIMIT 1) AS lab_con3,\r\n(SELECT\r\n\tb.fieldlabel\r\nFROM ld_field a\r\nLEFT JOIN ld_tranlabel b ON a.fieldid=b.Relateid AND b.trantable='ld_field' AND b.languagetype='zh'\r\nWHERE a.tabid=4\r\n\tAND a.columnname='mobile' LIMIT 1) AS lab_con4,\r\n(SELECT\r\n\tb.fieldlabel\r\nFROM ld_field a\r\nLEFT JOIN ld_tranlabel b ON a.fieldid=b.Relateid AND b.trantable='ld_field' AND b.languagetype='zh'\r\nWHERE a.tabid=4\r\n\tAND a.columnname='qq' LIMIT 1) AS lab_con5,\r\n(SELECT\r\n\tb.fieldlabel\r\nFROM ld_field a\r\nLEFT JOIN ld_tranlabel b ON a.fieldid=b.Relateid AND b.trantable='ld_field' AND b.languagetype='zh'\r\nWHERE a.tabid=4\r\n\tAND a.columnname='email' LIMIT 1) AS lab_con6,\r\n(SELECT\r\n\tb.fieldlabel\r\nFROM ld_field a\r\nLEFT JOIN ld_tranlabel b ON a.fieldid=b.Relateid AND b.trantable='ld_field' AND b.languagetype='zh'\r\nWHERE a.tabid=14\r\n\tAND a.columnname='productname' LIMIT 1) AS lab_pro1,\r\n(SELECT\r\n\tb.fieldlabel\r\nFROM ld_field a\r\nLEFT JOIN ld_tranlabel b ON a.fieldid=b.Relateid AND b.trantable='ld_field' AND b.languagetype='zh'\r\nWHERE a.tabid=14\r\n\tAND a.columnname='productcategory' LIMIT 1) AS lab_pro2,\r\n'使用模块' AS lab_pro3,\r\n(SELECT\r\n\tb.fieldlabel\r\nFROM ld_producttoolfield a\r\nLEFT JOIN ld_tranlabel b ON a.producttoolfieldid=b.Relateid AND b.trantable='ld_producttoolfield' AND b.languagetype='zh'\r\nWHERE a.tabid=37\r\n\tAND a.columnname='quantity' LIMIT 1) AS lab_pro4,\r\n(SELECT\r\n\tb.fieldlabel\r\nFROM ld_producttoolfield a\r\nLEFT JOIN ld_tranlabel b ON a.producttoolfieldid=b.Relateid AND b.trantable='ld_producttoolfield' AND b.languagetype='zh'\r\nWHERE a.tabid=37\r\n\tAND a.columnname='serialnumber' LIMIT 1) AS lab_pro5,\r\n(SELECT\r\n\tb.fieldlabel\r\nFROM ld_producttoolfield a\r\nLEFT JOIN ld_tranlabel b ON a.producttoolfieldid=b.Relateid AND b.trantable='ld_producttoolfield' AND b.languagetype='zh'\r\nWHERE a.tabid=37\r\n\tAND a.columnname='servicecontracts_end_date' LIMIT 1) AS lab_pro6,\r\nCONCAT('服务时间：',IFNULL(DATE_FORMAT('{start_date}','%Y-%m-%d'),''),' 至 ',IFNULL(DATE_FORMAT('{end_date}','%Y-%m-%d'),'')) AS lab_sertime,\r\n(SELECT\r\n\tb.fieldlabel\r\nFROM ld_field a\r\nLEFT JOIN ld_tranlabel b ON a.fieldid=b.Relateid AND b.trantable='ld_field' AND b.languagetype='zh'\r\nWHERE a.tabid=13\r\n\tAND a.columnname='ticket_no' LIMIT 1) AS lab_ser1,\r\n(SELECT\r\n\tb.fieldlabel\r\nFROM ld_field a\r\nLEFT JOIN ld_tranlabel b ON a.fieldid=b.Relateid AND b.trantable='ld_field' AND b.languagetype='zh'\r\nWHERE a.tabid=13\r\n\tAND a.columnname='servicetype' LIMIT 1) AS lab_ser2,\r\n(SELECT\r\n\tb.fieldlabel\r\nFROM ld_field a\r\nLEFT JOIN ld_tranlabel b ON a.fieldid=b.Relateid AND b.trantable='ld_field' AND b.languagetype='zh'\r\nWHERE a.tabid=13\r\n\tAND a.columnname='hopetime' LIMIT 1) AS lab_ser3,\r\n(SELECT\r\n\tb.fieldlabel\r\nFROM ld_field a\r\nLEFT JOIN ld_tranlabel b ON a.fieldid=b.Relateid AND b.trantable='ld_field' AND b.languagetype='zh'\r\nWHERE a.tabid=13\r\n\tAND a.columnname='realtime' LIMIT 1) AS lab_ser4,\r\n(SELECT\r\n\tb.fieldlabel\r\nFROM ld_field a\r\nLEFT JOIN ld_tranlabel b ON a.fieldid=b.Relateid AND b.trantable='ld_field' AND b.languagetype='zh'\r\nWHERE a.tabid=13\r\n\tAND a.columnname='category' LIMIT 1) AS lab_ser5,\r\n(SELECT\r\n\tb.fieldlabel\r\nFROM ld_field a\r\nLEFT JOIN ld_tranlabel b ON a.fieldid=b.Relateid AND b.trantable='ld_field' AND b.languagetype='zh'\r\nWHERE a.tabid=13\r\n\tAND a.columnname='status' LIMIT 1) AS lab_ser6"
+      },
+      "1": {
+        "Ident": "StiMySqlSource",
+        "Name": "contact",
+        "Alias": "contact",
+        "Columns": {
+          "0": {
+            "Name": "email",
+            "Index": -1,
+            "NameInSource": "email",
+            "Alias": "email",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "enabled",
+            "Index": -1,
+            "NameInSource": "enabled",
+            "Alias": "enabled",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "lastname",
+            "Index": -1,
+            "NameInSource": "lastname",
+            "Alias": "lastname",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "mobile",
+            "Index": -1,
+            "NameInSource": "mobile",
+            "Alias": "mobile",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "pphone",
+            "Index": -1,
+            "NameInSource": "pphone",
+            "Alias": "pphone",
+            "Type": "System.String"
+          },
+          "5": {
+            "Name": "qq",
+            "Index": -1,
+            "NameInSource": "qq",
+            "Alias": "qq",
+            "Type": "System.String"
+          },
+          "6": {
+            "Name": "title",
+            "Index": -1,
+            "NameInSource": "title",
+            "Alias": "title",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT\r\n\tCASE\r\n\t\tWHEN EXISTS (SELECT 1 FROM ld_account WHERE accountname=TRIM('{custname}') AND deleted=0) THEN 'no'\r\n\t\tELSE 'yes'\r\n\tEND AS enabled,\r\n\tb.lastname,\r\n\tb.title,\r\n\tb.pphone,\r\n\tb.mobile,\r\n\tc.qq,\r\n\tb.email\r\nFROM (SELECT accountid FROM ld_account WHERE deleted=0 AND accountname=TRIM('{custname}') ORDER BY accountid LIMIT 1) a\r\nLEFT JOIN ld_contactdetails b ON a.accountid=b.accountid AND b.deleted=0\r\nLEFT JOIN ld_contactscf c ON b.contactid=c.contactid"
+      },
+      "2": {
+        "Ident": "StiMySqlSource",
+        "Name": "product",
+        "Alias": "product",
+        "Columns": {
+          "0": {
+            "Name": "productname",
+            "Index": -1,
+            "NameInSource": "productname",
+            "Alias": "productname",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "productcategory",
+            "Index": -1,
+            "NameInSource": "productcategory",
+            "Alias": "productcategory",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "quantity",
+            "Index": -1,
+            "NameInSource": "quantity",
+            "Alias": "quantity",
+            "Type": "System.Decimal"
+          },
+          "3": {
+            "Name": "serialnumber",
+            "Index": -1,
+            "NameInSource": "serialnumber",
+            "Alias": "serialnumber",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "enddate",
+            "Index": -1,
+            "NameInSource": "enddate",
+            "Alias": "enddate",
+            "Type": "System.DateTime"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT\r\n\t*\r\nFROM (\r\n\tSELECT\r\n\t\tproductname,\r\n\t\tproductcategory,\r\n\t\tquantity,\r\n\t\tserialnumber,\r\n\t\tmax(servicecontracts_end_date) AS enddate\r\n\tFROM (\r\n\t\tSELECT\r\n\t\t\tc.productid,\r\n\t\t\td.productname,\r\n\t\t\td.productcategory,\r\n\t\t\tc.servicecontracts_end_date,\r\n\t\t\tc.quantity,\r\n\t\t\tc.serialnumber\r\n\t\tFROM (SELECT accountid FROM ld_account WHERE deleted=0 AND accountname=TRIM('{custname}') ORDER BY accountid LIMIT 1) a\r\n\t\tLEFT JOIN ld_servicecontracts b ON a.accountid=b.accountid\r\n\t\tLEFT JOIN ld_servicecontractsdetail c ON b.servicecontractsid=c.id\r\n\t\tLEFT JOIN ld_products d ON d.productid=c.productid\r\n\t\tWHERE b.deleted=0\r\n\t\t\tAND IFNULL(b.contract_status,'')<>'已作废'\r\n\t\t\tAND b.approvestatus<>'已拒绝'\r\n\t\tORDER BY c.productid,c.servicecontracts_end_date desc\r\n\t) a\r\n\tGROUP BY productid\r\n) t\r\nORDER BY CONVERT (productname USING GBK)"
+      },
+      "3": {
+        "Ident": "StiMySqlSource",
+        "Name": "ticket",
+        "Alias": "ticket",
+        "Columns": {
+          "0": {
+            "Name": "category",
+            "Index": -1,
+            "NameInSource": "category",
+            "Alias": "category",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "hopetime",
+            "Index": -1,
+            "NameInSource": "hopetime",
+            "Alias": "hopetime",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "realtime",
+            "Index": -1,
+            "NameInSource": "realtime",
+            "Alias": "realtime",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "servicetype",
+            "Index": -1,
+            "NameInSource": "servicetype",
+            "Alias": "servicetype",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "status",
+            "Index": -1,
+            "NameInSource": "status",
+            "Alias": "status",
+            "Type": "System.String"
+          },
+          "5": {
+            "Name": "ticket_no",
+            "Index": -1,
+            "NameInSource": "ticket_no",
+            "Alias": "ticket_no",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT\r\n\tb.ticket_no,\r\n\tb.servicetype,\r\n\tDATE_FORMAT(b.hopetime,'%Y-%m-%d %H:%i:%s') AS hopetime,\r\n\tDATE_FORMAT(b.realtime,'%Y-%m-%d %H:%i:%s') AS realtime,\r\n\tb.category,\r\n\tb.`status`\r\nFROM (SELECT accountid FROM ld_account WHERE deleted=0 AND accountname=TRIM('{custname}') ORDER BY accountid LIMIT 1) a\r\nLEFT JOIN ld_troubletickets b ON a.accountid=b.accountid\r\nWHERE b.deleted=0\r\n\tAND b.approvestatus<>'已拒绝'\r\n\tAND DATE_FORMAT(IFNULL(b.realtime,b.createdtime),'%Y-%m-%d') BETWEEN DATE_FORMAT('{start_date}','%Y-%m-%d') AND DATE_FORMAT('{end_date}','%Y-%m-%d')\r\nORDER BY b.realtime"
+      },
+      "4": {
+        "Ident": "StiMySqlSource",
+        "Name": "chart",
+        "Alias": "chart",
+        "Columns": {
+          "0": {
+            "Name": "charttype",
+            "Index": -1,
+            "NameInSource": "charttype",
+            "Alias": "charttype",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "chartvalue",
+            "Index": -1,
+            "NameInSource": "chartvalue",
+            "Alias": "chartvalue",
+            "Type": "System.Int32"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "Type": "Table",
+        "SqlCommand": "SELECT\r\n\tifnull(b.servicetype,0) AS charttype,\r\n\tcount(1) AS chartvalue\r\nFROM (SELECT accountid FROM ld_account WHERE deleted=0 AND accountname=TRIM('{custname}') ORDER BY accountid LIMIT 1) a\r\nLEFT JOIN ld_troubletickets b ON a.accountid=b.accountid\r\nWHERE b.deleted=0\r\n\tAND b.approvestatus<>'已拒绝'\r\n\tAND DATE_FORMAT(IFNULL(b.realtime,b.createdtime),'%Y-%m-%d') BETWEEN DATE_FORMAT('{start_date}','%Y-%m-%d') AND DATE_FORMAT('{end_date}','%Y-%m-%d')\r\nGROUP BY b.servicetype\r\nORDER BY CONVERT(b.servicetype USING GBK)"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "ldcrm",
+        "Alias": "ldcrm",
+        "ConnectionStringEncrypted": "9Gx168ZcS1nhR9Wl6iV1n8JsaWBhT1mFQhWxkOkl9i/CYNfKTV1ClEZ4uYhjXK17gshxYMhtut1AReWN6oz1KtVgc+NWBdN1YkmsgOo9NEbJxHNIRlyp+UZbqLw="
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "Page1",
+      "Guid": "7a63ece74acd9b16d3cef16f83d3c036",
+      "Alias": "销售提成表",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiPageHeaderBand",
+          "Name": "PageHeaderBand1",
+          "ClientRectangle": "0,0.4,24,5.2",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text1",
+              "Guid": "ad310d26e9c0a78e37b72e24e26f5d77",
+              "ClientRectangle": "0,0,24,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.lab_report}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;18;;",
+              "Border": ";221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text13",
+              "Guid": "29fcdbe4ecb562382d79ea3c7658183f",
+              "ClientRectangle": "0,1.2,24,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "一、客户及产品基本信息"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;11;Bold;",
+              "Border": ";221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 5,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text7",
+              "Guid": "c871c8f4dfc7be2169ebea5338311b9e",
+              "ClientRectangle": "0,2.2,3,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.lab_acc1}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text31",
+              "Guid": "a0694f3395c4d943e30fee095c5b2294",
+              "ClientRectangle": "3,2.2,21,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{label.enabled==\"no\"}"
+                  },
+                  "Font": "微软雅黑;10;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.lab_acc2}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text2",
+              "Guid": "4c4e30d90e891da2d9ebedc54dbdc8e9",
+              "ClientRectangle": "0,4.2,3,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.lab_con1}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text17",
+              "Guid": "38aa19e3b8b224b487deedc624934ecb",
+              "ClientRectangle": "3,4.2,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.lab_con2}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text22",
+              "Guid": "58070d2407f6ba6dd25dedfd3c1429ee",
+              "ClientRectangle": "7,4.2,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.lab_con3}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text24",
+              "Guid": "e3a595aeda99919bdf4fedfd4910031e",
+              "ClientRectangle": "11,4.2,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.lab_con4}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "DataColumn"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text29",
+              "Guid": "d19bfe8b5e3123b15384edfd515c2eb4",
+              "ClientRectangle": "15,4.2,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.lab_con5}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "DataColumn"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text30",
+              "Guid": "238eaeeba011e297c66fedfd5b08e08e",
+              "ClientRectangle": "19,4.2,5,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.lab_con6}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "DataColumn"
+            },
+            "10": {
+              "Ident": "StiText",
+              "Name": "Text6",
+              "Guid": "024e59d8df2f15fbe68eedbc4837be39",
+              "ClientRectangle": "15,3.2,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.lab_acc5}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "11": {
+              "Ident": "StiText",
+              "Name": "Text8",
+              "Guid": "d53ac7487dba84355b8cedbc50688f99",
+              "ClientRectangle": "19,3.2,5,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.lab_acc6}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "DataColumn"
+            },
+            "12": {
+              "Ident": "StiText",
+              "Name": "Text3",
+              "Guid": "6f31c75819fb1e692651edbc02a34e07",
+              "ClientRectangle": "0,3.2,3,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.lab_acc3}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "13": {
+              "Ident": "StiText",
+              "Name": "Text5",
+              "Guid": "48a744321a00319f0d47ee09c4917203",
+              "ClientRectangle": "3,3.2,12,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.lab_acc4}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand1",
+          "ClientRectangle": "0,6.4,24,1",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text16",
+              "Guid": "69a1850a0a7f8edfe3baedc54dbd0778",
+              "ClientRectangle": "0,0,3,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{contact.lastname}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "DataColumn"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text15",
+              "Guid": "6b81e89d3b8c978e71c3ee17e5aac23f",
+              "ClientRectangle": "3,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{contact.title}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text32",
+              "Guid": "2a6b424530a5d70a454cee180a40849a",
+              "ClientRectangle": "7,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{contact.pphone}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text33",
+              "Guid": "94238d18d823416e34fdee1827afd2e0",
+              "ClientRectangle": "11,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{contact.mobile}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "DataColumn"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text34",
+              "Guid": "292d47d2daad75122e1bee1840f48e6d",
+              "ClientRectangle": "15,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{contact.qq}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "DataColumn"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text35",
+              "Guid": "ba02fcdddb85d561687cee1855d9ecf8",
+              "ClientRectangle": "19,0,5,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{contact.email}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "contact"
+        },
+        "2": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand2",
+          "ClientRectangle": "0,8.2,24,1",
+          "Conditions": {
+            "0": {
+              "Ident": "StiCondition",
+              "Item": "Expression",
+              "Expression": {
+                "Value": "{label.enabled==\"yes\"}"
+              },
+              "Enabled": false,
+              "Font": ";10;;",
+              "BorderSides": "None"
+            }
+          },
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text36",
+              "Guid": "cb3ff04cb94c16bf7c31ee6f43f2ecee",
+              "ClientRectangle": "0,0,3,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text37",
+              "Guid": "af94c97418b72f573de0ee7ef7571b23",
+              "ClientRectangle": "3,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text38",
+              "Guid": "3cd38aead5576bc1bebdee7f0d80caf2",
+              "ClientRectangle": "7,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text39",
+              "Guid": "514f2df0884f5305f503ee7f162b7fba",
+              "ClientRectangle": "11,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text40",
+              "Guid": "c3c6813472991be4fb1dee7f21819043",
+              "ClientRectangle": "15,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text41",
+              "Guid": "fc6828f578a9bf03470bee7f288fbe75",
+              "ClientRectangle": "19,0,5,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "Expression"
+            }
+          },
+          "DataSourceName": "label"
+        },
+        "3": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand3",
+          "Guid": "9cb153cfdeb347204282ee4529ec3c87",
+          "ClientRectangle": "0,10,24,1",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text10",
+              "Guid": "6ba713ad3ffb2e4a63a5edd04f60c181",
+              "ClientRectangle": "3,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.lab_pro2}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "DataColumn"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text11",
+              "Guid": "ae850b7243a880d6d51bedd04f60af7a",
+              "ClientRectangle": "7,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.lab_pro3}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text12",
+              "Guid": "87ea22577fe851142596edd04f607210",
+              "ClientRectangle": "11,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.lab_pro4}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text14",
+              "Guid": "05024146a2b13e9e88e4edd04f60b968",
+              "ClientRectangle": "15,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.lab_pro5}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "DataColumn"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text21",
+              "Guid": "d220c17c123c2b03428bedd04f607a5a",
+              "ClientRectangle": "19,0,5,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.lab_pro6}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "DataColumn"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text9",
+              "Guid": "ee9a9d3d5a71b6a9cca9edd04f6017ff",
+              "ClientRectangle": "0,0,3,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.lab_pro1}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            }
+          },
+          "DataSourceName": "label"
+        },
+        "4": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand4",
+          "Guid": "ef7123665595e327af56edd04f605f0a",
+          "ClientRectangle": "0,11.8,24,1",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text26",
+              "Guid": "59277d2d93b995a670c4ee4529ec4f76",
+              "ClientRectangle": "0,0,3,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{product.productname}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "DataColumn"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text4",
+              "Guid": "5e2eaf8a4e5c52f8b1b2ee4529ecd6fc",
+              "ClientRectangle": "3,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{product.productcategory}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text18",
+              "Guid": "f81d22313ffea06856c5ee4529ece7b5",
+              "ClientRectangle": "7,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text19",
+              "Guid": "86432fd6c13e98ce221aee4529ed4e8c",
+              "ClientRectangle": "11,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{product.quantity}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "DataColumn"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text20",
+              "Guid": "0fd85f6673111797fd10ee4529ed9bc4",
+              "ClientRectangle": "15,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{product.serialnumber}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "DataColumn"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text23",
+              "Guid": "3e5694d379bb0ee7fe4cee4529edea71",
+              "ClientRectangle": "19,0,5,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{product.enddate}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "TextFormat": {
+                "Ident": "StiCustomFormatService",
+                "StringFormat": "yyyy-MM-dd"
+              },
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "product"
+        },
+        "5": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand5",
+          "ClientRectangle": "0,13.6,24,1",
+          "Conditions": {
+            "0": {
+              "Ident": "StiCondition",
+              "Item": "Expression",
+              "Expression": {
+                "Value": "{label.enabled==\"yes\"}"
+              },
+              "Enabled": false,
+              "Font": ";10;;",
+              "BorderSides": "None"
+            }
+          },
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text47",
+              "Guid": "f0630d914375e8ef553aee83ea55c3a1",
+              "ClientRectangle": "0,0,3,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text25",
+              "Guid": "245d63e7c11ced681421ee83ea554fbe",
+              "ClientRectangle": "3,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text42",
+              "Guid": "f049af24986d39af80adee83ea55bdc7",
+              "ClientRectangle": "7,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text43",
+              "Guid": "59aa5e9260cb0be2ad80ee83ea555967",
+              "ClientRectangle": "11,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text44",
+              "Guid": "991c0f76c46296503af8ee83ea55b3ed",
+              "ClientRectangle": "15,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text45",
+              "Guid": "01a18b1570b66add3d83ee83ea554023",
+              "ClientRectangle": "19,0,5,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "Expression"
+            }
+          },
+          "DataSourceName": "label"
+        },
+        "6": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand6",
+          "ClientRectangle": "0,15.4,24,2.4",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text27",
+              "Guid": "deae019912b572f400a7ee5f564981da",
+              "ClientRectangle": "0,0.4,15,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "二、服务明细表"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;11;Bold;",
+              "Border": ";240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 5,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text28",
+              "Guid": "1ef109d1424d56467216ee6055f19e48",
+              "ClientRectangle": "15,0.4,9,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.lab_sertime}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": ";240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text53",
+              "Guid": "602e152873b1a4b4be05ee8f96a81935",
+              "ClientRectangle": "3,1.4,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.lab_ser2}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text46",
+              "Guid": "92f9d3b5112c6f6f62c4ee8f96a80790",
+              "ClientRectangle": "7,1.4,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.lab_ser3}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text48",
+              "Guid": "11921742f6da86c38e86ee8f96a99691",
+              "ClientRectangle": "11,1.4,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.lab_ser4}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text49",
+              "Guid": "96e9c89797aba677482dee8f96a9f986",
+              "ClientRectangle": "15,1.4,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.lab_ser5}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text50",
+              "Guid": "0a6c90a59c6ca7432efdee8f96a90dc4",
+              "ClientRectangle": "19,1.4,5,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.lab_ser6}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text51",
+              "Guid": "910195af3d35df8735c9ee8f96a916b8",
+              "ClientRectangle": "0,1.4,3,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{label.lab_ser1}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "label"
+        },
+        "7": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand7",
+          "ClientRectangle": "0,18.6,24,1",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text59",
+              "Guid": "1ae5d0bdd5478562696aee937283b05b",
+              "ClientRectangle": "0,0,3,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{ticket.ticket_no}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text52",
+              "Guid": "199100e3b0e2e6d0da6cee937283c57b",
+              "ClientRectangle": "3,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{ticket.servicetype}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text54",
+              "Guid": "6ebdf6093bbab5d37c07ee937283f4df",
+              "ClientRectangle": "7,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{ticket.hopetime}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text55",
+              "Guid": "204e06fdd835954c30f2ee9372834e20",
+              "ClientRectangle": "11,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{ticket.realtime}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text56",
+              "Guid": "4458c1299d11f4fb7b7fee93728394e6",
+              "ClientRectangle": "15,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{ticket.category}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text57",
+              "Guid": "adc4c3cc981bdd05f7c4ee9372835c8a",
+              "ClientRectangle": "19,0,5,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{ticket.status}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Margins": {
+                "Left": 2,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "ticket"
+        },
+        "8": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand8",
+          "ClientRectangle": "0,20.4,24,1",
+          "Conditions": {
+            "0": {
+              "Ident": "StiCondition",
+              "Item": "Expression",
+              "Expression": {
+                "Value": "{label.enabled==\"yes\"}"
+              },
+              "Enabled": false,
+              "Font": ";10;;",
+              "BorderSides": "None"
+            }
+          },
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text65",
+              "Guid": "4f38f30de5a00e6805cbee93f7cb6ee8",
+              "ClientRectangle": "0,0,3,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text58",
+              "Guid": "0cd3c49aaa0260411da4ee93f7cb1d9e",
+              "ClientRectangle": "3,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text60",
+              "Guid": "c43e91272ca5746a9515ee93f7cb2634",
+              "ClientRectangle": "7,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text61",
+              "Guid": "a0606e1cfd38ab52a962ee93f7cbb9d0",
+              "ClientRectangle": "11,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text62",
+              "Guid": "99dbe6fcd213b6e2f932ee93f7cb6ba0",
+              "ClientRectangle": "15,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text63",
+              "Guid": "8ddf5a9063046f55f561ee93f7cbc3d7",
+              "ClientRectangle": "19,0,5,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": "All;240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "Expression"
+            }
+          }
+        },
+        "9": {
+          "Ident": "StiReportSummaryBand",
+          "Name": "ReportSummaryBand1",
+          "ClientRectangle": "0,22.2,24,10.4",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text64",
+              "Guid": "73abf6b76d5426bb0d3ba61ee95c950e",
+              "ClientRectangle": "0,0.4,16,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": " 三、服务统计图"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;11;Bold;",
+              "Border": ";240,244,252;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 5,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiChart",
+              "Name": "Chart1",
+              "ClientRectangle": "0,1.4,16,9",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Border": ";184,184,184;;;;;;solid:0,0,0",
+              "Brush": "solid:255,255,255",
+              "HorSpacing": 30,
+              "VertSpacing": 20,
+              "Series": {
+                "0": {
+                  "Ident": "StiStackedColumnSeries",
+                  "ShowSeriesLabels": "FromSeries",
+                  "ShowShadow": false,
+                  "SeriesLabels": {
+                    "Ident": "StiOutsideEndAxisLabels",
+                    "MarkerSize": {
+                      "Width": 8,
+                      "Height": 6
+                    },
+                    "ValueTypeSeparator": "-",
+                    "DrawBorder": false,
+                    "LabelColor": "90,90,90",
+                    "BorderColor": "140,140,140",
+                    "Brush": "solid:255,255,255"
+                  },
+                  "ValueDataColumn": "chart.chartvalue",
+                  "ArgumentDataColumn": "chart.charttype",
+                  "Title": {
+                    "Value": "次数"
+                  },
+                  "Width": 0.2,
+                  "BorderColor": "255,255,255",
+                  "Brush": "solid:91,155,213",
+                  "BrushNegative": "solid:Firebrick"
+                }
+              },
+              "Area": {
+                "Ident": "StiStackedColumnArea",
+                "AllowApplyStyle": false,
+                "BorderColor": "0,255,255,255",
+                "Brush": "empty",
+                "InterlacingHor": {
+                  "InterlacedBrush": "solid:10,155,155,155",
+                  "Visible": false,
+                  "Area": true
+                },
+                "InterlacingVert": {
+                  "InterlacedBrush": "solid:10,155,155,155",
+                  "Visible": false,
+                  "Area": true
+                },
+                "GridLinesHor": {
+                  "Color": "100,105,105,105",
+                  "MinorColor": "100,105,105,105",
+                  "Visible": false,
+                  "Area": true
+                },
+                "GridLinesHorRight": {
+                  "Visible": false,
+                  "Area": true
+                },
+                "GridLinesVert": {
+                  "Color": "100,105,105,105",
+                  "MinorColor": "100,105,105,105",
+                  "Visible": false,
+                  "Area": true
+                },
+                "YAxis": {
+                  "Ident": "StiYLeftAxis",
+                  "Labels": {
+                    "Color": "140,140,140"
+                  },
+                  "ArrowStyle": "Triangle",
+                  "LineStyle": "Dash",
+                  "LineColor": "140,140,140",
+                  "Title": {
+                    "AllowApplyStyle": false,
+                    "Font": "Microsoft MHei;10;;",
+                    "Text": "次数",
+                    "Color": "127,127,127",
+                    "Alignment": "Far",
+                    "Direction": "BottomToTop"
+                  },
+                  "Ticks": {
+                    "Length": 2
+                  }
+                },
+                "YRightAxis": {
+                  "Ident": "StiYRightAxis",
+                  "Labels": {
+                    "Color": "140,140,140",
+                    "TextAlignment": "Left"
+                  },
+                  "LineColor": "140,140,140",
+                  "Title": {
+                    "Color": "140,140,140",
+                    "Direction": "TopToBottom"
+                  }
+                },
+                "XAxis": {
+                  "Ident": "StiXBottomAxis",
+                  "Labels": {
+                    "Angle": 30,
+                    "Color": "140,140,140"
+                  },
+                  "ArrowStyle": "Triangle",
+                  "LineStyle": "Dash",
+                  "LineColor": "140,140,140",
+                  "Title": {
+                    "AllowApplyStyle": false,
+                    "Font": "Microsoft MHei;10;;",
+                    "Text": "服务方式",
+                    "Color": "127,127,127",
+                    "Alignment": "Far",
+                    "Direction": "LeftToRight"
+                  },
+                  "Ticks": {
+                    "Length": 2
+                  }
+                },
+                "XTopAxis": {
+                  "Ident": "StiXTopAxis",
+                  "Labels": {
+                    "Color": "140,140,140"
+                  },
+                  "LineColor": "140,140,140",
+                  "Title": {
+                    "Color": "140,140,140",
+                    "Direction": "LeftToRight"
+                  }
+                }
+              },
+              "Table": {
+                "GridLineColor": "105,105,105",
+                "Header": {
+                  "Brush": "solid:White"
+                },
+                "DataCells": {
+                  "Font": "Tahoma;;;",
+                  "TextColor": "140,140,140"
+                }
+              },
+              "SeriesLabels": {
+                "Ident": "StiCenterAxisLabels",
+                "MarkerSize": {
+                  "Width": 8,
+                  "Height": 6
+                },
+                "ValueTypeSeparator": "-",
+                "LabelColor": "90,90,90",
+                "BorderColor": "140,140,140",
+                "Brush": "solid:255,255,255"
+              },
+              "Legend": {
+                "ShowShadow": false,
+                "BorderColor": "105,105,105",
+                "Brush": "solid:255,255,255",
+                "TitleColor": "105,105,105",
+                "LabelsColor": "140,140,140",
+                "Visible": false,
+                "MarkerSize": {
+                  "Width": 10,
+                  "Height": 10
+                },
+                "Columns": 0,
+                "Size": "0,0"
+              },
+              "Title": {
+                "Brush": "solid:140,140,140"
+              },
+              "Style": {
+                "Ident": "StiStyle23"
+              }
+            }
+          }
+        }
+      },
+      "PageWidth": 26,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    }
+  }
+}

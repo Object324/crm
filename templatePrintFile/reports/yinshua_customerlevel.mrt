@@ -1,0 +1,831 @@
+{
+  "ReportVersion": "2019.3.1",
+  "ReportGuid": "f4730468035e1c6b75bddbbb6c8ce5c0",
+  "ReportName": "Report",
+  "ReportAlias": "客户等级图",
+  "ReportFile": "D:\\xampp\\www\\crm\\templatePrintFile\\reports\\yinshua_customerlevel.mrt",
+  "ReportCreated": "/Date(57600000+0800)/",
+  "ReportChanged": "/Date(57600000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Styles": {
+    "0": {
+      "Ident": "StiStyle",
+      "Name": "odd",
+      "Font": "微软雅黑;9;;",
+      "Border": ";;;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "TextBrush": "solid:Black",
+      "NegativeTextBrush": "solid:Red"
+    },
+    "1": {
+      "Ident": "StiStyle",
+      "Name": "even",
+      "Font": "微软雅黑;9;;",
+      "Border": ";;;;;;;solid:Black",
+      "Brush": "solid:WhiteSmoke",
+      "TextBrush": "solid:Black",
+      "NegativeTextBrush": "solid:Red"
+    }
+  },
+  "Dictionary": {
+    "Variables": {
+      "0": {
+        "Value": "1",
+        "Name": "smowner",
+        "DialogInfo": {
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "list_user.listid",
+          "ValuesColumn": "list_user.listvalue",
+          "AllowUserValues": false
+        },
+        "Alias": "业务员",
+        "Type": "Stimulsoft.Report.StringList",
+        "RequestFromUser": true
+      }
+    },
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "t8",
+        "Alias": "t8",
+        "Columns": {
+          "0": {
+            "Name": "billid",
+            "Index": -1,
+            "NameInSource": "billid",
+            "Alias": "billid",
+            "Type": "System.Int32"
+          },
+          "1": {
+            "Name": "billname",
+            "Index": -1,
+            "NameInSource": "billname",
+            "Alias": "billname",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "billno",
+            "Index": -1,
+            "NameInSource": "billno",
+            "Alias": "billno",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "kehulevel",
+            "Index": -1,
+            "NameInSource": "kehulevel",
+            "Alias": "kehulevel",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "yinshua",
+        "Type": "Table",
+        "SqlCommand": "SELECT\r\n\tLEFT('{this[\"SeriesTag\"]}',2) AS kehulevel,\r\n\taccountid AS billid,\r\n\taccountname AS billname,\r\n\taccount_no AS billno\r\nFROM ld_account \r\nWHERE deleted=0 \r\n\tAND cf_2963=LEFT('{this[\"SeriesTag\"]}',2)\r\n\tAND smownerid=RIGHT('{this[\"SeriesTag\"]}',CHAR_LENGTH('{this[\"SeriesTag\"]}')-3)"
+      },
+      "1": {
+        "Ident": "StiMySqlSource",
+        "Name": "list_user",
+        "Alias": "list_user",
+        "Columns": {
+          "0": {
+            "Name": "listid",
+            "Index": -1,
+            "NameInSource": "listid",
+            "Alias": "listid",
+            "Type": "System.Int32"
+          },
+          "1": {
+            "Name": "listvalue",
+            "Index": -1,
+            "NameInSource": "listvalue",
+            "Alias": "listvalue",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "yinshua",
+        "SqlCommand": "SELECT\r\n\ta.smownerid AS listid,\r\n\tb.last_name AS listvalue\r\nFROM (\r\n\tSELECT\r\n\t\ta.smownerid\r\n\tFROM ld_account a\r\n\tWHERE a.deleted=0\r\n\t\tAND a.approvestatus<>'已拒绝'\r\n\tGROUP BY a.smownerid\r\n) a\r\nLEFT JOIN ld_users b ON a.smownerid=b.id\r\nORDER BY CONVERT(b.last_name USING GBK)"
+      },
+      "2": {
+        "Ident": "StiMySqlSource",
+        "Name": "T",
+        "Alias": "T",
+        "Columns": {
+          "0": {
+            "Name": "argument",
+            "Index": -1,
+            "NameInSource": "argument",
+            "Alias": "argument",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "mytip_1",
+            "Index": -1,
+            "NameInSource": "mytip_1",
+            "Alias": "mytip_1",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "mytip_2",
+            "Index": -1,
+            "NameInSource": "mytip_2",
+            "Alias": "mytip_2",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "mytip_3",
+            "Index": -1,
+            "NameInSource": "mytip_3",
+            "Alias": "mytip_3",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "mytip_4",
+            "Index": -1,
+            "NameInSource": "mytip_4",
+            "Alias": "mytip_4",
+            "Type": "System.String"
+          },
+          "5": {
+            "Name": "mytip_5",
+            "Index": -1,
+            "NameInSource": "mytip_5",
+            "Alias": "mytip_5",
+            "Type": "System.String"
+          },
+          "6": {
+            "Name": "qty_1",
+            "Index": -1,
+            "NameInSource": "qty_1",
+            "Alias": "qty_1",
+            "Type": "System.Int32"
+          },
+          "7": {
+            "Name": "qty_2",
+            "Index": -1,
+            "NameInSource": "qty_2",
+            "Alias": "qty_2",
+            "Type": "System.Int32"
+          },
+          "8": {
+            "Name": "qty_3",
+            "Index": -1,
+            "NameInSource": "qty_3",
+            "Alias": "qty_3",
+            "Type": "System.Int32"
+          },
+          "9": {
+            "Name": "qty_4",
+            "Index": -1,
+            "NameInSource": "qty_4",
+            "Alias": "qty_4",
+            "Type": "System.Int32"
+          },
+          "10": {
+            "Name": "qty_5",
+            "Index": -1,
+            "NameInSource": "qty_5",
+            "Alias": "qty_5",
+            "Type": "System.Int32"
+          },
+          "11": {
+            "Name": "smownerid",
+            "Index": -1,
+            "NameInSource": "smownerid",
+            "Alias": "smownerid",
+            "Type": "System.Int32"
+          },
+          "12": {
+            "Name": "tag_1",
+            "Index": -1,
+            "NameInSource": "tag_1",
+            "Alias": "tag_1",
+            "Type": "System.String"
+          },
+          "13": {
+            "Name": "tag_2",
+            "Index": -1,
+            "NameInSource": "tag_2",
+            "Alias": "tag_2",
+            "Type": "System.String"
+          },
+          "14": {
+            "Name": "tag_3",
+            "Index": -1,
+            "NameInSource": "tag_3",
+            "Alias": "tag_3",
+            "Type": "System.String"
+          },
+          "15": {
+            "Name": "tag_4",
+            "Index": -1,
+            "NameInSource": "tag_4",
+            "Alias": "tag_4",
+            "Type": "System.String"
+          },
+          "16": {
+            "Name": "tag_5",
+            "Index": -1,
+            "NameInSource": "tag_5",
+            "Alias": "tag_5",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "yinshua",
+        "SqlCommand": "SELECT\r\n\ta.smownerid,\r\n\tb.last_name AS argument,\r\n\tIFNULL(c.qty,0) AS qty_1,\r\n\tIFNULL(d.qty,0) AS qty_2,\r\n\tIFNULL(e.qty,0) AS qty_3,\r\n\tIFNULL(f.qty,0) AS qty_4,\r\n\tIFNULL(g.qty,0) AS qty_5,\r\n\tCONCAT('1级-',a.smownerid) AS tag_1,\r\n\tCONCAT('2级-',a.smownerid) AS tag_2,\r\n\tCONCAT('3级-',a.smownerid) AS tag_3,\r\n\tCONCAT('4级-',a.smownerid) AS tag_4,\r\n\tCONCAT('5级-',a.smownerid) AS tag_5,\r\n\tCONCAT('1级 - ',IFNULL(c.qty,0),'个') AS mytip_1,\r\n\tCONCAT('2级 - ',IFNULL(d.qty,0),'个') AS mytip_2,\r\n\tCONCAT('3级 - ',IFNULL(e.qty,0),'个') AS mytip_3,\r\n\tCONCAT('4级 - ',IFNULL(f.qty,0),'个') AS mytip_4,\r\n\tCONCAT('5级 - ',IFNULL(g.qty,0),'个') AS mytip_5\r\nFROM (SELECT smownerid FROM ld_account WHERE deleted=0 GROUP BY smownerid) a\r\nLEFT JOIN ld_users b ON b.id=a.smownerid\r\nLEFT JOIN (\r\n\tSELECT \r\n\t\tsmownerid,\r\n\t\tCOUNT(accountid) AS qty\r\n\tFROM ld_account \r\n\tWHERE deleted=0 \r\n\t\tAND cf_2963='1级' \r\n\tGROUP BY smownerid\r\n) c ON c.smownerid=a.smownerid\r\nLEFT JOIN (\r\n\tSELECT \r\n\t\tsmownerid,\r\n\t\tCOUNT(accountid) AS qty\r\n\tFROM ld_account \r\n\tWHERE deleted=0 \r\n\t\tAND cf_2963='2级' \r\n\tGROUP BY smownerid\r\n) d ON d.smownerid=a.smownerid\r\nLEFT JOIN (\r\n\tSELECT \r\n\t\tsmownerid,\r\n\t\tCOUNT(accountid) AS qty\r\n\tFROM ld_account \r\n\tWHERE deleted=0 \r\n\t\tAND cf_2963='3级' \r\n\tGROUP BY smownerid\r\n) e ON e.smownerid=a.smownerid\r\nLEFT JOIN (\r\n\tSELECT \r\n\t\tsmownerid,\r\n\t\tCOUNT(accountid) AS qty\r\n\tFROM ld_account \r\n\tWHERE deleted=0 \r\n\t\tAND cf_2963='4级' \r\n\tGROUP BY smownerid\r\n) f ON f.smownerid=a.smownerid\r\nLEFT JOIN (\r\n\tSELECT \r\n\t\tsmownerid,\r\n\t\tCOUNT(accountid) AS qty\r\n\tFROM ld_account \r\n\tWHERE deleted=0 \r\n\t\tAND cf_2963='5级' \r\n\tGROUP BY smownerid\r\n) g ON g.smownerid=a.smownerid\r\nINNER JOIN (\r\n\tSELECT\r\n\t\ta.smownerid\r\n\tFROM ld_account a\r\n\tWHERE a.deleted=0\r\n\t\tAND a.approvestatus<>'已拒绝'\r\n\tGROUP BY a.smownerid\r\n) v ON v.smownerid=a.smownerid\r\nWHERE b.status='Active'\r\n\tAND (\r\n\t\tCASE\r\n\t\t\tWHEN '{smowner}'='' THEN 1=1\r\n\t\t\tELSE FIND_IN_SET(a.smownerid,'{smowner}')\r\n\t\tEND)"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "yinshua",
+        "Alias": "yinshua",
+        "ConnectionStringEncrypted": "9NBlAsMbc91ieO306lxq58LSf2BCWQGkbBP9jecQ416N3HGK5nxD+UFbqYFjAPYPg25hw1loS51FUayA4lxkKoBe9UjnCRm8ZVycDOoRJWLewFXCVlHTeUYbpNxLWHUvxECtYOgDaYzhfaU="
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "Page1",
+      "Guid": "8d71fc83c7b45f1c10eea4217dec5741",
+      "Alias": "客户等级图",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiChart",
+          "Name": "Chart1",
+          "ClientRectangle": "0,0,34,17",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:255,255,255",
+          "Series": {
+            "0": {
+              "Ident": "StiStackedColumnSeries",
+              "ShowShadow": false,
+              "SeriesLabels": {
+                "Ident": "StiCenterAxisLabels",
+                "MarkerSize": {
+                  "Width": 8,
+                  "Height": 6
+                },
+                "ValueTypeSeparator": "-",
+                "LabelColor": "50,58,69",
+                "BorderColor": "Transparent",
+                "Brush": "solid:Transparent",
+                "Font": ";10;;"
+              },
+              "ValueDataColumn": "T.qty_1",
+              "ArgumentDataColumn": "T.argument",
+              "ToolTipDataColumn": "T.mytip_1",
+              "TagDataColumn": "T.tag_1",
+              "DrillDownEnabled": true,
+              "DrillDownPageGuid": "3e1119916a774e54b918ba824625406b",
+              "Interaction": {
+                "DrillDownPageGuid": "3e1119916a774e54b918ba824625406b"
+              },
+              "Title": {
+                "Value": "1级"
+              },
+              "Width": 0.2,
+              "BorderColor": "Transparent",
+              "Brush": "solid:52,152,219",
+              "BrushNegative": "solid:Firebrick"
+            },
+            "1": {
+              "Ident": "StiStackedColumnSeries",
+              "ShowShadow": false,
+              "SeriesLabels": {
+                "Ident": "StiCenterAxisLabels",
+                "MarkerSize": {
+                  "Width": 8,
+                  "Height": 6
+                },
+                "ValueTypeSeparator": "-",
+                "LabelColor": "50,58,69",
+                "BorderColor": "Transparent",
+                "Brush": "solid:Transparent",
+                "Font": ";10;;"
+              },
+              "ValueDataColumn": "T.qty_2",
+              "ArgumentDataColumn": "T.argument",
+              "ToolTipDataColumn": "T.mytip_2",
+              "TagDataColumn": "T.tag_2",
+              "DrillDownEnabled": true,
+              "DrillDownPageGuid": "3e1119916a774e54b918ba824625406b",
+              "Interaction": {
+                "DrillDownPageGuid": "3e1119916a774e54b918ba824625406b"
+              },
+              "Title": {
+                "Value": "2级"
+              },
+              "Width": 0.2,
+              "BorderColor": "Transparent",
+              "Brush": "solid:239,113,122",
+              "BrushNegative": "solid:Firebrick"
+            },
+            "2": {
+              "Ident": "StiStackedColumnSeries",
+              "ShowShadow": false,
+              "SeriesLabels": {
+                "Ident": "StiCenterAxisLabels",
+                "MarkerSize": {
+                  "Width": 8,
+                  "Height": 6
+                },
+                "ValueTypeSeparator": "-",
+                "LabelColor": "50,58,69",
+                "BorderColor": "Transparent",
+                "Brush": "solid:Transparent",
+                "Font": ";10;;"
+              },
+              "ValueDataColumn": "T.qty_3",
+              "ArgumentDataColumn": "T.argument",
+              "ToolTipDataColumn": "T.mytip_3",
+              "TagDataColumn": "T.tag_3",
+              "DrillDownEnabled": true,
+              "DrillDownPageGuid": "3e1119916a774e54b918ba824625406b",
+              "Interaction": {
+                "DrillDownPageGuid": "3e1119916a774e54b918ba824625406b"
+              },
+              "Title": {
+                "Value": "3级"
+              },
+              "Width": 0.2,
+              "BorderColor": "Transparent",
+              "Brush": "solid:109,203,179",
+              "BrushNegative": "solid:Firebrick"
+            },
+            "3": {
+              "Ident": "StiStackedColumnSeries",
+              "ShowShadow": false,
+              "SeriesLabels": {
+                "Ident": "StiCenterAxisLabels",
+                "MarkerSize": {
+                  "Width": 8,
+                  "Height": 6
+                },
+                "ValueTypeSeparator": "-",
+                "LabelColor": "50,58,69",
+                "BorderColor": "Transparent",
+                "Brush": "solid:Transparent",
+                "Font": ";10;;"
+              },
+              "ValueDataColumn": "T.qty_4",
+              "ArgumentDataColumn": "T.argument",
+              "ToolTipDataColumn": "T.mytip_4",
+              "TagDataColumn": "T.tag_4",
+              "DrillDownEnabled": true,
+              "DrillDownPageGuid": "3e1119916a774e54b918ba824625406b",
+              "Interaction": {
+                "DrillDownPageGuid": "3e1119916a774e54b918ba824625406b"
+              },
+              "Title": {
+                "Value": "4级"
+              },
+              "Width": 0.2,
+              "BorderColor": "Transparent",
+              "Brush": "solid:242,129,97",
+              "BrushNegative": "solid:Firebrick"
+            },
+            "4": {
+              "Ident": "StiStackedColumnSeries",
+              "ShowShadow": false,
+              "SeriesLabels": {
+                "Ident": "StiCenterAxisLabels",
+                "MarkerSize": {
+                  "Width": 8,
+                  "Height": 6
+                },
+                "ValueTypeSeparator": "-",
+                "LabelColor": "50,58,69",
+                "BorderColor": "Transparent",
+                "Brush": "solid:Transparent",
+                "Font": ";10;;"
+              },
+              "ValueDataColumn": "T.qty_5",
+              "ArgumentDataColumn": "T.argument",
+              "ToolTipDataColumn": "T.mytip_5",
+              "TagDataColumn": "T.tag_5",
+              "DrillDownEnabled": true,
+              "DrillDownPageGuid": "3e1119916a774e54b918ba824625406b",
+              "Interaction": {
+                "DrillDownPageGuid": "3e1119916a774e54b918ba824625406b"
+              },
+              "Title": {
+                "Value": "5级"
+              },
+              "Width": 0.2,
+              "BorderColor": "Transparent",
+              "Brush": "solid:252,205,27",
+              "BrushNegative": "solid:Firebrick"
+            }
+          },
+          "Area": {
+            "Ident": "StiStackedColumnArea",
+            "BorderColor": "171,172,173",
+            "Brush": "solid:255,255,255",
+            "InterlacingHor": {
+              "InterlacedBrush": "solid:10,155,155,155",
+              "Visible": false,
+              "Area": true
+            },
+            "InterlacingVert": {
+              "InterlacedBrush": "solid:10,155,155,155",
+              "Visible": false,
+              "Area": true
+            },
+            "GridLinesHor": {
+              "Color": "100,105,105,105",
+              "MinorColor": "100,105,105,105",
+              "Area": true
+            },
+            "GridLinesHorRight": {
+              "Visible": false,
+              "Area": true
+            },
+            "GridLinesVert": {
+              "Color": "100,105,105,105",
+              "MinorColor": "100,105,105,105",
+              "Visible": false,
+              "Area": true
+            },
+            "YAxis": {
+              "Ident": "StiYLeftAxis",
+              "AllowApplyStyle": false,
+              "Labels": {
+                "Color": "140,140,140"
+              },
+              "LineColor": "140,140,140",
+              "Title": {
+                "Color": "140,140,140",
+                "Direction": "BottomToTop"
+              },
+              "Ticks": {
+                "Visible": false
+              }
+            },
+            "YRightAxis": {
+              "Ident": "StiYRightAxis",
+              "Labels": {
+                "Color": "140,140,140",
+                "TextAlignment": "Left"
+              },
+              "LineColor": "140,140,140",
+              "Title": {
+                "Color": "140,140,140",
+                "Direction": "TopToBottom"
+              }
+            },
+            "XAxis": {
+              "Ident": "StiXBottomAxis",
+              "AllowApplyStyle": false,
+              "Labels": {
+                "AllowApplyStyle": false,
+                "Angle": 30,
+                "Font": "Microsoft YaHei;;;",
+                "Color": "140,140,140"
+              },
+              "LineColor": "140,140,140",
+              "Title": {
+                "Color": "140,140,140"
+              },
+              "Ticks": {
+                "Length": 2
+              }
+            },
+            "XTopAxis": {
+              "Ident": "StiXTopAxis",
+              "Labels": {
+                "Color": "140,140,140"
+              },
+              "LineColor": "140,140,140",
+              "Title": {
+                "Color": "140,140,140"
+              }
+            }
+          },
+          "Table": {
+            "GridLineColor": "225,225,225",
+            "Header": {
+              "Brush": "solid:White"
+            },
+            "DataCells": {
+              "TextColor": "140,140,140"
+            }
+          },
+          "SeriesLabels": {
+            "Ident": "StiCenterAxisLabels",
+            "AllowApplyStyle": false,
+            "MarkerSize": {
+              "Width": 8,
+              "Height": 6
+            },
+            "ValueType": "ArgumentValue",
+            "ValueTypeSeparator": "-",
+            "Visible": false,
+            "LabelColor": "50,58,69",
+            "BorderColor": "Transparent",
+            "Brush": "solid:Transparent",
+            "Font": ";10;;"
+          },
+          "Legend": {
+            "AllowApplyStyle": false,
+            "ShowShadow": false,
+            "BorderColor": "0,255,255,255",
+            "Brush": "empty",
+            "TitleColor": "105,105,105",
+            "LabelsColor": "38,38,38",
+            "VertAlignment": "TopOutside",
+            "Font": "Microsoft YaHei;;;",
+            "MarkerSize": {
+              "Width": 10,
+              "Height": 10
+            },
+            "Columns": 0,
+            "HorSpacing": 8,
+            "Size": "0,0"
+          },
+          "Title": {
+            "AllowApplyStyle": false,
+            "Font": "Microsoft YaHei;16;Regular;",
+            "Text": "销售小组客户结构",
+            "Brush": "solid:140,140,140",
+            "Visible": true
+          },
+          "Style": {
+            "Ident": "StiStyle29"
+          }
+        }
+      },
+      "PageWidth": 36,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    },
+    "1": {
+      "Ident": "StiPage",
+      "Name": "Page2",
+      "Guid": "3e1119916a774e54b918ba824625406b",
+      "Alias": "查看明细信息",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiReportTitleBand",
+          "Name": "ReportTitleBand1",
+          "Guid": "9f238d950ff7575b800ffea12fc5de5d",
+          "ClientRectangle": "0,0.4,19,2",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text1",
+              "Guid": "4ba2de0bf0254618caee4431e9239552",
+              "ClientRectangle": "0,0,19,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "客户信息：{this[\"SeriesArgument\"]} - {t8.kehulevel} 共  {this[\"SeriesValue\"]} 个"
+              },
+              "VertAlignment": "Center",
+              "Font": "宋体;10;Bold;",
+              "Border": ";;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text9",
+              "Guid": "0e95ef297265abcba90a39e5cb865633",
+              "ClientRectangle": "4.4,1,9.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "客户名称"
+              },
+              "VertAlignment": "Center",
+              "Font": ";10;Bold;",
+              "Border": "All;92,92,92;;;;;;solid:Black",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 4,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text10",
+              "Guid": "9603eb90630a1ee816793a525c968f73",
+              "ClientRectangle": "0,1,0.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "#"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": ";10;Bold;",
+              "Border": "All;92,92,92;;;;;;solid:Black",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text4",
+              "Guid": "a96c0c29994a69cc5be6337e415937ed",
+              "ClientRectangle": "13.6,1,5.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": ";10;Bold;",
+              "Border": "All;92,92,92;;;;;;solid:Black",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text2",
+              "Guid": "edeb9ef75e140ccffeb761386a21576b",
+              "ClientRectangle": "0.8,1,3.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "客户编号"
+              },
+              "VertAlignment": "Center",
+              "Font": ";10;Bold;",
+              "Border": "All;92,92,92;;;;;;solid:Black",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 4,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand1",
+          "Guid": "f26dfe94ff64b5ceb8b0a39662a484ae",
+          "ClientRectangle": "0,3.2,19,0.8",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text11",
+              "Guid": "0c4a8ba51254da62a0bd6e3b2aaad001",
+              "ClientRectangle": "0,0,0.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{LineThrough}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": ";10;;",
+              "Border": "All;92,92,92;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "SystemVariables"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text5",
+              "Guid": "aba32c42677fe2565c5f5a17a78d4cdc",
+              "ClientRectangle": "13.6,0,5.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": ";10;;",
+              "Border": "All;92,92,92;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text8",
+              "Guid": "e726832c9bf6dae17fd2bc1f997b7247",
+              "ClientRectangle": "4.4,0,9.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{t8.billname}"
+              },
+              "VertAlignment": "Center",
+              "Font": ";10;;",
+              "Border": "All;92,92,92;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text3",
+              "Guid": "50ab0dc45f4a9dcb0f5e95c8b513d65e",
+              "ClientRectangle": "0.8,0,3.6,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{t8.billno}"
+              },
+              "VertAlignment": "Center",
+              "Font": ";10;;",
+              "Border": "All;92,92,92;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "t8",
+          "EvenStyle": "even",
+          "OddStyle": "odd"
+        }
+      },
+      "PageWidth": 21,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    }
+  }
+}

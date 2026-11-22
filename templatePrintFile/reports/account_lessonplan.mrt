@@ -1,0 +1,780 @@
+{
+  "ReportVersion": "2019.3.1",
+  "ReportGuid": "ab9c82bf7fc9a89b4dae71d32412e228",
+  "ReportName": "Report",
+  "ReportAlias": "Report",
+  "ReportFile": "account_buy_products.mrt",
+  "ReportCreated": "/Date(1574084247000+0800)/",
+  "ReportChanged": "/Date(1574084247000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Styles": {
+    "0": {
+      "Ident": "StiStyle",
+      "Name": "column_odd",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:255,255,255",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    },
+    "1": {
+      "Ident": "StiStyle",
+      "Name": "column_even",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:252,252,252",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    }
+  },
+  "Dictionary": {
+    "Variables": {
+      "0": {
+        "Name": "myke",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime"
+        },
+        "Alias": "课程",
+        "Type": "System.String",
+        "RequestFromUser": true
+      },
+      "1": {
+        "Name": "myban",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime"
+        },
+        "Alias": "班级",
+        "Type": "System.String",
+        "RequestFromUser": true
+      },
+      "2": {
+        "Name": "mylaoshi",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime"
+        },
+        "Alias": "老师",
+        "Type": "System.String",
+        "RequestFromUser": true
+      },
+      "3": {
+        "Value": "true",
+        "Name": "showonly",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime"
+        },
+        "Alias": "只显示未来课表",
+        "Type": "System.Boolean",
+        "RequestFromUser": true
+      }
+    },
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "a",
+        "Alias": "a",
+        "Columns": {
+          "0": {
+            "Name": "accountname",
+            "Index": -1,
+            "NameInSource": "accountname",
+            "Alias": "accountname",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "crm",
+        "Type": "Table",
+        "SqlCommand": "SELECT accountname FROM ld_account WHERE accountid='[related_ldcrmid]'"
+      },
+      "1": {
+        "Ident": "StiMySqlSource",
+        "Name": "b",
+        "Alias": "b",
+        "Columns": {
+          "0": {
+            "Name": "address",
+            "Index": -1,
+            "NameInSource": "address",
+            "Alias": "address",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "banji",
+            "Index": -1,
+            "NameInSource": "banji",
+            "Alias": "banji",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "jiaoshi",
+            "Index": -1,
+            "NameInSource": "jiaoshi",
+            "Alias": "jiaoshi",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "kaoqin_status",
+            "Index": -1,
+            "NameInSource": "kaoqin_status",
+            "Alias": "kaoqin_status",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "kechengname",
+            "Index": -1,
+            "NameInSource": "kechengname",
+            "Alias": "kechengname",
+            "Type": "System.String"
+          },
+          "5": {
+            "Name": "lessiondate",
+            "Index": -1,
+            "NameInSource": "lessiondate",
+            "Alias": "lessiondate",
+            "Type": "System.DateTime"
+          },
+          "6": {
+            "Name": "teacher",
+            "Index": -1,
+            "NameInSource": "teacher",
+            "Alias": "teacher",
+            "Type": "System.String"
+          },
+          "7": {
+            "Name": "time",
+            "Index": -1,
+            "NameInSource": "time",
+            "Alias": "time",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "crm",
+        "Type": "Table",
+        "SqlCommand": "SELECT\r\n\ta.kechengname,\r\n\tc.projectname AS banji,\r\n\tf.projectmilestonename AS teacher,\r\n\td.projecttaskname AS jiaoshi,\r\n\te.cf_2749 AS address,\r\n\tb.lessiondate,\r\n\tCONCAT(IFNULL(b.starttime,''),' ~ ',IFNULL(b.endtime,'')) AS time,\r\n\tkaoqin_status\r\nFROM (\r\n\tSELECT\r\n\t\tb.entitytypeid,\r\n\t\tc.subject AS kechengname\r\n\tFROM ld_salesorder a\r\n\tLEFT JOIN ld_salesorderdetail b ON b.id=a.salesorderid\r\n\tLEFT JOIN ld_servicecontracts c ON c.servicecontractsid=b.entitytypeid\r\n\tWHERE a.deleted=0\r\n\t\tAND a.approvestatus<>'已拒绝'\r\n\t\tAND b.entitytypeid>0\r\n\t\tAND a.accountid='[related_ldcrmid]'\r\n\tGROUP BY b.entitytypeid\r\n) a\r\nINNER JOIN (\r\n\tSELECT\r\n\t\tlessiondate,\r\n\t\tprojectid,\r\n\t\tservicecontractsid,\r\n\t\tprojectmilestoneid,\r\n\t\tprojecttaskid,\r\n\t\tstarttime,\r\n\t\tendtime\r\n\tFROM ld_lessionplan\r\n\tWHERE deleted=0\r\n\t\tAND (\r\n\t\t\tCASE\r\n\t\t\t\tWHEN '{showonly}'='true' THEN lessiondate>=CURDATE()\r\n\t\t\t\tELSE 1=1\r\n\t\t\tEND) \r\n) b ON b.servicecontractsid=a.entitytypeid\r\nLEFT JOIN ld_project c ON c.projectid=b.projectid\r\nLEFT JOIN ld_projecttask d ON d.projecttaskid=b.projecttaskid\r\nLEFT JOIN ld_projecttaskcf e ON e.projecttaskid=d.projecttaskid\r\nLEFT JOIN ld_projectmilestone f ON f.projectmilestoneid=b.projectmilestoneid\r\nLEFT JOIN (\r\nSELECT\r\n\ta.servicecontractsid,\r\n\ta.projectid,\r\n\ta.projectmilestone_id,\r\n\ta.kaoqin_date,\r\n\tb.entitytypeid,\r\n\tb.kaoqin_status\r\nFROM ld_customform21 a\r\nLEFT JOIN ld_customform21detail b ON b.id=a.customform21id\r\nWHERE a.deleted=0\r\n\tAND b.entitytypeid='[related_ldcrmid]'\r\n\tAND a.approvestatus<>'已拒绝'\r\n\tAND a.kaoqin_date>'2000-01-01'\r\n\tAND b.entitytypeid>0\r\nGROUP BY a.kaoqin_date,a.servicecontractsid,a.projectid,a.projectmilestone_id\r\n) g ON g.servicecontractsid=b.servicecontractsid AND g.projectid=b.projectid AND g.projectmilestone_id=b.projectmilestoneid AND g.kaoqin_date=b.lessiondate\r\nWHERE 1=1\r\n\tAND (\r\n\t\tCASE\r\n\t\t\tWHEN TRIM('{myke}')='' THEN 1=1\r\n\t\t\tELSE LOCATE(TRIM('{myke}'),a.kechengname)>0\r\n\t\tEND) \r\n\tAND (\r\n\t\tCASE\r\n\t\t\tWHEN TRIM('{myban}')='' THEN 1=1\r\n\t\t\tELSE LOCATE(TRIM('{myban}'),c.projectname)>0\r\n\t\tEND) \r\n\tAND (\r\n\t\tCASE\r\n\t\t\tWHEN TRIM('{mylaoshi}')='' THEN 1=1\r\n\t\t\tELSE LOCATE(TRIM('{mylaoshi}'),f.projectmilestonename)>0\r\n\t\tEND) \r\nORDER BY CONVERT(a.kechengname USING GBK),a.entitytypeid,CONVERT(c.projectname USING GBK),\r\n\tCONVERT(d.projecttaskname USING GBK),b.lessiondate,b.starttime,b.endtime"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "crm",
+        "Alias": "crm",
+        "ConnectionStringEncrypted": "48jR68MKE4hrEymFxFwibtXEzStnXEHtRVqxhEkRdXfD3K0CZ1QZgUJcuYljXHe7glTND0ZaqfBvG6C9Yy13XoBWx0zkCdOIRR6s9GRc50aQUvmvxk1RpMs="
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "Page1",
+      "Guid": "5d4b27b46a74e040391803bfd0a0787f",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiPageHeaderBand",
+          "Name": "PageHeaderBand1",
+          "ClientRectangle": "0,0.4,29,2.4",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text17",
+              "Guid": "92025bdd6aa730d47115111a5700e17e",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,29,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{a.accountname} -> 课表和出勤查询"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;11;Bold;",
+              "Border": ";221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text1",
+              "Guid": "064ab2ce1191db9ac51797bd4ee15a05",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "1,1.2,5.4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "课程计划名称"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text11",
+              "Guid": "db594c98db873bc8642f441103e10029",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,1.2,1,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "#"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text5",
+              "Guid": "b35030857f5b39cd855d28599ef9e240",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "10.8,1.2,3.4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "班级"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text3",
+              "Guid": "229d7a1cf308b5b60e9505da3e39b37d",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "14.2,1.2,1.8,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "老师"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text7",
+              "Guid": "46b36ab2358d3e4443c3596d29198f12",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "16,1.2,4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "教室"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text9",
+              "Guid": "24b8b66160bc6977b52c6fa19d2ca2ee",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "6.4,1.2,2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "上课日期"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text13",
+              "Guid": "e08c5268541023d21314bda0260d1ea7",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "8.4,1.2,2.4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "上课时间"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text15",
+              "Guid": "692065fe76e92032f9959efb05e705da",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "21.6,1.2,7.4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "上课地点"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text18",
+              "Guid": "41ebaa1e299d2c94f3f1063823c2e4d1",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "20,1.2,1.6,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "考勤"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand1",
+          "ClientRectangle": "0,3.6,29,1",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text2",
+              "Guid": "1feb1d57e57e71e5d2bbcc12eafcb0ad",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "1,0,5.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{b.serialnumber}"
+              },
+              "Text": {
+                "Value": "{b.kechengname}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text12",
+              "Guid": "c82b71591e32deed2b8984acd60fd189",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,1,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{b.serialnumber}"
+              },
+              "Text": {
+                "Value": "{LineThrough}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "SystemVariables"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text6",
+              "Guid": "8facd7957abbdb67872257c045a7b692",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "10.8,0,3.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{b.serialnumber}"
+              },
+              "Text": {
+                "Value": "{b.banji}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text4",
+              "Guid": "2d5a5f96d7670dd880a4e8830f84c6b3",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "14.2,0,1.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{b.serialnumber}"
+              },
+              "Text": {
+                "Value": "{b.teacher}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text8",
+              "Guid": "2578b52c97f36e8cc0c01315e3171fda",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "16,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{b.serialnumber}"
+              },
+              "Text": {
+                "Value": "{b.jiaoshi}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text10",
+              "Guid": "75eb6e4362ddf34b1bb82dd7b6b5173f",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "6.4,0,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.lessiondate}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiCustomFormatService",
+                "StringFormat": "yyyy-MM-dd"
+              },
+              "Type": "DataColumn"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text14",
+              "Guid": "4f39e0453c88f521fa46bd7ecb36d010",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "8.4,0,2.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{b.serialnumber}"
+              },
+              "Text": {
+                "Value": "{b.time}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text16",
+              "Guid": "3df1570a96fa60854458dd2f493d016d",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "21.6,0,7.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{b.serialnumber}"
+              },
+              "Text": {
+                "Value": "{b.address}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text19",
+              "Guid": "295c14d8cd2938b2fabf1e70dec397f7",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "20,0,1.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{b.serialnumber}"
+              },
+              "Text": {
+                "Value": "{b.kaoqin_status}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "b"
+        }
+      },
+      "PageWidth": 31,
+      "PageHeight": 29.69,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    }
+  }
+}

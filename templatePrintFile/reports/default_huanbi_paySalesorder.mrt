@@ -1,0 +1,1302 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer type="Flex" version="1.02" application="StiReport">
+  <Dictionary isKey="true" type="Dictionary" Ref="1">
+    <Databases isList="true" count="1">
+      <ldcrm isKey="true" type="Stimulsoft.Report.Dictionary.StiMySqlDatabase" Ref="2">
+        <Alias>ldcrm</Alias>
+        <ConnectionStringEncrypted>9Mhz60MKu81rEymIYQS3T8LQdaJhD6m8wxuxgE1cd3vVVsEMYQlrgUdshL1iDfZm1HDRSEIJQvFs
+R4SYdDwyZ4vW2evDSxHwclqshU4N9H/HdtnC5AtZmW8I3YF5+GXvglatrw==</ConnectionStringEncrypted>
+        <Name>ldcrm</Name>
+      </ldcrm>
+    </Databases>
+    <DataSources isList="true" count="4">
+      <date isKey="true" type="Stimulsoft.Report.Dictionary.StiMySqlSource" Ref="3">
+        <Alias>date</Alias>
+        <Columns isList="true" count="2">
+          <value>startdate,System.String</value>
+          <value>enddate,System.DateTime</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1"/>
+        <Name>date</Name>
+        <NameInSource>ldcrm</NameInSource>
+        <Parameters isList="true" count="0"/>
+        <SqlCommand>SELECT
+	CASE
+		WHEN '{type}'=1 THEN concat(date_format(LAST_DAY(MAKEDATE(EXTRACT(YEAR FROM STR_TO_DATE(replace('{start_date}','/','.'),GET_FORMAT(DATE,'USA'))),1) + interval QUARTER(STR_TO_DATE(replace('{start_date}','/','.'),GET_FORMAT(DATE,'USA')))*3-3 month),'%Y-%m-'),'01')
+		WHEN '{type}'=2 THEN concat(date_format(LAST_DAY(STR_TO_DATE(replace('{start_date}','/','.'),GET_FORMAT(DATE,'USA'))),'%Y-%m-'),'01') 
+		WHEN '{type}'=3 THEN date_sub(STR_TO_DATE(replace('{start_date}','/','.'),GET_FORMAT(DATE,'USA')),INTERVAL WEEKDAY(STR_TO_DATE(replace('{start_date}','/','.'),GET_FORMAT(DATE,'USA'))) DAY)
+		WHEN '{type}'=4 THEN STR_TO_DATE(replace('{start_date}','/','.'),GET_FORMAT(DATE,'USA'))
+	END as startdate,
+	CASE
+		WHEN '{type}'=1 THEN LAST_DAY(MAKEDATE(EXTRACT(YEAR FROM STR_TO_DATE(replace('{end_date}','/','.'),GET_FORMAT(DATE,'USA'))),1) + interval QUARTER(STR_TO_DATE(replace('{end_date}','/','.'),GET_FORMAT(DATE,'USA')))*3-1 month)
+		WHEN '{type}'=2 THEN LAST_DAY(STR_TO_DATE(replace('{end_date}','/','.'),GET_FORMAT(DATE,'USA'))) 
+		WHEN '{type}'=3 THEN date_sub(STR_TO_DATE(replace('{end_date}','/','.'),GET_FORMAT(DATE,'USA')),INTERVAL WEEKDAY(STR_TO_DATE(replace('{end_date}','/','.'),GET_FORMAT(DATE,'USA'))) -6 DAY)
+		WHEN '{type}'=4 THEN STR_TO_DATE(replace('{end_date}','/','.'),GET_FORMAT(DATE,'USA'))
+	END as enddate</SqlCommand>
+      </date>
+      <cash isKey="true" type="Stimulsoft.Report.Dictionary.StiMySqlSource" Ref="4">
+        <Alias>cash</Alias>
+        <Columns isList="true" count="7">
+          <value>date,System.DateTime</value>
+          <value>remark,System.String</value>
+          <value>total,System.Decimal</value>
+          <value>total_bef,System.Decimal</value>
+          <value>huanbi,System.String</value>
+          <value>tips,System.String</value>
+          <value>tips_bef,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1"/>
+        <Name>cash</Name>
+        <NameInSource>ldcrm</NameInSource>
+        <Parameters isList="true" count="0"/>
+        <SqlCommand>SELECT
+	*,
+	CASE
+		WHEN total_bef=0 THEN '--'
+		ELSE concat(format((total-total_bef)*100/total_bef,2),'%')
+	END AS huanbi,
+	format(total,2) as tips,
+	format(total_bef,2) as tips_bef
+FROM (
+	SELECT
+		t.date,
+		t.remark,
+		t.total,
+		IFNULL((SELECT
+				Total
+			FROM (
+				SELECT
+					date,
+					remark,
+					sum(total) as total
+				FROM (
+					SELECT
+						a.date as date,
+						CASE
+							WHEN '{type}'=1 THEN CONCAT(year(a.date),'年Q',quarter(a.date))
+							WHEN '{type}'=2 THEN CONCAT(year(a.date),'年',DATE_FORMAT(a.date,'%m'),'月')
+							WHEN '{type}'=3 THEN CONCAT(year(a.date),'年',WEEK(a.date),'周')
+							WHEN '{type}'=4 THEN signed_data
+						END AS remark,	
+						round(ifnull(b.Total,0)/ifnull(b.conversion_rate,1),2) as total
+					FROM tmp_date a
+					LEFT JOIN ld_salesorder b on a.date=b.signed_data
+					WHERE ifnull(b.deleted,0)=0
+						and (
+							CASE
+								WHEN '{userid}'='' THEN 
+									FIND_IN_SET(CASE WHEN b.smownerid is NULL THEN 1 ELSE b.smownerid END,(
+										SELECT
+											GROUP_CONCAT(userid)
+										FROM (
+											SELECT DISTINCT
+												userid 
+											FROM (
+												SELECT 
+													ld_users.id as userid 
+												FROM ld_users
+												WHERE EXISTS(select 1 from ld_setscoperhigher where modulename='SalesOrder' and scopeauthority=1 and userid='[uuid]')
+												UNION
+												select 
+													viewid as userid 
+												from ld_scoperhigher
+												where userid='[uuid]' and modulename='SalesOrder' and EXISTS(select 1 from ld_setscoperhigher where userid='[uuid]' and scopeauthority=2 and modulename='SalesOrder')			
+												UNION
+												select DISTINCT 
+													ld_users2group.userid as userid 
+												from ld_scoperhigher 
+												INNER JOIN ld_groups on ld_groups.groupid=ld_scoperhigher.viewid
+												INNER JOIN ld_users2group on ld_users2group.groupid=ld_groups.groupid
+												WHERE ld_scoperhigher.userid='[uuid]' 
+													and ld_scoperhigher.modulename='SalesOrder'
+													and ld_scoperhigher.scopeauthority=3 
+													and EXISTS(select 1 from ld_setscoperhigher where modulename='SalesOrder' and scopeauthority=3 and userid='[uuid]')
+												UNION 
+												select 
+													id as userid 
+												from ld_users  
+												where exists(select 1 from ld_users where id='[uuid]' and is_admin='on')
+												UNION
+												select '[uuid]')as vw_users
+										) as tmp_users))
+								ELSE FIND_IN_SET(CASE WHEN b.smownerid is NULL THEN 1 ELSE b.smownerid END,'{userid}')
+							END)
+						and IF(b.approvestatus='已批准','0','1') &lt;&gt; (IF('{approve}'='true','1','0.001'))
+AND b.sostatus != '已作废'
+						and (
+							CASE
+								WHEN '{type}'=1 THEN 
+									a.date BETWEEN concat(date_format(LAST_DAY(MAKEDATE(EXTRACT(YEAR FROM STR_TO_DATE(replace('{start_date}','/','.'),GET_FORMAT(DATE,'USA'))),1) + interval QUARTER(STR_TO_DATE(replace('{start_date}','/','.'),GET_FORMAT(DATE,'USA')))*3-3 month),'%Y-%m-'),'01')
+										AND LAST_DAY(MAKEDATE(EXTRACT(YEAR FROM STR_TO_DATE(replace('{end_date}','/','.'),GET_FORMAT(DATE,'USA'))),1) + interval QUARTER(STR_TO_DATE(replace('{end_date}','/','.'),GET_FORMAT(DATE,'USA')))*3-1 month)
+								WHEN '{type}'=2 THEN a.date BETWEEN concat(date_format(LAST_DAY(STR_TO_DATE(replace('{start_date}','/','.'),GET_FORMAT(DATE,'USA'))),'%Y-%m-'),'01') AND LAST_DAY(STR_TO_DATE(replace('{end_date}','/','.'),GET_FORMAT(DATE,'USA')))
+								WHEN '{type}'=3 THEN a.date BETWEEN date_sub(STR_TO_DATE(replace('{start_date}','/','.'),GET_FORMAT(DATE,'USA')),INTERVAL WEEKDAY(STR_TO_DATE(replace('{start_date}','/','.'),GET_FORMAT(DATE,'USA'))) DAY) AND date_sub(STR_TO_DATE(replace('{end_date}','/','.'),GET_FORMAT(DATE,'USA')),INTERVAL WEEKDAY(STR_TO_DATE(replace('{end_date}','/','.'),GET_FORMAT(DATE,'USA'))) -6 DAY)
+								WHEN '{type}'=4 THEN a.date BETWEEN STR_TO_DATE(replace('{start_date}','/','.'),GET_FORMAT(DATE,'USA')) AND STR_TO_DATE(replace('{end_date}','/','.'),GET_FORMAT(DATE,'USA'))
+							END)
+						ORDER BY date) a
+				GROUP BY remark) a 
+			WHERE date&lt;t.date
+			ORDER BY date desc limit 1),0) as total_bef
+	FROM (
+		SELECT
+			date,
+			remark,
+			sum(total) as total
+		FROM (
+			SELECT
+				a.date as date,
+				CASE
+					WHEN '{type}'=1 THEN CONCAT(year(a.date),'年Q',quarter(a.date))
+					WHEN '{type}'=2 THEN CONCAT(year(a.date),'年',DATE_FORMAT(a.date,'%m'),'月')
+					WHEN '{type}'=3 THEN CONCAT(year(a.date),'年',WEEK(a.date),'周')
+					WHEN '{type}'=4 THEN signed_data
+				END AS remark,	
+				round(ifnull(b.Total,0)/ifnull(b.conversion_rate,1),2) as total
+			FROM tmp_date a
+			LEFT JOIN ld_salesorder b on a.date=b.signed_data
+			WHERE ifnull(b.deleted,0)=0
+						and (
+							CASE
+								WHEN '{userid}'='' THEN 
+									FIND_IN_SET(CASE WHEN b.smownerid is NULL THEN 1 ELSE b.smownerid END,(
+										SELECT
+											GROUP_CONCAT(userid)
+										FROM (
+											SELECT DISTINCT
+												userid 
+											FROM (
+												SELECT 
+													ld_users.id as userid 
+												FROM ld_users
+												WHERE EXISTS(select 1 from ld_setscoperhigher where modulename='SalesOrder' and scopeauthority=1 and userid='[uuid]')
+												UNION
+												select 
+													viewid as userid 
+												from ld_scoperhigher
+												where userid='[uuid]' and modulename='SalesOrder' and EXISTS(select 1 from ld_setscoperhigher where userid='[uuid]' and scopeauthority=2 and modulename='SalesOrder')			
+												UNION
+												select DISTINCT 
+													ld_users2group.userid as userid 
+												from ld_scoperhigher 
+												INNER JOIN ld_groups on ld_groups.groupid=ld_scoperhigher.viewid
+												INNER JOIN ld_users2group on ld_users2group.groupid=ld_groups.groupid
+												WHERE ld_scoperhigher.userid='[uuid]' 
+													and ld_scoperhigher.modulename='SalesOrder'
+													and ld_scoperhigher.scopeauthority=3 
+													and EXISTS(select 1 from ld_setscoperhigher where modulename='SalesOrder' and scopeauthority=3 and userid='[uuid]')
+												UNION 
+												select 
+													id as userid 
+												from ld_users  
+												where exists(select 1 from ld_users where id='[uuid]' and is_admin='on')
+												UNION
+												select '[uuid]')as vw_users
+										) as tmp_users))
+							ELSE FIND_IN_SET(CASE WHEN b.smownerid is NULL THEN 1 ELSE b.smownerid END,'{userid}')
+							END)
+					and IF(b.approvestatus='已批准','0','1') &lt;&gt; (IF('{approve}'='true','1','0.001'))
+AND b.sostatus != '已作废'
+					and (
+						CASE
+							WHEN '{type}'=1 THEN 
+								a.date BETWEEN concat(date_format(LAST_DAY(MAKEDATE(EXTRACT(YEAR FROM STR_TO_DATE(replace('{start_date}','/','.'),GET_FORMAT(DATE,'USA'))),1) + interval QUARTER(STR_TO_DATE(replace('{start_date}','/','.'),GET_FORMAT(DATE,'USA')))*3-3 month),'%Y-%m-'),'01')
+									AND LAST_DAY(MAKEDATE(EXTRACT(YEAR FROM STR_TO_DATE(replace('{end_date}','/','.'),GET_FORMAT(DATE,'USA'))),1) + interval QUARTER(STR_TO_DATE(replace('{end_date}','/','.'),GET_FORMAT(DATE,'USA')))*3-1 month)
+							WHEN '{type}'=2 THEN a.date BETWEEN concat(date_format(LAST_DAY(STR_TO_DATE(replace('{start_date}','/','.'),GET_FORMAT(DATE,'USA'))),'%Y-%m-'),'01') AND LAST_DAY(STR_TO_DATE(replace('{end_date}','/','.'),GET_FORMAT(DATE,'USA')))
+							WHEN '{type}'=3 THEN a.date BETWEEN date_sub(STR_TO_DATE(replace('{start_date}','/','.'),GET_FORMAT(DATE,'USA')),INTERVAL WEEKDAY(STR_TO_DATE(replace('{start_date}','/','.'),GET_FORMAT(DATE,'USA'))) DAY) AND date_sub(STR_TO_DATE(replace('{end_date}','/','.'),GET_FORMAT(DATE,'USA')),INTERVAL WEEKDAY(STR_TO_DATE(replace('{end_date}','/','.'),GET_FORMAT(DATE,'USA'))) -6 DAY)
+							WHEN '{type}'=4 THEN a.date BETWEEN STR_TO_DATE(replace('{start_date}','/','.'),GET_FORMAT(DATE,'USA')) AND STR_TO_DATE(replace('{end_date}','/','.'),GET_FORMAT(DATE,'USA'))
+						END)
+			ORDER BY a.date) a
+		GROUP BY remark) t
+	ORDER BY date) a</SqlCommand>
+      </cash>
+      <user isKey="true" type="Stimulsoft.Report.Dictionary.StiMySqlSource" Ref="5">
+        <Alias>user</Alias>
+        <Columns isList="true" count="2">
+          <value>id,System.Int32</value>
+          <value>last_name,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1"/>
+        <Name>user</Name>
+        <NameInSource>ldcrm</NameInSource>
+        <Parameters isList="true" count="0"/>
+        <SqlCommand>SELECT
+	a.id,
+	a.last_name
+FROM ld_users a
+INNER JOIN (
+	SELECT DISTINCT
+		userid 
+	FROM (
+		SELECT 
+			ld_users.id as userid 
+		FROM ld_users
+		WHERE EXISTS(select 1 from ld_setscoperhigher where modulename='CashBill' and scopeauthority=1 and userid='[uuid]')
+		UNION
+		select 
+			viewid as userid 
+		from ld_scoperhigher
+		where userid='[uuid]' and modulename='CashBill' and EXISTS(select 1 from ld_setscoperhigher where userid='[uuid]' and scopeauthority=2 and modulename='CashBill')			
+		UNION
+		select DISTINCT 
+			ld_users2group.userid as userid 
+		from ld_scoperhigher 
+		INNER JOIN ld_groups on ld_groups.groupid=ld_scoperhigher.viewid
+		INNER JOIN ld_users2group on ld_users2group.groupid=ld_groups.groupid
+		WHERE ld_scoperhigher.userid='[uuid]' 
+			and ld_scoperhigher.modulename='CashBill'
+			and ld_scoperhigher.scopeauthority=3 
+			and EXISTS(select 1 from ld_setscoperhigher where modulename='CashBill' and scopeauthority=3 and userid='[uuid]')
+		UNION 
+		select 
+			id as userid 
+		from ld_users  
+		where exists(select 1 from ld_users where id='[uuid]' and is_admin='on')
+		UNION
+		select '[uuid]')as vw_users
+) as tmp_users ON tmp_users.userid=a.id
+order by CONVERT(a.last_name USING gbk)</SqlCommand>
+      </user>
+      <detail isKey="true" type="Stimulsoft.Report.Dictionary.StiMySqlSource" Ref="6">
+        <Alias>detail</Alias>
+        <Columns isList="true" count="3">
+          <value>date,System.DateTime</value>
+          <value>remark,System.String</value>
+          <value>total,System.Decimal</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1"/>
+        <Name>detail</Name>
+        <NameInSource>ldcrm</NameInSource>
+        <Parameters isList="true" count="0"/>
+        <SqlCommand>SELECT
+	*
+FROM (
+	SELECT 
+				a.date,
+						CASE
+							WHEN '{type}'=1 THEN CONCAT(year(a.date),'年Q',quarter(a.date))
+							WHEN '{type}'=2 THEN CONCAT(year(a.date),'年',DATE_FORMAT(a.date,'%m'),'月')
+							WHEN '{type}'=3 THEN CONCAT(year(a.date),'年',WEEK(a.date),'周')
+							WHEN '{type}'=4 THEN signed_data
+						END AS remark,	
+				sum(round(ifnull(b.Total,0)/ifnull(b.conversion_rate,1),2)) as total
+			FROM tmp_date a
+			LEFT JOIN ld_salesorder b on a.date=b.signed_data
+			WHERE ifnull(b.deleted,0)=0
+				and (
+					CASE
+						WHEN '{userid}'='' THEN 
+							FIND_IN_SET(CASE WHEN b.smownerid is NULL THEN 1 ELSE b.smownerid END,(
+								SELECT
+									GROUP_CONCAT(userid)
+								FROM (
+									SELECT DISTINCT
+										userid 
+									FROM (
+										SELECT 
+											ld_users.id as userid 
+										FROM ld_users
+										WHERE EXISTS(select 1 from ld_setscoperhigher where modulename='SalesOrder' and scopeauthority=1 and userid='[uuid]')
+										UNION
+										select 
+											viewid as userid 
+										from ld_scoperhigher
+										where userid='[uuid]' and modulename='SalesOrder' and EXISTS(select 1 from ld_setscoperhigher where userid='[uuid]' and scopeauthority=2 and modulename='SalesOrder')			
+										UNION
+										select DISTINCT 
+											ld_users2group.userid as userid 
+										from ld_scoperhigher 
+										INNER JOIN ld_groups on ld_groups.groupid=ld_scoperhigher.viewid
+										INNER JOIN ld_users2group on ld_users2group.groupid=ld_groups.groupid
+										WHERE ld_scoperhigher.userid='[uuid]' 
+											and ld_scoperhigher.modulename='SalesOrder'
+											and ld_scoperhigher.scopeauthority=3 
+											and EXISTS(select 1 from ld_setscoperhigher where modulename='SalesOrder' and scopeauthority=3 and userid='[uuid]')
+										UNION 
+										select 
+											id as userid 
+										from ld_users  
+										where exists(select 1 from ld_users where id='[uuid]' and is_admin='on')
+										UNION
+										select '[uuid]')as vw_users
+								) as tmp_users))
+						ELSE FIND_IN_SET(CASE WHEN b.smownerid is NULL THEN 1 ELSE b.smownerid END,'{userid}')
+					END)
+				and IF(b.approvestatus='已批准','0','1') &lt;&gt; (IF('{approve}'='true','1','0.001'))
+				and b.sostatus !='已作废' 
+				and (CASE
+							WHEN '{type}'=1 THEN CONCAT(year(a.date),'年Q',quarter(a.date))
+							WHEN '{type}'=2 THEN CONCAT(year(a.date),'年',DATE_FORMAT(a.date,'%m'),'月')
+							WHEN '{type}'=3 THEN CONCAT(year(a.date),'年',WEEK(a.date),'周')
+							WHEN '{type}'=4 THEN signed_data
+						END ) group by a.date
+	) a where remark='{this["remark"]}'</SqlCommand>
+      </detail>
+    </DataSources>
+    <Relations isList="true" count="0"/>
+    <Report isRef="0"/>
+    <Variables isList="true" count="5">
+      <value>,start_date,起始日期,,System.DateTime,DateSerial_x0028_Year_x0028_Today_x0029__x002C_1_x002C_1_x0029_,False,True,True</value>
+      <value>,type,环比单位,,System.String,_x0032_,False,False,True,False,_x003C__x003F_xml_x0020_version_x003D__x0022_1_x002E_0_x0022__x0020_encoding_x003D__x0022_utf_x002D_8_x0022__x0020_standalone_x003D__x0022_yes_x0022__x003F__x003E__x003C_StiSerializer_x0020_type_x003D__x0022_Flex_x0022__x0020_version_x003D__x0022_1_x002E_02_x0022__x0020_application_x003D__x0022_State_x0022__x003E__x003C_AllowUserValues_x003E_False_x003C__x002F_AllowUserValues_x003E__x003C_Keys_x0020_isList_x003D__x0022_true_x0022__x0020_count_x003D__x0022_4_x0022__x003E__x003C_value_x003E_1_x003C__x002F_value_x003E__x003C_value_x003E_2_x003C__x002F_value_x003E__x003C_value_x003E_3_x003C__x002F_value_x003E__x003C_value_x003E_4_x003C__x002F_value_x003E__x003C__x002F_Keys_x003E__x003C_Values_x0020_isList_x003D__x0022_true_x0022__x0020_count_x003D__x0022_4_x0022__x003E__x003C_value_x003E_季度_x003C__x002F_value_x003E__x003C_value_x003E_月_x003C__x002F_value_x003E__x003C_value_x003E_周_x003C__x002F_value_x003E__x003C_value_x003E_天_x003C__x002F_value_x003E__x003C__x002F_Values_x003E__x003C__x002F_StiSerializer_x003E_</value>
+      <value>,approve,只统计已审批的单据,,System.Boolean,false,False,False,True</value>
+      <value>,end_date,截止日期,,System.DateTime,Today,False,True,True</value>
+      <value>,userid,人员范围,,Stimulsoft.Report.IntList,,False,False,True,False,_x003C__x003F_xml_x0020_version_x003D__x0022_1_x002E_0_x0022__x0020_encoding_x003D__x0022_utf_x002D_8_x0022__x0020_standalone_x003D__x0022_yes_x0022__x003F__x003E__x003C_StiSerializer_x0020_type_x003D__x0022_Flex_x0022__x0020_version_x003D__x0022_1_x002E_02_x0022__x0020_application_x003D__x0022_State_x0022__x003E__x003C_AllowUserValues_x003E_False_x003C__x002F_AllowUserValues_x003E__x003C_ItemsInitializationType_x003E_Columns_x003C__x002F_ItemsInitializationType_x003E__x003C_Keys_x0020_isList_x003D__x0022_true_x0022__x0020_count_x003D__x0022_0_x0022__x002F__x003E__x003C_KeysColumn_x003E_user_x002E_id_x003C__x002F_KeysColumn_x003E__x003C_Values_x0020_isList_x003D__x0022_true_x0022__x0020_count_x003D__x0022_0_x0022__x002F__x003E__x003C_ValuesColumn_x003E_user_x002E_last_name_x003C__x002F_ValuesColumn_x003E__x003C__x002F_StiSerializer_x003E_</value>
+    </Variables>
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0"/>
+  <MetaTags isList="true" count="0"/>
+  <Pages isList="true" count="2">
+    <Page1 isKey="true" type="Page" Ref="7">
+      <Alias>合同金额环比</Alias>
+      <Border>None;[255:255:0];2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <ColumnGaps>1</ColumnGaps>
+      <Columns>1</Columns>
+      <ColumnWidth>1</ColumnWidth>
+      <Components isList="true" count="4">
+        <ReportTitleBand1 isKey="true" type="ReportTitleBand" Ref="8">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.4,21,12.2</ClientRectangle>
+          <Components isList="true" count="8">
+            <Text2 isKey="true" type="Text" Ref="9">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0,3,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,14,Bold</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text2</Name>
+              <Page isRef="7"/>
+              <Parent isRef="8"/>
+              <Text>合同金额环比</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text2>
+            <Text19 isKey="true" type="Text" Ref="10">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>3.6,0,17.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,10</Font>
+              <Guid>02c3bfc460e0cacb1262c10626cd4564</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text19</Name>
+              <Page isRef="7"/>
+              <Parent isRef="8"/>
+              <Text>环比：本期和上期的比较，比如本月和上月，本周和上周等；这里的&lt;font color="red"&gt;&lt;b&gt;月&lt;/b&gt;&lt;/font&gt;或&lt;font color="red"&gt;&lt;b&gt;周&lt;/b&gt;&lt;/font&gt;是环比单位</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text19>
+            <Text20 isKey="true" type="Text" Ref="11">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0.8,2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,10,Bold</Font>
+              <Guid>20990d88b150bbd7834ac1211317618f</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text20</Name>
+              <Page isRef="7"/>
+              <Parent isRef="8"/>
+              <Text>{date.startdate}</Text>
+              <TextBrush>[255:0:0]</TextBrush>
+              <TextFormat isKey="true" type="CustomFormat" Ref="12">
+                <StringFormat>yyyy-MM-dd</StringFormat>
+              </TextFormat>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text20>
+            <Text21 isKey="true" type="Text" Ref="13">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>2,0.8,0.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,10,Bold</Font>
+              <Guid>31863e9bc8ca7fac33f5c122bb6eeaa1</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text21</Name>
+              <Page isRef="7"/>
+              <Parent isRef="8"/>
+              <Text>至</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text21>
+            <Text22 isKey="true" type="Text" Ref="14">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>2.4,0.8,2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,10,Bold</Font>
+              <Guid>320fb705df2586fd3f86c122ef5a9232</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text22</Name>
+              <Page isRef="7"/>
+              <Parent isRef="8"/>
+              <Text>{date.enddate}</Text>
+              <TextBrush>[255:0:0]</TextBrush>
+              <TextFormat isKey="true" type="CustomFormat" Ref="15">
+                <StringFormat>yyyy-MM-dd</StringFormat>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text22>
+            <Text23 isKey="true" type="Text" Ref="16">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>4.8,0.8,1,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,10,Bold</Font>
+              <Guid>cad3fef98176087a676ac125d9d00a5a</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text23</Name>
+              <Page isRef="7"/>
+              <Parent isRef="8"/>
+              <Text>环比 -</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text23>
+            <Text24 isKey="true" type="Text" Ref="17">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>5.8,0.8,15.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>微软雅黑,10,Bold</Font>
+              <Guid>86eeb7e30aa0ee50db1bc12651cf319c</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text24</Name>
+              <Page isRef="7"/>
+              <Parent isRef="8"/>
+              <Text>{Switch(type==1,"季度",type==2,"月",type==3,"周",type==4,"天")}</Text>
+              <TextBrush>[255:0:0]</TextBrush>
+              <TextFormat isKey="true" type="CustomFormat" Ref="18">
+                <StringFormat>yyyy-MM-dd</StringFormat>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text24>
+            <Chart1 isKey="true" type="Stimulsoft.Report.Chart.StiChart" Ref="19">
+              <Area isKey="true" type="Stimulsoft.Report.Chart.StiClusteredColumnArea" Ref="20">
+                <BorderColor>171, 172, 173</BorderColor>
+                <Brush>[255:255:255]</Brush>
+                <Chart isRef="19"/>
+                <GridLinesHor isKey="true" type="Stimulsoft.Report.Chart.StiGridLinesHor" Ref="21">
+                  <Area isRef="20"/>
+                  <Color>100, 105, 105, 105</Color>
+                  <MinorColor>100, 105, 105, 105</MinorColor>
+                </GridLinesHor>
+                <GridLinesHorRight isKey="true" type="Stimulsoft.Report.Chart.StiGridLinesHor" Ref="22">
+                  <Area isRef="20"/>
+                  <Color>Silver</Color>
+                  <MinorColor>Gainsboro</MinorColor>
+                  <Visible>False</Visible>
+                </GridLinesHorRight>
+                <GridLinesVert isKey="true" type="Stimulsoft.Report.Chart.StiGridLinesVert" Ref="23">
+                  <Area isRef="20"/>
+                  <Color>100, 105, 105, 105</Color>
+                  <MinorColor>100, 105, 105, 105</MinorColor>
+                </GridLinesVert>
+                <InterlacingHor isKey="true" type="Stimulsoft.Report.Chart.StiInterlacingHor" Ref="24">
+                  <Area isRef="20"/>
+                  <InterlacedBrush>[10:155:155:155]</InterlacedBrush>
+                </InterlacingHor>
+                <InterlacingVert isKey="true" type="Stimulsoft.Report.Chart.StiInterlacingVert" Ref="25">
+                  <Area isRef="20"/>
+                  <InterlacedBrush>[10:155:155:155]</InterlacedBrush>
+                </InterlacingVert>
+                <XAxis isKey="true" type="Stimulsoft.Report.Chart.StiXBottomAxis" Ref="26">
+                  <Area isRef="20"/>
+                  <DateTimeStep isKey="true" type="Stimulsoft.Report.Chart.StiAxisDateTimeStep" Ref="27"/>
+                  <Interaction isKey="true" type="Stimulsoft.Report.Chart.StiAxisInteraction" Ref="28"/>
+                  <Labels isKey="true" type="Stimulsoft.Report.Chart.StiAxisLabels" Ref="29">
+                    <Color>140, 140, 140</Color>
+                    <Font>Tahoma,8</Font>
+                  </Labels>
+                  <LineColor>140, 140, 140</LineColor>
+                  <Range isKey="true" type="Stimulsoft.Report.Chart.StiAxisRange" Ref="30"/>
+                  <Ticks isKey="true" type="Stimulsoft.Report.Chart.StiAxisTicks" Ref="31"/>
+                  <Title isKey="true" type="Stimulsoft.Report.Chart.StiAxisTitle" Ref="32">
+                    <Color>140, 140, 140</Color>
+                    <Direction>LeftToRight</Direction>
+                    <Font>Tahoma,12,Bold</Font>
+                    <Text>时间</Text>
+                  </Title>
+                </XAxis>
+                <XTopAxis isKey="true" type="Stimulsoft.Report.Chart.StiXTopAxis" Ref="33">
+                  <Area isRef="20"/>
+                  <Interaction isKey="true" type="Stimulsoft.Report.Chart.StiAxisInteraction" Ref="34"/>
+                  <Labels isKey="true" type="Stimulsoft.Report.Chart.StiAxisLabels" Ref="35">
+                    <Color>140, 140, 140</Color>
+                    <Font>Tahoma,8</Font>
+                  </Labels>
+                  <LineColor>140, 140, 140</LineColor>
+                  <Ticks isKey="true" type="Stimulsoft.Report.Chart.StiAxisTicks" Ref="36"/>
+                  <Title isKey="true" type="Stimulsoft.Report.Chart.StiAxisTitle" Ref="37">
+                    <Color>140, 140, 140</Color>
+                    <Direction>LeftToRight</Direction>
+                    <Font>Tahoma,12,Bold</Font>
+                  </Title>
+                </XTopAxis>
+                <YAxis isKey="true" type="Stimulsoft.Report.Chart.StiYLeftAxis" Ref="38">
+                  <Area isRef="20"/>
+                  <Interaction isKey="true" type="Stimulsoft.Report.Chart.StiAxisInteraction" Ref="39"/>
+                  <Labels isKey="true" type="Stimulsoft.Report.Chart.StiAxisLabels" Ref="40">
+                    <Color>140, 140, 140</Color>
+                    <Font>Tahoma,8</Font>
+                  </Labels>
+                  <LineColor>140, 140, 140</LineColor>
+                  <Range isKey="true" type="Stimulsoft.Report.Chart.StiAxisRange" Ref="41"/>
+                  <Ticks isKey="true" type="Stimulsoft.Report.Chart.StiAxisTicks" Ref="42"/>
+                  <Title isKey="true" type="Stimulsoft.Report.Chart.StiAxisTitle" Ref="43">
+                    <Color>140, 140, 140</Color>
+                    <Direction>BottomToTop</Direction>
+                    <Font>Tahoma,12,Bold</Font>
+                    <Text>统计值</Text>
+                  </Title>
+                </YAxis>
+                <YRightAxis isKey="true" type="Stimulsoft.Report.Chart.StiYRightAxis" Ref="44">
+                  <Area isRef="20"/>
+                  <Interaction isKey="true" type="Stimulsoft.Report.Chart.StiAxisInteraction" Ref="45"/>
+                  <Labels isKey="true" type="Stimulsoft.Report.Chart.StiAxisLabels" Ref="46">
+                    <Color>140, 140, 140</Color>
+                    <Font>Tahoma,8</Font>
+                    <TextAlignment>Left</TextAlignment>
+                  </Labels>
+                  <LineColor>140, 140, 140</LineColor>
+                  <Range isKey="true" type="Stimulsoft.Report.Chart.StiAxisRange" Ref="47"/>
+                  <Ticks isKey="true" type="Stimulsoft.Report.Chart.StiAxisTicks" Ref="48"/>
+                  <Title isKey="true" type="Stimulsoft.Report.Chart.StiAxisTitle" Ref="49">
+                    <Color>140, 140, 140</Color>
+                    <Direction>TopToBottom</Direction>
+                    <Font>Tahoma,12,Bold</Font>
+                  </Title>
+                </YRightAxis>
+              </Area>
+              <Brush>[255:255:255]</Brush>
+              <ClientRectangle>0,1.6,21,10</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <ConstantLines isList="true" count="0"/>
+              <CustomStyleName/>
+              <Filters isList="true" count="0"/>
+              <Legend isKey="true" type="Stimulsoft.Report.Chart.StiLegend" Ref="50">
+                <BorderColor>105, 105, 105</BorderColor>
+                <Brush>[255:255:255]</Brush>
+                <Chart isRef="19"/>
+                <Font>Arial,8</Font>
+                <LabelsColor>140, 140, 140</LabelsColor>
+                <MarkerSize>10, 10</MarkerSize>
+                <TitleColor>105, 105, 105</TitleColor>
+                <TitleFont>Arial,14,Bold</TitleFont>
+              </Legend>
+              <Name>Chart1</Name>
+              <Page isRef="7"/>
+              <Parent isRef="8"/>
+              <Series isList="true" count="2">
+                <Item36 isKey="true" type="Stimulsoft.Report.Chart.StiClusteredColumnSeries" Ref="51">
+                  <ArgumentDataColumn>cash.remark</ArgumentDataColumn>
+                  <BorderColor>255, 255, 255</BorderColor>
+                  <Brush>[112:173:71]</Brush>
+                  <BrushNegative>Firebrick</BrushNegative>
+                  <Chart isRef="19"/>
+                  <Conditions isList="true" count="0"/>
+                  <Filters isList="true" count="0"/>
+                  <SeriesLabels isKey="true" type="Stimulsoft.Report.Chart.StiCenterAxisLabels" Ref="52">
+                    <BorderColor>140, 140, 140</BorderColor>
+                    <Brush>[255:255:255]</Brush>
+                    <Chart isRef="19"/>
+                    <Font>Arial,7</Font>
+                    <LabelColor>90, 90, 90</LabelColor>
+                    <MarkerSize>8, 6</MarkerSize>
+                    <ValueTypeSeparator>-</ValueTypeSeparator>
+                  </SeriesLabels>
+                  <Title>Series 1</Title>
+                  <ToolTipDataColumn>cash.tips</ToolTipDataColumn>
+                  <TopN isKey="true" type="Stimulsoft.Report.Chart.StiSeriesTopN" Ref="53"/>
+                  <TrendLine isKey="true" type="Stimulsoft.Report.Chart.StiTrendLineNone" Ref="54">
+                    <LineColor>Black</LineColor>
+                    <LineStyle>0</LineStyle>
+                    <ShowShadow>True</ShowShadow>
+                  </TrendLine>
+                  <ValueDataColumn>cash.total</ValueDataColumn>
+                </Item36>
+                <Item40 isKey="true" type="Stimulsoft.Report.Chart.StiClusteredColumnSeries" Ref="55">
+                  <ArgumentDataColumn>cash.remark</ArgumentDataColumn>
+                  <BorderColor>255, 255, 255</BorderColor>
+                  <Brush>[68:114:196]</Brush>
+                  <BrushNegative>Firebrick</BrushNegative>
+                  <Chart isRef="19"/>
+                  <Conditions isList="true" count="0"/>
+                  <Filters isList="true" count="0"/>
+                  <SeriesLabels isKey="true" type="Stimulsoft.Report.Chart.StiCenterAxisLabels" Ref="56">
+                    <BorderColor>140, 140, 140</BorderColor>
+                    <Brush>[255:255:255]</Brush>
+                    <Chart isRef="19"/>
+                    <Font>Arial,7</Font>
+                    <LabelColor>90, 90, 90</LabelColor>
+                    <MarkerSize>8, 6</MarkerSize>
+                    <ValueTypeSeparator>-</ValueTypeSeparator>
+                  </SeriesLabels>
+                  <Title>Series 2</Title>
+                  <ToolTipDataColumn>cash.tips_bef</ToolTipDataColumn>
+                  <TopN isKey="true" type="Stimulsoft.Report.Chart.StiSeriesTopN" Ref="57"/>
+                  <TrendLine isKey="true" type="Stimulsoft.Report.Chart.StiTrendLineNone" Ref="58">
+                    <LineColor>Black</LineColor>
+                    <LineStyle>0</LineStyle>
+                    <ShowShadow>True</ShowShadow>
+                  </TrendLine>
+                  <ValueDataColumn>cash.total_bef</ValueDataColumn>
+                </Item40>
+              </Series>
+              <SeriesLabels isKey="true" type="Stimulsoft.Report.Chart.StiCenterAxisLabels" Ref="59">
+                <BorderColor>140, 140, 140</BorderColor>
+                <Brush>[255:255:255]</Brush>
+                <Chart isRef="19"/>
+                <Font>Arial,7</Font>
+                <LabelColor>90, 90, 90</LabelColor>
+                <MarkerSize>8, 6</MarkerSize>
+                <ValueTypeSeparator>-</ValueTypeSeparator>
+                <Visible>False</Visible>
+              </SeriesLabels>
+              <SeriesLabelsConditions isList="true" count="0"/>
+              <Sort isList="true" count="0"/>
+              <Strips isList="true" count="0"/>
+              <Style isKey="true" type="Stimulsoft.Report.Chart.StiStyle25" Ref="60"/>
+              <Table isKey="true" type="Stimulsoft.Report.Chart.StiChartTable" Ref="61">
+                <Font>Tahoma,8</Font>
+                <GridLineColor>105, 105, 105</GridLineColor>
+                <Header isKey="true" type="Stimulsoft.Report.Chart.StiChartTableHeader" Ref="62">
+                  <Brush>White</Brush>
+                  <Font>Arial,8</Font>
+                  <TextColor>DarkGray</TextColor>
+                </Header>
+                <TextColor>140, 140, 140</TextColor>
+              </Table>
+              <Title isKey="true" type="Stimulsoft.Report.Chart.StiChartTitle" Ref="63">
+                <Brush>[140:140:140]</Brush>
+                <Font>Tahoma,12,Bold</Font>
+              </Title>
+            </Chart1>
+          </Components>
+          <Conditions isList="true" count="0"/>
+          <Name>ReportTitleBand1</Name>
+          <Page isRef="7"/>
+          <Parent isRef="7"/>
+        </ReportTitleBand1>
+        <GroupHeaderBand1 isKey="true" type="GroupHeaderBand" Ref="64">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,13.4,21,0.6</ClientRectangle>
+          <Components isList="true" count="6">
+            <Text4 isKey="true" type="Text" Ref="65">
+              <Border>All;[138:138:138];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>2.6,0,4.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,9,Bold</Font>
+              <Guid>001fcdd8836b2e6bf39ba145373662ca</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text4</Name>
+              <Page isRef="7"/>
+              <Parent isRef="64"/>
+              <Text>{Switch(type==1,"本季度",type==2,"本月",type==3,"本周",type==4,"今天")}</Text>
+              <TextBrush>[92:92:92]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text4>
+            <Text11 isKey="true" type="Text" Ref="66">
+              <Border>All;[138:138:138];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>17.4,0,3.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,9,Bold</Font>
+              <Guid>ca74e6ac3c3cad10e7b1a1510057acec</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text11</Name>
+              <Page isRef="7"/>
+              <Parent isRef="64"/>
+              <TextBrush>[92:92:92]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text11>
+            <Text5 isKey="true" type="Text" Ref="67">
+              <Border>All;[138:138:138];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>0,0,2.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,9,Bold</Font>
+              <Guid>a42fd4141027fe8b22a7a141dc6b222d</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text5</Name>
+              <Page isRef="7"/>
+              <Parent isRef="64"/>
+              <TextBrush>[92:92:92]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text5>
+            <Text7 isKey="true" type="Text" Ref="68">
+              <Border>All;[138:138:138];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>7.2,0,4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,9,Bold</Font>
+              <Guid>80fb23eeee7eeefc4c6ac14ba249ea1d</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text7</Name>
+              <Page isRef="7"/>
+              <Parent isRef="64"/>
+              <Text>{Switch(type==1,"上季度",type==2,"上月",type==3,"上周",type==4,"昨天")}</Text>
+              <TextBrush>[92:92:92]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text7>
+            <Text9 isKey="true" type="Text" Ref="69">
+              <Border>All;[138:138:138];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>11.2,0,2.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,9,Bold</Font>
+              <Guid>9f35beadd96fcf40fb38c22f6c861647</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text9</Name>
+              <Page isRef="7"/>
+              <Parent isRef="64"/>
+              <Text>环比</Text>
+              <TextBrush>[92:92:92]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text9>
+            <Text10 isKey="true" type="Text" Ref="70">
+              <Border>All;[138:138:138];1;Solid;False;4;Black</Border>
+              <Brush>[230:230:230]</Brush>
+              <ClientRectangle>14,0,3.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,9,Bold</Font>
+              <Guid>d04811735db5e6015b6fc25947505c0c</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text10</Name>
+              <Page isRef="7"/>
+              <Parent isRef="64"/>
+              <Text>比平均</Text>
+              <TextBrush>[92:92:92]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text10>
+          </Components>
+          <Conditions isList="true" count="0"/>
+          <Name>GroupHeaderBand1</Name>
+          <Page isRef="7"/>
+          <Parent isRef="7"/>
+        </GroupHeaderBand1>
+        <DataBand1 isKey="true" type="DataBand" Ref="71">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,14.8,21,0.6</ClientRectangle>
+          <Components isList="true" count="6">
+            <Text1 isKey="true" type="Text" Ref="72">
+              <Border>All;[184:184:184];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0,2.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,9</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text1</Name>
+              <Page isRef="7"/>
+              <Parent isRef="71"/>
+              <Text>{cash.remark}</Text>
+              <TextBrush>[92:92:92]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text1>
+            <Text6 isKey="true" type="Text" Ref="73">
+              <Border>All;[184:184:184];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>2.6,0,4.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,9,Underline</Font>
+              <Guid>1357f5ee0dd6757f3250a1456f9f7dca</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Interaction isKey="true" type="Stimulsoft.Report.Components.StiInteraction" Ref="74">
+                <DrillDownEnabled>True</DrillDownEnabled>
+                <DrillDownPageGuid>b1219c4a1f5a309ed367fbbc8afdc57a</DrillDownPageGuid>
+                <DrillDownParameter1 isKey="true" type="Stimulsoft.Report.Components.StiDrillDownParameter" Ref="75">
+                  <Expression>cash.remark</Expression>
+                  <Name>remark</Name>
+                </DrillDownParameter1>
+              </Interaction>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text6</Name>
+              <Page isRef="7"/>
+              <Parent isRef="71"/>
+              <Text>{cash.total}</Text>
+              <TextBrush>DodgerBlue</TextBrush>
+              <TextFormat isKey="true" type="CurrencyFormat" Ref="76">
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <PositivePattern>0</PositivePattern>
+                <Symbol>¥</Symbol>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text6>
+            <Text12 isKey="true" type="Text" Ref="77">
+              <Border>All;[184:184:184];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>17.4,0,3.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,9</Font>
+              <Guid>6ff14aef19ecbdb940e0a15126587b1a</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text12</Name>
+              <Page isRef="7"/>
+              <Parent isRef="71"/>
+              <TextBrush>[92:92:92]</TextBrush>
+              <TextFormat isKey="true" type="CurrencyFormat" Ref="78">
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <PositivePattern>0</PositivePattern>
+                <Symbol>¥</Symbol>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text12>
+            <Text8 isKey="true" type="Text" Ref="79">
+              <Border>All;[184:184:184];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>7.2,0,4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,9</Font>
+              <Guid>928f97a5a1a72b158867c14d4fd1fb12</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text8</Name>
+              <Page isRef="7"/>
+              <Parent isRef="71"/>
+              <Text>{cash.total_bef}</Text>
+              <TextBrush>[92:92:92]</TextBrush>
+              <TextFormat isKey="true" type="CurrencyFormat" Ref="80">
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <PositivePattern>0</PositivePattern>
+                <Symbol>¥</Symbol>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text8>
+            <Text18 isKey="true" type="Text" Ref="81">
+              <Border>All;[184:184:184];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>11.2,0,2.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="2">
+                <value>_x007B_cash_x002E_total_x0020__x003E__x0020_cash_x002E_total_bef_x007D_,Red,Transparent,Arial_x002C_10_x002C_Bold,True,False,,,All</value>
+                <value>_x007B_cash_x002E_total_x0020__x003C__x003D__x0020_cash_x002E_total_bef_x007D_,[34:139:34],Transparent,Arial_x002C_10_x002C_Bold,True,False,,,All</value>
+              </Conditions>
+              <Font>Arial,9</Font>
+              <Guid>adb3a1bb25dc744e44ebc233793a7ddf</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text18</Name>
+              <Page isRef="7"/>
+              <Parent isRef="71"/>
+              <Text>{cash.huanbi}</Text>
+              <TextBrush>[92:92:92]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text18>
+            <Text25 isKey="true" type="Text" Ref="82">
+              <Border>All;[184:184:184];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>14,0,3.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="2">
+                <value>_x007B_cash_x002E_total_x0020__x003E__x0020_cash_x002E_total_bef_x007D_,Red,Transparent,Arial_x002C_10_x002C_Bold,True,False,,,All</value>
+                <value>_x007B_cash_x002E_total_x0020__x003C__x003D__x0020_cash_x002E_total_bef_x007D_,[34:139:34],Transparent,Arial_x002C_10_x002C_Bold,True,False,,,All</value>
+              </Conditions>
+              <Font>Arial,9</Font>
+              <Guid>99af4a79326c49d93099c25985d6a75d</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text25</Name>
+              <Page isRef="7"/>
+              <Parent isRef="71"/>
+              <Text>{(cash.total - Avg(DataBand1,cash.total))/ Avg(DataBand1,cash.total)}</Text>
+              <TextBrush>[92:92:92]</TextBrush>
+              <TextFormat isKey="true" type="PercentageFormat" Ref="83">
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <PositivePattern>1</PositivePattern>
+                <Symbol>%</Symbol>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text25>
+          </Components>
+          <Conditions isList="true" count="0"/>
+          <DataSourceName>cash</DataSourceName>
+          <Filters isList="true" count="0"/>
+          <Name>DataBand1</Name>
+          <Page isRef="7"/>
+          <Parent isRef="7"/>
+          <Sort isList="true" count="2">
+            <value>ASC</value>
+            <value>date</value>
+          </Sort>
+        </DataBand1>
+        <GroupFooterBand1 isKey="true" type="GroupFooterBand" Ref="84">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,16.2,21,0.6</ClientRectangle>
+          <Components isList="true" count="8">
+            <Text13 isKey="true" type="Text" Ref="85">
+              <Border>All;[184:184:184];1;Solid;False;4;Black</Border>
+              <Brush>[255:255:0]</Brush>
+              <ClientRectangle>0,0,2.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,9</Font>
+              <Guid>69066f1369a74e3a9de6a151f357db62</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text13</Name>
+              <Page isRef="7"/>
+              <Parent isRef="84"/>
+              <TextBrush>[92:92:92]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text13>
+            <Text14 isKey="true" type="Text" Ref="86">
+              <Border>Top, Right, Bottom;[184:184:184];1;Solid;False;4;Black</Border>
+              <Brush>[255:255:0]</Brush>
+              <ClientRectangle>3.6,0,3.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,9</Font>
+              <Guid>156bacbada7397562ed6a152bb21da53</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text14</Name>
+              <Page isRef="7"/>
+              <Parent isRef="84"/>
+              <Text>{Sum(DataBand1,cash.total)}</Text>
+              <TextBrush>[92:92:92]</TextBrush>
+              <TextFormat isKey="true" type="CurrencyFormat" Ref="87">
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <PositivePattern>0</PositivePattern>
+                <Symbol>¥</Symbol>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text14>
+            <Text15 isKey="true" type="Text" Ref="88">
+              <Border>All;[184:184:184];1;Solid;False;4;Black</Border>
+              <Brush>[255:255:0]</Brush>
+              <ClientRectangle>7.2,0,4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,9</Font>
+              <Guid>d9206d34afbce1629f14a15305cfa442</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text15</Name>
+              <Page isRef="7"/>
+              <Parent isRef="84"/>
+              <TextBrush>[92:92:92]</TextBrush>
+              <TextFormat isKey="true" type="NumberFormat" Ref="89">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text15>
+            <Text17 isKey="true" type="Text" Ref="90">
+              <Border>All;[184:184:184];1;Solid;False;4;Black</Border>
+              <Brush>[255:255:0]</Brush>
+              <ClientRectangle>17.4,0,3.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,9</Font>
+              <Guid>98d495de0c7d43fb78a8a153203e7f6d</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text17</Name>
+              <Page isRef="7"/>
+              <Parent isRef="84"/>
+              <TextBrush>[92:92:92]</TextBrush>
+              <TextFormat isKey="true" type="CurrencyFormat" Ref="91">
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <PositivePattern>0</PositivePattern>
+                <Symbol>¥</Symbol>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text17>
+            <Text26 isKey="true" type="Text" Ref="92">
+              <Border>Top, Left, Bottom;[184:184:184];1;Solid;False;4;Black</Border>
+              <Brush>[255:255:0]</Brush>
+              <ClientRectangle>2.6,0,1,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,9</Font>
+              <Guid>a6e00639d90b5396510ac25d0b6e3965</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text26</Name>
+              <Page isRef="7"/>
+              <Parent isRef="84"/>
+              <Text>合计:</Text>
+              <TextBrush>[92:92:92]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text26>
+            <Text16 isKey="true" type="Text" Ref="93">
+              <Border>All;[184:184:184];1;Solid;False;4;Black</Border>
+              <Brush>[255:255:0]</Brush>
+              <ClientRectangle>11.2,0,2.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,9</Font>
+              <Guid>25b3555da0707b94f344c26032ebd620</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text16</Name>
+              <Page isRef="7"/>
+              <Parent isRef="84"/>
+              <TextBrush>[92:92:92]</TextBrush>
+              <TextFormat isKey="true" type="NumberFormat" Ref="94">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text16>
+            <Text28 isKey="true" type="Text" Ref="95">
+              <Border>Top, Left, Bottom;[184:184:184];1;Solid;False;4;Black</Border>
+              <Brush>[255:255:0]</Brush>
+              <ClientRectangle>14,0,1,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,9</Font>
+              <Guid>5da3e991f8446653b353c26158015725</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text28</Name>
+              <Page isRef="7"/>
+              <Parent isRef="84"/>
+              <Text>平均:</Text>
+              <TextBrush>[92:92:92]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text28>
+            <Text27 isKey="true" type="Text" Ref="96">
+              <Border>Top, Right, Bottom;[184:184:184];1;Solid;False;4;Black</Border>
+              <Brush>[255:255:0]</Brush>
+              <ClientRectangle>15,0,2.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,9</Font>
+              <Guid>0b5d4d31ff178a7e2036c263af623615</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text27</Name>
+              <Page isRef="7"/>
+              <Parent isRef="84"/>
+              <Text>{Avg(DataBand1,cash.total)}</Text>
+              <TextBrush>[92:92:92]</TextBrush>
+              <TextFormat isKey="true" type="CurrencyFormat" Ref="97">
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <PositivePattern>0</PositivePattern>
+                <Symbol>¥</Symbol>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Totals</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text27>
+          </Components>
+          <Conditions isList="true" count="0"/>
+          <Name>GroupFooterBand1</Name>
+          <Page isRef="7"/>
+          <Parent isRef="7"/>
+        </GroupFooterBand1>
+      </Components>
+      <Conditions isList="true" count="0"/>
+      <Guid>37dcab0860c2b7929341969a88aa6807</Guid>
+      <Margins>1,1,1,1</Margins>
+      <Name>Page1</Name>
+      <PageHeight>29.7</PageHeight>
+      <PageWidth>23</PageWidth>
+      <Report isRef="0"/>
+      <Watermark isKey="true" type="Stimulsoft.Report.Components.StiWatermark" Ref="98">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Page1>
+    <Page2 isKey="true" type="Page" Ref="99">
+      <Alias>数据钻取列表</Alias>
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="2">
+        <ReportTitleBand2 isKey="true" type="ReportTitleBand" Ref="100">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.4,19,0.8</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text3 isKey="true" type="Text" Ref="101">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0.2,3.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text3</Name>
+              <Page isRef="99"/>
+              <Parent isRef="100"/>
+              <Text>'{this["remark"]}'</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text3>
+          </Components>
+          <Conditions isList="true" count="0"/>
+          <Name>ReportTitleBand2</Name>
+          <Page isRef="99"/>
+          <Parent isRef="99"/>
+        </ReportTitleBand2>
+        <DataBand2 isKey="true" type="DataBand" Ref="102">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,2,19,0.6</ClientRectangle>
+          <Components isList="true" count="3">
+            <Text32 isKey="true" type="Text" Ref="103">
+              <Border>All;[184:184:184];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0,4.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>宋体,9</Font>
+              <Guid>cb59ef32b56311875c5ffbc3d73a87d1</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text32</Name>
+              <Page isRef="99"/>
+              <Parent isRef="102"/>
+              <Text>{detail.date}</Text>
+              <TextBrush>[92:92:92]</TextBrush>
+              <TextFormat isKey="true" type="CustomFormat" Ref="104">
+                <StringFormat>yyyy-MM-dd</StringFormat>
+              </TextFormat>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text32>
+            <Text29 isKey="true" type="Text" Ref="105">
+              <Border>All;[184:184:184];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>4.6,0,4.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,9</Font>
+              <Guid>d996e5ec3a0cd32310a8fbc3d73bdb6c</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Interaction isKey="true" type="Stimulsoft.Report.Components.StiInteraction" Ref="106">
+                <DrillDownEnabled>True</DrillDownEnabled>
+                <DrillDownPageGuid>b1219c4a1f5a309ed367fbbc8afdc57a</DrillDownPageGuid>
+                <DrillDownParameter1 isKey="true" type="Stimulsoft.Report.Components.StiDrillDownParameter" Ref="107">
+                  <Expression>cash.remark</Expression>
+                  <Name>remark</Name>
+                </DrillDownParameter1>
+              </Interaction>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text29</Name>
+              <Page isRef="99"/>
+              <Parent isRef="102"/>
+              <Text>{detail.total}</Text>
+              <TextBrush>[92:92:92]</TextBrush>
+              <TextFormat isKey="true" type="CurrencyFormat" Ref="108">
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <PositivePattern>0</PositivePattern>
+                <Symbol>¥</Symbol>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text29>
+            <Text30 isKey="true" type="Text" Ref="109">
+              <Border>All;[184:184:184];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>9.2,0,4.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,9</Font>
+              <Guid>5b66ff10ab1ad4ab0cf3fbc3d73ba4a6</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text30</Name>
+              <Page isRef="99"/>
+              <Parent isRef="102"/>
+              <Text>{detail.remark}</Text>
+              <TextBrush>[92:92:92]</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text30>
+          </Components>
+          <Conditions isList="true" count="0"/>
+          <DataSourceName>detail</DataSourceName>
+          <Filters isList="true" count="0"/>
+          <Name>DataBand2</Name>
+          <Page isRef="99"/>
+          <Parent isRef="99"/>
+          <Sort isList="true" count="0"/>
+        </DataBand2>
+      </Components>
+      <Conditions isList="true" count="0"/>
+      <Guid>b1219c4a1f5a309ed367fbbc8afdc57a</Guid>
+      <Margins>1,1,1,1</Margins>
+      <Name>Page2</Name>
+      <PageHeight>29.7</PageHeight>
+      <PageWidth>21</PageWidth>
+      <Report isRef="0"/>
+      <Watermark isKey="true" type="Stimulsoft.Report.Components.StiWatermark" Ref="110">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Page2>
+  </Pages>
+  <PrinterSettings isKey="true" type="Stimulsoft.Report.Print.StiPrinterSettings" Ref="111"/>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>12/22/2016 10:12:57 AM</ReportChanged>
+  <ReportCreated>08/17/2016 11:45:25 AM</ReportCreated>
+  <ReportFile>D:\xampp\www\crm\templatePrintFile\reports\default_huanbi_paySalesorder.mrt</ReportFile>
+  <ReportGuid>a327b367b478bffa1fe3244d87028745</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2016.1</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+
+    public class Report : Stimulsoft.Report.StiReport
+
+    {
+        
+        public Report()
+        {
+            this.InitializeComponent();
+        }
+        #region StiReport Designer generated code - do not modify#endregion StiReport Designer generated code - do not modify
+    }
+}</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0"/>
+</StiSerializer>

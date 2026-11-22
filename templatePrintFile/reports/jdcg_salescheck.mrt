@@ -1,0 +1,316 @@
+{
+  "ReportVersion": "2019.4.1",
+  "ReportGuid": "8eda56a702c1059149c65bfe5d356074",
+  "ReportName": "Report",
+  "ReportAlias": "销售强度检查表",
+  "ReportFile": "jdcg_salescheck.mrt",
+  "ReportCreated": "/Date(1574343447000+0800)/",
+  "ReportChanged": "/Date(1574343447000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Styles": {
+    "0": {
+      "Ident": "StiStyle",
+      "Name": "column_odd",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:255,255,255",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    },
+    "1": {
+      "Ident": "StiStyle",
+      "Name": "column_even",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:252,252,252",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    }
+  },
+  "Dictionary": {
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "b",
+        "Alias": "b",
+        "Columns": {
+          "0": {
+            "Name": "chart_type",
+            "Index": -1,
+            "NameInSource": "chart_type",
+            "Alias": "chart_type",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "chart_value",
+            "Index": -1,
+            "NameInSource": "chart_value",
+            "Alias": "chart_value",
+            "Type": "System.Decimal"
+          },
+          "2": {
+            "Name": "potentialname",
+            "Index": -1,
+            "NameInSource": "potentialname",
+            "Alias": "potentialname",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "crm",
+        "SqlCommand": "SELECT\r\n\t(\r\n\t\tSELECT \r\n\t\t\tb.potentialname b\r\n\t\tFROM ld_potential b\r\n\t\tLEFT JOIN ld_customform52 a ON b.potentialid=a.potentialid \r\n\t\tWHERE (a.customform52id='[related_ldcrmid]' OR b.potentialid ='[related_ldcrmid]')\r\n\t\tLIMIT 1\r\n\t) AS potentialname,\r\n\tchart_type,\r\n\tchart_value\r\nFROM (\r\nSELECT \r\n\t1 AS seq,\r\n\t'痛点和需求' AS chart_type,\r\n\tIFNULL((\r\n\t\tSELECT \r\n\t\t\tCASE\r\n\t\t\t\tWHEN b.cf_5256='猜测评估者的需求' THEN 9\r\n\t\t\t\tWHEN b.cf_5256='评估者承认需求' THEN 8\r\n\t\t\t\tWHEN b.cf_5256='评估者承认痛的表现' THEN 7\r\n\t\t\t\tWHEN b.cf_5256='评估者承认痛' THEN 6\r\n\t\t\t\tWHEN b.cf_5256='评估者认可书面记录的痛' THEN 5\r\n\r\n\t\t\t\tWHEN b.cf_5256='猜测决策支持者的需求' THEN 4\r\n\t\t\t\tWHEN b.cf_5256='决策支持者承认需求' THEN 3\r\n\t\t\t\tWHEN b.cf_5256='决策支持者承认痛的表现' THEN 2\r\n\t\t\t\tWHEN b.cf_5256='决策支持者承认痛' THEN 1\r\n\t\t\t\tWHEN b.cf_5256='决策支持者认可书面记录的痛' THEN 0.1\r\n\t\t\t\tELSE 10\r\n\t\t\tEND\r\n\t\tFROM ld_customform57 a \r\n\t\tLEFT JOIN ld_customform57scf b ON b.customform57id=a.customform57id \r\n\t\tWHERE a.deleted=0 \r\n\t\t\tAND approvestatus<>'已拒绝' \r\n\t\t\tAND (a.potentialid=(SELECT potentialid FROM ld_customform52 WHERE customform52id='[related_ldcrmid]') OR a.potentialid='[related_ldcrmid]')\r\n\t\tORDER BY a.customform57id DESC \r\n\t\tLIMIT 1\r\n\t\t),10) AS chart_value\r\nUNION\r\nSELECT\r\n\t2 AS seq,\r\n\t'解决方案构想' AS chart_type,\r\n\tIFNULL((\r\n\t\tSELECT \r\n\t\t\tCASE\r\n\t\t\t\tWHEN b.cf_5259='为评估者构建产品式构想' THEN 9\r\n\t\t\t\tWHEN b.cf_5259='为评估者构建情景式构想' THEN 8\r\n\t\t\t\tWHEN b.cf_5259='为评估者构建差异化构想' THEN 9\r\n\t\t\t\tWHEN b.cf_5259='差异化概念方案汇报给评估者' THEN 6\r\n\t\t\t\tWHEN b.cf_5259='评估者认可解决方案' THEN 5\r\n\r\n\t\t\t\tWHEN b.cf_5259='为决策支持者构建及汇报概念方案' THEN 4\r\n\t\t\t\tWHEN b.cf_5259='决策支持者认可解决方案' THEN 3\r\n\t\t\t\tWHEN b.cf_5259='为KDM构建及汇报设计方案' THEN 5\r\n\t\t\t\tWHEN b.cf_5259='KDM初步认可设计方案' THEN 1\r\n\t\t\t\tWHEN b.cf_5259='KDM认可设计方案' THEN 0.1\r\n\t\t\t\tELSE 10\r\n\t\t\tEND\r\n\t\tFROM ld_customform57 a \r\n\t\tLEFT JOIN ld_customform57scf b ON b.customform57id=a.customform57id \r\n\t\tWHERE a.deleted=0 \r\n\t\t\tAND approvestatus<>'已拒绝' \r\n\t\t\tAND (a.potentialid=(SELECT potentialid FROM ld_customform52 WHERE customform52id='[related_ldcrmid]') OR a.potentialid='[related_ldcrmid]')\r\n\t\tORDER BY a.customform57id DESC \r\n\t\tLIMIT 1\r\n\t\t),10) AS chart_value\r\nUNION\r\nSELECT\r\n\t3 AS seq,\r\n\t'实现客户价值' AS chart_type,\r\n\tIFNULL((\r\n\t\tSELECT \r\n\t\t\tCASE\r\n\t\t\t\tWHEN b.cf_5258='构想呈现了对客户的价值分析' THEN 9\r\n\t\t\t\tWHEN b.cf_5258='客户同意研究构想的价值分析' THEN 8\r\n\t\t\t\tWHEN b.cf_5258='呈现了解决痛点的价值' THEN 7\r\n\t\t\t\tWHEN b.cf_5258='呈现了概念方案的价值' THEN 6\r\n\t\t\t\tWHEN b.cf_5258='客户认可可能的价值' THEN 5\r\n\r\n\t\t\t\tWHEN b.cf_5258='方案价值包括更多的受益人' THEN 4\r\n\t\t\t\tWHEN b.cf_5258='我方推动客户方案价值分析' THEN 3\r\n\t\t\t\tWHEN b.cf_5258='客户推动方案价值分析' THEN 2\r\n\t\t\t\tWHEN b.cf_5258='与客户共同进行方案价值分析' THEN 1\r\n\t\t\t\tWHEN b.cf_5258='解决方案价值满足决策标准' THEN 0.1\r\n\t\t\t\tELSE 10\r\n\t\t\tEND\r\n\t\tFROM ld_customform57 a \r\n\t\tLEFT JOIN ld_customform57scf b ON b.customform57id=a.customform57id \r\n\t\tWHERE a.deleted=0 \r\n\t\t\tAND approvestatus<>'已拒绝' \r\n\t\t\tAND (a.potentialid=(SELECT potentialid FROM ld_customform52 WHERE customform52id='[related_ldcrmid]') OR a.potentialid='[related_ldcrmid]')\r\n\t\tORDER BY a.customform57id DESC \r\n\t\tLIMIT 1\r\n\t\t),10) AS chart_value\r\nUNION\r\nSELECT\r\n\t4 AS seq,\r\n\t'过程控制' AS chart_type,\r\n\tIFNULL((\r\n\t\tSELECT \r\n\t\t\tCASE\r\n\t\t\t\tWHEN b.cf_5260='发送了拜访备忘录' THEN 9\r\n\t\t\t\tWHEN b.cf_5260='客户认可/反馈备忘录' THEN 8\r\n\t\t\t\tWHEN b.cf_5260='提交评估者的汇报成果记录' THEN 7\r\n\t\t\t\tWHEN b.cf_5260='评估者向上提交汇报成果记录' THEN 6\r\n\t\t\t\tWHEN b.cf_5260='决策支持者认可汇报记录' THEN 5\r\n\r\n\t\t\t\tWHEN b.cf_5260='决策支持者向上提交汇报成果' THEN 4\r\n\t\t\t\tWHEN b.cf_5260='提交与客户的协同推动计划' THEN 3\r\n\t\t\t\tWHEN b.cf_5260='客户认可/反馈协同推动计划' THEN 2\r\n\t\t\t\tWHEN b.cf_5260='推进与客户的协同计划' THEN 1\r\n\t\t\t\tWHEN b.cf_5260='完成与客户的协同推动计划' THEN 0.1\r\n\t\t\t\tELSE 10\r\n\t\t\tEND\r\n\t\tFROM ld_customform57 a \r\n\t\tLEFT JOIN ld_customform57scf b ON b.customform57id=a.customform57id \r\n\t\tWHERE a.deleted=0 \r\n\t\t\tAND approvestatus<>'已拒绝' \r\n\t\t\tAND (a.potentialid=(SELECT potentialid FROM ld_customform52 WHERE customform52id='[related_ldcrmid]') OR a.potentialid='[related_ldcrmid]')\r\n\t\tORDER BY a.customform57id DESC \r\n\t\tLIMIT 1\r\n\t\t),10) AS chart_value\r\nUNION\r\nSELECT\r\n\t5 AS seq,\r\n\t'影响力和关系' AS chart_type,\r\n\tIFNULL((\r\n\t\tSELECT \r\n\t\t\tCASE\r\n\t\t\t\tWHEN b.cf_5257='评估者说明了决策流程' THEN 9\r\n\t\t\t\tWHEN b.cf_5257='找到可能的决策支持者' THEN 8\r\n\t\t\t\tWHEN b.cf_5257='评估人帮助与决策支持者建立联系' THEN 7\r\n\t\t\t\tWHEN b.cf_5257='接触到决策支持者' THEN 6\r\n\t\t\t\tWHEN b.cf_5257='采购和决策流程已确定' THEN 5\r\n\r\n\t\t\t\tWHEN b.cf_5257='决策支持者同意进一步探索' THEN 4\r\n\t\t\t\tWHEN b.cf_5257='决策支持者同意协同推动计划' THEN 3\r\n\t\t\t\tWHEN b.cf_5257='决策支持者同意设计方案' THEN 2\r\n\t\t\t\tWHEN b.cf_5257='决策支持者口头批准' THEN 1\r\n\t\t\t\tWHEN b.cf_5257='KDM批准' THEN 0.1\r\n\t\t\t\tELSE 10\r\n\t\t\tEND\r\n\t\tFROM ld_customform57 a \r\n\t\tLEFT JOIN ld_customform57scf b ON b.customform57id=a.customform57id \r\n\t\tWHERE a.deleted=0 \r\n\t\t\tAND a.approvestatus<>'已拒绝' \r\n\t\t\tAND (a.potentialid=(SELECT potentialid FROM ld_customform52 WHERE customform52id='[related_ldcrmid]') OR a.potentialid='[related_ldcrmid]')\r\n\t\tORDER BY a.customform57id DESC \r\n\t\tLIMIT 1\r\n\t\t),10) AS chart_value\r\n) a\r\nORDER BY seq"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "crm",
+        "Alias": "crm",
+        "ConnectionStringEncrypted": "42zRCUhMMbxGRymFS0kibtXWzcPGWVntYluhzGFxt17C0PUCTAj7gcNNVcxiEPR3xMRlAkZXSYjMbISYSwkya41W96POZ3KZQB6EheGIdwOH"
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "Page1",
+      "Guid": "5d4b27b46a74e040391803bfd0a0787f",
+      "Alias": "销售强度检查表",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiChart",
+          "Name": "Chart1",
+          "ClientRectangle": "0,1.6,30,14",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": "All;;;;;;;solid:0,0,0",
+          "Brush": "solid:255,255,255",
+          "Series": {
+            "0": {
+              "Ident": "StiRadarAreaSeries",
+              "AllowApplyStyle": false,
+              "ShowInLegend": false,
+              "ShowSeriesLabels": "FromSeries",
+              "ShowShadow": false,
+              "SeriesLabels": {
+                "Ident": "StiCenterAxisLabels",
+                "AllowApplyStyle": false,
+                "MarkerSize": {
+                  "Width": 8,
+                  "Height": 6
+                },
+                "ValueTypeSeparator": "-",
+                "Visible": false,
+                "LabelColor": "50,58,69",
+                "BorderColor": "Transparent",
+                "Brush": "solid:Transparent",
+                "Font": ";10;;"
+              },
+              "ValueDataColumn": "b.chart_value",
+              "ArgumentDataColumn": "b.chart_type",
+              "Title": {
+                "Value": "Series 1"
+              },
+              "ShowNulls": false,
+              "Marker": {
+                "Brush": "solid:152,252,255",
+                "BorderColor": "0,52,119",
+                "Size": 1
+              },
+              "LineColor": "52,152,219",
+              "LineWidth": 1,
+              "Brush": "solid:200,52,152,219"
+            }
+          },
+          "Area": {
+            "Ident": "StiRadarAreaArea",
+            "AllowApplyStyle": false,
+            "BorderColor": "171,172,173",
+            "Brush": "empty",
+            "InterlacingHor": {
+              "AllowApplyStyle": false,
+              "InterlacedBrush": "solid:10,155,155,155",
+              "Visible": false,
+              "Area": true
+            },
+            "InterlacingVert": {
+              "AllowApplyStyle": false,
+              "InterlacedBrush": "solid:10,155,155,155",
+              "Visible": false,
+              "Area": true
+            },
+            "GridLinesHor": {
+              "AllowApplyStyle": false,
+              "Color": "100,105,105,105",
+              "Area": true
+            },
+            "GridLinesVert": {
+              "AllowApplyStyle": false,
+              "Color": "100,105,105,105",
+              "Area": true
+            },
+            "RadarStyle": "Polygon",
+            "XAxis": {
+              "AllowApplyStyle": false,
+              "Area": true,
+              "Labels": {
+                "RotationLabels": false,
+                "AllowApplyStyle": false,
+                "Font": "Microsoft YaHei;9;;",
+                "Color": "50,58,69",
+                "Brush": "empty"
+              }
+            },
+            "YAxis": {
+              "AllowApplyStyle": false,
+              "Visible": false,
+              "Area": true,
+              "Labels": {
+                "AllowApplyStyle": false,
+                "Color": "140,140,140",
+                "Step": 1
+              },
+              "Ticks": {
+                "Step": 1,
+                "Visible": false
+              },
+              "LineColor": "140,140,140"
+            }
+          },
+          "Table": {
+            "AllowApplyStyle": false,
+            "MarkerVisible": false,
+            "GridLineColor": "225,225,225",
+            "GridLinesHor": false,
+            "GridLinesVert": false,
+            "GridOutline": false,
+            "Header": {
+              "Brush": "solid:White"
+            },
+            "DataCells": {
+              "TextColor": "140,140,140"
+            }
+          },
+          "SeriesLabels": {
+            "Ident": "StiOutsideAxisLabels",
+            "AllowApplyStyle": false,
+            "ShowNulls": false,
+            "MarkerSize": {
+              "Width": 8,
+              "Height": 6
+            },
+            "ValueTypeSeparator": "-",
+            "Visible": false,
+            "LabelColor": "50,58,69",
+            "BorderColor": "Transparent",
+            "Brush": "solid:Transparent",
+            "Font": ";10;;"
+          },
+          "Legend": {
+            "ShowShadow": false,
+            "BorderColor": "225,225,225",
+            "Brush": "solid:255,255,255",
+            "TitleColor": "105,105,105",
+            "LabelsColor": "140,140,140",
+            "MarkerSize": {
+              "Width": 10,
+              "Height": 10
+            },
+            "Columns": 0,
+            "Size": "0,0"
+          },
+          "Title": {
+            "AllowApplyStyle": false,
+            "Brush": "solid:140,140,140",
+            "Spacing": 0
+          },
+          "AllowApplyStyle": false,
+          "Style": {
+            "Ident": "StiStyle29"
+          }
+        },
+        "1": {
+          "Ident": "StiReportTitleBand",
+          "Name": "ReportTitleBand1",
+          "ClientRectangle": "0,0.4,30,1",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text6",
+              "Guid": "372c7ff0397f348a0ffe22d98c5fa35b",
+              "ClientRectangle": "0.2,0,29.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "<font size=\"14\"><font color=\"#c00000\">项目销售强度检查表(PPVVC<font color=\"#ff0000\">)（</font></font><font color=\"#ff0000\">{b.potentialname}）</font></font>"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;14;Bold;",
+              "Border": ";221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextQuality": "Wysiwyg",
+              "AllowHtmlTags": true,
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text7",
+              "Guid": "0b0134ae6ca1697f0dcfa0c76cc811db",
+              "ClientRectangle": "0,0,0.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;11;Bold;",
+              "Border": ";221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:0,255,255,255",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            }
+          }
+        }
+      },
+      "PageWidth": 32,
+      "PageHeight": 29.69,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    }
+  }
+}

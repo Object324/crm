@@ -1,0 +1,875 @@
+{
+  "ReportVersion": "2019.4.1",
+  "ReportGuid": "40f5dd7bb8195f1f7625366fd4c348ff",
+  "ReportName": "Report",
+  "ReportAlias": "Report",
+  "ReportFile": "haiger_productchange.mrt",
+  "ReportCreated": "/Date(1574689047000+0800)/",
+  "ReportChanged": "/Date(1574689047000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Styles": {
+    "0": {
+      "Ident": "StiStyle",
+      "Name": "column_odd",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:255,255,255",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    },
+    "1": {
+      "Ident": "StiStyle",
+      "Name": "column_even",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:252,252,252",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    }
+  },
+  "Dictionary": {
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "f",
+        "Alias": "f",
+        "Columns": {
+          "0": {
+            "Name": "changetype",
+            "Index": -1,
+            "NameInSource": "changetype",
+            "Alias": "changetype",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "is_pricechange",
+            "Index": -1,
+            "NameInSource": "is_pricechange",
+            "Alias": "is_pricechange",
+            "Type": "System.Int32"
+          },
+          "2": {
+            "Name": "is_qtychange",
+            "Index": -1,
+            "NameInSource": "is_qtychange",
+            "Alias": "is_qtychange",
+            "Type": "System.Int32"
+          },
+          "3": {
+            "Name": "is_zhekouchange",
+            "Index": -1,
+            "NameInSource": "is_zhekouchange",
+            "Alias": "is_zhekouchange",
+            "Type": "System.Int32"
+          },
+          "4": {
+            "Name": "price1",
+            "Index": -1,
+            "NameInSource": "price1",
+            "Alias": "price1",
+            "Type": "System.Decimal"
+          },
+          "5": {
+            "Name": "price2",
+            "Index": -1,
+            "NameInSource": "price2",
+            "Alias": "price2",
+            "Type": "System.Decimal"
+          },
+          "6": {
+            "Name": "productgroup_name",
+            "Index": -1,
+            "NameInSource": "productgroup_name",
+            "Alias": "productgroup_name",
+            "Type": "System.String"
+          },
+          "7": {
+            "Name": "productid",
+            "Index": -1,
+            "NameInSource": "productid",
+            "Alias": "productid",
+            "Type": "System.Int32"
+          },
+          "8": {
+            "Name": "productname",
+            "Index": -1,
+            "NameInSource": "productname",
+            "Alias": "productname",
+            "Type": "System.String"
+          },
+          "9": {
+            "Name": "qty1",
+            "Index": -1,
+            "NameInSource": "qty1",
+            "Alias": "qty1",
+            "Type": "System.Decimal"
+          },
+          "10": {
+            "Name": "qty2",
+            "Index": -1,
+            "NameInSource": "qty2",
+            "Alias": "qty2",
+            "Type": "System.Decimal"
+          },
+          "11": {
+            "Name": "version1",
+            "Index": -1,
+            "NameInSource": "version1",
+            "Alias": "version1",
+            "Type": "System.String"
+          },
+          "12": {
+            "Name": "version2",
+            "Index": -1,
+            "NameInSource": "version2",
+            "Alias": "version2",
+            "Type": "System.String"
+          },
+          "13": {
+            "Name": "zhekou1",
+            "Index": -1,
+            "NameInSource": "zhekou1",
+            "Alias": "zhekou1",
+            "Type": "System.Decimal"
+          },
+          "14": {
+            "Name": "zhekou2",
+            "Index": -1,
+            "NameInSource": "zhekou2",
+            "Alias": "zhekou2",
+            "Type": "System.Decimal"
+          }
+        },
+        "NameInSource": "crm",
+        "SqlCommand": "SELECT\r\n\ta.productid,\r\n\ta.productname,\r\n\ta.productgroup_name,\r\n\ta.version1,\r\n\ta.qty1,\r\n\ta.price1,\r\n\ta.zhekou1,\r\n\ta.version2,\r\n\ta.qty2,\r\n\ta.price2,\r\n\ta.zhekou2,\r\n\ta.changetype,\r\n\tCASE \r\n\t\tWHEN a.changetype='变更' AND IFNULL(a.qty1,0)<>IFNULL(a.qty2,0) THEN 1\r\n\t\tELSE 0 \r\n\tEND AS is_qtychange,\r\n\tCASE \r\n\t\tWHEN a.changetype='变更' AND IFNULL(a.price1,0)<>IFNULL(a.price2,0) THEN 1\r\n\t\tELSE 0 \r\n\tEND AS is_pricechange,\r\n\tCASE \r\n\t\tWHEN a.changetype='变更' AND IFNULL(a.zhekou1,0)<>IFNULL(a.zhekou2,0) THEN 1\r\n\t\tELSE 0 \r\n\tEND AS is_zhekouchange\r\nFROM (\t\r\n\tSELECT\r\n\t\ta.productid,\r\n\t\ta.productname,\r\n\t\ta.productgroup_name,\r\n\t\tb.quote_version AS version1,\r\n\t\tb.quantity AS qty1,\r\n\t\tb.standardprice AS price1,\r\n\t\tb.discount_percent AS zhekou1,\r\n\t\tc.quote_version AS version2,\r\n\t\tc.quantity AS qty2,\r\n\t\tc.standardprice AS price2,\r\n\t\tc.discount_percent AS zhekou2,\r\n\t\tCASE\r\n\t\t\tWHEN b.productid>0 AND IFNULL(c.productid,0)=0 THEN '新增'\r\n\t\t\tWHEN c.productid>0 AND IFNULL(b.b.productid,0)=0 THEN '删除'\r\n\t\t\tWHEN b.productid=c.productid AND b.quantity=c.quantity AND b.standardprice=c.standardprice AND b.discount_percent=c.discount_percent THEN '不变'\r\n\t\t\tELSE '变更'\r\n\t\tEND AS changetype,\r\n\t\ta.seq\r\n\tFROM (\t\r\n\t\tSELECT\r\n\t\t\tb.productid,\r\n\t\t\tc.productname,\r\n\t\t\tc.productgroup_name,\r\n\t\t\tSUM(b.sequence_no) AS seq\r\n\t\tFROM (\r\n\t\t\tSELECT\r\n\t\t\t\ta.quoteid,\r\n\t\t\t\ta.quote_version\r\n\t\t\tFROM ld_quotes a\r\n\t\t\tWHERE a.deleted=0\r\n\t\t\t\tAND a.approvestatus<>'已拒绝'\r\n\t\t\t\tAND a.potentialid=(SELECT potentialid FROM ld_quotes WHERE quoteid='[related_ldcrmid]')\r\n\t\t\tORDER BY a.quote_version DESC,a.quoteid DESC LIMIT 2\r\n\t\t) a\r\n\t\tLEFT JOIN ld_quotesdetail b ON b.id=a.quoteid\r\n\t\tLEFT JOIN ld_products c ON c.productid=b.productid\r\n\t\tGROUP BY b.productid\r\n\t) a\r\n\tLEFT JOIN (\r\n\t\tSELECT\r\n\t\t\ta.quote_version,\r\n\t\t\tb.productid,\r\n\t\t\tb.quantity,\r\n\t\t\tb.standardprice,\r\n\t\t\tb.discount_percent\r\n\t\tFROM ld_quotes a\r\n\t\tLEFT JOIN ld_quotesdetail b ON b.id=a.quoteid\r\n\t\tWHERE a.quoteid=(\r\n\t\t\t\tSELECT \r\n\t\t\t\t\tquoteid \r\n\t\t\t\tFROM ld_quotes\r\n\t\t\t\tWHERE deleted=0\r\n\t\t\t\t\tAND approvestatus<>'已拒绝'\r\n\t\t\t\t\tAND potentialid=(SELECT potentialid FROM ld_quotes WHERE quoteid='[related_ldcrmid]')\r\n\t\t\t\tORDER BY quote_version DESC,quoteid DESC LIMIT 1\r\n\t\t\t)\r\n\t) b ON b.productid=a.productid\r\n\tLEFT JOIN (\r\n\t\tSELECT\r\n\t\t\ta.quote_version,\r\n\t\t\tb.productid,\r\n\t\t\tb.quantity,\r\n\t\t\tb.standardprice,\r\n\t\t\tb.discount_percent\r\n\t\tFROM ld_quotes a\r\n\t\tLEFT JOIN ld_quotesdetail b ON b.id=a.quoteid\r\n\t\tWHERE a.quoteid=(\r\n\t\t\t\tSELECT \r\n\t\t\t\t\tquoteid \r\n\t\t\t\tFROM ld_quotes\r\n\t\t\t\tWHERE deleted=0\r\n\t\t\t\t\tAND approvestatus<>'已拒绝'\r\n\t\t\t\t\tAND potentialid=(SELECT potentialid FROM ld_quotes WHERE quoteid='[related_ldcrmid]')\r\n\t\t\t\tORDER BY quote_version DESC,quoteid DESC LIMIT 1,1\r\n\t\t\t)\r\n\t) c ON c.productid=a.productid\r\n\tWHERE (CASE WHEN b.productid=c.productid AND b.quantity=c.quantity AND b.standardprice=c.standardprice AND b.discount_percent=c.discount_percent THEN '不变' ELSE '改变' END)='改变'\r\n) a\r\nORDER BY a.productgroup_name,a.seq"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "crm",
+        "Alias": "crm",
+        "ConnectionStringEncrypted": "49b7CU9ZAd1iW9WNSj1ibtXc+yvGfEGdYhWx8eER4xOD0GkCxksZ9cwahL1hJXVqk8RxKE9oSc1DWo2AyC3ha41CjUvvC6mIQ3iE6OoANEbVdrnB"
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "Page1",
+      "Guid": "5d4b27b46a74e040391803bfd0a0787f",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";Transparent;2;;;;;solid:0,0,0",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiReportTitleBand",
+          "Name": "ReportTitleBand1",
+          "ClientRectangle": "0,0.4,24,1.6",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text1",
+              "Guid": "b4448e03ac91ea600705a6284be37ef5",
+              "ClientRectangle": "0,0,4.4,1.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "产品组"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text2",
+              "Guid": "7bd1196260b7c9ee440f1b45328f5aa3",
+              "ClientRectangle": "4.4,0,6.8,1.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "产品名称"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text3",
+              "Guid": "8184cfaae7db5c5d911d9cb36eacda26",
+              "ClientRectangle": "11.2,0,2,1.6",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "变更类型"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text4",
+              "Guid": "ec74bb883cbecde61d7389358ae64015",
+              "ClientRectangle": "13.2,0,5.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{f.version1}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text5",
+              "Guid": "30b6cfe556cf5886f2b10c327b313082",
+              "ClientRectangle": "16,0.8,1.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "数量"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text6",
+              "Guid": "dd1712c6531575828fb66e2a69c03b13",
+              "ClientRectangle": "17.2,0.8,1.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "折扣"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text7",
+              "Guid": "bcb13d55f59b8975b6b1bb7ca89c0acb",
+              "ClientRectangle": "13.2,0.8,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "标准面价"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text8",
+              "Guid": "7df5fe029787a9d2ff71666ef6c53f19",
+              "ClientRectangle": "18.6,0,5.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{f.version2}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:226,239,217",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text9",
+              "Guid": "77fc965dacd970da28e3248eaa40ce7a",
+              "ClientRectangle": "21.4,0.8,1.2,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "数量"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:226,239,217",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text10",
+              "Guid": "2859875f5ab5d06731480ad24094f1b2",
+              "ClientRectangle": "22.6,0.8,1.4,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "折扣"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:226,239,217",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "10": {
+              "Ident": "StiText",
+              "Name": "Text11",
+              "Guid": "0d23ec390a2f8b6f284deacbdbc308fe",
+              "ClientRectangle": "18.6,0.8,2.8,0.8",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "标准面价"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:226,239,217",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand1",
+          "Guid": "0d50b8bb503dbc1c00b132279afdf702",
+          "ClientRectangle": "0,2.8,24,1",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text12",
+              "Guid": "0bf8a5fd6ac186a4ebd7bffdbe3a4948",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,4.4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{b.serialnumber}"
+              },
+              "Text": {
+                "Value": "{f.productgroup_name}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text13",
+              "Guid": "e19ce289f5a9709cb62bb9ce12941f8a",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "4.4,0,6.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{b.serialnumber}"
+              },
+              "Text": {
+                "Value": "{f.productname}"
+              },
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text14",
+              "Guid": "8a0696e89e47c7d953fb9da3b9517a86",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "11.2,0,2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{b.serialnumber}"
+              },
+              "Text": {
+                "Value": "{f.changetype}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text15",
+              "Guid": "6742a5a1b7b5e90c95cbed597d6b0e19",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "13.2,0,2.8,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{f.is_pricechange == 1}"
+                  },
+                  "Font": "Microsoft YaHei;9;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{b.serialnumber}"
+              },
+              "HideZeros": true,
+              "Text": {
+                "Value": "{f.price1}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "DecimalDigits": 6,
+                "GroupSeparator": ",",
+                "State": "DecimalDigits"
+              },
+              "Type": "DataColumn"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text16",
+              "Guid": "c2d56063135f7016280169ebe42eef88",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "16,0,1.2,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{f.is_qtychange  == 1}"
+                  },
+                  "Font": "Microsoft YaHei;9;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{b.serialnumber}"
+              },
+              "HideZeros": true,
+              "Text": {
+                "Value": "{f.qty1}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "State": "DecimalDigits"
+              },
+              "Type": "DataColumn"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text17",
+              "Guid": "ddbc9de756b2275e3d581696d070ee23",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "17.2,0,1.4,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{f.is_zhekouchange  == 1}"
+                  },
+                  "Font": "Microsoft YaHei;9;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{b.serialnumber}"
+              },
+              "HideZeros": true,
+              "Text": {
+                "Value": "{f.zhekou1}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ",",
+                "State": "DecimalDigits"
+              },
+              "Type": "DataColumn"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text18",
+              "Guid": "b8af3fe7c24d11772d79a794fdbbbe7c",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "18.6,0,2.8,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{f.is_pricechange == 1}"
+                  },
+                  "BackColor": "226,239,217",
+                  "Font": "Microsoft YaHei;9;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{b.serialnumber}"
+              },
+              "HideZeros": true,
+              "Text": {
+                "Value": "{f.price2}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:226,239,217",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "DecimalDigits": 6,
+                "GroupSeparator": ",",
+                "State": "DecimalDigits"
+              },
+              "Type": "DataColumn"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text19",
+              "Guid": "b3c34698b7f18e9d4aff25bdd84205bd",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "21.4,0,1.2,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{f.is_qtychange  == 1}"
+                  },
+                  "BackColor": "226,239,217",
+                  "Font": "Microsoft YaHei;9;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{b.serialnumber}"
+              },
+              "HideZeros": true,
+              "Text": {
+                "Value": "{f.qty2}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:226,239,217",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "State": "DecimalDigits"
+              },
+              "Type": "DataColumn"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text20",
+              "Guid": "481c34182495a77dde17d7f0a52de7a2",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "22.6,0,1.4,1",
+              "Conditions": {
+                "0": {
+                  "Ident": "StiCondition",
+                  "Item": "Expression",
+                  "Expression": {
+                    "Value": "{f.is_zhekouchange  == 1}"
+                  },
+                  "BackColor": "226,239,217",
+                  "Font": "Microsoft YaHei;9;;",
+                  "BorderSides": "All"
+                }
+              },
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Tag": {
+                "Value": "{b.serialnumber}"
+              },
+              "HideZeros": true,
+              "Text": {
+                "Value": "{f.zhekou2}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "Microsoft YaHei;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:226,239,217",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ",",
+                "State": "DecimalDigits"
+              },
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "f"
+        }
+      },
+      "UnlimitedHeight": true,
+      "PageWidth": 26,
+      "PageHeight": 29.69,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 1,
+        "Right": 1,
+        "Top": 1,
+        "Bottom": 1
+      }
+    }
+  }
+}

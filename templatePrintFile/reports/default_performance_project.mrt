@@ -1,0 +1,1721 @@
+{
+  "ReportVersion": "2019.4.1",
+  "ReportGuid": "be4b46080e139765723772b47caf275f",
+  "ReportName": "Report",
+  "ReportAlias": "项目提成表",
+  "ReportFile": "default_performance_project.mrt",
+  "ReportCreated": "/Date(172800000+0800)/",
+  "ReportChanged": "/Date(172800000+0800)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "ReportUnit": "Centimeters",
+  "PreviewSettings": 268435455,
+  "Styles": {
+    "0": {
+      "Ident": "StiStyle",
+      "Name": "column_odd",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:255,255,255",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    },
+    "1": {
+      "Ident": "StiStyle",
+      "Name": "column_even",
+      "VertAlignment": "Center",
+      "Font": "微软雅黑;9;;",
+      "Border": ";128,128,128;;;;;;solid:0,0,0",
+      "Brush": "solid:252,252,252",
+      "TextBrush": "solid:0,0,0",
+      "NegativeTextBrush": "solid:255,0,0",
+      "AllowUseHorAlignment": true,
+      "AllowUseVertAlignment": true,
+      "AllowUseBorderSidesFromLocation": true
+    }
+  },
+  "Dictionary": {
+    "Variables": {
+      "0": {
+        "Value": "DateSerial(Year(Today),Month(Today),1)",
+        "Name": "start_date",
+        "Alias": "收款起始日期",
+        "Type": "System.DateTime",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      },
+      "1": {
+        "Name": "accountname",
+        "Alias": "客户名称",
+        "Type": "System.String",
+        "RequestFromUser": true
+      },
+      "2": {
+        "Name": "jieduan",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime",
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "list_jieduan.listvalue",
+          "ValuesColumn": "list_jieduan.listvalue",
+          "AllowUserValues": false
+        },
+        "Alias": "项目阶段",
+        "Type": "Stimulsoft.Report.StringList",
+        "RequestFromUser": true
+      },
+      "3": {
+        "Value": "5",
+        "Name": "rate",
+        "Alias": "业绩提成比例(%)",
+        "Type": "System.Decimal",
+        "RequestFromUser": true
+      },
+      "4": {
+        "Value": "Today",
+        "Name": "end_date",
+        "Alias": "收款截止日期",
+        "Type": "System.DateTime",
+        "RequestFromUser": true,
+        "InitBy": "Expression"
+      },
+      "5": {
+        "Value": "按本次收款金额",
+        "Name": "suanfa",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime",
+          "Keys": {
+            "0": "按源单已收总额",
+            "1": "按本次收款金额"
+          },
+          "Values": {
+            "0": "按源单已收总额",
+            "1": "按本次收款金额"
+          }
+        },
+        "Alias": "提成算法",
+        "Type": "System.String",
+        "RequestFromUser": true
+      },
+      "6": {
+        "Name": "data_range",
+        "DialogInfo": {
+          "DateTimeType": "DateAndTime",
+          "ItemsInitializationType": "Columns",
+          "KeysColumn": "list_users.listid",
+          "ValuesColumn": "list_users.listvalue",
+          "AllowUserValues": false
+        },
+        "Alias": "查看范围",
+        "Type": "Stimulsoft.Report.StringList",
+        "RequestFromUser": true
+      }
+    },
+    "DataSources": {
+      "0": {
+        "Ident": "StiMySqlSource",
+        "Name": "b",
+        "Alias": "b",
+        "Columns": {
+          "0": {
+            "Name": "accountid",
+            "Index": -1,
+            "NameInSource": "accountid",
+            "Alias": "accountid",
+            "Type": "System.Int32"
+          },
+          "1": {
+            "Name": "accountname",
+            "Index": -1,
+            "NameInSource": "accountname",
+            "Alias": "accountname",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "amount",
+            "Index": -1,
+            "NameInSource": "amount",
+            "Alias": "amount",
+            "Type": "System.Decimal"
+          },
+          "3": {
+            "Name": "cashbilldate",
+            "Index": -1,
+            "NameInSource": "cashbilldate",
+            "Alias": "cashbilldate",
+            "Type": "System.DateTime"
+          },
+          "4": {
+            "Name": "last_name",
+            "Index": -1,
+            "NameInSource": "last_name",
+            "Alias": "last_name",
+            "Type": "System.String"
+          },
+          "5": {
+            "Name": "order_no",
+            "Index": -1,
+            "NameInSource": "order_no",
+            "Alias": "order_no",
+            "Type": "System.String"
+          },
+          "6": {
+            "Name": "order_total",
+            "Index": -1,
+            "NameInSource": "order_total",
+            "Alias": "order_total",
+            "Type": "System.Decimal"
+          },
+          "7": {
+            "Name": "ordertype",
+            "Index": -1,
+            "NameInSource": "ordertype",
+            "Alias": "ordertype",
+            "Type": "System.String"
+          },
+          "8": {
+            "Name": "project_no",
+            "Index": -1,
+            "NameInSource": "project_no",
+            "Alias": "project_no",
+            "Type": "System.String"
+          },
+          "9": {
+            "Name": "projectid",
+            "Index": -1,
+            "NameInSource": "projectid",
+            "Alias": "projectid",
+            "Type": "System.Int32"
+          },
+          "10": {
+            "Name": "projectname",
+            "Index": -1,
+            "NameInSource": "projectname",
+            "Alias": "projectname",
+            "Type": "System.String"
+          },
+          "11": {
+            "Name": "projectstatus",
+            "Index": -1,
+            "NameInSource": "projectstatus",
+            "Alias": "projectstatus",
+            "Type": "System.String"
+          },
+          "12": {
+            "Name": "projectstatus",
+            "Index": -1,
+            "NameInSource": "projectstatus",
+            "Alias": "projectstatus",
+            "Type": "System.String"
+          },
+          "13": {
+            "Name": "salesorderid",
+            "Index": -1,
+            "NameInSource": "salesorderid",
+            "Alias": "salesorderid",
+            "Type": "System.Int32"
+          },
+          "14": {
+            "Name": "sk_total",
+            "Index": -1,
+            "NameInSource": "sk_total",
+            "Alias": "sk_total",
+            "Type": "System.Decimal"
+          },
+          "15": {
+            "Name": "tc_amount",
+            "Index": -1,
+            "NameInSource": "tc_amount",
+            "Alias": "tc_amount",
+            "Type": "System.Decimal"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT\r\n\ta.projectid,\r\n\ta.projectname,\r\n\ta.project_no,\r\n\tu.last_name,\r\n\ta.salesorderid,\r\n\ta.projectstatus,\r\n\tb.ordertype,\r\n\tb.order_no,\r\n\tc.cashbilldate,\r\n\tb.order_total AS order_total,\r\n\tc.sk_total AS sk_total,\r\n\tc.amount AS amount,\r\n\tCASE \r\n\t\tWHEN '{suanfa}'='按本次收款金额' THEN ROUND(c.amount*0.01*'{rate}',2) \r\n\t\tELSE  ROUND(c.sk_total*0.01*'{rate}',2) \r\n\tEND AS tc_amount,\r\n\ta.accountid,\r\n\tCASE \r\n\t\tWHEN EXISTS (SELECT 1 FROM ld_field WHERE tabid=48 AND columnname='end_accountid' AND presence<>1) THEN (SELECT accountname FROM ld_account WHERE accountid=a.end_accountid)\r\n\t\tELSE \tk.accountname\r\n\tEND AS accountname\r\nFROM ld_project a\r\nLEFT JOIN (\r\n\tSELECT\r\n\t\tsalesorderid AS order_id,\r\n\t\tsalesorder_no AS order_no,\r\n\t\t'SalesOrder' AS ordertype,\r\n\t\treceived_amount,\r\n\t\tcashbilldate,\r\n\t\ttotal AS order_total\r\n\tFROM ld_salesorder \r\n\tWHERE deleted=0\r\n\tUNION \r\n\tSELECT \r\n\t\tservicecontractsid AS order_id,\r\n\t\tcontract_no AS order_no,\r\n\t\t'ServiceContracts' AS ordertype,\r\n\t\treceived_amount,\r\n\t\tcashbilldate,\r\n\t\ttotal AS order_total\r\n\tFROM ld_servicecontracts\r\n\tWHERE deleted=0 \r\n) b ON b.order_id=a.salesorderid\r\nINNER JOIN (\r\n\tSELECT\r\n\t\tSUM(amount) AS sk_total,\r\n\t\tamount,\r\n\t\tcashbilldate,\r\n\t\tentitytypeid\r\n\tFROM (\r\n\t\tSELECT\r\n\t\t\ta.smownerid,\r\n\t\t\ta.cashbillid,\r\n\t\t\ta.cashbill_no,\r\n\t\t\ta.cashbilldate,\r\n\t\t\ta.accountid,\r\n\t\t\ta.currency_symbol,\r\n\t\t\ta.conversion_rate,\r\n\t\t\tCASE \r\n\t\t\t\tWHEN b.entitytype='PaymentPlan' THEN\r\n\t\t\t\t\t(SELECT entitytype FROM ld_paymentplan WHERE paymentplanid=b.entitytypeid)\r\n\t\t\t\tELSE b.entitytype\r\n\t\t\tEND AS entitytype,\r\n\t\t\tCASE \r\n\t\t\t\tWHEN b.entitytype='PaymentPlan' THEN\r\n\t\t\t\t\t(SELECT entitytypeid FROM ld_paymentplan WHERE paymentplanid=b.entitytypeid)\r\n\t\t\t\tELSE b.entitytypeid\r\n\t\t\tEND AS entitytypeid,\r\n\t\t\tCASE\r\n\t\t\t\tWHEN b.CashBillID>0 THEN  b.amount\r\n\t\t\t\tELSE a.Total\r\n\t\t\tEND AS amount,\r\n\t\t\ta.deleted,\r\n\t\t\ta.checkoutstatus\r\n\t\tFROM ld_cashbill a\r\n\t\tLEFT JOIN ld_cashbill2paymentplan b ON a.cashbillid = b.CashBillID\r\n\t\tWHERE a.deleted=0\r\n\t\t\tAND IFNULL(a.approvestatus,'')<>'已拒绝'\r\n\t\t\tAND a.cashbilldate BETWEEN DATE_FORMAT('{start_date}','%Y-%m-%d') AND DATE_FORMAT('{end_date}','%Y-%m-%d')\r\n\t\t\tAND (\r\n\t\t\t\tCASE \r\n\t\t\t\t\tWHEN EXISTS (SELECT 1 from ld_systems_deploy where deploy_type=83 and deploy_value=0) THEN 1=1\r\n\t\t\t\t\tELSE a.checkoutstatus='已审核'\r\n\t\t\t\tEND)\t\r\n\t\t\tHAVING 1\r\n\t\t\tORDER BY cashbilldate DESC\r\n\t) a\r\n\tWHERE entitytypeid>0\r\n\tGROUP BY entitytypeid\r\n) c ON c.entitytypeid=a.salesorderid\r\nLEFT JOIN ld_account k ON k.accountid=a.accountid\r\nLEFT JOIN ld_users u ON u.id=a.smownerid\r\nINNER JOIN (\r\n\tSELECT DISTINCT\r\n\t\tuserid \r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tld_users.id AS userid \r\n\t\tFROM ld_users\r\n\t\tWHERE EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='Project' and scopeauthority=1 AND userid='[uuid]')\r\n\t\tUNION\r\n\t\tSELECT \r\n\t\t\tviewid AS userid \r\n\t\tFROM ld_scoperhigher\r\n\t\tWHERE userid='[uuid]' AND modulename ='Project' AND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE userid='[uuid]' AND scopeauthority=2 AND modulename ='Project')\t\t\t\r\n\t\tUNION\r\n\t\tSELECT DISTINCT \r\n\t\t\tld_users2group.userid AS userid \r\n\t\tFROM ld_scoperhigher \r\n\t\tINNER JOIN ld_groups ON ld_groups.groupid=ld_scoperhigher.viewid\r\n\t\tINNER JOIN ld_users2group ON ld_users2group.groupid=ld_groups.groupid\r\n\t\tWHERE ld_scoperhigher.userid='[uuid]' \r\n\t\t\tAND ld_scoperhigher.modulename ='Project'\r\n\t\t\tAND ld_scoperhigher.scopeauthority=3 \r\n\t\t\tAND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='Project' AND scopeauthority=3 AND userid='[uuid]')\r\n\t\tUNION \r\n\t\tSELECT \r\n\t\t\tid AS userid \r\n\t\tFROM ld_users  \r\n\t\tWHERE EXISTS(SELECT 1 FROM ld_users WHERE id='[uuid]' AND is_admin='on')\r\n\t\tUNION\r\n\t\tSELECT '[uuid]') AS vw_users\r\n) AS tmp_users ON tmp_users.userid=a.smownerid\r\nWHERE a.deleted=0\r\n\tAND (\r\n\t\tCASE\r\n\t\t\tWHEN TRIM('{accountname}')='' THEN 1=1\r\n\t\t\tELSE LOCATE(TRIM('{accountname}'),(\tCASE WHEN EXISTS (SELECT 1 FROM ld_field WHERE tabid=48 AND columnname='end_accountid' AND presence<>1) THEN (SELECT accountname FROM ld_account WHERE accountid=a.end_accountid) ELSE k.accountname END))>0\r\n\t\tEND) \r\n\tAND (\r\n\t\tCASE\r\n\t\t\tWHEN TRIM('{jieduan}')='' THEN a.projectstatus IN (SELECT listvalue FROM ld_picklist_set a LEFT JOIN ld_picklist_values b ON b.listid=a.listid WHERE a.listname='projectstatus')\r\n\t\t\tELSE FIND_IN_SET(a.projectstatus,'{jieduan}')\r\n\t\tEND) \r\n\tAND(\r\n\t\tCASE\r\n\t\t\tWHEN FIND_IN_SET(1,'{data_range}') OR '{data_range}'='' THEN 1=1\r\n\t\t\tWHEN FIND_IN_SET(2,'{data_range}') THEN a.smownerid='[uuid]'\r\n\t\t\tELSE \r\n\t\t\t\t\t\ta.smownerid IN (\r\n\t\t\t\t\t\t\t\tSELECT\r\n\t\t\t\t\t\t\t\t\ta.userid\r\n\t\t\t\t\t\t\t\tFROM ld_users2group a\r\n\t\t\t\t\t\t\t\tINNER JOIN (\r\n\t\t\t\t\t\t\t\t\tSELECT \r\n\t\t\t\t\t\t\t\t\t\tsubstring_index(substring_index(a.splitsting,',',b.seq+1),',',-1)-200000 AS groupid\r\n\t\t\t\t\t\t\t\t\tFROM (SELECT '{data_range}' AS splitsting) a \r\n\t\t\t\t\t\t\t\t\tLEFT JOIN sequence b ON b.seq < (length(a.splitsting) - length(replace(a.splitsting,',',''))+1) \r\n\t\t\t\t\t\t\t\t\tWHERE substring_index(substring_index(a.splitsting,',',b.seq+1),',',-1) BETWEEN 200000 AND 300000\r\n\t\t\t\t\t\t\t\t) b ON b.groupid=a.groupid\r\n\t\t\t\t\t\t\t\tGROUP BY a.userid\r\n\t\t\t\t\t\t\t\tUNION \r\n\t\t\t\t\t\t\t\tSELECT \r\n\t\t\t\t\t\t\t\t\tsubstring_index(substring_index(a.splitsting,',',b.seq+1),',',-1)-300000 AS groupid\r\n\t\t\t\t\t\t\t\tFROM (SELECT '{data_range}' AS splitsting) a \r\n\t\t\t\t\t\t\t\tLEFT JOIN sequence b ON b.seq < (length(a.splitsting) - length(replace(a.splitsting,',',''))+1) \r\n\t\t\t\t\t\t\t\tWHERE substring_index(substring_index(a.splitsting,',',b.seq+1),',',-1)>300000\r\n\t\t\t\t\t\t)\r\n\t\tEND)"
+      },
+      "1": {
+        "Ident": "StiMySqlSource",
+        "Name": "LAB",
+        "Alias": "LAB",
+        "Columns": {
+          "0": {
+            "Name": "LAB1",
+            "Index": -1,
+            "NameInSource": "LAB1",
+            "Alias": "LAB1",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT\r\n\t(\r\n\t\tSELECT \r\n\t\t\tfieldlabel \r\n\t\tFROM ld_tranlabel \r\n\t\tWHERE languagetype='zh' \r\n\t\t\tAND trantable='ld_field' \r\n\t\t\tAND tabid=48\r\n\t\t\tAND Relateid=(SELECT fieldid FROM ld_field WHERE tabid=48 AND columnname='smownerid' LIMIT 1)\r\n\t\t) AS LAB1"
+      },
+      "2": {
+        "Ident": "StiMySqlSource",
+        "Name": "list_users",
+        "Alias": "list_users",
+        "Columns": {
+          "0": {
+            "Name": "list_order",
+            "Index": -1,
+            "NameInSource": "list_order",
+            "Alias": "list_order",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "listid",
+            "Index": -1,
+            "NameInSource": "listid",
+            "Alias": "listid",
+            "Type": "System.Int32"
+          },
+          "2": {
+            "Name": "listtype",
+            "Index": -1,
+            "NameInSource": "listtype",
+            "Alias": "listtype",
+            "Type": "System.Int32"
+          },
+          "3": {
+            "Name": "listvalue",
+            "Index": -1,
+            "NameInSource": "listvalue",
+            "Alias": "listvalue",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT 1 AS listid,'全部' AS listvalue,0 AS list_order,1 AS listtype\r\nUNION\r\nSELECT 2 AS listid, '我负责的' AS listvalue,0 AS list_order,2 AS listtype\r\nUNION (\r\n\tSELECT\r\n\t\ta.groupid+200000 AS listid,\r\n\t\tCONCAT('部门::',IFNULL(a.groupname,'')) AS listvalue,\r\n\t\tGROUP_CONCAT(IFNULL(a.splitsting,'') ORDER BY a.splitsting SEPARATOR '::') AS listorder,\r\n\t\t1 AS listtype\r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\ta.groupid, \r\n\t\t\ta.groupname, \r\n\t\t\tLPAD(substring_index(substring_index(a.splitsting,',',b.seq+1),',',-1),8,'0') AS splitsting\r\n\t\tFROM (\r\n\t\t\tSELECT \r\n\t\t\t\ta.groupid,\r\n\t\t\t\ta.groupname, \r\n\t\t\t\tREPLACE(a.parentgroup,'::',',') AS splitsting \r\n\t\t\tFROM ld_groups a\r\n\t\t\tLEFT JOIN ld_users2group b ON b.groupid=a.groupid\r\n\t\t\tGROUP BY a.groupid\r\n\t\t) a \r\n\t\tLEFT JOIN sequence b ON b.seq < (length(a.splitsting) - length(replace(a.splitsting,',',''))+1)\r\n\t) a\r\n\tGROUP BY a.groupid\r\n)\r\nUNION (\r\n\tSELECT\r\n\t\ta.id+300000 AS listid,\r\n\t\tCONCAT('用户::',IFNULL(a.last_name,''),'(',c.listvalue,')') AS listvalue,\r\n\t\tc.listorder,\r\n\t\t2 AS listtype\r\n\tFROM ld_users a\r\n\tLEFT JOIN ld_users2group b ON b.userid=a.id  \r\n\tLEFT JOIN (\r\n\t\tSELECT\r\n\t\t\ta.groupid,\r\n\t\t\ta.groupid+200000 AS listid,\r\n\t\t\tCONCAT('部门::',IFNULL(a.groupname,'')) AS listvalue,\r\n\t\t\tGROUP_CONCAT(IFNULL(a.splitsting,'') ORDER BY a.splitsting SEPARATOR '::') AS listorder\r\n\t\tFROM (\r\n\t\t\tSELECT \r\n\t\t\t\ta.groupid, \r\n\t\t\t\ta.groupname, \r\n\t\t\t\tLPAD(substring_index(substring_index(a.splitsting,',',b.seq+1),',',-1),8,'0') AS splitsting\r\n\t\t\tFROM (\r\n\t\t\t\tSELECT \r\n\t\t\t\t\ta.groupid,\r\n\t\t\t\t\ta.groupname, \r\n\t\t\t\t\tREPLACE(a.parentgroup,'::',',') AS splitsting \r\n\t\t\t\tFROM ld_groups a\r\n\t\t\t\tLEFT JOIN ld_users2group b ON b.groupid=a.groupid\r\n\t\t\t\tGROUP BY a.groupid\r\n\t\t\t) a \r\n\t\t\tLEFT JOIN sequence b ON b.seq < (length(a.splitsting) - length(replace(a.splitsting,',',''))+1)\r\n\t\t) a\r\n\t\tGROUP BY a.groupid\r\n\t) c ON c.groupid=b.groupid\r\n\tINNER JOIN (\r\n\t\tSELECT DISTINCT\r\n\t\t\tuserid \r\n\t\tFROM (\r\n\t\t\tSELECT \r\n\t\t\t\tld_users.id AS userid \r\n\t\t\tFROM ld_users\r\n\t\t\tWHERE EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='Project' and scopeauthority=1 AND userid='[uuid]')\r\n\t\t\tUNION\r\n\t\t\tSELECT \r\n\t\t\t\tviewid AS userid \r\n\t\t\tFROM ld_scoperhigher\r\n\t\t\tWHERE userid='[uuid]' AND modulename ='Project' AND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE userid='[uuid]' AND scopeauthority=2 AND modulename ='Project')\t\t\t\r\n\t\t\tUNION\r\n\t\t\tSELECT DISTINCT \r\n\t\t\t\tld_users2group.userid AS userid \r\n\t\t\tFROM ld_scoperhigher \r\n\t\t\tINNER JOIN ld_groups ON ld_groups.groupid=ld_scoperhigher.viewid\r\n\t\t\tINNER JOIN ld_users2group ON ld_users2group.groupid=ld_groups.groupid\r\n\t\t\tWHERE ld_scoperhigher.userid='[uuid]' \r\n\t\t\t\tAND ld_scoperhigher.modulename ='Project'\r\n\t\t\t\tAND ld_scoperhigher.scopeauthority=3 \r\n\t\t\t\tAND EXISTS(SELECT 1 FROM ld_setscoperhigher WHERE modulename ='Project' AND scopeauthority=3 AND userid='[uuid]')\r\n\t\t\tUNION \r\n\t\t\tSELECT \r\n\t\t\t\tid AS userid \r\n\t\t\tFROM ld_users  \r\n\t\t\tWHERE EXISTS(SELECT 1 FROM ld_users WHERE id='[uuid]' AND is_admin='on')\r\n\t\t\tUNION\r\n\t\t\tSELECT '[uuid]') AS vw_users\r\n\t) AS tmp_users ON tmp_users.userid=a.id\r\n\tWHERE a.deleted=0\r\n\t\tAND a.`status`='Active'\r\n)\r\nORDER BY list_order,listtype"
+      },
+      "3": {
+        "Ident": "StiMySqlSource",
+        "Name": "list_jieduan",
+        "Alias": "list_jieduan",
+        "Columns": {
+          "0": {
+            "Name": "listid",
+            "Index": -1,
+            "NameInSource": "listid",
+            "Alias": "listid",
+            "Type": "System.Int32"
+          },
+          "1": {
+            "Name": "listvalue",
+            "Index": -1,
+            "NameInSource": "listvalue",
+            "Alias": "listvalue",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "ldcrm",
+        "SqlCommand": "SELECT\r\n\tb.listvalue,\r\n\tb.listid\r\nFROM ld_picklist_set a\r\nLEFT JOIN ld_picklist_values b ON b.listid=a.listid \r\nWHERE a.listname='projectstatus'\r\nORDER BY b.sequence"
+      }
+    },
+    "Databases": {
+      "0": {
+        "Ident": "StiMySqlDatabase",
+        "Name": "ldcrm",
+        "Alias": "ldcrm",
+        "ConnectionStringEncrypted": "41bRCUh8S81GRym9xJzjXovS+ythCkGJYhWhzOIJYWeQWtnrYUxDCcwbqNjoePZn3tyNSMYJUZTCE/mAZBR3boN4zcJPA1GQbU3QgMs="
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "Page1",
+      "Guid": "7a63ece74acd9b16d3cef16f83d3c036",
+      "Alias": "项目提成表",
+      "Interaction": {
+        "Ident": "StiInteraction"
+      },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiHeaderBand",
+          "Name": "HeaderBand1",
+          "ClientRectangle": "0,0.4,39,2.4",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text3",
+              "Guid": "f5d0f72140ad0324c5e0f17d22e35c48",
+              "ClientRectangle": "0,1.2,1,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "#"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text4",
+              "Guid": "caac0f27dbf5ab5f942bf17e09af7526",
+              "ClientRectangle": "1,1.2,3.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{LAB.LAB1}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text7",
+              "Guid": "584cd43922cd376bc3cdf17ffec01a24",
+              "ClientRectangle": "4.2,1.2,2.6,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "项目编号"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text1",
+              "Guid": "fd058d5d5071f289056a05b28b7ae646",
+              "ClientRectangle": "0,0,39,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "项目提成表"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;18;;",
+              "Border": ";153,153,153;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text46",
+              "Guid": "42f3e50271aa427ee2c2f5ca78ff9249",
+              "ClientRectangle": "11.2,1.2,7.8,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "客户名称"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text8",
+              "Guid": "db0392adda8d1fa83331f180756139db",
+              "ClientRectangle": "23,1.2,4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "源单金额"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text75",
+              "Guid": "0549a091800ee709c5610f8aff0afb61",
+              "ClientRectangle": "19,1.2,4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "源单"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text83",
+              "Guid": "90660d3f821bfe78a47610b060c25f50",
+              "ClientRectangle": "27,1.2,4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "源单已收总金额"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text13",
+              "Guid": "9c6a0ad9bfa24b36b5c6f18227fbd084",
+              "ClientRectangle": "35,1.2,4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "业绩提成"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text79",
+              "Guid": "3950c6215718d725ee050f8b5840f697",
+              "ClientRectangle": "31,1.2,4,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "本次收款金额"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "10": {
+              "Ident": "StiText",
+              "Name": "Text14",
+              "Guid": "dbecfceb57f53892ce8ff1842aa38b6e",
+              "ClientRectangle": "9,1.2,2.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "收款日期"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            },
+            "11": {
+              "Ident": "StiText",
+              "Name": "Text2",
+              "Guid": "d78ac56f6dae6d90b35647d369f02319",
+              "ClientRectangle": "6.8,1.2,2.2,1.2",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "项目状态"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;Bold;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:240,244,252",
+              "TextBrush": "solid:Black",
+              "Type": "Expression"
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiGroupHeaderBand",
+          "Name": "GroupHeaderBand1",
+          "ClientRectangle": "0,3.6,39,0",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "SortDirection": "None",
+          "Condition": {
+            "Value": "{b.smownerid}"
+          }
+        },
+        "2": {
+          "Ident": "StiDataBand",
+          "Name": "DataBand1",
+          "ClientRectangle": "0,4.4,39,1",
+          "Interaction": {
+            "Ident": "StiBandInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text5",
+              "Guid": "a28a5b018edbc121ab66f17f7a6f88e2",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,1,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{LineThrough}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "Type": "SystemVariables"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text6",
+              "Guid": "d4d08f68aa7c9d4e634af17fd0c6c298",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "1,0,3.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "业务员"
+              },
+              "Text": {
+                "Value": "{b.last_name}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text15",
+              "Guid": "0d8420dea44cb057cf06f18463d2dba8",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "4.2,0,2.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "点击查看明细"
+              },
+              "Hyperlink": {
+                "Value": "viewdetail.php?id={b.projectid}"
+              },
+              "Text": {
+                "Value": "{b.project_no}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:52,135,226",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text17",
+              "Guid": "5736848e1b5f3b2d1a2ef1850d2be96a",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "23,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "源单金额"
+              },
+              "Text": {
+                "Value": "{b.order_total}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "DataColumn"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text22",
+              "Guid": "d07fef0889990c31ee64f1869607bb52",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "35,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "项目提成"
+              },
+              "Text": {
+                "Value": "{b.tc_amount}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "DataColumn"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text38",
+              "Guid": "2a70fe035727a7779888f5ca78ffc2fe",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "11.2,0,7.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction",
+                "DrillDownEnabled": true
+              },
+              "ToolTip": {
+                "Value": "点击查看明细"
+              },
+              "Hyperlink": {
+                "Value": "viewdetail.php?id={b.accountid}"
+              },
+              "Text": {
+                "Value": "{b.accountname}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:52,135,226",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text70",
+              "Guid": "600dbe41ff659345276b0f8aff0a31df",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "19,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "点击查看明细"
+              },
+              "Hyperlink": {
+                "Value": "viewdetail.php?id={b.entitytypeid}"
+              },
+              "Text": {
+                "Value": "{b.order_no}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:52,135,226",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "DataColumn"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text78",
+              "Guid": "8fe53c0f7586a10dff0e10b060c2b66e",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "27,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "源单已收总额"
+              },
+              "Text": {
+                "Value": "{b.sk_total}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "DataColumn"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text82",
+              "Guid": "8ca16fe158356e06333383a739113e72",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "31,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "费用合计"
+              },
+              "Text": {
+                "Value": "{b.amount}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "DataColumn"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text16",
+              "Guid": "61dc559e57cd91a8e838f1848275a2b4",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "9,0,2.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "签约日期"
+              },
+              "Text": {
+                "Value": "{b.cashbilldate}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiCustomFormatService",
+                "StringFormat": "yyyy-MM-dd"
+              },
+              "Type": "DataColumn"
+            },
+            "10": {
+              "Ident": "StiText",
+              "Name": "Text9",
+              "Guid": "3b9582133afb876a778b4ec18372e3b7",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "6.8,0,2.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "签约日期"
+              },
+              "Text": {
+                "Value": "{b.projectstatus}"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "DataColumn"
+            }
+          },
+          "DataSourceName": "b",
+          "EvenStyle": "column_even",
+          "OddStyle": "column_odd"
+        },
+        "3": {
+          "Ident": "StiGroupFooterBand",
+          "Name": "GroupFooterBand1",
+          "ClientRectangle": "0,6.2,39,1",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text32",
+              "Guid": "7830cdbb820f7101dcedf1891de5bc52",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "1,0,3.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "{b.last_name}-小计"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:238,238,238",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text28",
+              "Guid": "4985d181d449a9458488f1891de5413a",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "4.2,0,2.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "回款次数-小计"
+              },
+              "Text": {
+                "Value": "项目数:{CountDistinct(DataBand1,b.projectid)}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:238,238,238",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text33",
+              "Guid": "a2b4976cf3df4b0c357ef5a1c396fb63",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,1,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:238,238,238",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text30",
+              "Guid": "4247c80423df771c0a07f5ae86e202f0",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "23,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "源单金额-小计"
+              },
+              "Text": {
+                "Value": "{Sum(DataBand1,b.order_total)}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:238,238,238",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "Totals"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text40",
+              "Guid": "a01afea31b0c123c3613f5b0278faf3e",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "35,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "项目提成-小计"
+              },
+              "Text": {
+                "Value": "{Sum(DataBand1,b.tc_amount)}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:238,238,238",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "Totals"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text43",
+              "Guid": "1967d2f82625661af039f5ca78ff349b",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "11.2,0,7.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:238,238,238",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text72",
+              "Guid": "c4b152ca682439de81580f8aff0ac9f7",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "19,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "签约数量-小计"
+              },
+              "Text": {
+                "Value": "签约数:{CountDistinct(DataBand1,b.entitytypeid)}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:238,238,238",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiCurrencyFormatService",
+                "NegativePattern": 2,
+                "GroupSeparator": ",",
+                "PositivePattern": 0
+              },
+              "Type": "Expression"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text80",
+              "Guid": "1f0148b94ead278c81c710b060c2262b",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "27,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "源单已收总额小计"
+              },
+              "Text": {
+                "Value": "{Sum(DataBand1,b.sk_total)}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:238,238,238",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "Totals"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text76",
+              "Guid": "0c540493eea996b650280f8b5840aaf2",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "31,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "本次收款金额-小计"
+              },
+              "Text": {
+                "Value": "{Sum(DataBand1,b.amount)}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:238,238,238",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "Totals"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text29",
+              "Guid": "e81cf8a8311b2a5fdcddf1891de5f09a",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "9,0,2.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:238,238,238",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiCustomFormatService",
+                "StringFormat": "yyyy-MM-dd"
+              },
+              "Type": "Expression"
+            },
+            "10": {
+              "Ident": "StiText",
+              "Name": "Text10",
+              "Guid": "4af304711cab875a43ba3a17178c38b0",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "6.8,0,2.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:238,238,238",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            }
+          }
+        },
+        "4": {
+          "Ident": "StiReportSummaryBand",
+          "Name": "ReportSummaryBand1",
+          "ClientRectangle": "0,8,39,1",
+          "Interaction": {
+            "Ident": "StiInteraction"
+          },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text39",
+              "Guid": "b0ccefb6825b36e69abcf18d1928366d",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "1,0,3.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "Text": {
+                "Value": "合计"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text41",
+              "Guid": "08fc362d79b2550bdcb2f18d19281d43",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "4.2,0,2.6,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "回款次数-合计"
+              },
+              "Text": {
+                "Value": "项目数:{CountDistinct(DataBand1,b.projectid)}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text31",
+              "Guid": "07cda0ae27435f036655f5a1aae09de9",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "0,0,1,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;10;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text34",
+              "Guid": "dfe2c8a4ae46594d4000f5aefc1f10c2",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "23,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "源单金额-合计"
+              },
+              "Text": {
+                "Value": "{Sum(DataBand1,b.order_total)}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "Totals"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text35",
+              "Guid": "8c4a2c1a65afde91c3a1f5b0278f3797",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "35,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "项目提成-合计"
+              },
+              "Text": {
+                "Value": "{Sum(DataBand1,b.tc_amount)}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "Totals"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text44",
+              "Guid": "b67ac76009e5cf24e9a1f5ca78ff8ebf",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "11.2,0,7.8,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "Type": "Expression"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text73",
+              "Guid": "81192a4c5fa49e68d0ef0f8aff0ab758",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "19,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "签约数量-合计"
+              },
+              "Text": {
+                "Value": "签约数:{CountDistinct(DataBand1,b.entitytypeid)}"
+              },
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 3,
+                "Right": 0,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiCurrencyFormatService",
+                "NegativePattern": 2,
+                "GroupSeparator": ",",
+                "PositivePattern": 0
+              },
+              "Type": "Expression"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text81",
+              "Guid": "4a36dd188a57a4ab78e610b060c20698",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "27,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "源单已收总额-合计"
+              },
+              "Text": {
+                "Value": "{Sum(DataBand1,b.sk_total)}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "Totals"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text77",
+              "Guid": "72a4a9c6a4b6df1d470b0f8b58408885",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "31,0,4,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "ToolTip": {
+                "Value": "本次收款金额-合计"
+              },
+              "Text": {
+                "Value": "{Sum(DataBand1,b.amount)}"
+              },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Margins": {
+                "Left": 0,
+                "Right": 3,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "NegativePattern": 1,
+                "GroupSeparator": ","
+              },
+              "Type": "Totals"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text42",
+              "Guid": "79619b07d6c74d5bf03bf18d1928b382",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "9,0,2.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "TextFormat": {
+                "Ident": "StiCustomFormatService",
+                "StringFormat": "yyyy-MM-dd"
+              },
+              "Type": "Expression"
+            },
+            "10": {
+              "Ident": "StiText",
+              "Name": "Text11",
+              "Guid": "be408859af31c007fc5afa462a7ff747",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "ClientRectangle": "6.8,0,2.2,1",
+              "Interaction": {
+                "Ident": "StiInteraction"
+              },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "微软雅黑;9;;",
+              "Border": "All;221,221,221;;;;;;solid:0,0,0",
+              "Brush": "solid:225,228,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "WordWrap": true
+              },
+              "Type": "Expression"
+            }
+          }
+        }
+      },
+      "PageWidth": 39,
+      "PageHeight": 29.7,
+      "Watermark": {
+        "TextBrush": "solid:50,0,0,0"
+      },
+      "Margins": {
+        "Left": 0,
+        "Right": 0,
+        "Top": 0,
+        "Bottom": 0
+      }
+    }
+  }
+}
