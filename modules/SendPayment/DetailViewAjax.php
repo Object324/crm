@@ -1,0 +1,66 @@
+<?php
+/*+********************************************************************************
+ *{*修改编码格式:统一编码：UTF-8*}
+ * The contents of this file are subject to the lingdang CRM Public License Version 1.0
+ * ("License"); You may not use this file except in compliance with the License
+ * The Original Code is:  lingdang CRM Open Source
+ * The Initial Developer of the Original Code is lingdang.
+ * Portions created by lingdang are Copyright (C) lingdang.
+ * All Rights Reserved.
+ *********************************************************************************/
+
+
+global $adb;
+global $app_strings;
+global $mod_strings;
+global $currentModule, $singlepane_view;
+    
+global $theme;
+$theme_path="themes/".$theme."/";
+$image_path=$theme_path."images/";
+global $currentModule;
+global $app_strings;
+global $mod_strings;
+$modObj = CRMEntity::getInstance($currentModule);
+$fieldobj=$modObj->fieldobj;
+$ajaxaction = $_REQUEST["ajxaction"];
+if($ajaxaction == "DETAILVIEW")
+{
+    $smarty = new lingdangCRM_Smarty;
+	$crmid = $_REQUEST["recordid"];
+	$tablename = $_REQUEST["tableName"];
+	$fieldname = $_REQUEST["fldName"];
+	$fieldvalue = utf8RawUrlDecode($_REQUEST["fieldValue"]); 
+	if($crmid != "")
+	{
+	   crm_load_class_file("DetailViewAjaxSave",'data');
+     $crmid = $_REQUEST["recordid"];
+     $tablename = $_REQUEST["tableName"];
+     $fieldname = $_REQUEST["fldName"];
+     $fieldvalue = utf8RawUrlDecode($_REQUEST["fieldValue"]); 
+     $DetailViewAjaxSaveobj=new DetailViewAjaxSave($currentModule,$crmid,$fieldname,$fieldvalue);
+     $DetailViewAjaxSaveobj->save();
+     $DetailViewAjaxSaveobj->setEcho();
+     
+    	/*$modObj->retrieve_entity_info($crmid,"SendPayment");
+    	$be_currency_id = $modObj->column_fields['currency_id'];//编辑前币种
+    	$modObj->column_fields[$fieldname] = $fieldvalue;
+    	$_REQUEST[$fieldname] = $fieldvalue;
+    	$modObj->id = $crmid;
+    
+    	$modObj->mode = "edit";
+        $PaymentPlan_Save = $_REQUEST["PaymentPlan_Save"];
+        
+        $modObj->save("SendPayment");
+     
+    	if($modObj->id != "")
+    	{
+    	  include("modules/SendPayment/DetailView.php");
+          exit();
+        }*/
+    }
+} 
+elseif($ajaxaction == "LOADRELATEDLIST" || $ajaxaction == "DISABLEMODULE") {
+	require_once 'include/ListView/RelatedListViewContents.php';
+}
+?>

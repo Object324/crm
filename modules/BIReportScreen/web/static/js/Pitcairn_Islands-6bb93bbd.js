@@ -1,0 +1,1 @@
+const e="FeatureCollection",t=[{type:"Feature",properties:{name:"Pitcairn Islands"},geometry:{type:"MultiPolygon",coordinates:[["@@TGHGNGKEAGU@MNQF@FLFDDJB"],["@@KNEPQVEPATHTLJFVHDRCR@TFXLIW@MNqDOHOA]F[ACMGMHML_DMH"]],encodeOffsets:[[[-133232,-25661]],[[-131415,-24993]]]}}],n=!0,o={type:e,features:t,UTF8Encoding:n};export{n as UTF8Encoding,o as default,t as features,e as type};

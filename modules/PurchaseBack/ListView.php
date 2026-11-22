@@ -1,0 +1,4 @@
+<?php
+//checkWarehouseUser();//ÅÐ¶Ï²Ö¿âÈ¨ÏÞ tujt 2014-11-12
+require_once('modules/lingdang/InventoryListView.php');
+?>

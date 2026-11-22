@@ -1,0 +1,1 @@
+const e="FeatureCollection",t=[{type:"Feature",properties:{name:"Gibraltar"},geometry:{type:"Polygon",coordinates:["@@N@LC@MBKEC@QBEE[EGGD@JMVFLENIHBJNADP"],encodeOffsets:[[-5480,37023]]}}],o=!0,r={type:e,features:t,UTF8Encoding:o};export{o as UTF8Encoding,r as default,t as features,e as type};

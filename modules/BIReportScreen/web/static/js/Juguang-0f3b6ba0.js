@@ -1,0 +1,1 @@
+const e="FeatureCollection",t=[{type:"Feature",properties:{name:"Juguang"},geometry:{type:"MultiPolygon",coordinates:[["@@^fTMk[ED"],["@@hDQ]UZ"]],encodeOffsets:[[[122840,26574]],[[122803,26604]]]}}],o=!0,n={type:e,features:t,UTF8Encoding:o};export{o as UTF8Encoding,n as default,t as features,e as type};

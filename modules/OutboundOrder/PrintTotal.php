@@ -1,0 +1,5 @@
+<?php
+
+$columnnametotal='total';
+
+?>

@@ -1,0 +1,254 @@
+<?php
+//zkt 20231014 XUQIU1001341 SQL注入
+$cls_UrlEncryptyJudgeobj = cls_UrlEncryptyJudge::getInstance();
+$cls_UrlEncryptyJudgeobj->LingdangUrlencryptJudge();
+global $app_list_strings;
+global  $currentModule, $singlepane_view;
+
+$focus = CRMEntity::getInstance($currentModule);
+$fieldObj=$focus->fieldobj;
+if(isset($_REQUEST['record']) && isset($_REQUEST['record'])) {
+    $focus->retrieve_entity_info($_REQUEST['record'],"VendorContactRecords");
+    $fieldinfo=$focus->fieldobj->getFieldInfoobjBykey('columnname',$focus->getSmownerColumName());
+     if($focus->column_fields[$fieldinfo->getFieldName()]!=$current_user->id)
+     {
+      
+            crm_load_class_file('cls_CurUserDataScope','include/ListView');
+            $datascopeobj=cls_CurUserDataScope::getInstance($currentModule,'record');
+            $datascopeobj->isMyViewData($_REQUEST['record']);
+     }
+    $focus->id = $_REQUEST['record'];	
+    $focus->name=$focus->column_fields[$focus->list_link_field];
+
+}
+
+if(isset($_REQUEST['isDuplicate']) && $_REQUEST['isDuplicate'] == 'true') {
+	$focus->id = "";
+} 
+
+global $theme;
+$theme_path="themes/".$theme."/";
+$image_path=$theme_path."images/";
+
+$smarty = new lingdangCRM_Smarty;
+
+
+/* 详情页按钮 begin */
+$focus->getModuleLogic($currentModule)->getDetailViewButton();
+$smarty->assign('DETAILBUTTON',$focus->logic->detail_buttons);
+$smarty->assign('APPROVESTATUS',$focus->logic->getApproveImage());//审批状态图片
+/* 详情页按钮 end */
+
+$smarty->assign("THEME", $theme);
+$smarty->assign("IMAGE_PATH", $image_path);
+$smarty->assign("PRINT_URL", "phprint.php?jt=".session_id().$GLOBALS['request_string']);
+ 
+if (isset($focus->name)) $smarty->assign("NAME", $focus->name);
+else $smarty->assign("NAME", "");
+global $detail_column_fields_value;
+
+$smarty->assign("MODULELINKFIELD",$focus->list_link_field);
+$smarty->assign("SMOWNERCOLUMNNAME",$focus->getSmownerColumName());
+global $global_pick_list_values;
+$blocks= getBlocks($currentModule,"detail_view",'',$focus->column_fields);
+$smarty->assign("COLUMN_FIELDS_VALUE",ldcrm_json_encode($detail_column_fields_value));
+$smarty->assign("BLOCKS", $blocks);
+$smarty->assign("DETAILVIEWTITLE",getDetailViewTitleHtml($focus));
+//放在getblock函数后面，否则会影响布局规则
+$fields=$focus->fieldobj->getFieldListArray();
+$smarty->assign('FIELDINFOJSON',json_encode($fields['fields']));
+//$mod_seq_field = $fieldObj->FieldInfoListByKeyValue('uitype',4);
+//if ($mod_seq_field != null) {
+	//$mod_seq_id = $focus->column_fields[$mod_seq_field['fieldname']];
+//} else {
+	//$mod_seq_id = $focus->id;
+//}
+//$smarty->assign('MOD_SEQ_ID', $mod_seq_id);
+// END
+
+$smarty->assign("CUSTOMFIELD", $cust_fld);
+$smarty->assign("ID", $_REQUEST['record']);
+$smarty->assign("SINGLE_MOD",'VendorContactRecords');
+//$category = getParentTab();
+//$smarty->assign("CATEGORY",$category);
+
+$data =$fieldObj->split_validationdataArray();
+
+$smarty->assign("VALIDATION_DATA_FIELDNAME",$data['fieldname']);
+$smarty->assign("VALIDATION_DATA_FIELDDATATYPE",$data['datatype']);
+$smarty->assign("VALIDATION_DATA_FIELDLABEL",$data['fieldlabel']);
+      
+
+
+$smarty->assign("MODULE",$currentModule);
+//$smarty->assign("EDIT_PERMISSION",isPermitted($currentModule,'EditView',$_REQUEST['record']));
+
+//if(PerformancePrefs::getBoolean('DETAILVIEW_RECORD_NAVIGATION', true) && isset($_SESSION[$currentModule.'_listquery'])){
+	//$recordNavigationInfo = ListViewSession::getListViewNavigation($focus->id);
+//	VT_detailViewNavigation($smarty,$recordNavigationInfo,$focus->id);
+//}
+
+//更多信息
+$isPresentRelatedListsArray = array();
+$isPresentRelatedListsArray = isPresentRelatedLists($currentModule);
+if(get_callLinkDisplay() == 'no')
+{
+    crm_load_class_file('cls_CallRecord','modules/Settings');
+    $callrecordobj = new cls_CallRecord($currentModule);
+    if($callrecordobj->getModuleCallRecordStatus() == 'no'){
+        unset($is_rel_list[f_array_search('CallButler',$is_rel_list)]);
+    }
+}
+//$is_rel_list=isPresentRelatedLists($currentModule);
+$isPresentRelatedListsArray=Detail_Edit_View::setForeachRelatedLists($isPresentRelatedListsArray);
+$smarty->assign("IS_REL_LIST",$isPresentRelatedListsArray);
+//$smarty->assign("USE_ASTERISK", get_use_asterisk($current_user->id));
+
+//$smarty->assign("TODO_PERMISSION",CheckFieldPermission('parent_id','Calendar'));
+//$smarty->assign("EVENT_PERMISSION",CheckFieldPermission('parent_id','Events'));
+
+$smarty->assign("SinglePane_View", $singlepane_view);
+
+// Record Change Notification
+$focus->markAsViewed($current_user->id);
+// END
+if(isPermitted('Documents','Create','')=='yes' && vtlib_isModuleActive('Documents'))
+{
+$DocumentsEditView='yes';
+}
+$smarty->assign("DocumentsEditView",$DocumentsEditView);
+
+$smarty->assign('DETAILVIEW_AJAX_EDIT', true);
+//add by tifa for reminds
+//$ACTIVITYDATA=array();
+//$sql="select email_remind from ld_activity_reminder where email_remind<>'0000-00-00 00:00:00' and activity_id='".$_REQUEST['record']."'";
+//$ACTIVITYDATA[]=$focus->returnDatetime($sql);
+//$sql="select date_time from ld_reminds where is_del_send=0 and related_to='".$_REQUEST['record']."'";
+//$ACTIVITYDATA[]=$focus->returnDatetime($sql);
+//$sql="select content from ld_reminds where is_del_send=0 and related_to='".$_REQUEST['record']."'";
+//$ACTIVITYDATA[]=$focus->getContent($sql);
+//$sql="select content from ld_activity_reminder where activity_id='".$_REQUEST['record']."'";
+//$ACTIVITYDATA[]=$focus->getContent($sql);
+//$smarty->assign("ACTIVITYDATA",$ACTIVITYDATA);
+ $tabid = getTabid($currentModule);
+//$smarty->assign("TEMPLATEPRINTS",$focus->getPrintTemplate($tabid));
+ if(isPermitted("Attachment","Create",'') == 'yes' && vtlib_isModuleActive('Attachment'))
+	$smarty->assign("CREATEATTACHMENT","permitted");
+
+if(isPermitted('Reminds','Create','')=='yes' && vtlib_isModuleActive('Reminds')){
+    $smarty->assign("REMINDS",'permitted');
+}
+
+/* 关联创建 begin */
+//$smarty->assign('QUICKACTIONLINK',$focus->logic->getActionUserd());
+//$smarty->assign('ACTION_SHOW_NO',$focus->logic->getIsShowAction());
+/* 关联创建 end */
+
+//andy
+//$tabid=getTabid($currentModule);
+//$actions_arr_userd=GetAction_userd($tabid);
+//$smarty->assign('actions_arr_userd',$actions_arr_userd);
+////print_r($actions_arr_userd);
+//if(count($actions_arr_userd) == 0)
+    //$smarty->assign('action_show_no','yes');
+/*
+ * edit:yangliu
+ * date:2014-07-31
+ * reason:明细界面更多按钮权限判断
+ * 判断数组是否为空
+ */
+//print_r($list_buttons_moreD);
+//if(count($list_buttons_moreD)){
+    //$smarty->assign('LISTBUTTONMOREFORD','YES');
+//}
+//else{
+    //$smarty->assign('LISTBUTTONMOREFORD','NO');
+//}
+//diony 2014-10-15 弹屏新增时自动传值
+if(isset($_REQUEST['callphone']) && $_REQUEST['callphone'] != '')
+{
+    $smarty->assign('CALLPHONE',$_REQUEST['callphone']);
+}
+if(isset($_REQUEST['callfilename']) && $_REQUEST['callfilename'] != '')
+{
+      $one_callfiles=explode('\\',$_REQUEST['callfilename']);
+     $two_callfilename=$one_callfiles[sizeof($one_callfiles)-1];
+     $callfilenames=explode('_',$two_callfilename);
+     $callphone=$callfilenames[0];
+     $xinghao_phone= fieldValueUitype::setReportMobileStyle($callphone);
+     for($i=0;$i<sizeof($one_callfiles)-1;$i++)
+     {
+        $filenames.=$one_callfiles[$i].'\\';
+     }
+    $one_filenames=$filenames.$xinghao_phone.'_'.$callfilenames[1];
+    crm_load_class_file('cls_PhoneEncrypt','include');
+    $obj=new cls_PhoneEncrypt();
+ 
+    $two_filenames=$filenames.$obj->createToken_Phone($callphone).'_'.$callfilenames[1] ;
+
+    $smarty->assign('CALLFILENAME',$one_filenames);
+    $smarty->assign('ENCRYPT_FILENAME',$two_filenames);
+    $smarty->assign('CALLDISPLAY','yes');
+    
+    $callButlerRemarks = "";
+    
+    $callbutlernameNew = str_replace("\\","\\\\",$callbutlername);    
+    $callbutlernameNew = str_replace("\\","\\\\",$callbutlernameNew);
+            
+    $callbutlerGetSql = "select id from ld_callbutler where soundrecordingfile like '$callbutlernameNew' ";
+    $callbutlerGetResult=$adb->pquery($callbutlerGetSql);
+    if($adb->num_rows($callbutlerGetResult))
+    {
+        //存在
+        $callButlerID = $adb->query_result($callbutlerGetResult,0,'id');
+        
+        $sqlUpdate = "update ld_callbutler set vendorcontactrecordsid = ?,description = ? where id = ? ";
+        $updateResult=$adb->pquery($sqlUpdate,array($_REQUEST['record'],$callButlerRemarks,$callButlerID));
+        
+        
+    }
+    else
+    {
+        //不存在
+        $sqlInsert = "insert into ld_callbutler 
+        (calltype,phone,status,begintime,endtime,time,soundrecordingfile,userid,
+         accountid,contactid,ticketid,vendorid,vendorcontactid,contactrecordsid,vendorcontactrecordsid,description) 
+        values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+        ";
+        $callbutlername = str_replace("\\\\","\\",$callbutlername);
+        $insertresult=$adb->pquery($sqlInsert,array('','','接通',null,null,'',$callbutlername,$current_user->id,
+        0,0,0,0,0,0,$_REQUEST['record'],$callButlerRemarks));
+    }
+}
+else
+{
+    $smarty->assign('CALLDISPLAY','no');
+}
+global $global_pick_list_depencyfield;
+crm_load_class_file('lingdang_DependencyPicklist','modules/PickList');
+$picklistDependencyDatasource = lingdang_DependencyPicklist::getPicklistDependencyDatasource($currentModule);
+//$smarty->assign("PICKIST_DEPENDENCY_DATASOURCE", ldcrm_json_encode($picklistDependencyDatasource));
+//$smarty->assign("PICKLISTDEPENCYFIELDS", ldcrm_json_encode($global_pick_list_depencyfield));
+include(globalStatic::$root_directory.'include/DetailViewBlockStatus.php');
+$smarty->assign("PICKLISTCONTENT",ldcrm_json_encode($global_pick_list_values));
+///保存判断
+//$smarty->assign("VALIDATASAVE",ldcrm_json_encode(getValidataSave($currentModule)));
+setGLobalURLSmarty($smarty);//设置js,css等访问路径
+//单据编号重复提示
+$smarty->assign('MODULEBILLNOTIP',$_SESSION[$currentModule.'_modulebillnotip']);
+$_SESSION[$currentModule.'_modulebillnotip']='no';
+
+
+//相关信息日期高级查询
+//Crm_load_class_file("CommonView","modules/CustomView");
+//$smarty->assign("DATETIMESTR",json_encode(CommonView::stdFilterDateTimeStr()));
+$smarty->assign("ReferenceUitypes",cls_module_uitype::getAllUitypes());
+$smarty->assign("UITYPEMODULES",cls_module_uitype::getUitypeModules());
+DetailViewReturn($currentModule,$focus,$smarty);
+//布局规则
+//crm_load_class_file('cls_fieldrule','include/fields/fieldrule');
+//$fieldruleobj=cls_fieldrule::getInstance($currentModule);
+//$smarty->assign('jsonFieldRuleFieldNames',ldcrm_json_encode($fieldruleobj->getAllFieldNameSetChangeEvent()));//获取所有的触发字段
+//
+//$smarty->display("DetailView/DetailRelated.tpl");
+?>

@@ -1,0 +1,15 @@
+select (remindsid) as remindsid,related_to,reltab,remindstype,content,Q.date_time,Q.reminds_ruleid
+      from ld_reminds  as Q  inner JOIN ld_users on ld_users.id = Q.recieverid
+        LEFT JOIN ld_tab on ld_tab.name=Q.reltab
+        where Q.deleted = 0 
+            AND Q.status_rmd = '未读'
+            AND Q.is_del_rec = 0 
+             AND Q.push_to_nativeapp = 2 
+            AND Q.date_time < NOW()  
+			AND Q.date_time>DATE_SUB(CURDATE(),INTERVAL 1 DAY)
+      
+          and ld_users.id=?
+        and ld_users.push_wx_reminds=1
+        and   not exists(select 1 from ld_tmp_wx_reminds where client_type='NativateApp' and date_add(createdtime, interval 10 minute)>now())
+        
+       order by date_time desc  limit 5 Userid:49

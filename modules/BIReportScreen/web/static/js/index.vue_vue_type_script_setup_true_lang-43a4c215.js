@@ -1,0 +1,1 @@
+import{d as o,U as t,V as a,o as i,c as n,m as e}from"./index-5ed2626c.js";const c={class:"first-loading-wrp"},d=e("div",{class:"loading-wrp"},[e("span",{class:"dot dot-spin"},[e("i"),e("i"),e("i"),e("i")])],-1),r=[d],m=o({__name:"index",props:{loading:{type:Boolean,default:!0}},setup(s){return(_,l)=>t((i(),n("div",c,r,512)),[[a,s.loading]])}});export{m as _};

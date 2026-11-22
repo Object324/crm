@@ -1,0 +1,36 @@
+<?php
+/**
+* 产品明细HTML
+* 修改编码格式:统一编码：UTF-8
+* @author Chj
+*/
+/**
+* 修改编码格式:统一编码：UTF-8
+* @author Chj
+*/
+crm_load_class_file('Parent_ProductDetailsHtml','include/ProductDetailsHtml');
+class cls_productDetailsHtml extends Parent_ProductDetailsHtml{
+	
+	public function __construct($module,$sourcemodulename){
+        $this->sourcemodulename=$sourcemodulename;
+       
+       parent::__construct($module);
+	}
+    
+     public function setProductDataObj(){
+            $module=$this->getmodule() ;
+             
+   	       $this->ProductDetailsData = crm_load_class_obj('cls_productDetailsData',"modules/$module/productDetail",array($module,$this->sourcemodulename));
+    }
+
+	//获取明细内容
+	public function getProductDetailsHtml($frommdoulefocus,$productdetail_mode=''){
+		$table = parent::getProductDetailsHtml($frommdoulefocus,$productdetail_mode);
+		return $table;
+	}
+    
+    
+    
+
+}
+?>

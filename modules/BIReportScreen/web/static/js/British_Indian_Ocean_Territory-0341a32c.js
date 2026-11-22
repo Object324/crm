@@ -1,0 +1,1 @@
+const e="FeatureCollection",t=[{type:"Feature",properties:{name:"British Indian Ocean Territory"},geometry:{type:"MultiPolygon",coordinates:[["@@kwUmOGOBELE\\ ItSTYLyx[NOVdTNGEc|izYIQH]CQcC_J{TITtT^dX"],["@@VCRJH]oX"]],encodeOffsets:[[[74212,-7567]],[[73083,-6842]]]}}],n=!0,o={type:e,features:t,UTF8Encoding:n};export{n as UTF8Encoding,o as default,t as features,e as type};

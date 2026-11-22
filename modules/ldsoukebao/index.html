@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html style="overflow-y: hidden;">
+	<head>
+	    <meta charset="UTF-8" />
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+	    <title>搜客宝</title>
+	    <link rel="stylesheet" type="text/css" href="css/element-plus-2.7.0.css"/>
+	    <script src="js/vue-3.2.36.js"></script>
+		<script src="js/axios.min.js"></script>
+	    <script src="js/element-plus-2.7.0.js"></script>
+	    <script src="js/jquery-1.9.1.js"></script>
+	    <link rel="stylesheet" type="text/css" href="css/element-plus-common.css"/>
+		<link rel="stylesheet" type="text/css" href="css/common.css"/>
+
+		<script src="components/SearchAccounts.js"></script>
+		<script src="components/ConditionalCustomer.js"></script>
+		<script src="components/ResultContent.js"></script>
+		<script src="components/MapCustomer.js"></script>
+
+		<script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=T3CBZ-INP3X-5TD4Z-TZ3YE-AXBC5-6RBAU&libraries=place"></script>
+		<script src="js/common.js"></script>
+		<script src="js/util.js"></script>
+		<script>var ld=$;</script>
+
+
+		<script src="../../include/js/component/ld_Pagination.js"></script>
+		<script src="../../include/js/cls_encryptyurl.js"></script>
+		<script src="../../include/js/crypto-js.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../themes/softed/leftmenu.css"/>
+		<link rel="stylesheet" type="text/css" href="../../themes/softed/component.css"/>
+		<link rel="stylesheet" type="text/css" href="../../dataCache/tabdatas/skinset.css"/>
+
+	</head>
+  	<body style="min-width: 1090px;overflow: unset;">
+		<div style="margin: 10px 10px 0 10px;width: calc(100% - 20px);height: calc(100% - 10);">
+			<div id="app">
+				<el-main :style="{ height: contentHeight + 'px' }" id="pagecontent" style="padding: 0;">
+					<component :is="component" v-bind="componentProps"></component>
+				</el-main>
+			</div>
+		</div>
+
+	    <script>
+			const params = new URLSearchParams(window.location.search);
+
+			// 使用get()方法获取特定的参数值
+			const module = params.get('module');
+			const componentname = params.get('component');
+			const current_user_id = params.get('currentuserid');
+
+			//修改body样式
+			document.body.className = 'ld-bg-color';
+			if(componentname == 'MapCustomer'){
+				//parent.AjaxJSPage('MapCustomer','https://map.qq.com/api/gljs?libraries=tools&v=1.exp&key=T3CBZ-INP3X-5TD4Z-TZ3YE-AXBC5-6RBAU');
+			}
+
+			//配置Vue
+			const { createApp, markRaw, shallowRef, ref } = Vue;
+	      	const App = {
+			    data() {
+				    return {
+				    	module: module,
+						current_user_id: current_user_id,
+						component: shallowRef(null), // 使用 shallowRef 替代直接的响应式引用
+						componentProps: {},//右侧组件传参
+						header: '搜客宝',
+						defaultMenu: 'SearchAccounts',
+						menudata: [
+							{name:'SearchAccounts',label:'搜客宝',imgname:'search'},
+							{name:'ConditionalCustomer',label:'条件获取',imgname:'find'},
+							{name:'MapCustomer',label:'地图获取',imgname:'map'}
+						],//菜单
+						isCollapse: false,
+						fixisCollapse: true,
+				    	windowHeight: window.innerHeight,//窗口高度
+				    	contentHeight: window.innerHeight - 8,//内容高度，右侧头部、右侧内容上下间距
+				    }
+			    },
+			    computed: {
+				},
+			    methods: {
+					getMenuImg(name, imgname,color){
+						if(color == 'white'){
+							imgname = imgname + '_white';
+						}
+						for(let i = 0; i < this.menudata.length; i++){
+							if(this.menudata[i].name == name && this.menudata[i].name == this.defaultMenu){
+								imgname = imgname+'-hover';
+								break;
+							}
+						}
+						var imgpath = "url('img/menu/" + imgname + ".png')";
+						return {
+							backgroundImage: imgpath,
+							backgroundSize: '24px 24px',
+							backgroundPosition: 'left',
+							backgroundRepeat: 'no-repeat',
+						}
+					},
+			    	//菜单栏点击事件
+					getpage(key,message={}) {
+						for(let i = 0; i < this.menudata.length; i++){
+							if(this.menudata[i].name === key){
+								this.header = this.menudata[i].label;
+								break;
+							}
+						}
+						this.defaultMenu = key;
+						this.componentProps = {
+							message: message,
+						}
+						// 假设window[key]是一个组件构造函数
+						if(typeof window[key] === 'function'){
+							// 使用markRaw防止组件变成响应式
+							this.component = markRaw(window[key]());
+						} else {
+							console.error('Component function not found: ', key);
+						}
+					},
+					searchByText(key,searchtext,searchcolumn){
+						let message = {
+							searchtext: searchtext,
+							searchcolumn: searchcolumn
+						}
+						this.getpage(key,message);
+					},
+					changemenufix(){
+						if(this.fixisCollapse){
+							this.fixisCollapse = false;
+						}else{
+							this.fixisCollapse = true;
+						}
+					},
+					mouseoverMenu(){
+			    		if(!this.fixisCollapse){
+							this.isCollapse = false;
+						}
+					},
+					mouseleaveMenu(){
+						if(!this.fixisCollapse){
+							this.isCollapse = true;
+						}
+					},
+			    },
+			    watch: {
+
+			    },
+				provide() {
+					return {
+						searchByText: this.searchByText,
+						module: this.module,
+						current_user_id: this.current_user_id,
+					};
+				},
+				mounted() {
+					this.getpage(componentname);
+				},
+	      	};
+
+			const app = createApp(App).use(ElementPlus);
+			app.mount("#app");
+	    </script>
+  	</body>
+</html>

@@ -1,0 +1,101 @@
+<?php
+/*********************************************************************************
+ *{*æ·‡î†½æ•¼ç¼‚æ «çˆœéç…Žç´?ç¼ç†¶ç«´ç¼‚æ «çˆœé”›æ­ŽTF-8*}
+ * The contents of this file are subject to the SugarCRM Public License Version 1.1.2
+ * ("License"); You may not use this file except in compliance with the 
+ * License. You may obtain a copy of the License at http://www.sugarcrm.com/SPL
+ * Software distributed under the License is distributed on an  "AS IS"  basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
+ * the specific language governing rights and limitations under the License.
+ * The Original Code is:  SugarCRM Open Source
+ * The Initial Developer of the Original Code is SugarCRM, Inc.
+ * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.;
+ * All Rights Reserved.
+ * Contributor(s): ______________________________________.
+ ********************************************************************************/
+/*********************************************************************************
+ * $Header$
+ * Description:  Deletes an Account record and then redirects the browser to the 
+ * defined return URL.
+ ********************************************************************************/
+//zkt 20231013 XUQIU1001341 SQL×¢Èë
+$cls_UrlEncryptyJudgeobj = cls_UrlEncryptyJudge::getInstance();
+$cls_UrlEncryptyJudgeobj->LingdangUrlencryptJudge();
+global $adb,$currentModule;
+$focus = CRMEntity::getInstance($currentModule);
+$record = vtlib_purify($_REQUEST['record']);
+//$parenttab = getParentTab();
+$focus->id = $record;
+global $mod_strings;
+
+require_once('modules/Accounts/Accounts.php');
+require_once('include/logging.php');
+$log = LoggerManager::getLogger('CustomForm15_delete');
+
+//Added to fix 4600
+$url = getBasic_Advance_SearchURL();
+
+if(!isset($_REQUEST['record']))
+	die($mod_strings['ERR_DELETE_RECORD']);
+        /**
+*@andrew
+* @time:20140903
+*0011046: éªžè·ºå½‚é’çŠ»æ«Žé—æ›Ÿåµéƒè®¹ç´ç¼æ’´ç‰å¯®ç‘°åš­éŽ»æ„®ãšéˆ¥æ¸¦ndefinedéˆ?*/
+   $record = $_REQUEST['record'];
+     $checkdeletesql="select customform15id from ld_customform15 where customform15id in($record) and deleted=0";
+
+    $dresult=$adb->query($checkdeletesql);
+    $dnum_rows=$adb->num_rows($dresult);
+
+    if($dnum_rows==0){
+       $srt = getFixedLabel('Thisrecordisdeleted');
+         $entity['log']['value'] = $srt;
+         $entity['title']['value'] = getFixedLabel('DELETE');//è¤°æ’³å¢ æ¤¤åž«æšŸ
+         $json = new Zend_Json();
+         $jsonentity = $json->encode($entity);
+	     echo $jsonentity;die;
+    }
+//wym 240528 1000063 ºÏÍ¬¶©µ¥µÈÄ£¿éÔö¼ÓÓÐ¹ØÁªµ¥¾Ý²»ÔÊÐíÉ¾³ý¹¦ÄÜ£¨ÍõÒ«ÎÄ£©
+$deploy_values=getSys_deploy("69");
+if($deploy_values['deploy_value']==1&&Delverify($_REQUEST['module'],$_REQUEST['record'])>0){
+    $srt1 = getFixedLabel('THIISRECORDFORTHECORRECTIONINFORMATIONCANNOTBEDELETED');
+    $entity['log']['value'] = $srt1;
+    $entity['title']['value'] = getFixedLabel('DELETE');
+    $json = new Zend_Json();
+    $jsonentity = $json->encode($entity);
+    echo $jsonentity;die;
+}
+
+
+if(isset($_REQUEST['ajax']) && $_REQUEST['ajax']==true){
+    //require_once('modules/Approve/Approve.php');
+	//$approve=new Approve();
+	$approve = Approve::getInstance($currentModule);
+	$focus->id=$_REQUEST['record'];
+	$focus->retrieve_entity_info($_REQUEST['record'], $currentModule);
+    echo $approve->deleteBlocks($focus->column_fields['assigned_user_id'],$focus->id);
+    exit();
+}
+
+/*
+ * editor : gyq_02
+ * explian : é’çŠ»æ«Žé“å¶‡ç²°è¤°æ’³å¢ ç?µç¡…è–„ç’§å¬ªâ‚¬? * date   : 2016  1  22
+ * */
+if(!empty($record))
+    $focus->retrieve_entity_info($_REQUEST['record'], $currentModule);
+
+
+DeleteEntity($_REQUEST['module'],$_REQUEST['return_module'],$focus,$_REQUEST['record'],$_REQUEST['return_id']);
+
+
+
+
+/**********ç’ãˆ å´ŸéŽºãƒ¥å½› end************/
+echo "##YES##";
+
+/*
+$parenttab = getParentTab();
+header("Location: index.php?module=".vtlib_purify($_REQUEST['return_module'])."&action=".
+		vtlib_purify($_REQUEST['return_action'])."&record=".
+		vtlib_purify($_REQUEST['return_id']).$url);*/
+?>

@@ -1,0 +1,46 @@
+<?php
+/*+********************************************************************************
+ *{*修改编码格式:统一编码：UTF-8*}
+ * The contents of this file are subject to the lingdang CRM Public License Version 1.0
+ * ("License"); You may not use this file except in compliance with the License
+ * The Original Code is:  lingdang CRM Open Source
+ * The Initial Developer of the Original Code is lingdang.
+ * Portions created by lingdang are Copyright (C) lingdang.
+ * All Rights Reserved.
+ ********************************************************************************/
+//zkt 20231013 XUQIU1001341 SQL注入
+$cls_UrlEncryptyJudgeobj = cls_UrlEncryptyJudge::getInstance();
+$cls_UrlEncryptyJudgeobj->LingdangUrlencryptJudge();
+global $current_user, $currentModule;
+require_once("modules/$currentModule/$currentModule.php");
+
+$focus = CRMEntity::getInstance($currentModule);
+
+if($mode) $focus->mode = $mode;
+if($record)$focus->id  = $record;
+
+setObjectValuesFromRequest($focus);
+
+$mode = $_REQUEST['mode'];
+$record=$_REQUEST['record'];
+
+if($_REQUEST['assigntype'] == 'U')  {
+	$focus->column_fields['assigned_user_id'] = $_REQUEST['assigned_user_id'];
+} elseif($_REQUEST['assigntype'] == 'T') {
+	$focus->column_fields['assigned_user_id'] = $_REQUEST['assigned_group_id'];
+}
+$focus->save($currentModule);
+$return_id = $focus->id;
+
+$parenttab = getParentTab();
+if($_REQUEST['return_module'] != '') $return_module = vtlib_purify($_REQUEST['return_module']);
+else $return_module = $currentModule;
+
+if($_REQUEST['return_action'] != '') $return_action = vtlib_purify($_REQUEST['return_action']);
+else $return_action = "DetailView";
+
+if($_REQUEST['return_id'] != '') $return_id = vtlib_purify($_REQUEST['return_id']);
+
+header("Location: index.php?action=$return_action&module=$return_module&record=$return_id&parenttab=$parenttab&start=".vtlib_purify($_REQUEST['pagenumber']));
+
+?>

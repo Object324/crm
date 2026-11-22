@@ -1,0 +1,1 @@
+const e="FeatureCollection",t=[{type:"Feature",properties:{name:"Vatican City"},geometry:{type:"Polygon",coordinates:["@@LJLAEKQD"],encodeOffsets:[[12745,42908]]}}],o=!0,n={type:e,features:t,UTF8Encoding:o};export{o as UTF8Encoding,n as default,t as features,e as type};

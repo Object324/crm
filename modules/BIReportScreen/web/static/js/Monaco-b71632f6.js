@@ -1,0 +1,1 @@
+const e="FeatureCollection",o=[{type:"Feature",properties:{name:"Monaco"},geometry:{type:"Polygon",coordinates:["@@HD@DPLHBHFDJLBFDBIEBGCGOMABGHBBCSMSJ"],encodeOffsets:[[7587,44780]]}}],t=!0,n={type:e,features:o,UTF8Encoding:t};export{t as UTF8Encoding,n as default,o as features,e as type};

@@ -1,0 +1,1 @@
+const e="FeatureCollection",t=[{type:"Feature",properties:{name:"Tokelau"},geometry:{type:"MultiPolygon",coordinates:[["@@LIT[C@[f"],["@@E`FC@["],["@@BJKBGPVMCM"]],encodeOffsets:[[[-175308,-9559]],[[-175909,-9370]],[[-176608,-8768]]]}}],o=!0,n={type:e,features:t,UTF8Encoding:o};export{o as UTF8Encoding,n as default,t as features,e as type};

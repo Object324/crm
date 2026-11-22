@@ -1,0 +1,1 @@
+const e="FeatureCollection",t=[{type:"Feature",properties:{name:"Mahé"},geometry:{type:"Polygon",coordinates:["@@XIIZn\\PAfFPLH¢fCTSHQSWHQCcRWFWbMdaJFreWcFySgTm@]RIJYk@]RCROFUt_KGJJdNC\\DDRWTHXILOG[bBL]TMCYNCJaNIRQJOG[HCN"],encodeOffsets:[[56696,-4750]]}}],o=!0,n={type:e,features:t,UTF8Encoding:o};export{o as UTF8Encoding,n as default,t as features,e as type};
