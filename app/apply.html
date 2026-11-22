@@ -1,0 +1,486 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="overflow: hidden;">
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+<meta name="format-detection" content="telephone=no" />
+<script type="text/javascript" src="js/global-variable.js?version=1.01"></script>
+<link rel="stylesheet" type="text/css" href="css/swiper.min.css">
+<link rel="stylesheet" type="text/css" href="css/global.css?version=1.01" />
+<link rel="stylesheet" type="text/css" href="css/mobiscroll.min.css" />
+<link rel="stylesheet" type="text/css" href="css/list.css?version=1.01" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+<body>
+<!--<div tag="android-back" class="news" onclick="backForAndroid()"><span>返回</span></div>-->
+<!--<div tag="android-back" class="news" onclick="NetworkObj.setOnline(true)" style="left:auto;right:100px;" ><span>开</span></div>
+<div tag="android-back" class="news" onclick="NetworkObj.setOnline(false)" style="left:auto;right:60px;"><span>关</span></div>-->
+<header>
+    <div id="app_header" class="header"></div>
+</header>
+<section>
+    <div id="app-body"> 
+        <!--网络不佳提醒头部-->
+        <div id="lineheadstatus" class="network-h" style="display:none;">
+            <i class="lnr-rss"></i>网络请求失败，请检查您的网络设置
+        </div>
+        <!-- 所有页面 start  -->
+        <div id="home-page" class="swiper-container swiper-container-g">
+            <div class="swiper-wrapper">             
+                <!--头部高度调整-->
+                <div id="adjust-head-holder" class="swiper-slide adjust-head ui-hide"></div>
+                <!--crm菜单界面-->
+                <div id="crm-main-view" class="swiper-slide crm-main-view">
+                    <!--方格-->
+                    <div class="ui-hide" id="crmSudoku"></div>
+                    <!--列表-->
+                    <div class="ui-hide" id="crmList" ></div>
+                </div>
+                <!--仪表盘首页-->
+                <div id="crm-dashboard-view" class="swiper-slide ui-hide"></div>
+                <!--仪表盘明细-->
+                <div id="crm-dashboarddetail-view" class="swiper-slide ui-hide">
+                    <div class="statistics-top"></div>
+                    <div id="dashboarddetail" class="statistics-cell">
+                    </div>
+                </div>
+                <!--仪表盘明细 筛选条件-->
+                <div id="crm-dashboardsearch-view" class="swiper-slide ui-hide">
+                    <div id="dashboardsearchContent"></div>
+                </div>
+                <!-- 选择查看范围 -->
+                <div id="cwn-sendrang-view" class="swiper-slide wrapper_other ui-hide">
+                    <div id="divOtherSerach"></div>
+                    <div id="label_usergroup" class="tabswitch switch-three">
+                        <a tag="Common" href="javascript:void(0);" class="curr">常用</a>
+                        <a tag="Colleague" href="javascript:void(0);">选同事</a>
+                        <a tag="Department" href="javascript:void(0);">选部门</a>
+                    </div>
+                    <div id="SearchDiv" class="ui-hide">
+                        <div id="usersearchDiv" class="search-warp">
+                            <i class="lnr-magnifier"></i>
+                            <input type="text" id="usersearch" name="usersearch" placeholder="搜索同事"/>
+                            <i class="lnr-cross-circle ui-hide"></i>
+                            <input type="button"  value="搜索"/>
+                        </div>
+                    </div>
+                    <div class="switch-centent">
+                        <div class='lists list-nums ui-hide' id="CommonDiv"></div>
+                        <div class='lists head ui-hide' id="ColleagueDiv"></div>
+                        <div class='lists list-nums ui-hide' id="DepartmentDiv"></div>
+                    </div>         
+                </div>
+                <!--明细页面-->
+                <div id="cwn-crmdetail-view" class="swiper-slide cwn-crmdetail-view ui-hide">
+                </div> 
+                <!--编辑页面、创建页面-->
+                <div id="crm-createedit-view" class="swiper-slide ui-hide" ></div>
+                <!--选择同事、分配、推进、提交审批-->
+                <div id="wrapper_otherlist" class="swiper-slide wrapper_otherlist ui-hide">
+                    <div class="search-box"></div>
+                    <div class='lists pubOther'></div> 
+                </div>
+                <!--查看产品清单 -->
+                <div id="crm-createeditsub-view" class="swiper-slide ui-hide"></div>
+                <!--产品-->
+                <div id="cwn-crmdetailsub-view"  class="swiper-slide ui-hide"></div>
+                <!--查看附件 -->
+                <div id="cwn-attview-view" class="swiper-slide attview ui-hide"></div>
+                <!--相关信息明细-->    
+                <div id="cwn-relationdetail-view" class="swiper-slide cwn-relationdetail-view ui-hide"></div>
+                <!--审批 反审批-->
+                <div id="cn-approval-view" class="swiper-slide cn-approval-view ui-hide">
+                    <!-- 审批 -->
+                    <div id="tplApprovalStep" class="approvalstep">
+                        <h2 class="c-detail-h2">审核动作</h2>
+                        <ul id="approvalStepContent" class="c-ul c-edit-cell"> </ul>
+                        <h2 class="c-detail-h2">备注</h2>
+                        <ul class="c-ul c-edit-cell">
+                            <li class="heightauto" style="margin-top: 10px;">
+                                <textarea id="approveRemarks" name="approveRemarks" placeholder="备注内容" ></textarea>
+                            </li>
+                        </ul>
+                    </div> 
+                    <!-- 反审批 -->
+                    <div id="tplcancelApproved" class="approvalstep">
+                        <h2 class="c-detail-h2">审核动作</h2>
+                        <ul id="cancelApprovedCon" class="c-ul c-edit-cell"></ul>
+                    </div>
+                </div>  
+                <!--拍照-->
+                <div id="crm-photo-view" class="swiper-slide  ui-hide">
+                    <div class="takepicture">
+                        <div class="divRelateMod"> 
+                            <div id="divRelateToType" class="check-opt">
+                                <a class="lnr-chevron-right" href="javascript:void(0);"></a>
+                            </div>
+                            <i id="photovalueid" class="ui-hide"></i>
+                            <b id="photovalueName" class="checkval text-ellipsis" name="photoaccountName">请点击选择</b>
+                        </div>
+                        <input id="photoinfomation" name="photoinfomation" type="text" placeholder="请输入备注说明"/>
+                        <div id="crm-photo-viewContent" class="crm-photo-viewcon"></div>                        
+                    </div>
+                </div>
+                <!--外勤签到-->
+                <div id="crm-sign-view" class="swiper-slide sign-attendanc-tpl ui-hide">
+                    <ul class="crm-sign">
+                        <input id="signloadTime" name="signloadTime" type="hidden" value="">
+                        <li>
+                            <a href="javascript:void(0);" class="lnr-clock"></a>
+                            <p>
+                                <span>时间</span>
+                                <span class="text-ellipsis" tag="NowTime"></span>
+                            </p>
+                        </li>
+                        <li class="lnr-chevron-right">
+                            <i id="accountid" class="ui-hide"></i>
+                            <a href="javascript:void(0);">
+                                <img src="images/sign_customer.png">                            
+                            </a>
+                            <p>
+                                <span>客户</span>
+                                <span id="accountName" class="text-ellipsis"  tag="relationaccount"></span>
+                            </p>
+                        </li>
+                    </ul>
+                    <div class="positionAddressXY ui-hide"></div>
+                    <div class="positionAccountXY ui-hide"></div>
+                    <textarea id="infomation" class="crm-signnote" name="infomation" type="text" placeholder="请输入备注说明"/></textarea>
+                    <div id="signUploadImg" class='sign_addimg work-edit picture-rang picture-preview' show-deletebt = "true">
+                        <div tag="sign_addimg">
+                            <img tag="img-addbt" src="images/add_photo.png" alt=""/>
+                        </div>
+                    </div>                    
+                    <div id="sign_address_crm" class="sign_address lnr-map-maker"></div>
+                    <div class="sign_info">
+                        <div class="sign_info_left">误差（米）：</div>
+                        <div class="sign_info_right"><i class="lnr-refresh"></i>定位不准确？点我重试</div>
+                    </div>
+                    <div class="save_sign"><i class="lnr-map-maker"></i>签到</div>
+                </div>
+                <!--上传轨迹-->
+                <div id="crm-uploadlog-view" class="swiper-slide ui-hide">
+                    <div class="uploadlog">
+                        当您的工作轨迹出现位置点少或长时间位置缺失等情况时，
+                        可以点击【上传轨迹】按钮，上传本机日志，
+                        同时联系供应商为您分析原因。
+                    </div>
+                    <div class="takepicture btns" style="position:inherit;">
+                        <div tag="uploadLog">上传轨迹</div>
+                    </div>
+                </div>
+                <!--客户查重-->
+                <div id="crm-checkrepeat-view" class="swiper-slide ui-hide">
+                    <div class="takepicture">
+                        <div class="divRelateMod"> 
+                            <div id="divAccountField" class="check-opt">
+                            </div>
+                            <input id="check_repeat_columnname" class="checkval" style="height: 1.2rem;" name="check_repeat_columnname" type="text" placeholder="请输入查重关键字"/>
+                        </div>
+                    </div>
+                    <div id="crm-checkrepeat-content" class="crm-checkrepeat-content ui-hide"></div>
+                </div>
+                <!--news approve-list-view 审批提醒模块列表-->
+                <div id="approve-list-view" class="swiper-slide ui-hide">
+                    <div id="approve-category">
+                        <div class="tabswitch switch-three">
+                            <a class="curr" approvestatus="0">待审批</a>
+                            <a approvestatus="1">已审批</a>
+                            <a approvestatus="2">近30天</a>
+                        </div>
+                    </div>
+                    <div id="approveContent"></div>
+                </div>
+                <!--下拉弹出层-->
+                <div id="wrapper_select" class="swiper-slide wrapper_select ui-hide">
+                    <div id="ddlSearchDetail"></div>
+                    <div id="ddlContent"></div>
+                </div>
+                <!-- 不需要 滚动的页面 start-->
+                <!--外勤签到地图-->
+                <div id="crm-signchooseAdr-view" class="noscoll ui-hide">
+                    <div class="sign-map" id="container"></div>
+                    <div class="signAround" style="float:left;" id="panel"></div>
+                </div>
+                <!--地图内容-->
+                <div id="cwn-seeposition-view" class="positionDiv noscoll ui-hide">
+                    <div id="mapBox" class="positionBox"></div>
+                </div>   
+                <!--编辑 弹出输入框 修改信息-->
+                <div id="cwn-popuedit-view" class="cwn-popuedit-view noscoll ui-hide"></div>
+                <!-- 不需要 滚动的页面 end  -->
+                <!--在list-refresh-holder/list-addmore-holder两个div之间放入需要刷新的页面start-->
+                <div id="list-refresh-holder" class="swiper-slide list-refresh ui-hide" >
+                    <span class="list-refresh-icon"></span>
+                    <span class="list-refresh-label"></span>
+                </div>
+                <!-- cwn 弹出选择页-->
+                <div id="cwn-popuselect-view" class="swiper-slide ui-hide">
+                    <div class="top-wrapper"></div>   
+                    <div class="content-wrapper"></div>   
+                </div>
+                <!-- crm 列表页面 ，外勤统计 带刷新-->
+                <div id="crm-list-view"  class="swiper-slide refreshable ui-hide"></div>
+                <!-- crm 相关列表页面 带刷新 -->
+                <div id="cwn-relationlist-view"  class="swiper-slide refreshable ui-hide">
+                    <div id="relatedlistbox" class="pubRelated"></div>                           
+                </div>
+                <div id="adjust-bottom-holder" class="swiper-slide adjust-bottom">
+                    <div id="list-addmore-holder" class="list-addmore" >
+                        <span class="list-addmore-icon pull-refreshing ui-hide"></span>
+                        <span class="list-addmore-label"></span>
+                    </div>
+                </div>
+                <!--在home-refresh-box/home-addmore-box两个div之间放入需要刷新的页面 end-->
+            </div>
+            <!-- Add Scroll Bar -->
+            <div class="swiper-scrollbar swiper-scrollbar-g"></div>
+        </div>
+        <!-- 所有页面 end -->
+    
+        <!-- 其他模块 start -->
+        <!--查看关联大图弹出层-->
+        <div id="picture-preview-holder" class="picture-preview-holder workimgbgDiv ui-hide" popubox="true">
+            <div class="imgbg-top">
+                <a href="javascript:void(0);" class="lnr-chevron-left" tag="cancel"></a>
+                <h5 class="imgbg-num"></h5>
+                <a href="javascript:void(0);" class="lnr-trash" tag="delete" style="display:none;">&nbsp;</a>
+            </div>
+            <div class="swiper-container picture-preview-swiper">
+                <div class="swiper-wrapper">
+                </div>
+            </div>
+        </div>
+        <!--数据分类-->
+        <div id="pulldown_menu" class="header-pop ui-hide" popubox="true">
+            <div class="swiper-container down-menu">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <ul id="pulldown_menulists" class="ui-hide"></ul>
+                        <ul id="sub_menulists" class="ui-hide"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--创建-->
+        <div id="tplCreatemenu" class="orderdiv ui-hide" popubox="true">
+            <div class="opttype">请选择操作方式</div>
+            <div class="btnsub" tag="quickcreate">快速创建</div>
+            <div class="btnsub" tag="create">创建</div>
+            <div class="btnsub" tag="createordinary">创建普通客户</div>
+            <div class="btnsub" tag="createnotallocated">创建公海未分配</div>
+            <div class="btnsub" tag="createallocated">创建公海已分配</div>
+            <div class="btnsub" tag="cardcreate">拍名片创建</div>
+            <div class="btnsub" tag="choosecardcreate">选名片创建</div>            
+            <div class="btnc" tag="btnc_cancel">取消</div>
+        </div>
+        <!--明细界面权限-->
+        <div id="tplDetailOperation" class="orderdiv ui-hide" popubox="true">
+            <div class="opttype">请选择操作方式</div>
+            <div class="btnsub" tag="btn_distribution">分配</div>
+            <div class="btnsub" tag="btn_allocateaccount">公海分配</div>
+            <div class="btnsub" tag="btn_receive">领取</div>
+            <div class="btnsub" tag="btn_advance">推进</div>    
+            <div class="btnsub" tag="btn_submitapprove">提交审批</div>
+            <div class="btnsub" tag="btn_submit">审批</div>
+            <div class="btnsub" tag="btn_cancelapprove">反审批</div>
+            <div class="btnsub" tag="btn_del">删除</div>
+            <div class="btnc" tag="btnc_cancel">取消</div>
+        </div>
+        <!--取消弹出层-->
+        <div id="tplCancel" class="orderdiv ui-hide" popubox="true">
+            <div class="opttype">确定要取消该操作吗？</div>
+            <div class="btnok" tag="ok">确定</div>
+            <div class="btnc" tag="btnc_cancel">取消</div>
+        </div>
+        <!--相册、拍照-->
+        <div id="tplPhone" class="orderdiv ui-hide" popubox="true">
+            <div class="opttype">请选择获取方式</div>
+            <div class="btnsub" tag="btnsub_photo">相册</div>
+            <div class="btnsub" tag="btnsub_camera">拍照</div>
+            <div class="btnc" tag="btnc_cancel">取消</div>
+        </div>
+        <!--android 选择附件-->
+        <div id="tplFileatt" class="orderdiv ui-hide" popubox="true">
+            <div class="opttype">请选择获取方式</div>
+            <div class="btnsub" tag="btnsub_photo">相册</div>
+            <div class="btnsub" tag="btnsub_video">视频</div>
+            <div class="btnsub" tag="btnsub_fileatt">手机文件</div>
+            <div class="btnc" tag="btnc_cancel">取消</div>
+        </div>
+        <!--打电话弹出-->
+        <div id="CallMsgMain" popubox="true" class="call orderdiv ui-hide"></div>
+        <!--提醒弹出层-->
+        <div class="popup-remind">
+            <div class="popub-title ui-hide"></div>
+            <div class="popub-top"></div>
+            <div class="popub-bottom">
+                <span tag="cancel">好的</span>
+            </div>
+            <div class="popub-btmtwo ui-hide">
+                <span tag="cancel">稍后再说</span>
+                <span tag="ok">立即更新</span>
+            </div>
+        </div>
+        <!--提醒弹出框-->
+        <div id="pop-prompt-box" popubox="true" class="popup-remind" style="display:none;">
+            <div class="pop-head"></div>
+            <div class="pop-main"></div>
+            <div class="pop-foot"></div>
+        </div>
+        <!--工作协同列表内容-->
+        <div id="tplCoordination" class='ui-hide'>
+            <div class="area-list">
+                <div class="areal-top" tag="list" workreportid="%s">
+                    <div class="areal-user">
+                        <div class="a-user-pic">name-img</div>
+                        <div class="a-user-rgt">
+                            <div class="a-user-intro">%s</div>
+                            <div class="a-user-bz">
+                                <span>%s</span><span class="a_user_bz_status %s">-%s</span>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="a_user_time">%s<span></span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="areal_mid_con" tag="list" workreportid="%s">
+                    <p class="font13">%s</p>
+                    %s <!-- 中间自定义字段显示的地方 -->
+                    <div class='ui-cont-list relation-list workimg-p ui-hide %s'>%s</div><!--图片-->
+                    <ul class='ui-cont-list relation-listforfile %s'>%s</ul>
+                    <div class="%s border_grey font13 position_icon" longtitude="%s" latitude="%s">
+                        签到：<span>%s</span>
+                    </div>
+                    <div class="%s border_grey font13 account_icon">
+                        关联客户(%s)：<span>%s</span>
+                    </div>
+                    <div class="%s border_grey font13 contact_icon">
+                        关联联系人(%s)：<span>%s</span>
+                    </div>
+                    <div class="%s border_grey font13 products_icon">
+                        关联产品(%s)：<span>%s</span>
+                    </div>
+                </div>    
+            </div>
+        </div>
+        <!--遮罩层-->
+        <div id="layerMask" popubox="true"></div>
+        <!--遮罩层透明背景 用处：头部数据分类-->
+        <div id="poplayerMask" popubox="true"></div>
+        <!--进度条-->
+        <div id="status"><img src="images/status.gif"/></div>   
+        <!--加载中-->
+        <div id="loading" style="display:none;"><div><img src="images/loading.gif"/></div></div>         
+        <!--错误提醒弹出层-->
+        <div id="errorstatus" class="no-network-tips ui-hide"><span>json错误</span></div>
+        <!--网络未连接弹出层-->
+        <div id="linestatus" class="no-network-tips" style="display:none;"><span>您的当前网络不可用</span></div>
+        <!--网络不佳提醒内容-->
+        <div id="linecontentstatus" class="network-c" style="display:none;">
+            <div>
+                <i class="lnr-lostwifi"></i>
+                <div>
+                    <span>网络请求失败</span>
+                    请检查您的网络</br>点击刷新
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 其他模块 end -->
+</section>
+<!--底部模块 begin-->
+<footer>
+    <div id="app-footer" class="wrapper-bottom-hloder" >
+        <div id="cwnm-main-footer" style="height:40px;"  class="ui-hide"></div>
+        <!--明细编辑按钮-->
+        <div id="crm-detail-footer" class="crm-detail-footer ui-hide" editable="false">
+            <i class="lnr-pencil"></i>编辑资料
+        </div>
+        <!--添加产品-->
+        <div id="crm-addproduct-footer" class="addproduct ui-hide">
+            <div id="divTotalHtml" class="ui-hide"></div>
+            <ul>
+                <li>总金额:<span tag="productmoney">0</span></li>
+                <li><a href="javascript:void(0);" tag="addProduct">添加产品</a></li>
+            </ul>
+        </div>
+        <!--添加费用清单-->
+        <div id="crm-addexpense-footer" class="addproduct ui-hide">
+            <ul>
+                <li>总金额:<span tag="expensemoney">0</span></li>
+                <li><a href="javascript:void(0);" tag="addExpense">添加费用</a></li>
+            </ul>
+        </div>
+        <!--加班单、请假单、出差申请单添加明细-->
+        <div id="crm-addoadetail-footer" class="addproduct ui-hide">
+            <ul>
+                <li>合计:<span tag="oadetailtotal">0</span></li>
+                <li><a href="javascript:void(0);" tag="addOadetail">添加明细</a></li>
+            </ul>
+        </div>
+        <!-- crm 拍照页   -->
+        <div id="crm-photo-footer" class="takepicture btns ui-hide">
+            <div tag="savePhoto">发送照片</div>
+        </div>
+    </div>
+</footer>
+<!--底部模块 end-->
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<!--
+<script type="text/javascript" src="js/swiper.min.js"></script>
+<script type="text/javascript" src="js/jquery.touchSwipe.min.js"></script>
+-->
+<script type="text/javascript" language="JavaScript">
+    document.getElementById('status').style.display='block';
+    var ld = $;
+</script>
+<!--
+<script type="text/javascript" src="js/fastClick.js?version=1.01"></script>
+<script type="text/javascript" src="js/velocity.min.js"></script>
+-->
+<script language="javascript" type="text/javascript" src="js/oem.js"></script>
+<script language="javascript" type="text/javascript" src="js/ajax-hander.js?version=1.01"></script>
+<script language="javascript" type="text/javascript" src="js/operation-hander.js?version=1.01"></script>
+<script language="javascript" type="text/javascript" src="js/common.js?version=1.01"></script>
+<script language="javascript" type="text/javascript" src="js/main.js?version=1.01"></script>
+<!-- 根据屏幕大小，计算HTML的font-size -->
+<script>
+if(phoneversion == 'ios'){
+    var docEl = document.documentElement,
+        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+    var clientWidth = docEl.clientWidth;
+    docEl.style.fontSize = 15 * (clientWidth / 320) + 'px';
+    window.addEventListener(resizeEvt, function() { clientWidth = docEl.clientWidth;docEl.style.fontSize = 15 * (clientWidth / 320) + 'px'; }, false);
+}
+</script>
+<!--
+<script language="javascript" type="text/javascript" src="js/machine-hander.js?version=1.01"></script>
+<script language="javascript" type="text/javascript" src="js/tools-hander.js?version=1.01"></script>
+<script language="javascript" type="text/javascript" src="js/logic-hander.js?version=1.01"></script>
+<script language="javascript" type="text/javascript" src="js/location.js?version=1.01"></script>
+<script language="javascript" type="text/javascript" src="js/jquery.autosize.min.js"></script>
+-->
+<script language="javascript" type="text/javascript" src="js/applyload.js?version=1.01"></script>
+<script language="javascript" type="text/javascript" src="js/echarts.min.js?version=1.01"></script>
+<script language="javascript" type="text/javascript" src="js/apply.js?version=1.01"></script>
+<!--引入CSS-->
+<link rel="stylesheet" type="text/css" href="js/webuploader/webuploader.css">
+<!--引入JS-->
+<script type="text/javascript" src="js/webuploader/webuploader.js"></script>
+<!--SWF在初始化的时候指定，在后面将展示-->
+<script language="javascript" type="text/javascript" src="js/mobiscroll.min.js?version=1.01"></script>
+
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Hgvb6X18khZw223dBW1hFHuT"></script>
+<script src="http://api.map.baidu.com/components?ak=Hgvb6X18khZw223dBW1hFHuT&v=1.0"></script>
+<script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>
+<script type="text/javascript" language="JavaScript">
+    if(phoneversion == 'ios'){
+        document.write("<script type='text/javascript' src='js/ios/cordova_ios.js'></"+"script>");
+    }
+    else if(phoneversion == 'android'){
+        document.write("<script type='text/javascript' src='js/android/cordova_android.js'></"+"script>");
+    }
+</script>
+</body>

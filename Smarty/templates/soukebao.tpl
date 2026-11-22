@@ -1,0 +1,2 @@
+<iframe id="ldsoukebaoiframe" width="100%" height="100%" src="./modules/ldsoukebao/index.html?module={$module}&component={$component}&currentuserid={$current_user_id}" class="ld-bg-color" style="border:none;position: relative;"></iframe>
+<div id="ldsoukebaooverlay" style="position: fixed;top: 0;bottom: 0;left: 0;right: 0;opacity: 0.3 !important;background-color: #B6B9BF;z-index=1001 !important;display: none;"></div>

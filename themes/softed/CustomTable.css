@@ -1,0 +1,505 @@
+/*自定义统计表所有的样式*/
+/*列表--start*/
+.report-type-select{
+    width:120px;
+    position:absolute;
+    top:32px;
+    right:57px;
+    background-color: #fff;
+    z-index:9999;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border-radius: 5px;
+}
+/*列表--start*/
+.customtable .ld-icon-clearsearch {
+    background: url(../icon2021/top/del_16.png) 0 0 no-repeat;
+    width: 16px;
+    height: 16px;
+    display: block;
+    cursor: pointer;
+    float: right;
+    margin-top: 6px;
+}
+.customtable .search-bar input{
+    height:32px;
+    border-radius: 4px;
+    outline:0;
+    border:solid 1px #ddd;
+    width:290px;
+}
+
+.customtable .creat-new-table2{
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.customtable .report-type-select2{
+    visibility: hidden;
+    width: 120px;
+    background-color: #fff;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: fixed;
+    z-index: 110;
+}
+.customtable .report-name-link{
+    padding:0 24px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    height: 42px;
+    line-height: 42px;
+}
+#reportanalysis_list .report-name-link{
+    display: block;
+}
+.customtable .report-name{
+    display:flex;justify-content: flex-start;
+}
+.customtable img{
+    height:22px;
+    width:22px;
+}
+.reportanalysis-listtype-btn{
+    border: 1px solid var(--ld-button-border-default-color) !important;
+    background-color: var(--ld-button-bg-default-color) !important;
+    -webkit-appearance: none;
+    text-align: center;
+    box-sizing: border-box;
+    outline: none;
+    transition: .1s;
+    font-weight: 500;
+    height:32px;
+    width:32px;
+    padding:8px;
+    background-size: 22px;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.customtable .listtype-list-active{
+    background-image: url(images/icon-list-active.png);
+    border-radius: 4px 0 0 4px;
+}
+.customtable .listtype-screen-inactive{
+    background-image: url(images/icon-screen-inactive.png);
+    border-radius: 0 4px 4px 0 ;
+}
+.customtable .listtype-screen-inactive:hover{
+    cursor: pointer;
+    background-image: url(images/icon-screen-active.png);
+}
+
+.customtable .listtype-list-inactive{
+    background-image: url(images/icon-list-inactive.png);
+    border-radius: 4px 0 0 4px;
+}
+.customtable .listtype-list-inactive:hover{
+    cursor: pointer;
+    background-image: url(images/icon-list-active.png);
+}
+.customtable .listtype-screen-active{
+    background-image: url(images/icon-screen-active.png);
+    border-radius: 0 4px 4px 0 ;
+}
+.customtable .icon-chart,
+.customtable .icon-table{
+    display: inline-block;
+    background-size: 22px;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    position: relative;
+    width: 22px;
+    height: 22px;
+}
+.customtable .icon-chart{
+    background-image: url(images/icon-chart.png);
+}
+.customtable .icon-table{
+    background-image: url(images/icon-table.png);
+}
+
+.customtable  .reportanalysis-more-shadow{
+    box-shadow:
+            -2px 0 5px -2px rgba(0, 0, 0, 0.2), /* 左侧阴影 */
+            2px 0 5px -2px rgba(0, 0, 0, 0.2), /* 右侧阴影 */
+            0 -2px 5px -2px rgba(0, 0, 0, 0.2), /* 顶部阴影 */
+            0 2px 5px -2px rgba(0, 0, 0, 0.2);  /* 底部阴影 */
+}
+
+/* 确保第一列和最后一列在hover时也能显示背景色 */
+.customtable .ld-reportanalysis-screentable{
+    /*table-layout: fixed;*/
+    width: 100%;
+}
+.customtable .reportanalysis-btn-more{
+    background-repeat: no-repeat;
+    background-size: 16px;
+    background-position:left center;
+    display: inline-block;
+    margin:0 4px;
+    border-radius: 3px;
+    vertical-align: middle;
+    text-decoration: none;
+    overflow: hidden;
+    text-align: left;
+    font-size: 12px;
+    width: 100%;
+    height: 42px;
+    line-height: 42px;
+    color: #333;
+}
+.customtable .reportanalysis-more-li{
+    padding:0 4px 0 6px;
+}
+.customtable .reportanalysis-more-li:hover{
+    background-color:#EDF4FF;
+}
+.customtable .reportanalysis-btn-more:hover{
+    color:var(--ld-font-link-color);
+}
+
+/*分屏视图--start*/
+.customtable .reportanalysis-screen-right{
+    width:calc(100% - 330px);
+}
+
+.customtable .screen-left-reportname{
+    margin:10px 15px;
+}
+.customtable .screen-left-reportname .imput{
+    width:300px;
+}
+.screen-detail-header{
+    height:64px;
+    padding:0 16px;
+    border-bottom: 1px solid #EBEDF0;
+}
+.screen-reportname{
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 64px;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+/*分屏视图--end*/
+
+.customtable .report-close{
+    background-image: url('../icon/dropdown_2021.png');
+    background-repeat: no-repeat;
+    background-size: 10px 6px;
+    width: 10px;
+    height: 6px;
+    transform: rotate(-90deg);
+    margin-top: 8px;
+    min-width: 10px;
+}
+.customtable .report-open{
+    background-image: url('../icon/dropdown_2021.png');
+    background-repeat: no-repeat;
+    background-size: 10px 6px;
+    width: 10px;
+    height: 6px;
+    margin-top: 8px;
+    min-width: 10px;
+}
+.customtable .lvtColData:hover{
+    background-color: #E4F0FF;
+    z-index:120;
+}
+
+
+.customtable .listEntries tr.lvtColDataBj:hover td {
+    background: #E4F0FF !important;
+}
+/*列表界面--end*/
+
+/*新建界面 编辑界面--start*/
+.customtable-content .input-width-70{
+    width:70%;float:left;margin-right:10px;
+}
+.customtable-content .flex-input-group {
+    display: inline-block;
+    width: 50%;
+}
+.customtable-content .tbheader{
+    float:left;
+    /*padding-right: 17px;*/
+}
+.customtable-content .module-select{
+    margin:5px 0;
+}
+
+.customtable-content .can-sortable{
+    cursor: move;
+}
+.customtable-content #tableSet .module-label{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 220px;
+}
+.customtable-content .report-detail{
+    display: flex;
+    justify-content: start;
+    flex-direction:  column;
+}
+
+.customtable-content .customtable-list{
+    table-layout: fixed;
+    /*background-color: #ddd;*/
+    border-collapse:collapse;
+    /*outline: 1px solid #ddd;*/
+    /*border-style: solid;*/
+    /*border-width: 1px;*/
+}
+.customtable-content #reportDetailHeader th:last-child li[tag="is_sticky"]{
+    display:none;
+}
+.customtable-content .customtable-list .empty-field{
+    color: #bbb;
+}
+.customtable-content .customtable-list th{
+    height: 54px;
+    padding: 0 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    box-sizing: border-box;
+    vertical-align: middle;
+    font-size: 14px;
+    /*font-weight: normal;*/
+    background-color: #f0f4fc;
+    text-align: left;
+    color: #666;
+    box-shadow: inset  0 -0.5px  1px #ddd,inset  0.5px 0.5px  1px #ddd;
+}
+
+
+.customtable-content .customtable-list tr td{
+    height: 38px;
+    overflow: hidden;
+    line-height: 130%;
+    /*border: 1px solid #f1f1f1;*/
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    box-shadow: inset  0 -0.5px  1px #ddd,inset  0.5px 0  1px #ddd;
+}
+.customtable-content .customtable-list .boxshadow {
+    background-image: linear-gradient(-90deg, #ddd 0px,  #ddd 1px, transparent 20px);
+}
+
+.customtable-content .customtable-list .thead-content{
+    position: relative;
+}
+.customtable-content .customtable-droplist{
+    display:none;
+    position: fixed;
+    /*position: sticky;*/
+    background-color: #FFFFFF;
+    box-shadow:0 5px 10px 0 rgb(0 0 0 / 20%);border:none;
+
+}
+.customtable-content .customtable-droplist li{
+    margin: 0;
+    padding: 0;
+    line-height: 30px;
+}
+.customtable-content .customtable-droplist  a{
+    text-decoration: none;
+    display: block;
+    padding: 0 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+}
+.customtable-content .customtable-list tr:hover{
+    background-color: #E4F0FF;
+}
+.customtable-content .customtable-list .droplist-hide{
+    display: none;
+}
+.customtable-content .customtable-droplist .canclick a{
+    color: #3B4859;
+    cursor: pointer;
+}
+.customtable-content .customtable-droplist .unclick a{
+    color:#bbb;
+}
+.customtable-content .customtable-droplist .canclick a:hover{
+    color:#3b7cff;
+}
+.customtable-content .customtable-droplist .canclick:hover{
+    background-color: #f0f0fb;
+}
+.customtable-content .report-tips{
+    line-height: 40px;
+}
+.customtable-content #toolfieldFormula{
+    min-width: 600px;
+}
+.customtable-content #templateInfoForm .field-name{
+    /*font-weight: bolder;*/
+    display:inline-block;
+    text-align: center;
+}
+.customtable-content .color-div{
+    width: 22px;
+    height: 22px;
+    margin:10px 5px;
+    border-radius: 100%;
+    cursor: pointer;
+    border: 1px solid #dbdbdb;left:0;top:0;
+}
+/*模板选择*/
+.template-type-content{
+    background-color: #f3f4fa;
+    display: flex;
+    justify-content: flex-start;
+}
+.template-type-content .template-type-names{
+    width:12.5em;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0 0 0 / 10%);
+}
+.template-type-content .template-type-icons{
+    width:calc(100% - 12.5em);
+    margin-left: 1.2em;
+    overflow-y: auto;
+}
+.template-type-content .icon-choosed{
+    background: url(images/table-icon.png) -144px -31px;
+    border-radius: 4px;
+    font-size: 11px;
+    line-height: 16px;
+    font-weight: normal;
+    color: #2d82f4;
+    background-color: #2d82f4;
+    position:absolute;
+    top: 20px;
+    left: 20px;
+    width:17px;
+    height:17px;
+}
+.template-type-content .template-type-names ul li{
+    height:3.1em;
+    /*border-bottom: 1px solid #c0d3df;*/
+}
+.template-type-content .template-type-names ul li:hover{
+    border-right:5px solid var(--ld-bg-actived-color);
+}
+.template-type-content .template-type-names ul li:hover .template-name{
+    color:var(--ld-font-link-color);
+}
+.template-type-content .template-type-names a{
+    text-decoration:none;
+}
+.template-type-content .template-type-names ul .active:hover .template-name{
+    color: #fff;
+}
+.template-type-content .template-type-names ul .active{
+    background-color: var(--ld-bg-actived-color);
+}
+.template-type-content .template-type-names ul .active .template-name{
+    color:#fff;
+}
+.template-type-content .left-template-nav-link{
+}
+.template-type-content .left-template-nav-link .template-name{
+    text-align: left;
+    line-height: 3.1em;
+    font-size: 1em;
+    width:100%;
+    height:3.1em;
+    color:#6E7079;
+    padding-left:1em;
+}
+.template-type-head{
+    border-left:0.7em solid #2a83e8;
+    padding-left:5px;
+    font-weight: bolder;
+    font-size:1.6em;
+    margin-top: 1.2em;
+    margin-bottom: 0.6em;
+}
+.template-type-icons{
+    height:100%;
+}
+.template-type-icons .template-type-list{
+    border-top:1px solid #ccc;
+    display:flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+.template-type-icons .template-img:hover,
+.template-type-icons .selected{
+    border:1px solid #2a83e8;
+    /*box-shadow: 1px 1px 5px #2a83e8;*/
+}
+.template-type-icons .unselected{
+    border:1px solid #eee;
+}
+.template-type-icons .template-type-one{
+    width:calc(20% - 20px);
+    margin:10px;
+    display: inline-block;
+    height:17em;
+    position: relative;
+}
+.template-type-icons .template-type-one .template-img{
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    flex-wrap: wrap;
+    height:14em;
+    margin:0 auto;
+    border-radius: 25px;
+    background-color: #fff;
+}
+.template-type-icons .template-img .template-line{
+    height:2px;
+    width:1.6em;
+    border-bottom: 1px solid #6096e6;
+}
+.template-type-icons .template-img .template-module{
+    /*min-height:60px;*/
+    /*max-height:146px;*/
+    height:10em;
+    width:2.4em;
+    border-radius: 8px;
+    background-color:#6096e6;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 2.4em;
+    color:#fff;
+    padding:10px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    writing-mode:tb-rl;
+    font-size: 1em;
+    letter-spacing:2px;
+}
+.template-type-icons .template-type-one .template-name{
+    text-align: center;
+    font-size: 1.1em;
+    width:100%;
+    padding: 5px 0;
+    cursor:pointer;
+    height:2.5em;
+    font-weight: bolder;
+}
+.textFloatDisplay{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

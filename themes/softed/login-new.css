@@ -1,0 +1,700 @@
+/*********************************************************************************
+** Version 1.0
+ * Update diony
+ * Time 2018-10-16
+ ********************************************************************************/
+@charset 'UTF-8';
+
+* {
+    margin: 0;
+    padding: 0;
+}
+* {
+    box-sizing: border-box;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+}
+.input-system{width:200px; height:30px;padding:0 5px;}
+
+@keyframes autofill {
+    100% {
+        background: transparent;
+        color: inherit;
+    }
+}
+@-webkit-keyframes autofill {
+    100% {
+        background: transparent;
+        color: inherit;
+    }
+}
+ul, ol {
+    list-style: none;
+}
+input, button, select, textarea {
+    outline: none;
+}
+input,textarea {
+    font-family: tahoma,arial,'Hiragino Sans GB','Hiragino Sans GB W3','Microsoft Yahei',宋体;
+    font-size: 12px;
+    -webkit-transition: box-shadow .30s ease-in-out;
+    -moz-transition: box-shadow .30s ease-in-out;
+    -o-transition: box-shadow .30s ease-in-out;
+}
+input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
+    -webkit-animation: autofill 0s forwards;
+    animation: autofill 0s forwards;
+}
+a:link, a:visited {
+    text-decoration: none;
+    color: #3399cc;
+    outline: none;
+}
+html {
+    width: 100%;
+    height: 100%;
+}
+body {
+    font-family: tahoma,arial,'Hiragino Sans GB','Hiragino Sans GB W3','Microsoft Yahei',宋体;
+    font-size: 12px;
+    overflow: auto;
+    height: 100%;
+    color: #3d5266;
+    background: #fff;
+}
+.inline-block {
+    display: inline-block;
+}
+
+.crm-container {
+    position: relative;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    height: 100%;
+    background: #ebedf0;
+}
+.crm-container-bg {
+    width: 100%;
+    height: 100%;
+    background-position: center !important;
+    background-size: 100% 100% !important;
+}
+.crm-container-logo {
+    background: url(../../dataCache/test/logo/crmlogo.png) center center no-repeat;
+    position: absolute;
+    width: 142px;
+    margin: 0 auto;
+    height: 32px;
+    top: 22px;
+    left: 100px;
+    margin-left: -75px;
+}
+.crm-container-top {
+    color: #fff;
+    font-weight: bold;
+    position: absolute;
+    top: 20px;
+    right: 40px;
+}
+.crm-container-topright {
+    color: #fff;
+    position: absolute;
+    top: 42px;
+    right: 40px;
+}
+.crm-container-topright a {
+    color: #fff;
+    padding: 0 8px;
+    border-right: 1px solid #FFF;
+}
+.crm-container-topright a:first-child {
+    padding-left: 0;
+}
+.crm-container-topright a:last-child {
+    padding-right: 0;
+    border-right: 0;
+}
+.crm-container-form {
+    color: white;
+    width: 385px;
+    text-align: center;
+    position: relative;
+    z-index: 0;
+    border-radius: 12px;
+    top: 40%;
+    -moz-transform: translateY(-50%);  /*向上平移 自身的50%*/
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    /*background: rgba(188, 183, 224, 0.2);*/
+    background: rgb(75, 129, 239,0.3);
+    /*background: rgba(191, 191, 191, 0.5);*/
+    overflow: hidden;
+}
+.crm-container-form form {
+    padding: 10px 0 20px;
+}
+.crm-container-form-left {
+    left: 168px;
+}
+.crm-container-form-center {
+    margin: 0 auto;
+}
+.crm-container-form-right {
+    right: 168px;
+    position: absolute;
+}
+.crm-container-title {
+    padding-bottom: 24px;
+}
+.crm-container-form header h1 {
+    font-size: 25px;
+    font-weight: normal;
+    color: white;
+    line-height: 44px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.crm-container-body {
+    transform: scale(0.9, 0.9);
+}
+.crm-container-body > ul li {
+    margin-bottom: 20px;
+}
+.crm-container-choose {
+    width: 100%;
+    text-align: center;
+    display: inline-flex;
+    margin-bottom: 20px;
+}
+.crm-container-choose div {
+    text-align: -webkit-center;
+    width: 50%;
+}
+.crm-container-choose div:first-child {
+    padding-left: 88px;
+}
+.crm-container-choose div:last-child {
+    padding-right: 88px;
+}
+.crm-container-choose div label {
+    padding: 5px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.crm-container-choose div label.choosed {
+    border: 1px solid white;
+}
+.crm-container-input {
+    line-height: 40px;
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px solid white;
+    position: relative;
+}
+.crm-container-input .text-input,.crm-container-input .password  {
+    font-size: 16px;
+    float: left;
+    width: 65%;
+    line-height: 32px;
+    height: 32px;
+    text-indent: 8px;
+    border: none;
+    border-radius: 100px;
+    background-color: transparent !important;
+    padding: 5px 0;
+    color: white;
+    margin-top: 3px;
+}
+.crm-container-input.error {
+    border-bottom: 2px solid #fa7252;
+    position: relative;
+}
+.crm-container-body span.errorinfo {
+    text-align: left;
+    display: block;
+    margin-left: 20px;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #fa7252;
+}
+.divError span.errorinfo {
+    text-align: left;
+    display: block;
+    margin-left: 20px;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #fa7252;
+}
+.crm-container-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px 20px;
+}
+.crm-container-btn .btn-submit {
+    font-size: 17px;
+    line-height: 40px;
+    width: 130px;
+    height: 40px;
+    color: #fff;
+    border-radius: 3px;
+    background: rgb(75, 129, 239);
+}
+.icon-qy-wexi-qywx-login {
+    background-image: url(../../dataCache/test/logo/qy_wexi.png);
+    display: inline-block;
+    background-position: -152px -56px;
+    vertical-align: middle;
+    margin-right: 10px;
+    width: 29px;
+    height: 24px;
+    margin-bottom: 2px;
+}
+.crm-container-btn .btn-submit-weixin {
+    font-size: 17px;
+    line-height: 40px;
+    width: 168px;
+    height: 40px;
+    color: rgb(75, 129, 239);
+    border-radius: 3px;
+    background: #fff;
+}
+.crm-container-btn .btn-submit-installweixin {
+    font-size: 17px;
+    line-height: 40px;
+    width: 168px;
+    height: 40px;
+    color: rgb(75, 129, 239);
+    border-radius: 3px;
+    background: #fff;
+}
+.crm-container-register a {
+    color: white;
+    margin-top: 15px;
+    display: inline-block;
+}
+.crm-container-footer {
+    position: absolute;
+    right: 40px;
+    bottom: 48px;
+
+}
+.crm-container-footer a {
+    color: #fff;
+    padding: 0 8px;
+    border-right: 1px solid #FFF;
+}
+.crm-container-footer a:first-child {
+    padding-left: 0;
+}
+.crm-container-footer a:last-child {
+    padding-right: 0;
+    border-right: 0;
+}
+.crm-container-footer-banquan {
+    position: absolute;
+    right: 40px;
+    bottom: 0;
+    color: #fff;
+    margin: 0px auto 20px auto;
+}
+
+/*checkbox*/
+    .checkbox-item {
+        width: 14px;
+        height: 14px;
+        background-color: #fff;
+        -webkit-appearance:none;
+        border: 1px solid #AEB9CA;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        overflow: hidden;
+        cursor: pointer !important;
+	}
+	.checkbox-item{
+		vertical-align: middle !important;
+        margin-top: -1px !important;
+        margin-bottom: -2px !important;
+	}
+	.checkbox-item:hover {
+        border: 1px solid #3B7CFF;
+	}
+	.checkbox-item:checked {
+        background: url(images/table-icon.png) -145.5px -34px no-repeat #3B7CFF;
+        border-color: #3B7CFF;
+	}
+/*checkbox*/
+/*新版登录页面样式*/
+#root{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    overflow-y: hidden;
+    overflow-y: auto;
+}
+.ld-login-main{
+    background: rgb(255, 255, 255);
+    height: 100%;
+    overflow: hidden;
+    min-height: 680px;
+}
+.ld-crm-container-top{
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 48px;
+    width: calc(100% - 2px);
+    background: #FEF4EF;
+    border-radius: 2px;
+    border: 1px solid #F37538;
+    color: #323233;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.ld-login-section-left{
+    position: relative;
+    float: left;
+    width: 32%;
+    height: 100%;
+}
+.ld-login-section-right{
+    position: relative;
+    float: left;
+    width: 68%;
+    height: 100%;
+    text-align: center;
+}
+.ld-login-main .swiper-container{
+    height: 100%;
+    width: 100%;
+}
+.ld-login-main .swiper-wrapper{
+    height: 100%;
+    width: 100%;
+}
+.ld-login-main .swiper-container .swiper-slide{
+    height: 100%;
+    width: 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.ld-container-form{
+    width: 440px;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    -moz-box-pack: center;
+    justify-content: center;
+    -moz-box-align: center;
+    align-items: center;
+}
+.ld_form_login{
+    width: 100%;
+    min-height: 400px;
+    background: #FFFFFF;
+    border-radius: 8px;
+    padding: 40px;
+}
+.ld-crm-container-body{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.ld-crm-container-body .login-title{
+    font-family: PingFangSC, PingFang SC;
+    font-weight: 600;
+    font-size: 24px;
+    color: #333333;
+    line-height: 32px;
+    text-align: left;
+}
+.ld-crm-container-body .login-subtitle{
+    font-family: PingFangSC, PingFang SC;
+    font-weight: 400;
+    font-size: 14px;
+    color: #333333;
+    line-height: 22px;
+    text-align: left;
+    padding-top: 8px;
+}
+.ld-crm-container-input{
+    margin-top: 16px;
+    width: 100%;
+}
+.ld-crm-container-input .text-input{
+    height: 40px;
+    background: #FFFFFF;
+    border-radius: 4px;
+    border: 1px solid #DCDEE0;
+    width: 100%;
+    padding: 0 12px;
+    font-weight: 400;
+    font-size: 14px;
+    color: #3B4859;
+}
+.ld-crm-container-input .text-input:hover{
+    border-color: #c0c4cc;
+}
+.ld-crm-container-input .text-input:focus{
+    border-color: #3b7cff;
+    box-shadow: none;
+}
+.ld-crm-container-remember_password{
+    font-family: PingFangSC, PingFang SC;
+    font-weight: 400;
+    font-size: 14px;
+    color: #333333;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.ld-crm-container-remember_password label{
+    padding-left: 4px;
+    cursor: pointer;
+}
+.ld-crm-container-forgetpassword{
+    font-family: PingFangSC, PingFang SC;
+    font-weight: 400;
+    font-size: 14px;
+    color: #333333;
+    line-height: 20px;
+    margin-left: auto;
+    cursor: pointer;
+}
+.ld-crm-container-forgetpassword:hover{
+    color: #3B7CFF;
+}
+.ld-crm-container-btn{
+    margin-top: 32px;
+    width: 100%;
+}
+.ld-crm-container-btn .btn-submit{
+    width: 100%;
+    height: 40px;
+    background: #3B7CFF;
+    border-radius: 4px;
+    font-family: PingFangSC, PingFang SC;
+    font-weight: 500;
+    font-size: 18px;
+    color: #FFFFFF;
+    line-height: 40px;
+    text-align: center;
+    font-style: normal;
+}
+.ld-crm-container-btn .btn-submit:hover{
+    text-decoration: none;
+    color: #fff !important;
+    background: #66b1ff;
+}
+.ld-crm-container-agreement{
+    width: 100%;
+    margin-top: 12px;
+}
+.ld-crm-container-agreement .ld-crm-container-agreement-div{
+    display: flex;
+    align-items: center;
+    font-family: PingFangSC, PingFang SC;
+    font-weight: 400;
+    font-size: 14px;
+    color: #333333;
+    line-height: 20px;
+}
+.ld-crm-container-agreement .ld-crm-container-agreement-div label{
+    margin-left: 0px;
+}
+.ld-crm-container-agreement .ld-crm-container-agreement-div label a{
+    color: #3B7CFF;
+}
+.ld-crm-container-other{
+    margin-top: 35px;
+    width: 100%;
+}
+.ld-crm-container-other .ld-crm-container-other-list{
+    display: flex;
+    justify-content: center;
+}
+.other-login-item{
+    width: 88px;
+    text-align: center;
+    cursor: pointer;
+}
+.other-login-item-img{
+    width: 48px;
+    height: 48px;
+    margin: 0 auto;
+    background: url("images/qiyeweixin_login.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.other-login-item-label{
+    font-weight: 400;
+    font-size: 12px;
+    color: #666666;
+    line-height: 17px;
+    margin-top: 4px;
+}
+.ld-crm-container-topright{
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    font-size: 14px;
+    color: #666666;
+    z-index: 1;
+    line-height: 18px;
+}
+.ld-crm-container-topright a{
+    padding: 0 13px;
+    color: #666666;
+    border-left: 1px solid #DCDEE0;
+    float: left;
+}
+.ld-crm-container-topright a:hover{
+    color: #3B7CFF;
+}
+.ld-crm-container-topright a:last-child{
+    padding-right: 0;
+}
+.ld-crm-container-topright a:first-child{
+    border: none;
+}
+.ld-crm-container-footer{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 24px;
+    font-size: 14px;
+    color: #666666;
+    z-index: 1;
+    line-height: 18px;
+}
+.ld-crm-container-footer .ld-crm-container-footer-content a{
+    padding: 0 13px;
+    color: #666666;
+    border-left: 1px solid #DCDEE0;
+    cursor: pointer;
+}
+.ld-crm-container-footer a:hover{
+    color: #3B7CFF;
+}
+.ld-crm-container-footer .ld-crm-container-footer-content a:last-child{
+    padding-right: 0;
+}
+.ld-crm-container-footer .ld-crm-container-footer-content a:first-child{
+    border: none;
+}
+.ld-container-form-language{
+    font-size: 14px;
+    color: #666666;
+    line-height: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    height: 20px;
+    position: relative;
+    border-left: 1px solid #DCDEE0;
+    padding-left: 6px;
+}
+.ld-container-form-language .ld_Select_optionlistbg{
+    bottom: 30px;
+    top: unset;
+}
+.ld-container-form-language .ld_Select-optionlist{
+    top: unset;
+    bottom: 8px;
+}
+.ld-container-form-language .ld_Select-optionlist::after{
+    bottom: -8px;
+    top: unset;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 8px solid #fff;
+    border-bottom: none;
+    filter: drop-shadow(0 3px 2px rgba(56, 92, 141, 0.2));
+}
+.moresetselect .ld_Select-component,.ld-container-form-language .ld_Select-component{
+    height: 20px;
+}
+.ld-container-form-language .ld_Select-component .ld_Select-lefticon {
+    background-size: 18px 18px !important;
+}
+.ld-arrowicon{
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-right: 1px solid #666;
+    border-top: 1px solid #666;
+    transform: translateY(60%) rotate(135deg);
+    margin: -12px 2px 0px 8px;
+    float: left;
+    transition-duration: 0.5s;
+}
+.ld-loginform-afterdiv{
+    display: flex;justify-content: center;margin-top: 16px;
+}
+.ld-loginform-afterdiv a{
+    line-height: 20px;
+    padding-right: 13px;
+    color: #666666;
+    font-size: 14px;
+    cursor: pointer;
+}
+.ld-loginform-afterdiv a:hover{
+    color: #3B7CFF;
+}
+.swiper-pagination{
+    bottom: 32px !important;
+}
+.swiper-pagination-bullet{
+    width: 24px !important;
+    height: 8px !important;
+    border-radius: 4px !important;
+}
+@media (max-width: 832px) {
+    .ld-login-section-right {
+        width: 100% !important;
+        max-width: 100%;
+    }
+    .ld-login-section-left{
+        display: none;
+    }
+
+}
+input:-webkit-autofill {
+    background: #fff !important;
+    color: #3B4859;
+    -webkit-box-shadow: 0 0 0px 1000px #fff inset !important;
+    -webkit-text-fill-color:#3B4859;
+}
+.moresetselect .ld_Select_optionlistbg{
+    right: 0;
+    left: unset;
+}
+.moresetselect .ld_Select-component .ld_Select-optionlist::after{
+    right: 30px;
+    left: unset;
+}
+
+.getsecuritycode{
+    position: absolute;
+    top: 0;
+    right: 0;
+    line-height: 40px;
+    font-size: 14px;
+    color: #3B7CFF;
+    padding: 0 12px;
+    cursor: pointer;
+}

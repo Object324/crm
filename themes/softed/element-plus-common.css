@@ -1,0 +1,150 @@
+/* 公共颜色 **************************************************/
+    :root {
+        --el-header-bg-color: #ECF4FF;/*表头背景色*/
+        --el-fill-color-lighter: #F7F9FB;/*隔行换色*//*合计*/
+        --el-fill-color-selected: #E4F0FF;/*选中换色*/
+        --el-table-border-color-new: #FFF;/*table边框颜色*/
+    }
+
+/* 公共 **************************************************/
+	body {
+	    margin: 0;
+	    overflow: hidden;
+	}
+	.common-layout {
+	    background: #CFDEF5;
+	}
+	.BF {
+	    background: #FFF;
+	}
+	.borderradius {
+	    border-radius: 6px;
+	}
+	.ld-menu-bg {
+		background: #3388FF;
+	}
+    .el-menu {
+        border-right: none;
+        background-color: inherit;
+    }
+
+/* 滚动条颜色修改，风格切换时判断滚动条颜色也同步修改 **************************************************/
+	.ld-menu-bg .el-scrollbar__thumb {
+	    background-color: #FFF;
+	}
+
+/* 内容树节点 **************************************************/
+    .el-input__wrapper {
+        margin: 12px;
+    }
+    .el-tree-node__content {
+        margin-top: 3px;
+        margin-bottom: 3px;
+    }
+    .node-text {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 140px;
+        display: inline-block;
+    }
+    .node-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        position: relative;
+    }
+    .node-content:hover .node-button,
+    .node-content:hover .node-image-button {
+        display: inline-block;
+    }
+    .node-button {
+        display: none;
+        background-color: #409eff;
+        color: #FFF;
+        border: none;
+        border-radius: 4px;
+        padding: 2px 6px;
+        cursor: pointer;
+    }
+    .node-image-button {
+    	display: none;
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+        margin-left: 10px;
+        border: none;
+        background: none;
+        padding: 0;
+        position: absolute;
+        right: 6px;
+    }
+
+/* 表体背景色 **************************************************/
+	.el-table th.el-table__cell {
+	    background-color: var(--el-table-header-bg-color);
+	}
+	.el-table {
+	    --el-table-header-bg-color: var(--el-header-bg-color);
+	    --el-table-row-hover-bg-color: var(--el-fill-color-selected);
+	    --el-table-border: 1px solid var(--el-table-border-color);
+	    --el-table-border-color: var(--el-table-border-color-new);
+	}
+	.el-table__footer-wrapper tbody td.el-table__cell,.el-table__header-wrapper tbody td.el-table__cell {
+	    background-color: var(--el-fill-color-lighter);
+	}
+	.el-table td.el-table__cell, .el-table th.el-table__cell.is-leaf {
+	    border-bottom: var(--el-table-border);
+	}
+	.el-table--border .el-table__cell {
+	    border-right: var(--el-table-border);
+	}
+
+/* 表体样式 **************************************************/
+	.el-table th {
+        line-height: 34px;
+    }
+    .el-table th .cell {
+        height: 34px;
+        line-height: 34px;
+    }
+    .el-table th .cell img {
+        vertical-align: middle;
+        width: 24px;
+        height: 24px;
+        padding-left: 5px;
+    }
+	.el-button+.el-button {
+	    margin-left: 0;
+	}
+
+/* 底部 **************************************************/
+    .footer-container {
+        display: flex;
+        justify-content: flex-end;  /* 内容靠右对齐 */
+        align-items: center;        /* 内容垂直居中 */
+        padding-right: 20px;        /* 添加一些右边距，防止内容紧贴边缘 */
+    }
+    .custom-total {
+        font-weight: 400;
+        font-size: 14px;
+        color: #606266;
+        margin-right: 16px;
+    }
+    .el-pagination .el-input__inner {
+        text-align: left;
+    }
+    .el-pagination .el-select .el-input {
+        width: 90px
+    }
+
+/* switch高度修改 **************************************************/
+	.el-switch {
+	    height: auto;
+	}
+
+/* tooltip宽度修改 **************************************************/
+	.el-popper {
+	    max-width: 500px;
+	}

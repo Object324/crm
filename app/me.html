@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="overflow: hidden;">
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+<meta name="format-detection" content="telephone=no" />
+<script type="text/javascript" src="js/global-variable.js?version=1.01"></script>
+<link rel="stylesheet" type="text/css" href="css/swiper.min.css">
+<link rel="stylesheet" type="text/css" href="css/global.css?version=1.01" />
+<link rel="stylesheet" type="text/css" href="css/list.css?version=1.01" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+<body>
+<!--<div tag="android-back" class="news" onclick="backForAndroid()"><span>返回</span></div>   -->
+<!--<div tag="android-back" class="news" onclick="NetworkObj.setOnline(true)" style="left:auto;right:100px;" ><span>开</span></div>
+<div tag="android-back" class="news" onclick="NetworkObj.setOnline(false)" style="left:auto;right:60px;"><span>关</span></div>-->
+<header>        
+    <div id="app_header" class="header"></div>
+</header> 
+<!--内容-->   
+<section>
+    <div id="app-body">
+        <!--网络不佳提醒头部-->
+        <div id="lineheadstatus" class="network-h" style="display:none;">
+            <i class="lnr-rss"></i>网络请求失败，请检查您的网络设置
+        </div>
+        <!-- 需要 滚动的页面 start  -->
+        <div id="home-page" class=" swiper-container swiper-container-g">
+            <div class="swiper-wrapper">
+                <!--头部高度调整-->
+                <div id="adjust-head-holder" class="swiper-slide adjust-head ui-hide"></div>            
+                <!-- me主页  -->
+                <div id="me-main-view" class="swiper-slide memain_menu"></div>
+                <!-- me意见反馈  -->
+                <div id="me-feedback-view" class="swiper-slide ui-hide">
+                    <div></div>  
+                    <!--
+                    <div id="feedback-imgholder" 
+                    class="feedback-imgholder picture-rang picture-preview">
+                        <div tag="img-addbt" style="background-image:url(images/add_photo.png)">
+                            
+                        </div>
+                    </div>
+                    -->
+                    <div class="contact-cell">联系方式 <span></span></div>                    
+                </div>
+                <!-- 个人资料信息查看及设置页-->
+                <div id="all-userinfo-view" class="swiper-slide ui-hide"></div>
+                <!-- me通讯录-->
+                <div id="me-adressbook-view" class="swiper-slide ui-hide">
+                    <div class="top-wrapper"></div>
+                    <div class="content-wrapper"></div>
+                </div>
+                <!-- me 设置 -->
+                <div id="me-setting-view" class="swiper-slide noscoll ui-hide">
+                    <div class="logo-ver">
+                      <img  src="images/ic_launcher.png"/>
+                      <p></p>
+                    </div>
+                    <ul class="me-homelists set">
+                      <li tag="aboutus"><span>关于我们</span></li>
+                      <li tag="contactusus"><span>联系我们</span></li>
+                      <li tag="cache"><span>清除缓存</span></li>
+                    </ul>
+                    <div class="me-exit">退出登录</div>
+                </div>
+                <!-- cwn 查看页，查看关于我们（只显示静态消息） -->
+                <div id="cwn-lookup-view" class="swiper-slide cwn-lookup-view ui-hide"></div>
+                <!-- cwn 弹出输入框，编辑页 -->
+                <div id="cwn-popuedit-view" class="swiper-slide noscoll popuedit ui-hide">
+                    <div class="writeTxt"></div>      
+                </div>
+                <!--在list-refresh-holder/list-addmore-holder两个div之间放入需要刷新的页面start-->
+                <div id="list-refresh-holder" class="swiper-slide list-refresh ui-hide" ></div>
+                 <!-- cwn 弹出选择页（查看联系人页面）-->
+                <div id="cwn-popuselect-view" class="swiper-slide ui-hide">
+                    <div class="top-wrapper"></div>   
+                    <div class="content-wrapper"></div>   
+                </div> 
+                <div id="adjust-bottom-holder" class="swiper-slide adjust-bottom" >
+                    <div id="list-addmore-holder" class="list-addmore" >
+                        <span class="list-addmore-icon pull-refreshing ui-hide"></span>
+                        <span class="list-addmore-label"></span>
+                    </div>
+                </div>
+                <!--在home-refresh-box/home-addmore-box两个div之间放入需要刷新的页面 end-->
+            </div>
+            <!-- Add Scroll Bar -->
+            <div class="swiper-scrollbar swiper-scrollbar-g"></div>
+        </div>
+        <!-- 需要 滚动的页面 恩 end -->   
+        <!--取消弹出层-->
+        <div id="tplCancel" class="orderdiv ui-hide" popubox="true">
+            <div class="opttype">确定要取消该操作吗？</div>
+            <div class="btnok" tag="ok">确定</div>
+            <div class="btnc" tag="btnc_cancel">取消</div>
+        </div>
+        <!--相册、拍照-->
+        <div id="tplPhone" class="orderdiv ui-hide" popubox="true">
+            <div class="opttype">请选择获取方式</div>
+            <div class="btnsub" tag="btnsub_photo">相册</div>
+            <div class="btnsub" tag="btnsub_camera">拍照</div>
+            <div class="btnc" tag="btnc_cancel">取消</div>
+        </div>
+        <div id="callHotline" class="orderdiv ui-hide" popubox="true">
+          <div class="btnsub" style="margin-top: 22px;margin-bottom:22px"></div>
+          <div class="btnc" tag="btnc_cancel">取消</div>
+        </div>
+        <!--清除换缓存成功-->
+        <div class="setreminder ui-hide"></div>
+        <!--打电话弹出-->
+        <div id="CallMsgMain" popubox="true" class="call orderdiv ui-hide"></div>
+        <!--提醒弹出框-->
+        <div id="pop-prompt-box" class="popup-remind" popubox="true" style="display:none;">
+            <div class="pop-head"></div>
+            <div class="pop-main"></div>
+            <div class="pop-foot"></div>
+        </div>
+        <!--查看关联大图弹出层-->
+        <div id="picture-preview-holder" class="picture-preview-holder workimgbgDiv ui-hide" popubox="true">
+            <div class="imgbg-top">
+                <a href="javascript:void(0);" class="lnr-chevron-left" tag="cancel"></a>
+                <h5 class="imgbg-num"></h5>
+                <a href="javascript:void(0);" class="lnr-trash" tag="delete" style="display:none;">&nbsp;</a>
+            </div>
+            <div class="swiper-container picture-preview-swiper">
+                <div class="swiper-wrapper">
+                </div>
+            </div> 
+            <!--     
+            <div class="imgbg-bottom">
+                <a  href="javascript:void(0)" tag="left">左旋转</a>
+                <a  href="javascript:void(0)" tag="right">右旋转</a>
+            </div> 
+            -->
+        </div>
+        <!--遮罩层-->
+        <div id="layerMask" popubox="true"></div>
+        <!--遮罩层透明背景 用处：头部数据分类-->
+        <div id="poplayerMask" popubox="true"></div>
+        <!--进度条-->
+        <div id="status"><img src="images/status.gif"/></div>
+        <!--加载中-->
+        <div id="loading" style="display:none;"><div><img src="images/loading.gif"/></div></div>
+        <!--错误提醒弹出层-->
+        <div id="errorstatus" class="no-network-tips ui-hide"><span>json错误</span></div>
+        <!--网络未连接弹出层-->
+        <div id="linestatus" class="no-network-tips" style="display:none;"><span>您的当前网络不可用</span></div>
+        <!--网络不佳提醒内容-->
+        <div id="linecontentstatus" class="network-c" style="display:none;">
+            <div>
+                <i class="lnr-lostwifi"></i>
+                <div>
+                    <span>网络请求失败</span>
+                    请检查您的网络</br>点击刷新
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--底部模块 begin-->
+<footer>     
+    <div id="app-footer" class="wrapper-bottom-hloder" >
+        <div id="cwnm-main-footer" style="height:40px;"  class="ui-hide"></div>
+        <div id="me-feedback-footer"  class="me-feedback-footer ui-hide">提交</div>
+    </div>   
+</footer>
+<!--底部模块 end-->
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<!--
+<script type="text/javascript" src="js/swiper.min.js"></script>
+<script type="text/javascript" src="js/jquery.touchSwipe.min.js"></script>
+-->
+<script type="text/javascript" language="JavaScript">
+    document.getElementById('status').style.display='block';
+    var ld = $;
+</script>
+<!--
+<script type="text/javascript" src="js/fastClick.js?version=1.01"></script>
+<script type="text/javascript" src="js/velocity.min.js"></script>
+-->
+<script language="javascript" type="text/javascript" src="js/oem.js"></script>
+<script language="javascript" type="text/javascript" src="js/ajax-hander.js?version=1.01"></script>
+<script language="javascript" type="text/javascript" src="js/operation-hander.js?version=1.01"></script>
+<script language="javascript" type="text/javascript" src="js/common.js?version=1.01"></script>
+<script language="javascript" type="text/javascript" src="js/main.js?version=1.01"></script>
+<!-- 根据屏幕大小，计算HTML的font-size -->
+<script>
+if(phoneversion == 'ios'){
+    /*//6   w=375    6plus w=414   5s w=320     5 w=320
+    var wigth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    var ratio = 16;
+    if(wigth>400){ 
+        ratio = 14;
+    }else if(wigth>370){ 
+        ratio = 15;
+    }*/
+    var ratio = 15;
+    var docEl = document.documentElement,
+        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+    var clientWidth = docEl.clientWidth;
+    docEl.style.fontSize = ratio * (clientWidth / 320) + 'px';
+    window.addEventListener(resizeEvt, function() { clientWidth = docEl.clientWidth;docEl.style.fontSize = ratio * (clientWidth / 320) + 'px'; }, false);
+}
+</script>
+<!--
+<script language="javascript" type="text/javascript" src="js/machine-hander.js?version=1.01"></script>
+<script language="javascript" type="text/javascript" src="js/tools-hander.js?version=1.01"></script>
+<script language="javascript" type="text/javascript" src="js/logic-hander.js?version=1.01"></script>
+<script language="javascript" type="text/javascript" src="js/location.js?version=1.01"></script>
+<script language="javascript" type="text/javascript" src="js/jquery.autosize.min.js"></script>
+-->
+<script language="javascript" type="text/javascript" src="js/me.js?version=1.01"></script>
+<script type="text/javascript" language="JavaScript">
+    if(phoneversion == 'ios'){
+        document.write("<script type='text/javascript' src='js/ios/cordova_ios.js'></"+"script>");
+    }
+    else if(phoneversion == 'android'){
+        document.write("<script type='text/javascript' src='js/android/cordova_android.js'></"+"script>");
+    }
+</script>
+</body>

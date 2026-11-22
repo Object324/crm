@@ -1,0 +1,808 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="overflow: hidden;">
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+<meta name="format-detection" content="telephone=no" />
+<script type="text/javascript" src="js/global-variable.js?version=1.01"></script>
+<link rel="stylesheet" type="text/css" href="css/swiper.min.css">
+<link rel="stylesheet" type="text/css" href="css/global.css?version=1.01" />
+<link rel="stylesheet" type="text/css" href="css/list.css?version=1.01" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+<body>  
+<!--<div tag="android-back" class="news" onclick="backForAndroid()"><span>返回</span></div>   -->
+<!--<div tag="android-back" class="news" onclick="NetworkObj.setOnline(true)" style="left:auto;right:100px;" ><span>开</span></div>
+<div tag="android-back" class="news" onclick="NetworkObj.setOnline(false)" style="left:auto;right:60px;"><span>关</span></div>-->
+<header> 
+    <div id="app_header" class="header"></div>
+</header>
+<section>
+    <div id="app-body">
+        <!--网络不佳提醒头部-->
+        <div id="lineheadstatus" class="network-h" style="display:none;">
+            <i class="lnr-rss"></i>网络请求失败，请检查您的网络设置
+        </div>
+        <!-- 所有 start  -->
+        <div id="home-page" class="swiper-container swiper-container-g">
+            <div class="swiper-wrapper">
+                <!--头部高度调整-->
+                <div id="adjust-head-holder" class="swiper-slide adjust-head ui-hide"></div>
+                <!--单据明细界面-->
+                <div id="cwn-crmdetail-view" class="swiper-slide cwn-crmdetail-view ui-hide"></div>
+                <!--编辑页面、创建页面-->
+                <div id="crm-createedit-view" class="swiper-slide ui-hide"></div>
+                <!--相关信息明细-->    
+                <div id="cwn-relationdetail-view" class="swiper-slide cwn-relationdetail-view ui-hide"></div>
+                <!--审批 反审批-->
+                <div id="cn-approval-view" class="swiper-slide cn-approval-view ui-hide">
+                   <!-- 审批 -->
+                   <div id="tplApprovalStep" class="approvalstep">
+                       <h2 class="c-detail-h2">审核动作</h2>
+                       <ul id="approvalStepContent" class="c-ul c-edit-cell"></ul>
+                       <h2 class="c-detail-h2">备注</h2>
+                       <ul class="c-ul c-edit-cell">
+                           <li class="heightauto" style="margin-top: 10px;">
+                               <textarea id="approveRemarks" name="approveRemarks" placeholder="备注内容" ></textarea>
+                           </li>
+                       </ul>
+                   </div> 
+                    <!-- 反审批 -->
+                   <div id="tplcancelApproved" class="approvalstep">
+                       <h2 class="c-detail-h2">审核动作</h2>
+                       <ul id="cancelApprovedCon" class="c-ul c-edit-cell"></ul>
+                   </div>   
+                </div>
+                <!--客户查重-->
+                <div id="crm-checkrepeat-view" class="swiper-slide ui-hide">
+                    <div class="takepicture">
+                        <div class="divRelateMod"> 
+                            <div id="divAccountField" class="check-opt">
+                            </div>
+                            <input id="check_repeat_columnname" class="checkval" style="height: 1.2rem;" name="check_repeat_columnname" type="text" placeholder="请输入查重关键字"/>
+                        </div>
+                    </div>
+                    <div id="crm-checkrepeat-content" class="crm-checkrepeat-content ui-hide"></div>
+                </div>
+                <!--查看产品清单 -->
+                <div id="crm-createeditsub-view" class="swiper-slide ui-hide"></div>
+                <!--产品-->
+                <div id="cwn-crmdetailsub-view" style="overflow: auto" class="swiper-slide ui-hide"></div>
+                <!--查看附件 -->
+                <div id="cwn-attview-view" class="swiper-slide attview ui-hide"></div>
+                <!--内容明细-->
+                <div id="wn-workdetail-view" class="swiper-slide cwn-crmdetail-view ui-hide">
+                     <div id="work_detailbox" class="work_detailbox"></div>
+                </div>
+                <!--查看范围-->
+                <div id="cwn-lookup-view" class="swiper-slide cwn-lookup-view ui-hide">
+                    <div id="workdetail_rangeview" class="ui-hide"></div>
+                    <div id="chosenlist" class="ui-hide"><!--已选择关联客户、关联联系人-->
+                        <ul id="chosenlist_Accounts"  class="lists-nopaddlf ui-hide" >
+                        </ul>
+                        <ul id="chosenlist_Contacts" class="lists-nopaddlf ui-hide"  >
+                        </ul>
+                    </div>
+                    <div id="chooseUserList" class="ui-hide"><!--已选择用户-->
+                        <ul class="lists-nopaddlf ui-hide" id="chosenSendrange_commGroup" ></ul>
+                        <div id="Sendrange_Grouptitle" class="liststit ui-hide">部门</div>
+                        <ul class="lists-nopaddlf ui-hide" id="chosenSendrange_Group" ></ul>
+                        <div id="Sendrange_Colleaguetitle" class="liststit ui-hide">同事</div> 
+                        <ul class="lists-nopaddlf ui-hide" id="chosenSendrange_Colleague" ></ul>
+                    </div>
+                    <div id="otherbox_view" class="Optperson ui-hide"></div><!--发送范围、CRM单据明细-->
+                </div>
+                <!-- 选择发送范围 -->
+                <div id="cwn-sendrang-view" class="swiper-slide wrapper_other ui-hide">
+                    <div id="divOtherSerach"></div>
+                    <div id="label_usergroup" class="tabswitch switch-three">
+                        <a tag="Common" href="javascript:void(0);" class="curr">常用</a>
+                        <a tag="Colleague" href="javascript:void(0);">选同事</a>
+                        <a tag="Department" href="javascript:void(0);">选部门</a>
+                    </div>
+                    <div id="SearchDiv" class="ui-hide">
+                        <div id="usersearchDiv" class="search-warp">
+                            <i class="lnr-magnifier"></i>
+                            <input type="text" id="usersearch" name="usersearch" placeholder="搜索同事"/>
+                            <i class="lnr-cross-circle ui-hide"></i>
+                            <input type="button"  value="搜索"/>
+                        </div>
+                    </div>
+                    <div class="switch-centent">
+                        <div class='lists list-nums ui-hide' id="CommonDiv"></div>
+                        <div class='lists head ui-hide' id="ColleagueDiv"></div>
+                        <div class='lists list-nums ui-hide' id="DepartmentDiv"></div>
+                    </div>         
+                </div>
+                <!--回复-->
+                <div id="wn-replayforword-view" class="swiper-slide replyDiv ui-hide"></div>
+                <!--news news-main-view 一级页面-->
+                <div id="news-main-view" class="swiper-slide noscoll ui-hide"></div>
+                <!--news news-second-view 二级页面-->
+                <div id="news-second-view" class="swiper-slide noscoll ui-hide"></div>
+                <!--news approve-list-view 审批提醒模块列表-->
+                <div id="newsapprove-list-view" class="swiper-slide ui-hide"></div>
+                <!--在list-refresh-holder/list-addmore-holder两个div之间放入需要刷新的页面start-->
+                <div id="list-refresh-holder" class="swiper-slide list-refresh ui-hide" >
+                    <span class="list-refresh-icon"></span>
+                    <span class="list-refresh-label"></span>
+                </div>
+                <!-- crm 列表页面 ，外勤统计 带刷新-->
+                <div id="crm-list-view"  class="swiper-slide  refreshable ui-hide" ></div>
+                <div id="news-third-view"  class="swiper-slide  refreshable ui-hide" ></div>
+                <!-- crm 相关列表页面 带刷新 -->
+                <div id="cwn-relationlist-view"  class="swiper-slide  refreshable ui-hide">
+                    <div id="relatedlistbox" class="pubRelated"></div>                       
+                </div>
+                <!-- work list列表-->
+                <div id="wn-worklist-view" class="swiper-slide  refreshable ui-hide">
+                    <div  class="pubclear pubDetialC"></div>
+                </div>
+
+                <!-- 个人信息界面 -->
+                <div id="wn-userinfo-view" class="swiper-slide refreshable ui-hide">
+                    <div class="userinfo ui-hide"></div>
+                    <div id="arfa_tab" class="arfa_tab ui-hide">
+                        <ul>
+                            <li class="lnr-chevron-down">全部</li>
+                            <li class="line-bg" tag="replylist">工作回复</li>
+                            <!--<li  class="line-bg" tag="document">工作<br/>文档</li>-->
+                            <li  class="line-bg" tag="atworklist">@我的</li>
+                        </ul>
+                    </div>
+                    <div id="worktype_tab" class="worktype_tab">
+                        <ul>
+                            <li tag="all">全部</li>
+                            <li class="line-bg" tag="weibo">微博</li>
+                            <li class="line-bg" tag="logday">日志</li>
+                            <li tag="logweek">周计划</li>
+                            <li class="line-bg" tag="logmonth">月计划</li>
+                            <li  class="line-bg" tag="cocmd">任务</li>
+                        </ul>
+                    </div>
+                    <div class="pubDetialC "></div>
+                </div>
+                <!-- 个人资料信息查看及设置页-->
+                <div id="all-userinfo-view" class="swiper-slide ui-hide"></div>
+                <!-- 工作回复、工作文档、@我的界面界面 -->
+                <div id="wn-replayfileat-view" class="swiper-slide refreshable ui-hide">
+                    <div id="file_tab" class="tabswitch switch-two ui-hide">
+                        <a class="curr" tag="document">工作附件</a>
+                        <a tag="picture">工作图片</a>
+                    </div>
+                    <div id="atmine_tab" class="tabswitch switch-two ui-hide">
+                        <a class="curr" tag="atworklist">@我的工作</a>
+                        <a tag="atreplylist">@我的回复</a>
+                    </div>
+                    <div class="pubDetialC ">
+                        <!--<ul class="replayfileat_file">
+                            <li>
+                                <div></div>
+                                <span class="text-ellipsis">
+                                    <i class="text-ellipsis">附件：复件 u=7474784588562154878745484 487454874848</i>
+                                    （9k）2016年08月13日 11:34
+                                </span>
+                                <a>查看<br/>原文</a>
+                            </li>
+                        </ul>-->
+                        <!--<ul class="ui-cont-list relation-list ">
+                            <li class="workimg-upload pictrue-fold picture-preview" achmentid="0">
+                                <span img-detail="http://192.168.2.43:88/ldcrm/storage/2016/October/week2/crm_Accounts.png" style="display:none;"></span>
+                                <span img-detail="http://192.168.2.43:88/ldcrm/storage/2016/October/week2/crm_Vendors.png" style="display:none;"></span>
+                                <span img-detail="http://192.168.2.43:88/ldcrm/storage/2016/October/week2/send_accounts.png" style="display:none;"></span>
+                                <img src="http://192.168.2.43:88/ldcrm/storage/2016/October/week2/crm_Accounts.png" alt="" class="">
+                                <span>3张</span>
+                            </li>
+                        </ul>-->
+                    </div>
+                </div>
+
+                <!-- cwn 弹出选择页-->
+                <div id="cwn-popuselect-view" class="swiper-slide ui-hide">
+                    <div class="top-wrapper"></div>   
+                    <div class="content-wrapper"></div>   
+                </div>             
+                <div id="adjust-bottom-holder" class="swiper-slide adjust-bottom" >
+                    <div id="list-addmore-holder" class="list-addmore" >
+                        <span class="list-addmore-icon pull-refreshing ui-hide"></span>
+                        <span class="list-addmore-label"></span>
+                    </div>
+                </div>
+                <!--在home-refresh-box/home-addmore-box两个div之间放入需要刷新的页面 end-->
+            </div>
+            <!-- Add Scroll Bar -->
+            <div class="swiper-scrollbar swiper-scrollbar-g"></div>
+        </div>
+        <!-- 所有页面 end -->
+        <!-- 其他部分 -->
+        <!--消息提醒首页--> 
+        <div id="tplNewsHome" class="ui-hide">
+            <ul class="newsone-lists">
+                <li tag="work_remind">
+                    <!-- <i class="lnr-work-remind" style="background:#fea432"></i> -->
+                    <img src="images/news_workremind.png">
+                    <div class="g_con">
+                        <h3 class="h_tit">工作提醒</h3>
+                        <i class="lnr-chevron-right"></i>
+                        <span class="message_num ui-hide"></span>
+                    </div>
+                </li>
+                <li tag="message_remind">
+                    <!-- <i class="lnr-message_remind" style="background:#7789fd"></i> -->
+                    <img src="images/news_messageremind.png">
+                    <div class="g_con">
+                        <h3 class="h_tit">消息提醒</h3>
+                        <i class="lnr-chevron-right"></i>
+                        <span class="message_num ui-hide"></span>
+                    </div>
+                </li>
+                <li tag="approve_remind">
+                    <i class="lnr-seal" style="background:#F4C600;"></i>
+                    <div class="g_con">
+                        <h3 class="h_tit">审批提醒</h3>
+                        <i class="lnr-chevron-right"></i>
+                        <span class="message_num ui-hide"></span>
+                    </div>
+                </li>
+                <li tag="notice_remind">
+                    <!-- <i class="lnr-volume" style="background:#00BCD3;"></i> -->
+                    <img src="images/news_volumeremind.png">
+                    <div class="g_con">
+                        <h3 class="h_tit">公告提醒</h3>
+                        <i class="lnr-chevron-right"></i>
+                        <span class="message_num ui-hide"></span>
+                    </div>
+                </li>
+            </ul>
+        </div>   
+        <!--工作提醒二级页面--> 
+        <div id="tplNewsSecondForWork" class="ui-hide">
+            <ul class="newstwo-lists">
+                <li tag="approvelist">
+                    <a href="javascript:void(0);">
+                        <span class="news_left_tit">待处理</span>
+                        <i class="lnr-chevron-right"></i>
+                        <span class="news_num"></span>
+                    </a>
+                </li>
+                <li tag="replylist">
+                    <a href="javascript:void(0);">
+                        <span class="news_left_tit">我发出工作的回复</span>
+                        <i class="lnr-chevron-right"></i>
+                        <span class="news_num"></span>
+                    </a>
+                </li>
+                <li tag="atworklist">
+                    <a href="javascript:void(0);">
+                        <span class="news_left_tit">@ 我的工作</span>
+                        <i class="lnr-chevron-right"></i>
+                        <span class="news_num"></span>
+                    </a>
+                </li>
+                <li tag="atreplylist">
+                    <a href="javascript:void(0);">
+                        <span class="news_left_tit">@ 我的回复</span>
+                        <i class="lnr-chevron-right"></i>
+                        <span class="news_num"></span>
+                    </a>
+                </li>
+                <li tag="mylaunchlist">
+                    <a href="javascript:void(0);">
+                        <span class="news_left_tit">我发出的工作</span>
+                        <i class="lnr-chevron-right"></i>
+                        <span class="news_num"></span>
+                    </a>
+                </li>
+                <li tag="mypraiselist">
+                    <a href="javascript:void(0);">
+                        <span class="news_left_tit">我收到的赞</span>
+                        <i class="lnr-chevron-right"></i>
+                        <span class="news_num"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!--消息提醒二级页面--> 
+        <div id="tplNewsSecondForNews" class="ui-hide">
+            <ul class="newstwo-lists">
+                <li tag="unread">
+                    <a href="javascript:void(0);">
+                        <span class="news_left_tit">未读</span>
+                        <i class="lnr-chevron-right"></i>
+                        <span class="news_num"></span>
+                    </a>
+                </li>
+                <li tag="readen">
+                    <a href="javascript:void(0);">
+                        <span class="news_left_tit">已读</span>
+                        <i class="lnr-chevron-right"></i>
+                        <span class="news_num black_f"></span>
+                    </a>
+                </li>
+                <li tag="email">
+                    <a href="javascript:void(0);">
+                        <span class="news_left_tit">发件箱</span>
+                        <i class="lnr-chevron-right"></i>
+                        <span class="news_num"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!--审批提醒二级页面--> 
+        <div id="tplNewsSecondForApprove" class="ui-hide">
+            <ul class="newstwo-lists">
+                <li tag="Pendingapproval">
+                    <a href="javascript:void(0);">
+                        <span class="news_left_tit">待审批</span>
+                        <i class="lnr-chevron-right"></i>
+                        <span class="news_num"></span>
+                    </a>
+                </li>
+                <li tag="Approved">
+                    <a href="javascript:void(0);">
+                        <span class="news_left_tit">已审批</span>
+                        <i class="lnr-chevron-right"></i>
+                        <span class="news_num"></span>
+                    </a>
+                </li>
+                <li tag="Last30day">
+                    <a href="javascript:void(0);">
+                        <span class="news_left_tit">近30天</span>
+                        <i class="lnr-chevron-right"></i>
+                        <span class="news_num"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!--公告提醒二级页面--> 
+        <div id="tplNewsSecondForNotice" class="ui-hide">
+            <ul class="newstwo-lists">
+                <li tag="noticeunread">
+                    <a href="javascript:void(0);">
+                        <span class="news_left_tit">未读</span>
+                        <i class="lnr-chevron-right"></i>
+                        <span class="news_num"></span>
+                    </a>
+                </li>
+                <li tag="noticereaden">
+                    <a href="javascript:void(0);">
+                        <span class="news_left_tit">已读</span>
+                        <i class="lnr-chevron-right"></i>
+                        <span class="news_num"></span>
+                    </a>
+                </li>
+                <li tag="noticerelease">
+                    <a href="javascript:void(0);">
+                        <span class="news_left_tit">我发布的</span>
+                        <i class="lnr-chevron-right"></i>
+                        <span class="news_num"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!--工作列表内容-->
+        <div id="tplnode" class='ui-hide' >
+            <div class="area-list" workreportid="%s">
+                <div class="areal-top" tag="list" workreportid="%s">
+                    <div class="areal-user">
+                        <div class="a-user-pic" userid="%s">name-img</div>
+                        <div class="a-user-rgt">
+                            <div class="a-user-intro">%s</div>
+                            <div class="a-user-bz">
+                                <span tag="work_subcategory">%s</span><span class="a_user_bz_status %s">-%s</span>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="a_user_time">%s<span></span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="areal_mid_con" tag="list" workreportid="%s">
+                    <p class="font13">%s</p>
+                    %s <!-- 中间自定义字段显示的地方 -->
+                    <ul class='ui-cont-list relation-list %s'>%s</ul><!--图片-->
+                    <ul class='ui-cont-list relation-listforfile %s'>%s</ul><!--附件-->
+                    <div class="%s border_grey font13 position_icon" longtitude="%s" latitude="%s">
+                        签到：<span>%s</span>
+                    </div>
+                    <div class="%s border_grey account_icon font13">
+                        关联客户(%s)：<span>%s</span>
+                    </div>
+                    <div class="%s border_grey contact_icon font13">
+                        关联联系人(%s)：<span>%s</span>
+                    </div>
+                    <div class="%s border_grey products_icon font13">
+                        关联产品(%s)：<span>%s</span>
+                    </div>
+                </div>
+                <div class="func areal_mid_bot">
+                    <div class="areal_mb_left line-bg">
+                        <a href="javascript:void(0);" tag="reply" workreport="%s">
+                            <i class="lnr-comment"></i>
+                            <span tag='%s' entitytype='%s'>%s</span>
+                            <span class="reply-num">(<span class="replyCount%s">%s</span>)</span>
+                        </a>
+                    </div>
+                    <div class="areal_mb_center">
+                        <a href="javascript:void(0);" tag="praise" workreport="%s">
+                            <i class="lnr-%s"></i><span>%s</span>
+                        </a>
+                    </div>
+                    <div class="areal_mb_right line-bg">
+                        <a href="javascript:void(0);" tag="forward" workreport="%s">
+                            <i class="lnr-share"></i>转发
+                        </a>
+                    </div>
+                </div>      
+           </div>
+        </div>
+        <!--明细内容-->
+        <div id="tpldetailnode" class="ui-hide">
+            <!--用户发布消息详情-->                 
+            <!--详情being-->
+            <div class="area-list" workreportid="%s">
+                <div class="areal-top">
+                    <div class="areal-user">
+                        <div class="a-user-pic" replyuserid="%s">name-img</div>
+                        <div class="a-user-rgt">
+                            <div class="a-user-intro"><strong>%s</strong></div>
+                            <div class="a-user-bz">
+                                <span href="javascript:void(0);">%s</span><span class="a_user_bz_status %s">-%s</span>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="a_user_time">%s<span></span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="areal_mid_con" >
+                    <div class="btn_grey">
+                        <a href="javascript:void(0);" tag="send_range">发送范围：%s</a>
+                    </div>
+                    <p class="font13 pubclear">%s</p>
+                    %s <!-- 中间自定义字段显示的地方 -->
+                    <ul class='ui-cont-list relation-list %s'>%s</ul><!--图片-->
+                    <ul class='ui-cont-list relation-listforfile %s'>%s</ul><!--附件-->
+                    <div class="%s border_grey font13 position_icon display_dtl" longtitude="%s" latitude="%s">
+                        签到：<span>%s</span>
+                    </div>
+                    <div class="%s border_grey font13 account_icon display_dtl">
+                        关联客户(%s)：<span>%s</span>
+                    </div>
+                    <div class="%s border_grey font13 contact_icon display_dtl">
+                        关联联系人(%s)：<span>%s</span>
+                    </div>
+                    <div class="%s border_grey font13 products_icon display_dtl">
+                        关联产品(%s)：<span>%s</span>
+                    </div>
+                    <!--关键回复-->
+                    <div class="%s border_grey font13 keytitle">
+                        <i class="lnr-checkmark-circle"></i>
+                        <span class="keytip">%s</span>
+                        <span class="keycont display_dtl">%s：%s</span>
+                        <span class="keytime">%s</span>
+                    </div>            
+                </div>
+            </div>
+            <!--详情end-->
+            <!--回复begin-->
+           <div class="area-list" style="padding-bottom:0px; position:relative;">
+                <div class="reply_area_top">
+                    <span id="reply_atop_left_count%s" class="curr" count="%s" tag="reply_area_top_left">回复 (%s)</span>
+                    <span id="reply_atop_rig_count%s" count="%s" tag="reply_area_top_rig">赞 (%s)</span>
+                </div>
+                <!--回复-->
+                <div id="detailReply" class="ui-hide"></div>
+                <!--赞-->
+                <div id="detailPraise" class="reply-praise ui-hide"></div>
+            </div>
+            <!--回复end-->
+            <div class="bottomFixed"></div>        
+        </div>
+        <!--明细内容，回复内容-->
+        <div id="tplDetailReply" class="ui-hide">
+            <div class="reply-area" replyid='%s'>
+                <div class="cell-a" replyuserid="%s">
+                    name-img
+                </div>
+                <div class="cell-b">
+                    <span><strong>%s</strong>(%s)</span>
+                    <span class="lnr-comment" tag="replytoreply"></span>
+                </div>
+                <div class="cell-c">%s</div>
+            </div>  
+        </div>
+        <!--发布页面头部下拉-->
+        <div id="logtype" class="header-pop" style="display:none;">
+            <ul>
+                <li entitysavetype="1">发日志</li>
+                <li entitysavetype="2">发周计划</li>
+                <li entitysavetype="3">发月计划</li>
+            </ul>
+        </div>
+        <!--发审批弹出层-->
+        <div id="tplReleaseApproval" class="orderdiv ui-hide" popubox="true">
+            <div class="btnsub" tag="common">普通审批</div>
+            <div class="btnsub" tag="leave">请假单</div>
+            <div class="btnsub" tag="expense">报销单</div>
+            <div class="btnsub" tag="travel">差旅单</div>
+            <div class="btnsub" tag="loan">借款单</div>
+            <div class="btnc" tag="btnc_cancel">取消</div>
+        </div>
+        <!--明细更多操作弹出层-->
+        <div id="tplMoreOperation" class="orderdiv ui-hide" popubox="true">
+            <div class="opttype">更多操作</div>
+            <div class="btnsub" tag="more-cocmdcancel">任务取消</div>
+            <div class="btnsub" tag="more-delete">删除</div>
+            <div class="btnc" tag="btnc_cancel">取消</div>
+        </div>
+        <!--回复任务弹出-->
+        <div id="tplOrderNode" class="orderdiv ui-hide" popubox="true">
+            <div class="opttype">请选择操作方式</div>
+            <div class="btnsub" tag="btnsub_cocmd_result">汇报结果</div>
+            <div class="btnsub" tag="btnsub_cocmd_reply">回复</div>
+            <div class="btnc" tag="btnc_cancel">取消</div>
+        </div>
+        <!--查看关联大图弹出层-->
+        <div id="picture-preview-holder" class="picture-preview-holder workimgbgDiv ui-hide" popubox="true">
+            <div class="imgbg-top">
+                <a href="javascript:void(0);" class="lnr-chevron-left" tag="cancel"></a>
+                <h5 class="imgbg-num"></h5>
+                <a href="javascript:void(0);" class="lnr-trash" tag="delete" style="display:none;">&nbsp;</a>
+            </div>
+            <div class="swiper-container picture-preview-swiper">
+                <div class="swiper-wrapper">
+                </div>
+            </div>
+        </div>
+        <!--地图内容-->
+        <div id="tplMap" class="positionDiv ui-hide">
+            <div id="mapBox" class="positionBox"></div>
+        </div>
+        <!--数据分类-->
+        <div id="pulldown_menu" class="header-pop ui-hide" popubox="true">
+            <div class="swiper-container down-menu">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <ul id="pulldown_menulists"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--明细界面权限-->
+        <div id="tplDetailOperation" class="orderdiv ui-hide" popubox="true">
+            <div class="opttype">请选择操作方式</div>
+            <div class="btnsub" tag="btn_distribution">分配</div>
+            <div class="btnsub" tag="btn_allocateaccount">公海分配</div>
+            <div class="btnsub" tag="btn_receive">领取</div>
+            <div class="btnsub" tag="btn_advance">推进</div>    
+            <div class="btnsub" tag="btn_submitapprove">提交审批</div>
+            <div class="btnsub" tag="btn_submit">审批</div>
+            <div class="btnsub" tag="btn_cancelapprove">反审批</div>
+            <div class="btnsub" tag="btn_del">删除</div>
+            <div class="btnc" tag="btnc_cancel">取消</div>
+        </div>
+        <!--取消弹出层-->
+        <div id="tplCancel" class="orderdiv ui-hide" popubox="true">
+            <div class="opttype">确定要取消该操作吗？</div>
+            <div class="btnok" tag="ok">确定</div>
+            <div class="btnc" tag="btnc_cancel">取消</div>
+        </div>
+        <!--相册、拍照-->
+        <div id="tplPhone" class="orderdiv ui-hide" popubox="true">
+            <div class="opttype">请选择获取方式</div>
+            <div class="btnsub" tag="btnsub_photo">相册</div>
+            <div class="btnsub" tag="btnsub_camera">拍照</div>
+            <div class="btnc" tag="btnc_cancel">取消</div>
+        </div>
+        <!--android 选择附件-->
+        <div id="tplFileatt" class="orderdiv ui-hide" popubox="true">
+            <div class="opttype">请选择获取方式</div>
+            <div class="btnsub" tag="btnsub_photo">相册</div>
+            <div class="btnsub" tag="btnsub_video">视频</div>
+            <div class="btnsub" tag="btnsub_fileatt">手机文件</div>
+            <div class="btnc" tag="btnc_cancel">取消</div>
+        </div>
+        <!--打电话弹出-->
+        <div id="CallMsgMain"popubox="true" class="call orderdiv ui-hide"></div>
+        <!--提醒弹出框-->
+        <div id="pop-prompt-box" popubox="true" class="popup-remind" style="display:none;">
+            <div class="pop-head"><span></span></div>
+            <div class="pop-main"><span></span></div>
+            <div class="pop-foot"></div>
+        </div>
+        <!--工作协同列表内容-->
+        <div id="tplCoordination" class='ui-hide'>
+            <div class="area-list">
+                <div class="areal-top" tag="list" workreportid="%s">
+                    <div class="areal-user">
+                        <div class="a-user-pic">name-img</div>
+                        <div class="a-user-rgt">
+                            <div class="a-user-intro">%s</div>
+                            <div class="a-user-bz">
+                                <span>%s</span><span class="a_user_bz_status %s">-%s</span>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="a_user_time">%s<span></span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="areal_mid_con" tag="list" workreportid="%s">
+                    <p class="font13">%s</p>
+                    %s <!-- 中间自定义字段显示的地方 -->
+                    <ul class='ui-cont-list relation-list %s'>%s</ul><!--图片-->
+                    <ul class='ui-cont-list relation-listforfile %s'>%s</ul><!--附件-->
+                    <div class="%s border_grey font13 position_icon" longtitude="%s" latitude="%s">
+                        签到：<span>%s</span>
+                    </div>
+                    <div class="%s border_grey account_icon font13">
+                        关联客户(%s)：<span>%s</span>
+                    </div>
+                    <div class="%s border_grey contact_icon font13">
+                        关联联系人(%s)：<span>%s</span>
+                    </div>
+                    <div class="%s border_grey products_icon font13">
+                        关联产品(%s)：<span>%s</span>
+                    </div>
+                </div>    
+           </div>
+        </div>
+        <!--遮罩层-->
+        <div id="layerMask" popubox="true"></div>
+        <!--遮罩层透明背景 用处：头部数据分类-->
+        <div id="poplayerMask" popubox="true"></div>
+        <!--进度条-->
+        <div id="status"><img src="images/status.gif"/></div>
+        <!--加载中-->
+        <div id="loading" style="display:none;"><div><img src="images/loading.gif"/></div></div>
+        <!--错误提醒弹出层-->
+        <div id="errorstatus" class="no-network-tips ui-hide"><span>json错误</span></div>
+        <!--网络未连接弹出层-->
+        <div id="linestatus" class="no-network-tips" style="display:none;"><span>您的当前网络不可用</span></div>       
+        <!--网络不佳提醒内容-->
+        <div id="linecontentstatus" class="network-c" style="display:none;">
+            <div>
+                <i class="lnr-lostwifi"></i>
+                <div>
+                    <span>网络请求失败</span>
+                    请检查您的网络</br>点击刷新
+                </div>
+            </div>
+        </div>       
+    </div>
+</section>
+<!--底部模块 begin-->
+<footer>
+    <div id="app-footer" class="wrapper-bottom-hloder" >
+        <div id="cwnm-main-footer" style="height:40px;"  class="ui-footer"></div>
+        <!--明细编辑按钮-->
+        <div id="crm-detail-footer" class="crm-detail-footer ui-hide" editable="false">
+            <i class="lnr-pencil"></i>编辑资料
+        </div>
+        <!--添加产品-->
+        <div id="crm-addproduct-footer" class="addproduct ui-hide">
+            <div id="divTotalHtml" class="ui-hide"></div>
+            <ul>
+                <li>总金额:<span tag="productmoney">0</span></li>
+                <li><a href="javascript:void(0);" tag="addProduct">添加产品</a></li>
+            </ul>
+        </div>
+        <!--添加费用清单-->
+        <div id="crm-addexpense-footer" class="addproduct ui-hide">
+            <ul>
+                <li>总金额:<span tag="expensemoney">0</span></li>
+                <li><a href="javascript:void(0);" tag="addExpense">添加费用</a></li>
+            </ul>
+        </div>
+        <!--加班单、请假单、出差申请单添加明细-->
+        <div id="crm-addoadetail-footer" class="addproduct ui-hide">
+            <ul>
+                <li>合计:<span tag="oadetailtotal">0</span></li>
+                <li><a href="javascript:void(0);" tag="addOadetail">添加明细</a></li>
+            </ul>
+        </div>
+        <!-- 回复、点评底部 -->
+        <div id="wn-at-footer" class="replyFun ui-hide">
+            <div class="send_operation">
+                <a href="javascript:void(0);" tag='atrange' class="lnr-at"></a>
+            </div>
+        </div>
+        <!-- 转发底部 -->
+        <div id="wn-forword-footer" class="ui-hide">
+            <div class="CCrange" >
+                <div class="bot_operbtn">
+                    <a class="send_scop_icon lnr-globe"  href="javascript:void(0);">
+                        <span class="text-ellipsis">发送范围</span>
+                    </a>
+                </div>  
+            </div>
+        </div>
+        <!--work 发布页面 底部-->
+        <div id='wn-release-footer' class="CCrange ui-hide">
+            <div class="bot_operbtn">
+                <a href="javascript:void(0);" id="ccrangeDIV" class="send_scop_icon lnr-globe" tag='ccrange'><span class="text-ellipsis">发送范围</span></a>
+                <a href="javascript:void(0);" id="commentDIV" class="send_comm_icon lnr-user-edit ui-hide" tag='comment'><span class="text-ellipsis">点评人</span></a>
+                <a href="javascript:void(0);" id="executionDIV" class="send_leader_icon lnr-user-edit ui-hide" tag='execution'><span class="text-ellipsis">执行人</span></a>
+            </div>
+            <div class="send_operation">
+                <a href="javascript:void(0);" tag='photo'><img src="images/send_photo.png"/></a>
+                <a href="javascript:void(0);" tag='atrange' class="lnr-at"></a>
+                <a href="javascript:void(0);" tag='relationdata' relationtype="Accounts"><img src="images/send_accounts.png"/></a>
+                <a href="javascript:void(0);" tag='relationdata' relationtype="Contacts"><img src="images/send_contacts.png"/></a>
+                <a href="javascript:void(0);" tag='relationdata' relationtype="Products"><img src="images/send_products.png"/></a>
+                <a href="javascript:void(0);" tag="relationsign"><img src="images/send_sign.png"/></a>
+                <!--<a href="javascript:void(0);" tag='more_operation'><img class="add_more" src="images/send_add.png"><img class="del_more ui-hide" src="images/detail_cancel.png"></a>-->
+           </div>               
+        </div>
+        <!-- work news 页面  回复 评论 -->
+        <div id="wn-workdetail-footer" class="wn-workdetail-footer ui-hide">
+            <ul class="operation_bot">
+                <li><a href="javascript:void(0);" tag="reply" replytype='yes' entitytype='workreport'><i class="lnr-comment"></i>回复</span></a></li>
+                <li><a href="javascript:void(0);" tag="praise"><i tag="praiseIcon" class="lnr-good"></i><span>赞</span></a></li>
+                <li><a href="javascript:void(0);" tag="forward"><i class="lnr-share"></i><span>转发</span></a></li>
+            </ul>
+        </div> 
+        <!-- work news 选择发送范围 -->
+        <div id="wn-choosenview-footer" class="selectedDiv ui-hide">
+            <span>已选择：</span>
+            <i class="lnr-chevron-right"></i>
+        </div>
+    </div>
+</footer>
+<!--底部模块 end-->
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<!--
+<script type="text/javascript" src="js/swiper.min.js"></script>
+<script type="text/javascript" src="js/jquery.touchSwipe.min.js"></script>
+-->
+<script type="text/javascript" language="JavaScript">
+    document.getElementById('status').style.display='block';
+    var ld = $;
+</script>
+<!--
+<script type="text/javascript" src="js/fastClick.js?version=1.01"></script>
+<script type="text/javascript" src="js/velocity.min.js"></script>
+-->
+<script language="javascript" type="text/javascript" src="js/oem.js"></script>
+<script language="javascript" type="text/javascript" src="js/ajax-hander.js?version=1.01"></script>
+<script language="javascript" type="text/javascript" src="js/operation-hander.js?version=1.01"></script>
+<script language="javascript" type="text/javascript" src="js/common.js?version=1.01"></script>
+<script language="javascript" type="text/javascript" src="js/main.js?version=1.01"></script>
+<!-- 根据屏幕大小，计算HTML的font-size -->
+<script>
+if(phoneversion == 'ios'){
+    var docEl = document.documentElement,
+        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+    var clientWidth = docEl.clientWidth;
+    docEl.style.fontSize = 15 * (clientWidth / 320) + 'px';
+    window.addEventListener(resizeEvt, function() { clientWidth = docEl.clientWidth;docEl.style.fontSize = 15 * (clientWidth / 320) + 'px'; }, false);
+}
+</script>
+<!--
+<script language="javascript" type="text/javascript" src="js/machine-hander.js?version=1.01"></script>
+<script language="javascript" type="text/javascript" src="js/tools-hander.js?version=1.01"></script>
+<script language="javascript" type="text/javascript" src="js/logic-hander.js?version=1.01"></script>
+<script language="javascript" type="text/javascript" src="js/location.js?version=1.01"></script>
+<script language="javascript" type="text/javascript" src="js/jquery.autosize.min.js"></script>
+-->
+<script language="javascript" type="text/javascript" src="js/news.js?version=1.01"></script>
+<script language="javascript" type="text/javascript" src="js/work.js?version=1.01"></script>
+<script language="javascript" type="text/javascript" src="js/crm.js?version=1.01"></script>
+<!--引入CSS-->
+<link rel="stylesheet" type="text/css" href="js/webuploader/webuploader.css">
+<!--引入JS-->
+<script type="text/javascript" src="js/webuploader/webuploader.js"></script>
+<!--SWF在初始化的时候指定，在后面将展示-->
+<script language="javascript" type="text/javascript" src="js/mobiscroll.min.js?version=1.01"></script>
+
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Hgvb6X18khZw223dBW1hFHuT"></script>
+<script src="http://api.map.baidu.com/components?ak=Hgvb6X18khZw223dBW1hFHuT&v=1.0"></script>
+<script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>
+<script type="text/javascript" language="JavaScript">
+    if(phoneversion == 'ios'){
+        document.write("<script type='text/javascript' src='js/ios/cordova_ios.js'></"+"script>");
+    }
+    else if(phoneversion == 'android'){
+        document.write("<script type='text/javascript' src='js/android/cordova_android.js'></"+"script>");
+    }
+</script>
+</body>

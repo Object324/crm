@@ -1,0 +1,104 @@
+{*+**********************************************************************************
+ * The contents of this file are subject to the lingdang CRM Public License Version 1.1
+ * ('License'); You may not use this file except in compliance with the License
+ * The Original Code is:  lingdang CRM Open Source
+ * The Initial Developer of the Original Code is lingdang.
+ * Portions created by lingdang are Copyright (C) lingdang.
+ * All Rights Reserved.
+ ************************************************************************************}
+{*{include file='Buttons_List1.tpl'}*}
+<script type='text/javascript' src='include/js/json.js'></script>
+<script type='text/javascript' src='include/ckeditor/ckeditor.js'></script>
+
+<!-- <script type='text/javascript' src='modules/MailManager/resources/jquery-1.6.2.min.js'></script> -->
+<script type='text/javascript' src='modules/MailManager/resources/jquery-ui-1.8.16.custom.min.js'></script>
+<script type='text/javascript'>
+	jQuery.noConflict();
+</script>
+
+<script type='text/javascript' src='modules/MailManager/resources/jquery.tokeninput.js'></script>
+<link rel='stylesheet' type='text/css' href='modules/MailManager/resources/token-input-facebook.css'>
+
+<script type='text/javascript' src='modules/MailManager/MailManager.js'></script>
+<script type='text/javascript' src='modules/MailManager/Mask.js'></script>
+
+<link href="modules/MailManager/third-party/AjaxUpload/fileuploader.css" rel="stylesheet" type="text/css">
+<script src="modules/MailManager/third-party/AjaxUpload/fileuploader.js" type="text/javascript"></script>
+<script src="modules/MailManager/MailManagerUploadFile.js" type="text/javascript"></script>
+
+{* Parse the translation string applicable to javascript *}
+<!--修改编码格式:统一编码：UTF-8-->
+<script type='text/javascript'>
+var MailManageri18nInfo = {ldelim}{rdelim};
+{foreach item=i18nValue key=i18nKey from=$MOD}
+	{if strpos($i18nKey, 'JSLBL_') === 0}
+		MailManageri18nInfo['{$i18nKey}'] = '{$i18nValue}';
+	{/if}
+{/foreach}
+</script>
+<!--<div style="width:900px"></div>-->
+<div id='_progress_' style='float: right; display: none; position: absolute; right: 35px; font-weight: bold;'>
+<span id='_progressmsg_'>...</span><img src="{'vtbusy.gif'|@lingdang_imageurl:$THEME}" border='0' align='absmiddle'></div>
+
+<div style='padding:3px 5px 5px 5px; min-height: 300px;width:99%;' id='_mailmanagermaindiv_'>
+	
+    <div id='_folderprogress_' style='text-align:center;display: none; position: absolute;font-weight: bold;'>
+		<span>{'RECEIVEMAILPLEASEWAIT'|@getFixedLabel}...</span><img src="{'vtbusy.gif'|@lingdang_imageurl:$THEME}" border='0' align='absmiddle'>
+	</div>
+    <div>
+		<div id="_quicklinks_mainuidiv_" style="display:none">
+            {include file="modules/MailManager/Mainui.QuickLinks.tpl"}
+        </div>
+		<!--
+        <div id='_folderprogress_' style='float: right; display: none; position: absolute;left: 30px; font-weight: bold;'>
+			<span>{$MOD.JSLBL_LOADING_FOLDERS}</span><img src="{'vtbusy.gif'|@lingdang_imageurl:$THEME}" border='0' align='absmiddle'>
+		</div>
+        -->
+		<div id="_mainfolderdiv_" style="float:left;">
+		</div>
+	</div>
+	<div>
+        <!--<div style="width:700px"></div>-->
+		<span id="_messagediv_">{if $ERROR}<p>{$ERROR}</p>{/if}</span>
+		<div id="_contentdiv_" class="EmOne_contentdiv" style="display:none;float:left;width:87%"></div>
+		<div id="_contentdiv2_" class="EmOne_contentdiv2" style="display:none;float:left;width:87%"></div>
+		<div id="_settingsdiv_" style=""></div>
+		<div id="_relationpopupdiv_" class="LdPop_box LdPopWidth600px" style="display:none;position:absolute;z-index:9999;"></div>
+		<div id="_replydiv_" style="display:none;float:left;width:87%;">
+			{include file="modules/MailManager/Mail.Send.tpl"}
+		</div>
+		<div id="replycontentdiv" style="display:none;">
+			{include file="modules/MailManager/Mail.Send.tpl"}
+		</div>
+	</div>
+</div>
+<div id = '__lingdang__'></div>
+
+
+<script type='text/javascript'>
+{literal}
+    //by LD TIFA 20121214
+	//Event.observe(window, 'load', MailManager.mainui);
+    //Event.observe(window, 'load',MailManager.folder_drafts());
+{/literal}
+</script>
+<input type="hidden" name="module" value="MailManager">
+{if $AHREF neq 'Settings'}
+<script>
+/*
+edit by LD Can
+date:20130319
+reason:邮件整合需求
+
+*/
+var mailsetting=document.getElementById("_mailfolder_mm_settings");
+if(mailsetting!=undefined)
+ mailsetting.click();
+</script>
+{else if $AHREF eq 'Settings'}
+<script>
+MailManager.folder_open('INBOX');
+
+MailManager.mainui();
+</script>
+{/if}

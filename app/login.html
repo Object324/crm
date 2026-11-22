@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" style="overflow: hidden;">
+<head>
+<meta charset="utf-8" />
+<title></title>
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+<script type="text/javascript" src="jquery/jquery.min.js"></script>
+<script type="text/javascript" language="JavaScript">
+    var ld = $;
+</script>
+<link rel="stylesheet" type="text/css" href="css/swiper.min.css">
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="css/login.css?version=1.01" />
+<script type="text/javascript" src="js/swiper.min.js"></script>
+<script language="javascript" type="text/javascript" src="js/oem.js"></script>
+<script language="javascript" type="text/javascript" src="js/back.js"></script>
+<script language="javascript" type="text/javascript" src="js/login.js?version=1.01"></script>
+</head>
+<body>
+<!--登录首页begin-->
+<div id="loginHome" class="swipe">
+    <div class="wrap">
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="images/crm_yd1.jpg" alt=""/></div>
+            <div class="swiper-slide"><img src="images/crm_yd2.jpg" alt=""/></div>
+            <div class="swiper-slide"><img src="images/crm_yd3.jpg" alt=""/></div>
+            <div class="swiper-slide"><img src="images/crm_yd4.jpg" alt=""/></div>
+            <div class="swiper-slide"><img src="images/crm_yd5.jpg" alt=""/></div>
+          </div>
+        </div>
+        <div class="pagination"></div>
+  </div>
+
+    <footer>
+    	<div class="loginleft">
+            已有账号，<a href="javascript:void(0);" class="login_href">点击登录</a>
+        </div>
+        <div class="loginright">
+            <a href="javascript:void(0);" class="trylogin_href">快速体验</a>
+            <a href="javascript:void(0);" class="register_href ui-hide">注册</a>
+        </div>
+    </footer>
+</div>
+<!--登录首页end-->
+
+<!--登录页面begin-->
+<div id="loginPage" class="wrap ui-hide">
+    <header>
+        <div id="header_login">
+            <div class="head_left"><a href="javascript:void(0);" class="back_icon"></a></div>
+            <nav class="head_mid"><p>登录灵当软件</p></nav>
+            <div class="head_rig"></div>
+        </div>
+        <div id="header_intr" class="ui-hide">
+            <div class="head_left"><a href="javascript:void(0);" class="back_icon"></a></div>
+            <nav class="head_mid"><p>未收到验证短信</p></nav>
+            <div class="head_rig"></div>
+        </div>
+    </header>
+	<div id="normalLogin" class="loginbg">
+        <div class="divHeight3"></div>
+        <div class="loginContent">
+            <div class="divLabel comy-icon"><span><input id="enterprise_name" name="enterprise_name" onclick="changeHeight('3r');" type="text" value="" placeholder="请输入企业账号"></span></div>
+            <div class="divLabel user-icon"><span><input id="individual_name" name="individual_name" onclick="changeHeight('1r');" type="text" value="" placeholder="请输入个人账号"></span></div>
+            <div class="divLabel pwd-icon"><span><input id="login_pwd" name="login_pwd" onclick="changeHeight('-1r');" type="password" value="" placeholder="请输入密码"></span></div>
+        </div>
+        <div class="divBtn">
+            <a href="javascript:void(0);" class="login">登录</a>
+        </div>
+        <div class="divDescription ui-hide">
+            <a href="javascript:void(0);" class="forget">忘记密码</a>
+        </div>
+    </div>
+    <div id="phoneNumLogin" class="loginbg ui-hide">
+        <div class="divHeight3"></div>
+        <div class="phoneNumLoginContent">
+            <div class="tip">验证手机号，即可进入帐套。</div>
+            <div id="tipText" class="tip ui-visihide" style="margin:2px 0;">验证码已发送到<span></span>请查收</div>
+            <div id="phoneNum" class="inputbox phone-icon" style="margin-top:0;">
+                <input id="mobilephonenum" name="mobilephonenum" onclick="changeHeight('-0.5r');" type="tel" readonly="true" value="" placeholder="请输入手机号码" />
+                <a href="javascript:void(0);" class="getcode">获取验证码</a>
+            </div>
+            <div id="phoneNumCode" class="inputbox code-icon">
+                <input id="mobilecodenum" name="mobilecodenum" onclick="changeHeight('-3.5r');" type="text" value="" placeholder="请输入验证码" />
+            </div>
+        </div>
+        <div class="divBtn">
+            <a href="javascript:void(0);" class="submit">提交</a>
+        </div>
+        <div class="divDescription ui-hide">
+            <a href="javascript:void(0);" class="top">回到顶部</a>
+        </div>
+    </div>
+    
+    <div id="tryLogin" class="loginbg newtry ui-hide">
+        <div class="divHeight3"></div>
+    	<div  class="tryLoginContent">
+    		<div class="tip"></div>
+    		<div id="tryphoneNum" class="inputbox" >
+    			<input id="tryphonenum" name="tryphonenum phone-icon" type="tel" value="" placeholder="请输入手机号码" />
+    		</div>
+    	</div>
+    	<div class="divBtn">
+    		<a href="javascript:void(0);" class="submit">获取验证码</a>
+    	</div>
+    	<div class="divDescription ui-hide">
+    		<a href="javascript:void(0);" class="top">回到顶部</a>
+    	</div>
+    </div> 
+    <div id="trySubmit" class="loginbg newtry ui-hide">
+        <div class="divHeight3"></div>
+    	<div  class="tryLoginContent">
+    		<div id="trytipText" class="tip ui-visihide" style="margin:2px 0.5rem;">验证码已发送到<span></span>请查收</div>
+    		<div id="tryphoneSub" class="inputbox" >
+    			<input id="trycode" name="tryphonesub phone-icon" onclick="changeHeight('1r');" type="text" value="" placeholder="请输入验证码" />
+    			<a href="javascript:void(0);" class="getcode">600秒后更新获取</a>
+            </div>
+    	</div>
+    	<div class="divBtn">
+    		<a href="javascript:void(0);" class="submit">提交</a>
+    	</div>
+        <div class="notcodenot">
+            长时间未收到验证码，请点击此处
+	   </div>
+    </div>
+    <div id="no_message" class="no_message ui-hide">
+        <div class="divHeight4"></div>
+    	<ul></ul>
+    	<div class="call"></div>
+    </div>
+</div>
+<!--登录页面end-->
+
+<!--忘记密码页面begin-->
+<div id="forgetPage" class="wrap ui-hide">
+    <header>
+    <div id="header_forget" class="header">
+        <div class="head_left"><a href="javascript:void(0);" class="back_icon"></a></div>
+        <nav class="head_mid"><p>忘记密码</p></nav>
+        <div class="head_rig"></div>
+    </div>
+    </header>
+    <div id="divForgetPwd" class="loginbg">
+        <div class="forgetContent">
+            <div id="forgettipText" class="tip ui-visihide" style="margin:2px 0;">验证码已发送到<span></span>请查收</div>
+            <div class="inputbox comy-icon">
+                <input id="forget_enterprise_name" name="forget_enterprise_name" onclick="changeHeight('3r');" type="text" value="" placeholder="请输入企业账号" />
+            </div>
+            <div class="inputbox user-icon">
+                <input id="forget_individual_name" name="forget_individual_name" onclick="changeHeight('0.5r');" type="text" value="" placeholder="请输入个人账号" />
+            </div>
+            <div id="forgetphoneNum" class="inputbox phone-icon">
+                <input id="forget_phonenum" name="forget_phonenum" onclick="changeHeight('-3r');" type="tel" value="" placeholder="请输入手机号码" />
+                <a href="javascript:void(0);" class="getcode">获取验证码</a>
+            </div>
+            <div class="inputbox code-icon">
+                <input id="forget_codenum" name="forget_codenum" onclick="changeHeight('-7r');" type="number" value="" placeholder="请输入验证码" />
+            </div>
+        </div>
+        <div class="divBtn">
+            <a href="javascript:void(0);" onclick="changeHeight('1');" class="submit">提交</a>
+        </div>
+        <div class="divDescription ui-hide">
+            <a href="javascript:void(0);" class="top">回到顶部</a>
+        </div>
+    </div>
+</div>
+<!--忘记密码页面end-->
+
+<!--透明遮罩层-->
+<div id="poplayerMask" popubox="true" style="display: none;"></div>
+<!--进度条-->
+<div id="status"><img src="images/status.gif"/></div>
+<!--加载中-->
+<div id="loading">
+    <div>
+        <img src="images/loading.gif"/>
+        <span>加载中...</span>
+    </div>
+</div>
+<!--提醒弹出层-->
+<div class="popup-remind">
+<div class="popub-top"></div>
+<div class="popub-bottom" tag="cancel">确定</div>
+</div>
+<!--提醒弹出层end-->
+</body>
+</html>

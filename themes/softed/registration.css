@@ -1,0 +1,562 @@
+/* common */
+html {
+	_background-attachment: fixed;
+	_background-image: url(about:blank);
+	-webkit-text-size-adjust: none;
+}
+body { padding-top: 70px;font-family: tahoma,arial,'Hiragino Sans GB','Hiragino Sans GB W3','Microsoft Yahei',宋体;}
+.reg-main {
+	width: 960px;
+	height: 600px;
+	margin: 30px auto;
+}
+.reg-main .pr { position: relative; }
+.reg-main .hide { display: none; }
+.reg-main-left {
+	float: left;
+	width: 550px;
+}
+.reg-main-right {
+	float: right;
+	width: 410px;
+}
+/* 表单 */
+.reg-form dt {
+	margin-bottom: 8px;
+	color: #555;
+}
+.reg-form dd { margin-bottom: 10px; }
+.reg-form .reg-input-text {
+	color: #b4b4b4;
+	font-size: 14px;
+	width: 360px;
+	height: 36px;
+	border: solid 1px #c7c7c7;
+	padding-left: 10px;
+	line-height: 34px;
+	vertical-align: middle;
+}
+.reg-form .reg-input-text:hover {
+	border: solid 1px #3484b8;
+}
+.reg-form .reg-input-btn {
+	width: 138px;
+	height: 40px;
+	font-size: 15px;
+	line-height: 40px;
+	color: #fff;
+	border: none;
+	background: #FFA000;
+	cursor: pointer;
+	/*border-radius: 4px;*/
+}
+.reg-form .reg-input-btn.green { background: #82AA00; }
+.reg-form .reg-input-btn.gray { background: #B3B3B3; }
+.reg-form .redstar {
+	color: #FF0000;
+	font-size: 16px;
+	margin-left: 6px;
+	font-weight: bold;
+}
+.reg-form .warnbox {
+	position: absolute;
+	top: -28px;
+	left: 68px;
+	color: #E65050;
+	border: solid 1px #E65050;
+	padding: 2px 28px 2px;
+
+}
+.reg-form .warnbox .arrow {
+	position: absolute;
+	top: 22px;
+	left: 6px;
+	width: 15px;
+	height: 15px;
+	background: url(../images/warn_arrow.gif);
+}
+.reg-form .reg-inp-fail{
+	border-color:#ff0000;
+}
+/* header */
+.reg-header {
+	width: 100%;
+	height: 70px;
+	background: url(../images/head_bg.png) repeat-x;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 2;
+	_position: absolute;
+ 	_top: expression(offsetParent.scrollTop);
+ 	_left: expression(offsetParent.scrollLeft);
+}
+.reg-header .logo {
+	width: 162px;
+	height: 56px;
+	background: url(../../../image/fenxiang_logo.png) center top no-repeat;
+	float: left;
+	margin: 7px 0 0 35px;
+	_background: url(../../../image/fenxiang_logo.png) center top no-repeat;
+	_display: inline;
+}
+.reg-header .logo .return-home-l{
+    display: block;
+    width:100%;
+    height:100%;
+    text-decoration: none;
+}
+.reg-header .menu {
+	float: right;
+	margin-top: 30px;
+	margin-right: 35px;
+}
+.reg-header .menu li {
+	float: left;
+	margin-left: 28px;
+}
+.reg-header .menu li a {
+	font-size: 14px;
+	color: #646464;
+	line-height: 30px;
+	text-decoration: none;
+}
+.reg-header .menu li a.menu-btn {
+	text-align: center;
+	width: 90px;
+	height: 30px;
+	background: #FFA000;
+	color: #fff;
+	display: block;
+}
+.reg-header .menu li a.menu-btn.green { background: #82AA00; }
+
+
+/* step one */
+.reg-step-one .tit {
+	font-size: 28px;
+	margin-top: 24px;
+	color: #646464;
+}
+.reg-step-one .img-warp {
+	margin-top: 24px;
+	margin-left: 30px;
+}
+.reg-step-one .reg-form { margin-top: 20px; }
+.reg-step-one .reg-form .input-code { width: 246px; }
+.reg-step-one .reg-form .img-code {
+	vertical-align: middle;
+	height: 38px;
+	width: 110px;
+}
+.reg-step-one .reg-form .change-code {
+	position: absolute;
+	top: 46px;
+	left: 290px;
+	color: #5EA9E5;
+}
+.reg-step-one .reg-form .yzm-info{
+	margin-left: 5px;
+	color: #989898;
+	display: none;
+	vertical-align: -5px;
+	*vertical-align: 3px;
+}
+.reg-step-one .reg-form .submit { margin-top: 50px; }
+.reg-step-one .reg-ps {
+	margin-top: 40px;
+	color: #989898;
+}
+.reg-step-one .reg-ps img {
+	vertical-align: middle;
+	margin-left: 18px;
+}
+/* step two */
+.reg-step-two .tit {
+	color: #646464;
+    font-size: 28px;
+    margin-top: 30px;
+}
+.reg-step-two .reg-form { margin-top: 33px; }
+.reg-step-two .reg-ps {
+	margin-top: 15px;
+	color: #989898;
+}
+.reg-step-two .reg-ps img {
+	vertical-align: middle;
+	margin-left: 18px;
+}
+.reg-step-two .faq {
+	margin-top: 30px;
+	color: #808080;
+	line-height: 30px;
+}
+.reg-step-two .faq span { color: #505050; }
+/* step three */
+.reg-step-three .tit {
+	color: #FFA000;
+	margin-top: 42px;
+	font-size: 28px;
+	text-align: center;
+}
+.reg-step-three .success-info {
+	color: #808080;
+	line-height: 24px;
+	margin-top: 30px;
+	text-align: center;
+}
+.reg-step-three .success-box {
+	width: 280px;
+	height: 116px;
+	margin: 30px auto 0;
+	border: solid 1px #c7c7c7;
+	color: #000;
+	padding-left: 106px;
+	padding-top: 24px;
+	font-size: 16px;
+}
+.reg-step-three .reg-form {
+	text-align: center;
+	margin-top: 40px;
+}
+.reg-step-three .bottom-info {
+	margin-top: 30px;
+	font-size: 16px;
+	color: #808080;
+	text-align: center;
+}
+.reg-step-three .login{
+    display: block;
+    margin:0 auto;
+    text-decoration: none;
+}
+/* 弹出层 */
+html, body { height: 100%; }
+.reg-dialog {
+	overflow-y: auto;
+	display: none;
+	width: 660px;
+	height: 330px;
+	margin-left: -330px;
+	margin-top: -175px;
+	top: 50%;
+	left: 50%;
+	position: fixed;
+	background: #fff;
+	z-index: 999;
+	_position: absolute;
+	_margin: 0;
+ _left:expression(eval(document.documentElement.scrollLeft+ (document.documentElement.clientWidth-this.offsetWidth)/2));
+ _top:expression(eval(document.documentElement.scrollTop+ (document.documentElement.clientHeight-this.offsetHeight)/2));
+}
+.reg-dialog .arrow{
+	text-align: right;
+	
+}
+.reg-dialog .arrow a{
+	font-size: 24px;
+	margin-right: 10px;
+	color: #828282;
+	text-decoration: none;
+}
+.reg-dialog-mask {
+	display: none;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	background: #000;
+	cursor: pointer;
+	opacity: 0.6;
+	filter: alpha(opacity=60);
+	_position: absolute;
+_left:expression(eval(document.documentElement.scrollLeft));
+_top:expression(eval(document.documentElement.scrollTop));
+	z-index: 998;
+}
+
+
+.reg-dialog-body {
+	padding-top: 15px;
+	padding-left: 40px;
+}
+
+.reg-dialog-body .tit {
+	font-size: 16px;
+	color: #646464;
+}
+.reg-dialog-body .table-warp{
+	overflow-y: auto;
+	height: 135px;
+}
+.reg-dialog-body .employeenfo-table{
+	margin-top: 20px;
+	border-bottom:solid 2px #cacaca; 
+}
+.reg-dialog-body .employeenfo-table td{
+	color: #646464;
+	line-height: 10px;
+	padding-bottom: 12px;
+}
+.reg-dialog-body .employeenfo-table .login-btn{
+	color: #fff;
+	background: #82AA00;
+	width: 90px;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+	display: block;
+	text-decoration: none;
+}
+.reg-dialog-body .reg-form .ps{
+	color: #E55050;
+}
+.reg-dialog-body .reg-form { margin-top: 20px; }
+.reg-dialog-body .reg-form dd{
+	margin-bottom: 0;
+}
+.reg-dialog-body .submit {
+	text-align: right;
+	padding: 20px 40px 0 0;
+}
+.reg-dialog-body .reg-input-text { width: 250px; }
+.reg-dialog-body .time-info {
+	color: #969696;
+	margin-left: 18px;
+}
+
+/* footer*/
+.footer-top { background: #505A69; }
+.reg-footer .soft-down {
+   width: 682px;
+height: 118px;
+margin: 0 auto;
+padding-left: 60px;
+}
+.reg-footer .soft-down dd a{
+    font-size: 15px;
+    line-height: 48px;
+    padding-left: 28px;         
+    width: 252px;
+    height: 48px;
+    background: url(../images/soft_down.jpg);
+    float: left;
+    color: #fff;
+    margin-right:60px; 
+    margin-top:36px;
+    text-decoration: none;
+}
+.footer-bot {
+    background: #3C4655;
+    height: 650px;
+}
+
+.footer-bot .bottom {
+    width: 960px;
+    margin: 0 auto;
+}
+.footer-bot .bottomnav {
+    color: #A1A1A1;
+    padding-top: 50px;
+    height: 180px;
+}
+.footer-bot .bottomnav li {
+    width: 159px;
+    border-right: #808080 solid 1px;
+    float: left;
+    height: 180px;
+}
+.footer-bot .bottom ul.bottomnav li dl.bottomtitle dt {
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    width: 159px;
+    margin-bottom: 17px;
+}
+.footer-bot .bottomnav li dl.bottomtitle dd {
+    height: 27px;
+    line-height: 27px;
+    text-align: center;
+    width: 159px;
+    margin-left: 0px;
+}
+.footer-bot .bottomnav a { color: #A1A1A1; }
+.footer-bot p.bottomgz {
+    height: 31px;
+    line-height: 31px;
+    color: #A1A1A1;
+    font-size: 15px;
+    background: url(../images/fxiaokeindex_tabxl.png) no-repeat left center;
+    padding-left: 52px;
+    margin: 65px 0px 65px 410px;
+    width: 500px;
+}
+.footer-bot .bottom p.bottomgz a { color: #0080C3; }
+.footer-bot p.bottomxx {
+    font-size: 12px;
+    line-height: 24px;
+    text-align: center;
+    color: #A1A1A1;
+    margin: 0px;
+}
+/*模拟体验*/
+.mnty-wrapper{width: 288px;margin-left:-106px;height:224px;position: absolute;left: 50%;top: 351px;background: none;z-index: 2000;overflow: hidden;}
+
+.mnty{ width:360px; height:130px;position:fixed; _position:absolute; right:175px; top:78px; background-color:#fff; /*filter:alpha(opacity=90);-moz-opacity:0.9;-khtml-opacity: 0.9;opacity: 0.9;*/}
+.mnty_head { position:relative; height:35px;line-height:35px; color: #999; font-size: 14px; padding-left: 32px; margin-bottom:20px;}
+.mnty_head a { position:absolute; right:8px; line-height:30px; color:#000; background:url(../images/guanbi.png) no-repeat; display:block; width:13px; height:13px; text-decoration:none }
+.mnty_head a:hover { color:#f60; text-decoration:none;background:url(../image/guanbias.png) no-repeat; }
+
+table.monitiyan{ width:295px; height:100px;margin-left:40px;  }
+table.monitiyan tr.monitiyann{ height:17px; font-size:12px;}
+table.monitiyan tr.monitiyani{ height:30px;}
+
+table.monitiyan tr.monitiyani input.tjtyip{ background-color:#FFF; width:174px; height:26px; border:#CCC solid 1px; font-size:12px; color:#C8C8C8; line-height:26px; padding-left:10px;}
+table.monitiyan tr.monitiyani input.tjtybt{ background-color:#4BAFE3;width:100px; height:28px; color:#FFF; line-height:28px; text-align:center; border:none; cursor:pointer;}
+table.monitiyan tr.monitiyani img.monitiyaniimc{border:#CCC solid 1px;width:77px;height:28px;*position:relative;*margin-top:-31px;*left:112px;}
+table.monitiyan .change-captcha-l,
+table.monitiyan .captcha-img{
+    cursor: pointer;
+}
+
+.mnty-index{ width:274px; height:210px; padding:7px;position:absolute; top:0px;/*background:rgba(236,241,247,0.9); filter:alpha(opacity=90); 
+			-webkit-box-shadow: 0px 0px 20px #ccc ; -moz-box-shadow: 0px 0px 20px #ccc ;box-shadow: 0px 0px 20px #ccc;*/
+			background:url(../images/index_tiyanbg.png?1) no-repeat left top; 
+}
+.mnty1{ 
+	margin-left:199px;
+	width: 274px;
+	top: 73px;
+	height: 210px;
+	background: url(../images/index_tiyanbg.png?1) no-repeat left top;
+	float: right;
+	right: 84px;
+}
+.mnty-index .mnty_head { position:relative; height:34px; }
+.mnty-index .mnty_head a { position:absolute; right:10px; line-height:30px; color:#000; background:url(../images/guanbi.png) no-repeat; display:block; width:13px; height:13px; top:10px; text-decoration:none; }
+.mnty-index .mnty_head a:hover { color:#f60; text-decoration:none;background:url(../images/guanbia.png) no-repeat; }
+
+.mnty-index table.monitiyan{ width:295px; height:100px;margin-left:32px;}
+.mnty-index table.monitiyan tr.monitiyann{ height:17px; font-size:12px;}
+.mnty-index table.monitiyan tr.monitiyani{ height: 45px; vertical-align: top;}
+
+.mnty-index table.monitiyan tr.monitiyani input.tjtyip{ vertical-align:top;padding:1px;background-color:#FFF; width:194px; height:26px; border:#A7A7A7 solid 1px; font-size:12px; color:#AAA; line-height:26px; padding-left:10px;}
+.mnty-index table.monitiyan tr.monitiyani input.tjtyip.captcha-val {width:99px;}
+.mnty-index table.monitiyan tr.monitiyani input.tjtybt{ background-color:#4BAFE3;width:206px; height:30px;padding-bottom: 2px; color:#FFF;line-height: 28px; text-align:center; border:none; cursor:pointer;position: absolute;top:-2px;}
+.mnty-index table.monitiyan tr.monitiyani input.tjtybt.grey {
+	color: #AAA;
+	background-color: #D8D8D8;
+	cursor: default;
+}
+.mnty-index table.monitiyan tr.monitiyani img.monitiyaniimc{border:#CCC solid 1px;width:77px;height:28px;margin-left:16px;}
+.mnty-index table.monitiyan .change-captcha-l,
+.mnty-index table.monitiyan .captcha-img{
+    cursor: pointer;
+}
+.mnty-index table.monitiyan .change-captcha-l {
+	position: relative;
+	text-align: left;
+	top: -10px;
+	color: #999;
+	left:170px;
+	display:inline-block;
+	height: 20px;
+	line-height: 20px;
+}
+.mnty-index input:focus {
+	border-color: #FA9838!important;
+}
+.mnty-index .imgcode-err {
+	position: absolute;
+	color: #DD0453;
+	display: none;
+	height: 20px;
+	line-height: 20px;
+	left: 40px;
+	top: 142px;
+	line-height: 20px;
+	text-align: left;
+	font-size: 12px;
+}
+.mnty-index .mnty-step-2 {
+	padding-left: 32px;
+	display: none;
+}
+.mnty-index .mnty-step-2 .code-info, .mnty-index .mnty-step-2 .code-ctner, .mnty-index .mnty-step-2 .code-submit {
+	width: 206px;
+	height: 30px;
+}
+.mnty-index .mnty-step-2 .code-info {
+	height: 20px;
+	line-height: 20px;
+	color: #666;
+	font-size: 12px;
+	margin-top: 20px;
+}
+.mnty-index .mnty-step-2 .code-info .mnty-mobile {
+	color: #4BAFE3;
+	margin-left: 8px;
+}
+.mnty-index .mnty-step-2 .code-ctner {
+	height: 30px;
+	margin-top: 7px;
+}
+.mnty-index .mnty-step-2 .code-ctner .code-val {
+	width: 194px;
+	background-color:#FFF;
+	height:26px; 
+	border:#A7A7A7 solid 1px; 
+	font-size:12px; 
+	color:#AAA; 
+	line-height:26px; 
+	padding-left:10px;
+}
+.mnty-index .mnty-step-2 .code-submit {
+	margin-top: 11px;
+}
+.mnty-index .mnty-step-2 .code-submit input {
+	background-color: #4BAFE3;
+	width: 206px;
+	height: 30px;
+	padding-bottom: 2px;
+	color: #FFF;
+	line-height: 28px;
+	text-align: center;
+	border: none;
+	cursor: pointer;
+}
+.mnty-index .mnty-step-2 .code-btns {
+	margin-top:19px;
+}
+.mnty-index .mnty-step-2 .code-btns a {
+	height: 20px;
+	text-align: center;
+	line-height: 20px;
+	font-size: 12px;
+	display: inline-block;
+	color: #4BAFE3;
+	text-decoration: underline;
+	margin-left: 11px;
+}
+.mnty-index .mnty-step-2 .code-btns .code-change {
+	float: right;
+	margin-right: 47px;
+	*margin-top: -20px;
+}
+.mnty-index .mnty-step-2 .code-btns .code-reget.grey {
+	color: #AAA;
+	background-color: #D8D8D8;
+	cursor: default;
+}
+/*模拟体验遮罩*/
+.mnty-mask{display: none;position: absolute;left: 0;top: 0;right: 0;bottom: 0;width:100%;height:100%;background:none;z-index:1999;}
+
+
+.has-val{color:#000 !important;}
+/* 兼容chorme 输入框 这段放到最后面 */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+.reg-form .reg-input-text {
+	line-height: 25px;
+	outline: none;
+}

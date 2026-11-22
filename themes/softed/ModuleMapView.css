@@ -1,0 +1,443 @@
+.modulemapview-design{
+    background-color: #f5f5f7;
+    display: inline-block;
+    width: 100%;
+}
+.modulemapview-design .modulemapview{
+    padding: 20px 0;
+}
+.modulemapview-design .node-wrap{
+    display: inline-flex;
+    flex-direction: column;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    padding: 0 50px;
+    position: relative;
+    width: 100%;
+}
+.modulemapview-design .node-wrap-box{
+    display: inline-flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    position: relative;
+    width: 220px;
+    min-height: 100px;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    background: #FFFFFF;
+    border-radius: 4px;
+}
+/*.modulemapview-design .node-wrap-box:hover .operation{
+    opacity: 1;
+    visibility: initial;
+}*/
+.modulemapview-design .node-wrap-box::after{
+    pointer-events: none;
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    border-radius: 6px;
+    box-sizing: border-box;
+    /*border: 1px solid #cecece;*/
+    transition: all 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
+    box-shadow: 0px 4px 30px 0px rgb(56 92 141 / 27%);
+}
+.modulemapview-design .hovered.node-wrap-box::after{
+    border: 1px solid #3B7CFF;
+}
+.modulemapview-design .node-wrap-box .title{
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 42px;
+    padding: 0 20px;
+    text-align: left;
+    background: var(--ld-bg-list-head-color);
+    border-radius: 6px 6px 0px 0px;
+}
+.modulemapview-design .node-wrap-box .content{
+    padding: 10px 20px;
+    line-height: 28px;
+    cursor:pointer;
+    word-wrap: break-word;
+}
+.modulemapview-design .node-wrap-box .content .deleteinfo{
+    cursor: pointer;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 16px;
+    height: 16px;
+}
+.modulemapview-design .node-wrap-box .content .deleteinfo img {
+    width: 16px;
+    height: 16px;
+}
+.modulemapview-design .node-wrap-box .content .href{
+    white-space: unset !important;
+}
+
+.modulemapview-design .node-wrap-box .operation{
+    position: absolute;
+    width: 20px;
+    overflow: hidden;
+    top: 2px;
+    right: -20px;
+    opacity: 0;
+    visibility: hidden;
+    cursor: pointer;
+}
+.modulemapview-design .node-wrap-box .operation .operation-items{
+    display: inline-block;
+    position: relative;
+    width: 16px;
+    height: 16px;
+    margin: 0px 2px;
+}
+.modulemapview-design .node-wrap-box .operation .addtop{
+    background-image: url(images/setting-layout.png);
+    background-repeat: no-repeat;
+    background-position: -22px 0px;
+}
+.modulemapview-design .node-wrap-box .operation .addbottom{
+    background-image: url(images/setting-layout.png);
+    background-repeat: no-repeat;
+    background-position: -42px -1px;
+}
+.modulemapview-design .node-wrap-box .operation .addleft{
+    background-image: url(images/setting-layout.png);
+    background-repeat: no-repeat;
+    background-position: -82px 0px;
+}
+.modulemapview-design .node-wrap-box .operation .addright{
+    background-image: url(images/setting-layout.png);
+    background-repeat: no-repeat;
+    background-position: -61px 0px;
+}
+.modulemapview-design .node-wrap-box .operation .deletebox{
+    background-image: url(images/close_2023.png);
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+}
+.modulemapview-design .node-wrap .line{
+    height: 50px;
+    width: 220px;
+}
+.modulemapview-design .node-wrap .line::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    margin: auto;
+    width: 2px;
+    height: 100%;
+    background-color: #8998AC;
+}
+.modulemapview-design .branch-box-wrap{
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 100%;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+}
+.modulemapview-design .branch-box-wrap .branch-box{
+    display: flex;
+    overflow: visible;
+    min-height: 180px;
+    height: auto;
+    border-top: 2px solid #8998AC;
+    position: relative;
+}
+.modulemapview-design .col-box{
+    display: inline-flex;
+    display: inline-flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+    position: relative;
+}
+
+.modulemapview-design .condition-node-box{
+    padding-right: 50px;
+    padding-left: 50px;
+    /*-webkit-box-pack: center;*/
+    /*justify-content: center;*/
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-box-flex: 1;
+    /*flex-grow: 1;*/
+    position: relative;
+}
+.modulemapview-design .top-left-cover-line{
+    position: absolute;
+    height: 3px;
+    width: 50%;
+    background-color: #f5f5f7;
+    top: -2px;
+    left: -1px;
+
+}
+.modulemapview-design .top-right-cover-line{
+    position: absolute;
+    height: 3px;
+    width: 50%;
+    background-color: #f5f5f7;
+    top: -2px;
+    right: -1px;
+}
+.modulemapview-design .node-wrap-box:not(.node-wrap-box-first)::before{
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    width: 0;
+    height: 4px;
+    border-style: solid;
+    border-width: 8px 7px 0;
+    border-color: #8998AC transparent transparent;
+    background: #F5F5F7;
+}
+.choose_border{
+    position: absolute;
+    width: 260px;
+    height: 140px;
+    border: 3px dashed #f60;
+    top: -20px;
+    left: -20px;
+}
+.modulemapview-lock-div{
+    float: left;
+    margin-top: 13px;
+    margin-left: 15px;
+}
+.modulemapview-lock{
+    background: url(../icon2023/contactsmap-lock.png) center center no-repeat;
+    background-size: 26px 26px;
+    display: block;
+    width: 26px;
+    height: 26px;
+}
+.modulemapview-unlock{
+    background: url(../icon2023/contactsmap-unlock.png) center center no-repeat;
+    background-size: 26px 26px;
+    display: block;
+    width: 26px;
+    height: 26px;
+}
+
+.relationshipChartPopupDiv{
+    display: flex;
+}
+
+.relationshipChartLeftDiv{
+    width: 300px;
+    float: left;
+    height:100%;
+    overflow:auto;
+}
+.relationshipChartLeftHeadDiv{
+    width: 100%;
+    padding-bottom: 10px;
+    padding-top: 2px;
+}
+.HeadDivBtn{
+    float:right;
+    line-height:24px;
+}
+.relationshipChartLeftDiv .relationshipChartLeftHeadSelectDiv
+{
+    width: 100%;
+    height:42px;
+    fontsize:14px;
+    padding:10px 20px;
+    overflow:hidden;
+}
+.relationshipChartLeftHeadSelectDiv p{
+    float:left;
+    line-height:24px;
+    font-size: 15px;
+}
+.LeftListTip{
+    padding:0 16px;
+    font-family: PingFang SC;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    color: #91959e;
+    margin-bottom: 10px;
+}
+.relationshipChartBtnLeftDiv{
+    float: left;
+    /*display: flex;*/
+    margin-left: 20px;
+}
+
+.relationshipChartRightDiv{
+    display: inline-block;
+    height:100%;
+    background-color:#f5f5f7;
+    overflow-x:hidden;
+    overflow-y:auto;
+}
+.relationshipChartRightBtnDiv{
+    height: 30px;
+    margin-top: 12px;
+}
+.relationshipChartTip{
+    height: 20px;
+    margin: 10px 0px 5px 20px;
+    width: 50%;
+}
+.relationshipChartBtnRightDiv{
+    float: right;
+    height: 28px;
+    display: flex;
+    padding-right: 20px
+}
+.DragBtn{
+    border: 1px solid #cecece;
+    margin-right: 5px;
+    cursor: pointer;
+}
+.RatioBtn{
+    border: 1px solid #cecece;
+    margin-right: 5px;
+    display: flex
+}
+.RatioBtn .ChangeValue{
+    width: 50px;
+    text-align: center;
+    line-height: 26px;
+    border-right: 1px solid #cecece;
+}
+.RatioBtn .ChangeIn{
+    float: left;
+    border-right: 1px solid #cecece;
+    cursor: pointer;
+}
+.relationshipChartRightBtnDiv img, .contactsmap_btndiv img{
+    padding: 2px;
+    width: 26px;
+    height: 26px;
+    margin-top: 1px;
+}
+.RatioBtn .ChangeOut{
+    float: left;
+    cursor: pointer;
+}
+.RestoreBtn{
+    float: left;
+    border: 1px solid #cecece;
+    cursor: pointer;
+}
+
+.FullScreenBtn{
+    float: left;
+    border: 1px solid #cecece;
+    margin-left: 20px;
+    cursor: pointer;
+    height: 28px;
+}
+.editBtnDisabled{
+    border: 1px solid #808080 !important;
+    background-color: #808080 !important;
+}
+.LockDiv{
+    float: left;
+    margin-left: 15px;
+}
+.LockDiv b{
+    display: block;
+    width: 28px;
+    height: 28px;
+}
+.chart-lock b{
+    background: url(../icon2023/contactsmap-lock.png) center center no-repeat;
+    background-size: 26px 26px;
+}
+.chart-unlock b{
+    background: url(../icon2023/contactsmap-unlock.png) center center no-repeat;
+    background-size: 26px 26px;
+}
+.node-wrap-box-tobeadd{
+    line-height: 26px;
+    font-size: 13px;
+}
+.editBtn{
+    margin-top: -2px;
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center;
+    height: 32px;
+    float: left;
+}
+.leftListDataLi{
+    background-color: #FFFFFF;
+    height:48px;
+    box-sizing:border-box;
+    padding:15px 8px;
+    border:1px solid #dee1e8;
+    border-radius:2px;
+    margin-bottom:10px;
+    cursor:move;
+    overflow:hidden;
+    text-overflow: ellipsis;
+}
+.chosen{
+    background-color: #f0f0f0;
+    cursor: unset;
+}
+.modulemapview-design .repeat.node-wrap-box::after{
+    border: 1px solid #FF3B3B ;
+}
+.modulemapview-design .node-wrap-box .title.repeat{
+    border-top: 1px solid #FF3B3B ;
+    border-left: 1px solid #FF3B3B ;
+    border-right: 1px solid #FF3B3B ;
+}
+.modulemapview-design .node-wrap-box .content.repeat{
+    border-bottom: 1px solid #FF3B3B ;
+    border-left: 1px solid #FF3B3B ;
+    border-right: 1px solid #FF3B3B ;
+}
+.text-overflow{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+

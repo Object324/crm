@@ -1,0 +1,685 @@
+@charset "UTF-8";
+ol, ul {list-style: none;}
+
+/* 骨架屏 ****************************************************************/
+	.ld-skeleton-component{
+		height: 100%;
+		padding: 30px;
+	}
+	.ld-skeleton-component .ld-skeleton-item{
+	    height: 30px;
+	    border-radius: 4px;
+	    margin-bottom: 20px;
+	    background: linear-gradient(90deg,#f2f2f2 25%,#e6e6e6 37%,#f2f2f2 63%);
+	    background-size: 400% 100%;
+	    animation: ld-skeleton-component-loading 1.4s ease infinite;
+	}
+	@keyframes ld-skeleton-component-loading {
+	    0% {
+	        background-position: 100% 50%
+	    }
+	    to {
+	        background-position: 0 50%
+	    }
+	}
+
+/* 新下拉框样式 ****************************************************************/
+	.ld_Select-component{
+		display: flex;
+		align-items: center;
+		height: 30px;
+		position: relative;
+		background-color: #fff;
+		cursor: pointer;
+	}
+	.ld_Select-component .ld_Select-lefticon{
+		background-size: 22px 22px;
+		background-position: center;
+		background-repeat: no-repeat;
+		width: 24px;
+		height: 30px;
+		margin: 0 0 0 4px;
+	}
+	.ld_Select-component .ld_Select-content{
+	}
+	.ld_Select-component .ld_Select-content span{
+		max-width: calc(100% - 15px);
+		display: block;
+		float: left;
+		line-height: 30px;
+		overflow: hidden;
+		position: relative;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		padding: 0 10px 0 6px;
+	}
+	.ld_Select-component .ld_Select_arrowicon{
+		display: block;
+		width: 8px;
+		height: 8px;
+		border-right: 1px solid var(--ld-picklist-dark-color);
+		border-top: 1px solid var(--ld-picklist-dark-color);
+		transform: translateY(60%) rotate(135deg);
+		margin: 5px 2px 0px 2px;
+		float: left;
+		transition-duration: 0.5s;
+	}
+	.ld_Select-component .ld_Select_arrowicon.activeicon{
+		transform: translateY(60%) rotate(-45deg);
+		margin: 9px 2px 0px 2px;
+	}
+	.ld_Select-component:hover{
+		/*background-color: #EAF2FE;*/
+		border-radius: 4px;
+	}
+	.ld_Select-component:hover .ld_Select_arrowicon{
+		border-right: 1px solid var(--ld-font-link-color);
+		border-top: 1px solid var(--ld-font-link-color);
+	}
+	.ld_Select-component:hover .ld_Select-content{
+		color: var(--ld-font-link-color);
+	}
+	.ld_Select-component:hover .ld_Select_optionlistbg{
+		/*display: block;*/
+	}
+	.ld_Select_optionlistbg{
+		display: block;
+		position: absolute;
+		width: 100%;
+		top: 30px;
+		left: 0;
+		z-index: 999;
+		min-width: 140px;
+	}
+	.ld_Select_optionlistbg_rightshow{
+		right: 0;
+		left: auto;
+	}
+	.ld_Select-component .ld_Select-optionlist{
+		position: relative;
+		top: 8px;
+		/*background: #F7FAFF;*/
+		background: #fff;
+		border-radius: 4px;
+		box-shadow: 1px 2px 10px 6px rgba(56, 92, 141, 0.2);
+	}
+	.ld_Select-component .ld_Select-optionlist::after{
+		content: '';
+		position: absolute;
+		width: 0;
+		height: 0;
+		top: -8px;
+		left: 50px;
+		border-left: 12px solid transparent;
+		border-right: 12px solid transparent;
+		border-bottom: 8px solid #fff;
+		filter: drop-shadow(0 -3px 2px rgba(56, 92, 141, 0.2));
+	}
+	.ld_Select-component .ld_Select_optionlistbg_rightshow .ld_Select-optionlist::after{
+		left: auto;
+		right: 30px;
+	}
+	.ld_Select-component .ld_Select-optionlist .ld_Select-option{
+		width: 100%;
+		border-radius: 4px;
+		overflow: hidden;
+		padding: 8px 0;
+	}
+	.ld_Select-component .ld_Select-optionlist .ld_Select-option ul{
+		width: 100%;
+	}
+	.ld_Select-component .ld_Select-optionlist .ld_Select-option ul li{
+		height: 36px;
+		line-height: 36px;
+		width: 100%;
+		position: relative;
+		color: #3B4859;
+	}
+	.ld_Select-component .ld_Select-optionlist .ld_Select-option ul li .ld_Select-option-item{
+		padding: 0 8px;
+		margin: 0 8px;
+		text-align: left;
+		border-radius: 4px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: flex;
+	}
+	.ld_Select-component .ld_Select-optionlist .ld_Select-option ul li .ld_Select-option-item.ld_Select-option-seleced:not(.ld_Select-option-itemmult){
+		background: #EFF4FF !important;
+		color: var(--ld-font-link-color) !important;
+	}
+	.ld_Select-component .ld_Select-optionlist .ld_Select-option ul li .ld_Select-option-item.ld_Select-option-itemmult.ld_Select-option-seleced{
+		color: var(--ld-font-link-color) !important;
+		padding-right: 26px;
+	}
+	.ld_Select-component .ld_Select-optionlist .ld_Select-option ul li .ld_Select-option-item.ld_Select-option-itemmult.ld_Select-option-seleced::after{
+		content: "";
+		position: absolute;
+		top: 45%;
+		right: 8px;
+		transform: translate(-50%, -50%) rotate(-45deg);
+		width: 13px;
+		height: 7px;
+		border: 1px solid var(--ld-font-link-color);
+		border-top-color: #EAF2FE;
+		border-top-style: solid;
+		border-top-width: 2px;
+		border-right-color: var(--ld-font-link-color);
+		border-right-style: solid;
+		border-right-width: 2px;
+		border-top: none;
+		border-right: none;
+	}
+	.ld_Select-component .ld_Select-optionlist .ld_Select-option ul li .ld_Select-option-item span{
+		display: block;
+		width: 100%;
+		overflow: hidden;
+		position: relative;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		margin: 0 !important;
+		flex: 1;
+	}
+	.ld_Select-component .ld_Select-optionlist .ld_Select-option ul li.ld_select-optionopli .ld_Select-option-item .ld_select-option-operations{
+		display: none;
+		align-items: center;
+		margin-right: 8px;
+	}
+	.ld_Select-component .ld_Select-optionlist .ld_Select-option ul li.ld_select-optionopli .ld_Select-option-item .ld_select-option-operations .ld_select-option-operation{
+		display: flex;
+		align-items: center;
+	}
+	.ld_Select-component .ld_Select-optionlist .ld_Select-option ul li:hover .ld_Select-option-item,.ld_Select-component ul.ld_select_fixedoption li:hover .fixedoption{
+		background: var(--ld-bg-td-color);
+	}
+	/*
+	.ld_Select-component .ld_Select-optionlist .ld_Select-option ul li:hover span .ld-fonticon{
+		color: var(--ld-font-link-color) !important;
+	}
+	*/
+	.ld_Select-component .ld_Select-optionlist .ld_Select-option ul li.ld_select-optionopli:hover .ld_Select-option-item .ld_select-option-operations{
+		display: flex;
+	}
+	.ld_Select-component .ld_Select-optionlist .ld_Select-option ul li .ld_Select-seleced{
+		content: "";
+		position: absolute;
+		top: 45%;
+		left: 15%;
+		transform: translate(-50%, -50%) rotate(-45deg);
+		width: 13px;
+		height: 7px;
+		border: 1px solid var(--ld-font-link-color);
+		border-top-color: #EAF2FE;
+		border-top-style: solid;
+		border-top-width: 2px;
+		border-right-color: var(--ld-font-link-color);
+		border-right-style: solid;
+		border-right-width: 2px;
+		border-top: none;
+		border-right: none;
+	}
+	.ld_Select-component ul.ld_select_fixedoption{
+		border-top: 1px solid #EEEEEE;
+		padding-top: 8px;
+	}
+	.ld_Select-component ul.ld_select_fixedoption .fixedoption{
+		padding: 0 8px;
+		margin: 0 8px;
+		text-align: left;
+		border-radius: 4px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: flex;
+	}
+	.ld_Select-component ul.ld_select_fixedoption .fixedoption i.fixedoptionicon{
+		display: block;
+		width: 20px;
+		height: 20px;
+		background-size: 100% 100%;
+		float: left;
+		margin-top: 8px;
+		margin-right: 8px;
+	}
+	.ld_Select-component ul.ld_select_fixedoption .fixedoption span{
+		display: block;
+		width: 100%;
+		overflow: hidden;
+		position: relative;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		margin: 0 !important;
+		flex: 1;
+	}
+	.ld_Select-component .ld_select_searchdiv{
+		width: 100%;
+		padding: 8px;
+		padding-bottom: 0;
+	}
+	.ld_Select-component .ld_select_searchdiv .ld_select_searchinput{
+		border: 1px solid var(--ld-border-default-color);
+		width: 100%;
+		background-color: var(--ld-input-bg-default-color);
+		height: 30px !important;
+		line-height: 30px !important;
+		border-radius: 4px;
+		caret-color: var(--ld-border-focus-color);
+	}
+	.ld_Select-component .ld_select_searchdiv .ld_select_searchinput:hover{
+		border-color: var(--ld-border-hover-color);
+	}
+	.ld_Select-component .ld_select_searchdiv .ld_select_searchinput:focus{
+		border-color: var(--ld-border-focus-color);
+		box-shadow: none;
+	}
+
+/* 新翻页组件样式 ****************************************************************/
+	.ld_Pagination input[type=number] {
+		-moz-appearance:textfield;
+	}
+	.ld_Pagination input[type=number]::-webkit-inner-spin-button,
+	.ld_Pagination input[type=number]::-webkit-outer-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+	.ld_Pagination{
+		height: 35px;
+		margin-right: 20px;
+		display: flex;
+		justify-content: flex-end;
+		position: relative;
+		align-items: center;
+		margin-left: auto;
+		line-height: 32px;
+	}
+	.ld_Pagination .ld_Pagination_total span{
+		margin-right: 12px;
+	}
+	.ld_Pagination i.arrow_icon {
+		width: 8px !important;
+		height: 8px !important;
+		background-color: transparent;
+		border-color: #c0c4cc;
+		border-style: solid;
+		display: block;
+		margin: auto;
+		position: relative;
+		top: 12px;
+	}
+	.ld_Pagination i.arrow-left.allowactive,.ld_Pagination i.arrow-right.allowactive{
+		border-color: #39475B;
+	}
+	.ld_Pagination i.arrow-left{
+		border-width: 1px 0 0 1px;
+		transform: rotate(-45deg);
+		left: 2px;
+	}
+	.ld_Pagination i.arrow-right{
+		border-width: 1px 1px 0 0;
+		transform: rotate(45deg);
+		right: 2px;
+	}
+	.ld_Pagination i.more_icon{
+		speak: none;
+		font-style: normal;
+		font-weight: 400;
+		font-variant: normal;
+		text-transform: none;
+		position: relative;
+		width: 100%;
+		display: block;
+		height: 100%;
+	}
+	.ld_Pagination i.more_icon::before{
+		content: '...';
+		font-size: 15px;
+		font-weight: 600;
+		position: absolute;
+		left: 6px;
+		top: 0;
+		line-height: 24px;
+	}
+	.ld_Pagination i.skip_icon{
+		display: none;
+		width: 8px !important;
+		height: 8px !important;
+		background-color: transparent;
+		border-color: var(--ld-font-link-color);
+		border-style: solid;
+		margin: auto;
+		position: relative;
+		top: 12px;
+	}
+	.ld_Pagination i.skip-left{
+		border-width: 1px 0 0 1px;
+		transform: rotate(-45deg);
+		top: 12px;
+		left: -1px;
+	}
+	.ld_Pagination i.skip-right{
+		border-width: 1px 1px 0 0;
+		transform: rotate(45deg);
+		top: 12px;
+		left: 1px;
+	}
+	.ld_Pagination i.skip-left:before,.ld_Pagination i.skip-right:before{
+		width: 7px !important;
+		height: 7px !important;
+		display: block;
+		position: absolute;
+		content: ' ';
+		border-color: var(--ld-font-link-color);
+		border-style: solid;
+		top: 3px;
+	}
+	.ld_Pagination i.skip-left:before{
+		border-width: 1px 0 0 1px;
+		left: 3px;
+	}
+	.ld_Pagination i.skip-right:before{
+		border-width: 1px 1px 0 0;
+		right: 3px;
+	}
+	.ld_Pagination ul.ld_Pagination_btnlist{
+		display: flex;
+		align-items: center;
+	}
+	.ld_Pagination ul.ld_Pagination_btnlist li{
+		height: 33px;
+		min-width: 33px;
+		margin: 0 4px;
+		text-align: center;
+		color: #333;
+		cursor: pointer;
+		border: 1px solid #fff;
+		border-radius: 4px;
+		padding: 0 3px;
+	}
+	.ld_Pagination ul.ld_Pagination_btnlist li.currentpage{
+		color: var(--ld-font-link-color);
+	}
+	.ld_Pagination ul.ld_Pagination_btnlist li.noallowactive{
+		cursor: no-drop;
+	}
+	.ld_Pagination ul.ld_Pagination_btnlist li.noallowactive:hover{
+		border: 1px solid #AEB9CA;
+	}
+	.ld_Pagination ul.ld_Pagination_btnlist li:hover{
+		color: var(--ld-font-link-color);
+		border: 1px solid var(--ld-font-link-color);
+	}
+	.ld_Pagination ul.ld_Pagination_btnlist li:hover .arrow_icon.allowactive{
+		border-color: var(--ld-font-link-color);
+	}
+	.ld_Pagination ul.ld_Pagination_btnlist li:hover i.more_icon{
+		display: none;
+	}
+	.ld_Pagination ul.ld_Pagination_btnlist li:hover i.skip_icon{
+		display: block;
+	}
+	.ld_Pagination .ld_Pagination_gotopagenum{
+		height: 35px;
+		display: flex;
+		align-items: center;
+	}
+	.ld_Pagination .ld_Pagination_gotopagenum input.ld_Pagination_gotopage{
+		width: 40px;
+		height: 28px;
+		border: 0;
+		border-radius: 4px;
+		margin: 0 6px;
+		text-align: center;
+		border: 1px solid #dcdfe6;
+		transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+	}
+	.ld_Pagination .ld_Pagination_gotopagenum input.ld_Pagination_gotopage:hover{
+		border: 1px solid #c0c4cc;
+	}
+	.ld_Pagination .ld_Pagination_gotopagenum input.ld_Pagination_gotopage:focus{
+		border: 1px solid #409eff;
+	}
+	.ld_Pagination .ld_Pagination_gotopagenum span.ld_Pagination_gotopage_gobtn{
+		padding: 0 10px;line-height: 30px;color: var(--ld-button-font-active-default-color);cursor: pointer;
+	}
+	.ld_Pagination .ld_Pagination_countpage{
+		float: left;
+		height: 28px;
+		width: 100px;
+		border-radius: 4px;
+		position: relative;
+		cursor: pointer;
+		border: 1px solid #dcdfe6;
+		line-height: 28px;
+	}
+	.ld_Pagination .ld_Pagination_countpage span{
+		width: calc(100% - 20px);
+		display: block;
+		float: left;
+		line-height: 27px;
+		overflow: hidden;
+		position: relative;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		padding-left: 10px;
+	}
+	.ld_Pagination .ld_Pagination_countpage b.ld_Pagination_arrowicon{
+		display: block;
+		width: 8px;
+		height: 8px;
+		border-right: 1px solid #c0c4cc;
+		border-top: 1px solid #c0c4cc;
+		transform: translateY(60%) rotate(135deg);
+		margin: 2px 2px 0px 2px;
+		float: left;
+		transition-duration: 0.5s;
+	}
+	.ld_Pagination .ld_Pagination_countpage b.ld_Pagination_xuanzhuanicon{
+		transform: translateY(60%) rotate(-45deg);
+		margin: 6px 2px 0px 2px;
+	}
+	.ld_Pagination .ld_Pagination_countpage:hover{
+		border: 1px solid #409eff;
+	}
+	.ld_Pagination .ld_Pagination_countpage .ld_Pagination_countpage_content{
+		max-height: 300px;
+		width: 100%;
+		position: absolute;
+		/*background: #F7FAFF;*/
+		background: #fff;
+		border-radius: 4px;
+		box-shadow: 0px -2px 6px 2px rgba(56, 92, 141, 0.2);
+		bottom: 28px;
+		overflow: auto;
+		cursor: pointer;
+	}
+	.ld_Pagination .ld_Pagination_countpage .ld_Pagination_countpage_content ul{
+		width: 100%;
+	}
+	.ld_Pagination .ld_Pagination_countpage .ld_Pagination_countpage_content ul li{
+		height: 36px;
+		line-height: 36px;
+		width: 100%;
+		text-align: center;
+		position: relative;
+		overflow: hidden;
+		position: relative;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		margin: auto;
+		padding: 0 8px;
+	}
+	.ld_Pagination .ld_Pagination_countpage .ld_Pagination_countpage_content ul li:hover{
+		color: var(--ld-font-link-color);
+		background: #EAF2FE;
+	}
+
+/* 新页签样式 ****************************************************************/
+.ld-NavBar {
+	--NavBarHeight : 100%;
+	--NavBarItemMinWidth : 130px;
+	--NavBarItemWidth : 130px;
+	--NavBarMoreItemMinWidth : 150px;
+	--NavBarMoreItemWidth : 150px;
+	--NavBarMoreDivWidth : 170px;
+	--NavBarMoreListItemHeight : 40px;
+	--NavBarMoreListMaxNum : 6;
+}
+.ld-NavBar {
+	height: var(--NavBarHeight);
+	width: 100%;
+}
+.ld-NavBar .ld-NavBarList {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+}
+.ld-NavBar .ld-NavBarItem {
+	display: flex;
+	position: relative;
+	height: 100%;
+	padding: 0 15px;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+.ld_homeboard_index_layout_plate .ld-NavBar .ld-NavBarItem {
+	padding: 0 30px 0 0;
+}
+.ld-NavBar .ld-NavBarItem.WidthFixed {
+	/*min-width: var(--NavBarItemMinWidth);*/
+}
+.ld-NavBar .NavBarLabel {
+	white-space: nowrap;
+}
+.ld-NavBar .NavBarLabel.TextEllipsis {
+	display: block;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow-x: hidden;
+}
+.ld-NavBar .HightLight-Bottom::after {
+	content: '';
+	display: none;
+	position: absolute;
+	bottom: 0;
+	left: 15px;
+    width: calc(100% - 30px);
+    height: 3px;
+	background-color: var(--ld-font-link-color);
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+}
+.ld_homeboard_index_layout_plate .ld-NavBar .HightLight-Bottom::after {
+	left: 0;
+}
+.ld-NavBar .HightLight-Bottom:hover {
+	color: var(--ld-font-link-color);
+}
+.ld-NavBar .HightLight-Bottom:hover::after {
+	/*display: block;*/
+}
+.ld-NavBar .HightLight-Bottom.cur>span {
+	color: var(--ld-font-link-color);
+	font-weight: 700;
+}
+.ld-NavBar .HightLight-Bottom.cur::after {
+	display: block;
+}
+.ld-NavBar .ld-NavBarMore {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	padding: 0 15px;
+	cursor: pointer;
+}
+.ld-NavBar .ld-NavBarMore.WidthFixed {
+	min-width: var(--NavBarMoreItemMinWidth);
+}
+.ld-NavBar .ld-NavBarMoreIcon {
+	/*display: block;*/
+	/*background-image: url(images/go_pre_next.png);*/
+	/*background-repeat: no-repeat;*/
+	/*position: relative;*/
+	/*min-width: 20px;*/
+	/*min-height: 20px;*/
+	/*background-position: -26px -2px;*/
+	/*cursor: pointer;*/
+	/*border-radius: 4px;*/
+	/*transform: rotate(90deg);*/
+	/*margin-left: 8px;*/
+	/*margin-top: -1px;*/
+	width: 8px;
+	height: 8px;
+	border-right: 1px solid var(--ld-picklist-dark-color);
+	border-top: 1px solid var(--ld-picklist-dark-color);
+	border-top: 1px solid var(--ld-picklist-dark-color);
+	transform: rotate(135deg);
+	margin: 0 0 0 4px;
+	display: block;
+	transition-duration: 0.5s;
+}
+.ld-NavBarMore:hover .ld-NavBarMoreIcon {
+	transform: rotate(-45deg);
+	margin: 4px 0 0 4px;
+	border-right: 1px solid var(--ld-btn-bg-hover-color);
+	border-top: 1px solid var(--ld-btn-bg-hover-color);
+}
+.ld-NavBar .ld-NavBarMoreText {
+	margin-right: 8px;
+	max-width: 80px;
+}
+.ld-NavBar .ld-NavBarMore:hover .ld-NavBarMoreDiv{
+	display: block;
+}
+.ld-NavBar .ld-NavBarMoreDiv:hover{
+	display: block;
+}
+.ld-NavBar .ld-NavBarMoreDiv {
+	display: none;
+	position: absolute;
+	z-index: 1999;
+	top: 48px;
+	right: 0;
+	width: var(--NavBarMoreDivWidth);
+	max-height: calc( var(--NavBarMoreListItemHeight) * var(--NavBarMoreListMaxNum));
+	font-size: 13px;
+	overflow: hidden auto;
+	background-color: #fff;
+	color: #3B4859;
+	border: 1px solid #bbbbbb;
+	border-radius: 4px;
+	box-shadow: 0 2px 12px 0 #f2f2f2;
+}
+.ld-NavBar .ld-NavBarMoreList {
+	max-height: 240px;
+	padding-left: 0;
+	margin: 0;
+	list-style-type: none;
+}
+.ld-NavBar .ld-NavBarMoreItem {
+	display: flex;
+	position: relative;
+	width: 100%;
+	height: 40px;
+	padding: 0 10px;
+	align-items: center;
+	cursor: pointer;
+}
+.ld-NavBar .ld-NavBarMoreItem:hover {
+	color:var(--ld-font-link-color);
+	background-color: #E4F0FF;
+}
+.ld-NavBar .ld-NavBarMoreItem.cur {
+	color: var(--ld-font-link-color);
+	background-color: #E4F0FF;
+}
+.ld-NavBar .hidden {
+	display: none;
+}

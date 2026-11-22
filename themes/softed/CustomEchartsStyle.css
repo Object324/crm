@@ -1,0 +1,1284 @@
+
+.CustomEchartsSet{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    background-color: #F2F3F8;
+}
+.CustomEchartsLeft {
+    width: 360px;
+    /*width: 20%;*/
+    height: 100%;
+    background-color: #F2F3F8;
+    padding: 20px 10px 0px;
+}
+.ModuleSel{
+    display: flex;
+    flex-direction: row;
+}
+.ModuleSelCon{
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+    width: calc(100% - 48px);
+    align-items: center;
+    background-color: #FFF;
+    border-radius: 4px;
+    border: 1px solid #FFF;
+}
+.ModuleLabel{
+    /*width: 80px;*/
+    height: 30px;
+    line-height: 30px;
+    border-right: 2px solid #D5D5D5;
+    padding: 0 10px;
+    font-weight: bold;
+    font-size: 12px;
+}
+.ModuleSelect{
+    flex-grow: 1;
+    height: 100%;
+    padding-left: 15px;
+    position: relative;
+    margin: auto;
+}
+.ModuleOptionBefore {
+    width: calc(100% - 15px);
+    padding-right: 5px;
+    position: absolute;
+    left: 15px;
+    top: calc(100% + 14px);
+    z-index: 10000;
+    background-color: #F2F3F8;
+    border-radius: 4px;
+    box-shadow: 1px 1px 4px 4px rgba(89, 111, 140, 0.25);
+}
+.ModuleOptionBefore::before {
+    display: block;
+    position: absolute;
+    top: -9px;
+    left: calc(80% - 13px);
+    content: '';
+    color: #F2F3F8;
+    width: 0;
+    height: 0;
+    border-bottom: 10px solid #F2F3F8;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    filter: drop-shadow(-0px -3px 2px rgba(89, 111, 140, 0.25));
+}
+.ModuleOption {
+    width: 100%;
+    max-height: 240px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.ModuleOption div {
+    height: 30px;
+    line-height: 30px;
+    padding-left: 30px;
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.ModuleOption div:hover {
+    color: #3B7CFF;
+    background-color: #E2ECF9;
+}
+.ModuleOption div[selected]::before{
+    display: block;
+    position: absolute;
+    left: 15px;
+    content: '√';
+    color: #3B7CFF;
+    height: 100%;
+}
+.ModuleOptionValue {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    padding-left: 30px;
+}
+.ModuleSelect[status="collapse"] .ModuleOptionValue::after {
+    display: flex;
+    background: url(../icon2023/arrowup.png) no-repeat;
+    background-size: contain;
+    width: 14px;
+    height: 7px;
+    content: '';
+    margin: auto 10px auto auto;
+    transform: rotate(180deg);
+}
+.ModuleSelect[status="expand"] .ModuleOptionValue::after {
+    display: flex;
+    background: url(../icon2023/arrowup.png) no-repeat;
+    background-size: contain;
+    width: 14px;
+    height: 7px;
+    content: '';
+    margin: auto 10px auto auto;
+    transform: rotate(180deg);
+}
+.SearchIconDiv{
+    display: flex;
+    margin: auto;
+}
+.SearchIcon{
+    margin: auto !important;
+    width: 28px !important;
+    height: 28px !important;
+    /*background-position: -740px -38px !important;*/
+    cursor: pointer;
+}
+.FieldSearch {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+    padding: 10px 20px 10px 10px;
+}
+.FieldSearchInput {
+    margin: 10px 20px 10px 10px;
+    width: 100%;
+    height: 30px;
+    padding-right: 30px;
+    border: 0;
+    border-radius: 4px;
+}
+.FieldSearchIcon {
+    position: absolute;
+    right: 25px !important;
+    cursor: pointer;
+}
+.FieldSearchClear {
+    display: none;
+    position: absolute;
+    right: 32px;
+    top: 10px;
+    float: right;
+    width: 13px;
+    height: 13px;
+    cursor: pointer;
+    background: url(../icon2021/top/del_16.png) center center no-repeat;
+}
+.ModuleField_Scroll{
+    /* 两select框 + 搜索款 = 158*/
+    height: calc(100% - 158px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.ModuleFieldBlock{
+    display: flex;
+    flex-direction: column;
+    /*height: calc(100% - 100px);*/
+}
+.ModuleFieldHead {
+    display: flex;
+    position: sticky;
+    top: 0;
+    margin-bottom: 5px;
+    z-index: 1;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 25px;
+    background-color: #D5E7FF;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+}
+.ModuleFieldHead:hover {
+    background-color: #C8DFFF;
+}
+.ModuleFieldHead::after{
+    display: flex;
+    background: url(images/home-icons.png) no-repeat;
+    width: 12px;
+    height: 12px;
+    content: '';
+    margin: auto 25px auto auto;
+    transition: transform .8s,-webkit-transform .8s;
+}
+.ModuleFieldHead[blocksatus="expand"]::after {
+    background-position: -103px -255px;
+}
+.ModuleFieldHead[blocksatus="collapse"]::after {
+    background-position: -103px -255px;
+    transform: rotate(180deg);
+    /*background-position: -120px -255px;*/
+}
+.ModuleFieldCon {
+    overflow: hidden;
+}
+.ModuleFieldCon .Field {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 25px;
+    align-items: center;
+    cursor: move;
+}
+.ModuleFieldCon .Field:hover{
+    color: #3B7CFF;
+    background-color: #E2ECF9;
+}
+.ModuleFieldCon .Field:hover::before{
+    display: flex;
+    position: absolute;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    content: '';
+    background-color: #3B7CFF;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+.ModuleFieldCon .Field .Drag {
+    position: absolute !important;
+    right: 20px !important;
+}
+.FieldAfterLabel {
+    display: none;
+    position: absolute;
+    right: 20px;
+    width: 160px;
+    height: 100%;
+    color: #acacac;
+}
+.ModuleFieldCon .Field:hover .FieldAfterLabel{
+    display: unset;
+}
+.CustomEchartsMiddle {
+    display: flex;
+    flex-direction: column;
+    width: 360px;
+    height: 100%;
+    background-color: #FFF;
+}
+.SetTypeBlock {
+    width: 100%;
+    height: 100%;
+    padding: 0 10px 10px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.SetBlock {
+    display: flex;
+    flex-direction: column;
+}
+.SetBlockTitle {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    margin-top: 10px;
+    height: 40px;
+    line-height: 40px;
+    align-items: center;
+    background-color: #F0F3F7;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+}
+.SetBlockTitle::after {
+    display: flex;
+    position: absolute;
+    right: 10px;
+    width: 13px;
+    height: 13px;
+    content: '';
+    transform: rotate(90deg);
+    background: url(images/home-icons.png) no-repeat -12px -285px;
+    transition: transform .8s,-webkit-transform .8s;
+}
+.SetBlockTitle[blocksatus="collapse"]::after {
+    transform: rotate(-90deg);
+}
+.ChartSetHead {
+    width: 100%;
+    display: flex;
+    margin-top: 10px;
+}
+.ChartSetHead .SetType[SetType="Config"]::before{
+    display: flex;
+    width: 23px;
+    height: 18px;
+    content: '';
+    background: url(../icon2023/ChartConfig.png) no-repeat;
+}
+.ChartSetHead .SetType[SetType="Config"]:hover::before,.ChartSetHead .CurSetType[SetType="Config"]::before{
+    background-image: url(../icon2023/ChartConfigChoose.png);
+}
+.ChartSetHead .SetType[SetType="Style"]::before{
+    display: flex;
+    width: 23px;
+    height: 18px;
+    content: '';
+    background: url(../icon2023/ChartStyle.png) no-repeat;
+}
+.ChartSetHead .SetType[SetType="Style"]:hover::before,.ChartSetHead .CurSetType[SetType="Style"]::before{
+    background-image: url(../icon2023/ChartStyleChoose.png);
+}
+.ChartSetCon {
+    display: flex;
+    width: 100%;
+    height: calc(100% - 50px);
+}
+.SetType {
+    display: flex;
+    position: relative;
+    margin: 0 15px;
+    width: 18%;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    cursor: pointer;
+}
+/*.SetType:hover::after {
+    display: flex;
+    position: absolute;
+    bottom: 1px;
+    width: calc(100% - 30px);
+    height: 3px;
+    content: '';
+    background-color: var(--ld-font-link-color);
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    margin: 0 15px;
+}*/
+.SetType:hover{
+    color: #3B7CFF !important;
+}
+.CurSetType {
+    color: #3B7CFF !important;
+}
+.CurSetType::after {
+    display: flex;
+    position: absolute;
+    bottom: 1px;
+    width: calc(100% - 30px);
+    height: 3px;
+    content: '';
+    background-color: var(--ld-font-link-color);
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    margin: 0 15px;
+}
+.BlockName {
+    margin: 0 10px;
+}
+.SetBlockContent {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.SetBlockContent .FieldRow {
+    display: flex;
+    flex-direction: row;
+    margin: 5px 0;
+}
+.FieldRow .FieldLabel {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    padding-left: 10px;
+    width: 30%;
+    margin-top: 10px;
+}
+.FieldRow .Mandatory::before {
+    display: flex;
+    position: absolute;
+    left: 0;
+    content: '*';
+    color: red;
+}
+.FieldRow .FieldCon {
+    width: 70%;
+    height: 100%;
+    display: flex;
+    padding: 5px 10px;
+}
+.FieldRow .FieldCon input[type="text"] {
+    width: 100%;
+    height: 30px;
+    background-color: #F5F8FC;
+    border: 0;
+    border-radius: 4px;
+}
+.FieldRow .FieldCon input[type="checkbox"] {
+    margin: 5px 0;
+}
+.FieldRow .FieldCon textarea {
+    width: 100%;
+    height: 90px;
+    resize:none;
+    background-color: #F5F8FC;
+    border: 0;
+    border-radius: 4px;
+    border-top: 10px solid #F5F8FC;
+    border-bottom: 10px solid #F5F8FC;
+}
+.FieldRow .FieldCon select {
+    width: 100%;
+    height: 30px;
+    padding-left: 5px;
+    border: 0;
+    border-radius: 4px;
+    background-color: #F5F8FC;
+    border-right: 10px solid #F5F8FC;
+}
+.FieldBlock {
+    display: flex;
+    flex-direction: column;
+}
+.FieldBlock .FieldLabel {
+    display: flex;
+    flex-direction: row;
+    margin: 10px 0;
+    padding: 0 5px;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+}
+.FieldBlock .FieldCon input[type="text"] {
+    width: 100%;
+    height: 30px;
+    background-color: #F5F8FC;
+    border: 0;
+    border-radius: 4px;
+}
+.AxisHead {
+    display: flex;
+    width: 30%;
+    height: 35px;
+    justify-content: center;
+    align-items: center;
+}
+.AxisHead .AxisNum{
+    display: flex;
+    padding: 0 5px;
+    width: 100%;
+    height: 35px;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #F3F5F7;
+    border-radius: 4px;
+}
+.AxisHead .AxisNum div{
+    display: flex;
+    margin: auto;
+    width: 45%;
+    height: 70%;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.AxisHead .AxisNum div:hover {
+    background-color: #FFF;
+    border-radius: 4px;
+}
+.AxisHead .AxisNum[SetNum="One"] div:first-child {
+    color: #3B7CFF;
+    background-color: #FFF;
+    border-radius: 4px;
+}
+.AxisHead .AxisNum[SetNum="Two"] div:nth-child(2) {
+    color: #3B7CFF;
+    background-color: #FFF;
+    border-radius: 4px;
+}
+.AxisChoose {
+    background-color: #FFF;
+    border-radius: 4px;
+}
+.FieldBlock .FieldCon {
+    display: flex;
+    width: 100%;
+}
+.AxisCon {
+    /*padding: 0 5px;*/
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+}
+.AxisFieldEmpty {
+    display: flex;
+    align-items: center;
+    margin: 10px 5px;
+    padding: 0 10px;
+    width: 100%;
+    height: 30px;
+    color: #acacac;
+    border-width: 2px;
+    border-style: dashed;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.AxisFieldEmpty .Field{
+    display: none;
+}
+.AxisFieldBlock {
+    width: 100%;
+    margin: 10px 0;
+    color: #666;
+    cursor: move;
+}
+.DragOver {
+    border-color: #3B7CFF !important;
+    box-shadow: 0px 0px 5px 0px #3B7CFF;
+}
+.DragOverError {
+    border-color: #fd666d !important;
+    box-shadow: 0px 0px 5px 0px #fd666d;
+}
+.AxisDragField {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    width: 100%;
+    background-color: #F2F3F8;
+    padding-left: 5px;
+    border-radius: 4px;
+}
+.SeqSetButton {
+    display: flex;
+    margin-left: 70%;
+    width: 30%;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    color: #FFF;
+    cursor: pointer;
+    background: #3B7CFF;
+    box-shadow: 0 2px 4px 0 rgba(56,92,141,0.25);
+    border-radius: 4px;
+}
+.SeqSetButton:hover {
+    background-color: #1c61da;
+}
+.SeqSetButton::before {
+    content: '+';
+    padding-right: 10px;
+}
+.SeqSetCon {
+    display: flex;
+    flex-direction: column;
+}
+.SeqSetBlock {
+    margin: 10px 5px;
+    padding: 10px;
+    border-width: 2px;
+    border-style: dashed;
+    border-radius: 8px;
+    border-color: #acacac;
+}
+.DelIcon {
+    margin-left: auto;
+    width: 38px;
+    height: 37px;
+    background-image: url(../icon2023/bin.png);
+    background-repeat: no-repeat;
+    background-size: 19px 18px;
+    border: 10px solid #FFF;
+}
+.DelIcon:hover{
+    cursor: pointer;
+    background-image: url(../icon2023/bin_hover.png);
+}
+.IconBlock {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 30px;
+    align-items: center;
+    justify-content: left;
+}
+.IconBlock div {
+    /*background-size: cover;*/
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+.AlignSet div{
+    margin-right: 5px;
+    width: 41px;
+    height: 30px;
+    background-size: cover;
+}
+.AlignSet .AlignLeft{
+    background-image: url(../icon2023/AlignLeft.png);
+}
+.AlignSet .AlignLeft:hover{
+    background-image: url(../icon2023/AlignLeftHover.png);
+}
+.AlignSet[AlignSet="AlignLeft"] .AlignLeft{
+    background-image: url(../icon2023/AlignLeftChoose.png);
+}
+.AlignSet .AlignCenter{
+    background-image: url(../icon2023/AlignCenter.png);
+}
+.AlignSet .AlignCenter:hover{
+    background-image: url(../icon2023/AlignCenterHover.png);
+}
+.AlignSet[AlignSet="AlignCenter"] .AlignCenter{
+    background-image: url(../icon2023/AlignCenterChoose.png);
+}
+.AlignSet .AlignRight{
+    background-image: url(../icon2023/AlignRight.png);
+}
+.AlignSet .AlignRight:hover{
+    background-image: url(../icon2023/AlignRightHover.png);
+}
+.AlignSet[AlignSet="AlignRight"] .AlignRight{
+    background-image: url(../icon2023/AlignRightChoose.png);
+}
+.ThemeSet {
+    height: unset !important;
+    margin: 5px 0;
+    flex-wrap: wrap;
+}
+.ThemeSet div{
+    width: 130px;
+    height: 40px;
+    margin: 5px calc((100% - 260px) / 4);
+    cursor: pointer;
+    background-size: cover;
+}
+.ThemeSet .Default{
+    background-image: url(../icon2023/ThemeDefault.png);
+}
+.ThemeSet .Default:hover{
+    background-image: url(../icon2023/ThemeDefaultHover.png);
+}
+.ThemeSet[ThemeSet="Default"] .Default,.ThemeSet[ThemeSet="default"] .Default{
+    background-image: url(../icon2023/ThemeDefaultHover.png);
+}
+
+.ThemeSet .Light{
+    background-image: url(../icon2023/ThemeLight.png);
+}
+.ThemeSet .Light:hover{
+    background-image: url(../icon2023/ThemeLightHover.png);
+}
+.ThemeSet[ThemeSet="Light"] .Light,.ThemeSet[ThemeSet="light"] .Light{
+    background-image: url(../icon2023/ThemeLightHover.png);
+}
+
+.ThemeSet .Westeros{
+    background-image: url(../icon2023/ThemeWesteros.png);
+}
+.ThemeSet .Westeros:hover{
+    background-image: url(../icon2023/ThemeWesterosHover.png);
+}
+.ThemeSet[ThemeSet="Westeros"] .Westeros,.ThemeSet[ThemeSet="westeros"] .Westeros{
+    background-image: url(../icon2023/ThemeWesterosHover.png);
+}
+
+.ThemeSet .Black{
+    background-image: url(../icon2023/ThemeBlack.png);
+}
+.ThemeSet .Black:hover{
+    background-image: url(../icon2023/ThemeBlackHover.png);
+}
+.ThemeSet[ThemeSet="Black"] .Black,.ThemeSet[ThemeSet="black"] .Black{
+    background-image: url(../icon2023/ThemeBlackHover.png);
+}
+
+
+.ThemeSet .Purple{
+    background-image: url(../icon2023/ThemePurple.png);
+}
+.ThemeSet .Purple:hover{
+    background-image: url(../icon2023/ThemePurpleHover.png);
+}
+.ThemeSet[ThemeSet="Purple"] .Purple,.ThemeSet[ThemeSet="purple"] .Purple{
+    background-image: url(../icon2023/ThemePurpleHover.png);
+}
+.IconDiv{
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+.IconDiv .Icon{
+    margin: auto;
+    background-repeat: no-repeat;
+    /*background-size: cover;*/
+    cursor: pointer;
+}
+.IconDiv .IconLabel{
+    margin: 5px auto 0;
+}
+.LegendLocate {
+    margin: 5px 0;
+    height: unset !important;
+    flex-wrap: wrap;
+}
+.LegendLocate .IconDiv{
+    width: 60px;
+    height: 60px;
+    margin: 5px calc((100% - 240px) / 8);
+}
+.LegendLocate .IconDiv .Icon{
+    width: 46px;
+    height: 36px;
+    background-image: url(../icon2023/ChartStyleSet_Icons.png);
+}
+.LegendLocate .Bottom{
+    /*background-image: url(../icon2023/LegendLocateBottom.png);*/
+    background-position: -28px -26px;
+}
+.LegendLocate .Bottom:hover{
+    background-position: -30px -266px;
+}
+.LegendLocate[LegendLocate="Bottom"] .Bottom,.LegendLocate[LegendLocate="bottom"] .Bottom{
+    background-position: -28px -147px;
+}
+.LegendLocate .Top{
+    background-position: -100px -26px;
+}
+.LegendLocate .Top:hover{
+    background-position: -100px -266px;
+}
+.LegendLocate[LegendLocate="Top"] .Top,.LegendLocate[LegendLocate="top"] .Top{
+    background-position: -100px -147px;
+}
+.LegendLocate .LeftTop{
+    background-position: -173px -26px;
+}
+.LegendLocate .LeftTop:hover{
+    background-position: -173px -266px;
+}
+.LegendLocate[LegendLocate="LeftTop"] .LeftTop,.LegendLocate[LegendLocate="lefttop"] .LeftTop{
+    background-position: -174px -147px;
+}
+.LegendLocate .LeftBottom{
+    background-position: -247px -26px;
+}
+.LegendLocate .LeftBottom:hover{
+    background-position: -247px -266px;
+}
+.LegendLocate[LegendLocate="LeftBottom"] .LeftBottom,.LegendLocate[LegendLocate="leftbottom"] .LeftBottom{
+    background-position: -247px -147px;
+}
+.LegendLocate .RightTop{
+    background-position: -28px -86px;
+}
+.LegendLocate .RightTop:hover{
+    background-position: -30px -326px;
+}
+.LegendLocate[LegendLocate="RightTop"] .RightTop,.LegendLocate[LegendLocate="righttop"] .RightTop{
+    background-position: -29px -206px;
+}
+.LegendLocate .RightBottom{
+    background-position: -100px -86px;
+}
+.LegendLocate .RightBottom:hover{
+    background-position: -100px -326px;
+}
+.LegendLocate[LegendLocate="RightBottom"] .RightBottom,.LegendLocate[LegendLocate="rightbottom"] .RightBottom{
+    background-position: -100px -206px;
+}
+.LegendLocate .None{
+    background-position: -174px -86px;
+}
+.LegendLocate .None:hover{
+    background-position: -174px -326px;
+}
+.LegendLocate[LegendLocate="None"] .None,.LegendLocate[LegendLocate="none"] .None{
+    background-position: -174px -206px;
+}
+.AxisTab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    width: 75px;
+    height: 35px;
+    border: 2px solid #E5E9EE;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.AxisTab:first-child {
+    margin-left: 20px;
+    margin-right: 10px;
+}
+.AxisTab:hover {
+    border-color: #3B7CFF;
+}
+.CurAxisTab {
+    color: #FFF !important;
+    background-color: #3B7CFF !important;
+    border-color: #3B7CFF;
+}
+.ReportStyle {
+    margin: 5px 0;
+    height: unset !important;
+    flex-wrap: wrap;
+}
+.ReportStyle .IconDiv{
+    width: 60px;
+    height: 60px;
+    margin: 5px calc((100% - 240px) / 8);
+}
+.ReportStyle .IconDiv .Icon{
+    width: 46px;
+    height: 36px;
+    background-image: url(../icon2023/ChartStyleSet_Icons.png);
+}
+.ReportStyle .Top{
+    background-position: -367px -27px;
+}
+.ReportStyle .Top:hover{
+    background-position: -367px -266px;
+}
+.ReportStyle[ReportStyle="Top"] .Top{
+    background-position: -367px -147px;
+}
+.ReportStyle .Bottom{
+    background-position: -440px -27px;
+}
+.ReportStyle .Bottom:hover{
+    background-position: -440px -266px;
+}
+.ReportStyle[ReportStyle="Bottom"] .Bottom{
+    background-position: -440px -147px;
+}
+.ReportStyle .None{
+    background-position: -659px -27px;
+}
+.ReportStyle .None:hover{
+    background-position: -659px -266px;
+}
+.ReportStyle[ReportStyle="None"] .None{
+    background-position: -659px -147px;
+}
+.CustomEchartsRight {
+    display: flex;
+    flex-direction: column;
+    width: calc( 100% - 720px);
+    height: 100%;
+}
+.ChartTypeNav {
+    display: flex;
+    width: 100%;
+    height: 70px;
+    flex-direction: row;
+    background-color: #FFF;
+    border-left: 2px solid #F2F3F8;
+}
+.ChartTypeDiv {
+    display: flex;
+    width: calc(100% / 6);
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.ParentChartType {
+    width: 120px;
+    height: 100%;
+}
+.ChartTypeConDiv {
+    display: flex;
+    flex-direction: column;
+    /*justify-content: center;*/
+    align-items: center;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+}
+.ChartTypeDiv:hover .ParentChartType{
+    color: #FFF;
+    background-color: #3B7CFF;
+}
+.ChartTypeConDiv:hover {
+    color: #FFF;
+    background-color: #3B7CFF;
+}
+.SecTypeDiv {
+    height: 70px;
+}
+.ChartImgDiv {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    background-image: url(../icon2023/ChartTypeIconList.png);
+    background-repeat: no-repeat;
+}
+.ChartTypeNameDiv {
+    /*margin-top: 5px;*/
+}
+.ChartImgDiv[ChartType="line"] {
+    background-position: -20px -20px;
+}
+.ChartImgDiv[ChartType="multiple_line"] {
+    background-position: -80px -20px;
+}
+.ChartImgDiv[ChartType="bar"] {
+    background-position: -140px -20px;
+}
+.ChartImgDiv[ChartType="multiple_bar"] {
+    background-position: -200px -20px;
+}
+.ChartImgDiv[ChartType="bar_stack"] {
+    background-position: -260px -20px;
+}
+.ChartImgDiv[ChartType="line_bar"] {
+    background-position: -320px -20px;
+}
+.ChartImgDiv[ChartType="simple_strip"] {
+    background-position: -380px -20px;
+}
+.ChartImgDiv[ChartType="multiple_strip"] {
+    background-position: -440px -20px;
+}
+.ChartImgDiv[ChartType="stack_strip"] {
+    background-position: -500px -20px;
+}
+.ChartImgDiv[ChartType="pie"] {
+    background-position: -20px -200px;
+}
+.ChartImgDiv[ChartType="solid_pie"] {
+    background-position: -80px -200px;
+}
+.ChartImgDiv[ChartType="rose_pie"] {
+    background-position: -140px -200px;
+}
+.ChartImgDiv[ChartType="nesting_pie"] {
+    background-position: -200px -200px;
+}
+.ChartImgDiv[ChartType="funnel"] {
+    background-position: -260px -200px;
+}
+.ChartImgDiv[ChartType="triangle"] {
+    background-position: -320px -200px;
+}
+.ChartImgDiv[ChartType="bowls"] {
+    background-position: -380px -200px;
+}
+.ChartImgDiv[ChartType="scatter"] {
+    background-position: -20px -380px;
+}
+.ChartImgDiv[ChartType="basic_scatter"] {
+    background-position: -20px -380px;
+}
+.ChartImgDiv[ChartType="multiple_dimension"] {
+    background-position: -80px -380px;
+}
+.ChartImgDiv[ChartType="sunburst"] {
+    background-position: -140px -380px;
+}
+.ChartImgDiv[ChartType="simple_sunburst"] {
+    background-position: -140px -380px;
+}
+.ChartTypeNav[ParentType="line"] .ParentChartType .ChartImgDiv[ChartType="line"] {
+    background-position: -20px -80px;
+}
+.ChartTypeNav[ParentType="bar"] .ParentChartType .ChartImgDiv[ChartType="bar"] {
+    background-position: -140px -80px;
+}
+.ChartTypeNav[ParentType="pie"] .ParentChartType .ChartImgDiv[ChartType="pie"] {
+    background-position: -20px -260px;
+}
+.ChartTypeNav[ParentType="funnel"] .ParentChartType .ChartImgDiv[ChartType="funnel"] {
+    background-position: -260px -260px;
+}
+.ChartTypeNav[ParentType="scatter"] .ParentChartType .ChartImgDiv[ChartType="scatter"] {
+    background-position: -20px -440px;
+}
+.ChartTypeNav[ParentType="sunburst"] .ParentChartType .ChartImgDiv[ChartType="sunburst"] {
+    background-position: -140px -440px;
+}
+.SecChartTypeHoverDiv:hover .ChartImgDiv[ChartType="line"] ,.EmptyPreview .ChartImgDiv[ChartType="line"] {
+    background-position: -20px -80px !important;
+}
+.ChartTypeNav[SecondType="line"] .SecTypeDiv .ChartImgDiv[ChartType="line"], .ChartTypeDiv:hover .ParentChartType .ChartImgDiv[ChartType="line"], .ChartTypeHoverDiv:hover .ChartImgDiv[ChartType="line"] {
+    background-position: -20px -140px ;
+}
+.SecChartTypeHoverDiv:hover .ChartImgDiv[ChartType="multiple_line"] ,.EmptyPreview .ChartImgDiv[ChartType="multiple_line"] {
+    background-position: -80px -80px !important;
+}
+.ChartTypeNav[SecondType="multiple_line"] .SecTypeDiv .ChartImgDiv[ChartType="multiple_line"], .ChartTypeHoverDiv:hover .ChartImgDiv[ChartType="multiple_line"] {
+    background-position: -80px -140px;
+}
+.SecChartTypeHoverDiv:hover .ChartImgDiv[ChartType="bar"] ,.EmptyPreview .ChartImgDiv[ChartType="bar"] {
+    background-position: -140px -80px !important;
+}
+.ChartTypeNav[SecondType="bar"] .SecTypeDiv .ChartImgDiv[ChartType="bar"], .ChartTypeDiv:hover .ParentChartType .ChartImgDiv[ChartType="bar"], .ChartTypeHoverDiv:hover .ChartImgDiv[ChartType="bar"] {
+    background-position: -140px -140px;
+}
+.SecChartTypeHoverDiv:hover .ChartImgDiv[ChartType="multiple_bar"] ,.EmptyPreview .ChartImgDiv[ChartType="multiple_bar"] {
+    background-position: -200px -80px !important;
+}
+.ChartTypeNav[SecondType="multiple_bar"] .SecTypeDiv .ChartImgDiv[ChartType="multiple_bar"], .ChartTypeHoverDiv:hover .ChartImgDiv[ChartType="multiple_bar"] {
+    background-position: -200px -140px;
+}
+.SecChartTypeHoverDiv:hover .ChartImgDiv[ChartType="bar_stack"] ,.EmptyPreview .ChartImgDiv[ChartType="bar_stack"] {
+    background-position: -260px -80px !important;
+}
+.ChartTypeNav[SecondType="bar_stack"] .SecTypeDiv .ChartImgDiv[ChartType="bar_stack"], .ChartTypeHoverDiv:hover .ChartImgDiv[ChartType="bar_stack"] {
+    background-position: -260px -140px;
+}
+.SecChartTypeHoverDiv:hover .ChartImgDiv[ChartType="line_bar"] ,.EmptyPreview .ChartImgDiv[ChartType="line_bar"] {
+    background-position: -320px -80px !important;
+}
+.ChartTypeNav[SecondType="line_bar"] .SecTypeDiv .ChartImgDiv[ChartType="line_bar"], .ChartTypeHoverDiv:hover .ChartImgDiv[ChartType="line_bar"] {
+    background-position: -320px -140px;
+}
+.SecChartTypeHoverDiv:hover .ChartImgDiv[ChartType="simple_strip"] ,.EmptyPreview .ChartImgDiv[ChartType="simple_strip"] {
+    background-position: -380px -80px !important;
+}
+.ChartTypeNav[SecondType="simple_strip"] .SecTypeDiv .ChartImgDiv[ChartType="simple_strip"], .ChartTypeHoverDiv:hover .ChartImgDiv[ChartType="simple_strip"] {
+    background-position: -380px -140px;
+}
+.SecChartTypeHoverDiv:hover .ChartImgDiv[ChartType="multiple_strip"] ,.EmptyPreview .ChartImgDiv[ChartType="multiple_strip"] {
+    background-position: -440px -80px !important;
+}
+.ChartTypeNav[SecondType="multiple_strip"] .SecTypeDiv .ChartImgDiv[ChartType="multiple_strip"], .ChartTypeHoverDiv:hover .ChartImgDiv[ChartType="multiple_strip"] {
+    background-position: -440px -140px;
+}
+.SecChartTypeHoverDiv:hover .ChartImgDiv[ChartType="stack_strip"] ,.EmptyPreview .ChartImgDiv[ChartType="stack_strip"] {
+    background-position: -500px -80px !important;
+}
+.ChartTypeNav[SecondType="stack_strip"] .SecTypeDiv .ChartImgDiv[ChartType="stack_strip"], .ChartTypeHoverDiv:hover .ChartImgDiv[ChartType="stack_strip"] {
+    background-position: -500px -140px;
+}
+.SecChartTypeHoverDiv:hover .ChartImgDiv[ChartType="pie"] ,.EmptyPreview .ChartImgDiv[ChartType="pie"] {
+    background-position: -20px -260px !important;
+}
+.ChartTypeNav[SecondType="pie"] .SecTypeDiv .ChartImgDiv[ChartType="pie"], .ChartTypeDiv:hover .ParentChartType .ChartImgDiv[ChartType="pie"], .ChartTypeHoverDiv:hover .ChartImgDiv[ChartType="pie"] {
+    background-position: -20px -320px;
+}
+.SecChartTypeHoverDiv:hover .ChartImgDiv[ChartType="solid_pie"] ,.EmptyPreview .ChartImgDiv[ChartType="solid_pie"] {
+    background-position: -80px -260px !important;
+}
+.ChartTypeNav[SecondType="solid_pie"] .SecTypeDiv .ChartImgDiv[ChartType="solid_pie"], .ChartTypeHoverDiv:hover .ChartImgDiv[ChartType="solid_pie"] {
+    background-position: -80px -320px;
+}
+.SecChartTypeHoverDiv:hover .ChartImgDiv[ChartType="rose_pie"] ,.EmptyPreview .ChartImgDiv[ChartType="rose_pie"] {
+    background-position: -140px -260px !important;
+}
+.ChartTypeNav[SecondType="rose_pie"] .SecTypeDiv .ChartImgDiv[ChartType="rose_pie"], .ChartTypeHoverDiv:hover .ChartImgDiv[ChartType="rose_pie"] {
+    background-position: -140px -320px;
+}
+.SecChartTypeHoverDiv:hover .ChartImgDiv[ChartType="nesting_pie"] ,.EmptyPreview .ChartImgDiv[ChartType="nesting_pie"] {
+    background-position: -200px -260px !important;
+}
+.ChartTypeNav[SecondType="nesting_pie"] .SecTypeDiv .ChartImgDiv[ChartType="nesting_pie"], .ChartTypeHoverDiv:hover .ChartImgDiv[ChartType="nesting_pie"] {
+    background-position: -200px -320px;
+}
+.SecChartTypeHoverDiv:hover .ChartImgDiv[ChartType="funnel"] ,.EmptyPreview .ChartImgDiv[ChartType="funnel"] {
+    background-position: -260px -260px !important;
+}
+.ChartTypeNav[SecondType="funnel"] .SecTypeDiv .ChartImgDiv[ChartType="funnel"], .ChartTypeDiv:hover .ParentChartType .ChartImgDiv[ChartType="funnel"], .ChartTypeHoverDiv:hover .ChartImgDiv[ChartType="funnel"] {
+    background-position: -260px -320px;
+}
+.SecChartTypeHoverDiv:hover .ChartImgDiv[ChartType="triangle"] ,.EmptyPreview .ChartImgDiv[ChartType="triangle"] {
+    background-position: -320px -260px !important;
+}
+.ChartTypeNav[SecondType="triangle"] .SecTypeDiv .ChartImgDiv[ChartType="triangle"], .ChartTypeHoverDiv:hover .ChartImgDiv[ChartType="triangle"] {
+    background-position: -320px -320px;
+}
+.SecChartTypeHoverDiv:hover .ChartImgDiv[ChartType="bowls"] ,.EmptyPreview .ChartImgDiv[ChartType="bowls"] {
+    background-position: -380px -260px !important;
+}
+.ChartTypeNav[SecondType="bowls"] .SecTypeDiv .ChartImgDiv[ChartType="bowls"], .ChartTypeHoverDiv:hover .ChartImgDiv[ChartType="bowls"] {
+    background-position: -380px -320px;
+}
+.SecChartTypeHoverDiv:hover .ChartImgDiv[ChartType="scatter"] ,.EmptyPreview .ChartImgDiv[ChartType="scatter"] {
+    background-position: -20px -440px !important;
+}
+.ChartTypeNav[SecondType="scatter"] .SecTypeDiv .ChartImgDiv[ChartType="scatter"], .ChartTypeDiv:hover .ParentChartType .ChartImgDiv[ChartType="scatter"], .ChartTypeHoverDiv:hover .ChartImgDiv[ChartType="scatter"] {
+    background-position: -20px -500px;
+}
+.SecChartTypeHoverDiv:hover .ChartImgDiv[ChartType="basic_scatter"] ,.EmptyPreview .ChartImgDiv[ChartType="basic_scatter"] {
+    background-position: -20px -440px !important;
+}
+.ChartTypeNav[SecondType="basic_scatter"] .SecTypeDiv .ChartImgDiv[ChartType="basic_scatter"], .ChartTypeHoverDiv:hover .ChartImgDiv[ChartType="basic_scatter"] {
+    background-position: -20px -500px;
+}
+.SecChartTypeHoverDiv:hover .ChartImgDiv[ChartType="multiple_dimension"] ,.EmptyPreview .ChartImgDiv[ChartType="multiple_dimension"] {
+    background-position: -80px -440px !important;
+}
+.ChartTypeNav[SecondType="multiple_dimension"] .SecTypeDiv .ChartImgDiv[ChartType="multiple_dimension"], .ChartTypeHoverDiv:hover .ChartImgDiv[ChartType="multiple_dimension"] {
+    background-position: -80px -500px;
+}
+.SecChartTypeHoverDiv:hover .ChartImgDiv[ChartType="sunburst"] ,.EmptyPreview .ChartImgDiv[ChartType="sunburst"] {
+    background-position: -140px -440px !important;
+}
+.ChartTypeNav[SecondType="sunburst"] .SecTypeDiv .ChartImgDiv[ChartType="sunburst"], .ChartTypeDiv:hover .ParentChartType .ChartImgDiv[ChartType="sunburst"], .ChartTypeHoverDiv:hover .ChartImgDiv[ChartType="sunburst"] {
+    background-position: -140px -500px;
+}
+.SecChartTypeHoverDiv:hover .ChartImgDiv[ChartType="simple_sunburst"] ,.EmptyPreview .ChartImgDiv[ChartType="simple_sunburst"] {
+    background-position: -140px -440px !important;
+}
+.ChartTypeNav[SecondType="simple_sunburst"] .SecTypeDiv .ChartImgDiv[ChartType="simple_sunburst"], .ChartTypeHoverDiv:hover .ChartImgDiv[ChartType="simple_sunburst"] {
+    background-position: -140px -500px;
+}
+.CurParentChartType::after {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    content: '';
+    color: #2E68DB;
+    width: 60px;
+    height: 4px;
+    background-color: #2E68DB;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+.ChartTypeDiv:hover .CurParentChartType:after {
+    display: none !important;
+}
+/*
+.CurSecTypeDiv::after {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 10px;
+    content: '';
+    color: #2E68DB;
+    width: 4px;
+    height: 50px;
+    background-color: #2E68DB;
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+}
+ */
+.CurSecTypeDiv {
+    background-color: #3B7CFF;
+    color: #FFF;
+}
+.SecTypeDiv:hover::after {
+    display: none !important;
+}
+.ChartTypeSecDiv {
+    display: none;
+    position: absolute;
+    top: 85px;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    max-height: 280px;
+    padding-right: 5px;
+    background-color: #F2F3F8;
+    border-radius: 4px;
+    box-shadow: 1px 1px 4px 4px rgba(89, 111, 140, 0.25);
+}
+.ChartTypeSecDiv::before {
+    display: block;
+    position: absolute;
+    top: -14px;
+    left: calc(50% - 15px);
+    content: '';
+    color: #F7FAFF;
+    width: 0;
+    height: 0;
+    /*通过border绘制三角形*/
+    border-bottom: 15px solid #F2F3F8;
+    border-right: 15px solid transparent;
+    border-left: 15px solid transparent;
+    /*三角形阴影*/
+    filter: drop-shadow(-0px -3px 2px rgba(89, 111, 140, 0.25));
+}
+.ChartTypeSecDivScroll{
+    width: 100%;
+    max-height: 280px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.SecTypeDiv:hover {
+    background-color: #EAF2FE;
+    color: #3B7CFF;
+}
+.SecTypeImgDiv {
+    width: 100%;
+    height: 60px;
+    cursor: pointer;
+}
+.ChartPreview {
+    width: 100%;
+    height: calc(100% - 60px);
+}
+.PreviewChartDiv {
+    height: 100%;
+    width: 100%;
+}
+.SeqSetBlock:hover {
+    border-color: #3B7CFF;
+    border-style: solid;
+    box-shadow: 0px 0px 5px 0px #3B7CFF;
+}
+.TransLarge {
+    -webkit-transform: scale(1.6) translateY(-25%);
+    -ms-transform: scale(1.6) translateY(-25%);
+    -o-transform: scale(1.6) translateY(-25%);
+    transform: scale(1.6) translateY(-25%);
+}
+.EmptyPreview {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    height:100%;
+}
+.EmptyComfirm {
+    font-size: 15px;
+}
+.EditIcon::before {
+    color: #3B7CFF;
+}
+.BlockHeadCon {
+    margin: auto 0 auto 10px;
+    font-weight: initial;
+    height: calc( 100% - 10px);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    border-radius: 4px;
+    color: rgb(59, 124, 255);
+}
+.NewVariable {
+    font-size: 13px;
+}
+.BlockHeadCon:hover {
+    background: #e7f4fe;
+}
+.EditFieldIcon {
+    margin: auto 15px auto auto;
+    cursor: pointer;
+    transform: scale(1.15) translateY(2px);
+    color: #3B4859;
+}
+.EditFieldIcon:hover {
+    color: #3B7CFF !important;
+}
+.EditVariable {
+    margin-left: 5px !important;
+}
+.DelFieldIcon {
+    margin: auto 0 auto 0;
+    border-color: #F2F3F8 !important;
+}
+.Field:hover .DelFieldIcon {
+    border-color: #E2ECF9 !important;
+}
+.DelFieldIcon:hover {
+    cursor: pointer;
+}
+.SortFieldIcon {
+    margin: auto 5px auto auto;
+}
+.Block-Variable {
+    cursor: unset !important;
+}
+
