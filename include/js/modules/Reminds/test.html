@@ -1,0 +1,54 @@
+<html>
+<head>
+<!-- <script type="text/javascript" src="../../include/jquery/jquery-3.5.1.min.js"></script> -->
+<script type="text/javascript" src="../../include/jquery/jquery.min.js"></script>
+</head>
+<body>
+
+<input  type="button" value="扫描" onclick="start()"/>
+
+<input  type="button" value="停止" onclick="stop()"/>
+
+
+</body>
+<script>
+var id;
+function stop()
+{
+    clearInterval(id);
+    
+}
+function start()
+{
+    
+      id= setInterval(function(){
+        
+        var url="../../index.php?module=Reminds&action=RemindsAjax&file=sendWxReminds";
+        
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data:{"namename": "uname", "namenameage": 18},
+           dataType:'json',
+            async: true,//
+            timeout: 10000,
+           
+            success: function(data)
+            {
+               
+                
+            
+            },
+            error:function(data)
+            {
+             
+            }
+            
+        });
+        
+    },20000)
+}
+
+</script>
+
+</html>

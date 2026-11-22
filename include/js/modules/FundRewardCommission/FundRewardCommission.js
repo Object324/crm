@@ -1,0 +1,150 @@
+/*********************************************************************************
+ *{*修改编码格式:统一编码：UTF-8*}
+** The contents of this file are subject to the lingdang CRM Public License Version 1.0
+ * ("License"); You may not use this file except in compliance with the License
+ * The Original Code is:  lingdang CRM Open Source
+ * The Initial Developer of the Original Code is lingdang.
+ * Portions created by lingdang are Copyright (C) lingdang.
+ * All Rights Reserved.
+ ********************************************************************************/		
+		
+
+
+
+function toggleDisplay(id){
+		
+if(this.document.getElementById( id).style.display=='none'){
+	this.document.getElementById( id).style.display='inline'
+	this.document.getElementById(id+"link").style.display='none';
+					
+}else{
+	this.document.getElementById(  id).style.display='none'
+	this.document.getElementById(id+"link").style.display='none';
+	}
+}
+
+function set_return(product_id, product_name) {
+	if(document.getElementById('from_link').value != '') {
+        window.opener.document.QcEditView.parent_name.value = product_name;
+        window.opener.document.QcEditView.parent_id.value = product_id;
+	} else {
+        window.opener.document.EditView.parent_name.value = product_name;
+        window.opener.document.EditView.parent_id.value = product_id;
+	}
+}
+
+function add_data_to_relatedlist_incal(id,name)
+{
+	var idval = window.opener.document.EditView.contactidlist.value;
+	var nameval = window.opener.document.EditView.contactlist.value;
+	if(idval != '')
+	{
+		if(idval.indexOf(id) != -1)
+                {
+                        window.opener.document.EditView.contactidlist.value = idval;
+                        window.opener.document.EditView.contactlist.value = nameval;
+                }
+                else
+                {
+                        window.opener.document.EditView.contactidlist.value = idval+';'+id;
+			if(name != '')
+                	{
+				// this has been modified to provide delete option for Contacts in Calendar
+				//this function is defined in script.js ------- Jeri
+				window.opener.addOption(id,name);
+                	}
+
+                }
+	}
+	else
+	{
+		window.opener.document.EditView.contactidlist.value = id;
+		if(name != '')
+		{
+			window.opener.addOption(id,name);
+		}
+		//end
+	}
+}
+function set_return_specific(product_id, product_name) {
+        //Used for DetailView, Removed 'EditView' formname hardcoding
+        var fldName = getOpenerObj("contacts_name");
+        var fldId = getOpenerObj("contact_id");
+        fldName.value = product_name;
+        fldId.value = product_id;
+}
+//only for Todo
+function set_return_toDospecific(product_id, product_name) {
+        var fldName = getOpenerObj("task_contact_name");
+        var fldId = getOpenerObj("task_contact_id");
+        fldName.value = product_name;
+        fldId.value = product_id;
+}
+
+function submitform(id){
+		document.massdelete.entityid.value=id;
+		document.massdelete.submit();
+}	
+
+function searchMapLocation(addressType)
+{
+        var mapParameter = '';
+        if (addressType == 'Main')
+        {
+		if(fieldname.indexOf('mailingstreet') > -1)
+		{
+			if(document.getElementById("dtlview_"+fieldlabel[fieldname.indexOf('mailingstreet')]))	
+				mapParameter = document.getElementById("dtlview_"+fieldlabel[fieldname.indexOf('mailingstreet')]).innerHTML+' ';
+		}
+		if(fieldname.indexOf('mailingcity') > -1)
+		{
+			if(document.getElementById("dtlview_"+fieldlabel[fieldname.indexOf('mailingcity')]))
+				mapParameter = mapParameter + document.getElementById("dtlview_"+fieldlabel[fieldname.indexOf('mailingcity')]).innerHTML+' ';
+		}
+		if(fieldname.indexOf('mailingstate') > -1)
+		{
+			if(document.getElementById("dtlview_"+fieldlabel[fieldname.indexOf('mailingstate')]))
+	                        mapParameter = mapParameter + document.getElementById("dtlview_"+fieldlabel[fieldname.indexOf('mailingstate')]).innerHTML+' ';
+		}
+		if(fieldname.indexOf('mailingcountry') > -1)
+		{
+			if(document.getElementById("dtlview_"+fieldlabel[fieldname.indexOf('mailingcountry')]))
+				mapParameter = mapParameter + document.getElementById("dtlview_"+fieldlabel[fieldname.indexOf('mailingcountry')]).innerHTML+' ';
+		}
+		if(fieldname.indexOf('mailingzip') > -1)
+		{
+			if(document.getElementById("dtlview_"+fieldlabel[fieldname.indexOf('mailingzip')]))
+				mapParameter = mapParameter + document.getElementById("dtlview_"+fieldlabel[fieldname.indexOf('mailingzip')]).innerHTML;
+		}
+        }
+        else if (addressType == 'Other')
+        {
+		if(fieldname.indexOf('otherstreet') > -1)
+		{
+			if(document.getElementById("dtlview_"+fieldlabel[fieldname.indexOf('otherstreet')]))
+				mapParameter = document.getElementById("dtlview_"+fieldlabel[fieldname.indexOf('otherstreet')]).innerHTML+' ';
+		}
+		if(fieldname.indexOf('othercity') > -1)
+		{
+			if(document.getElementById("dtlview_"+fieldlabel[fieldname.indexOf('othercity')]))
+				mapParameter = mapParameter + document.getElementById("dtlview_"+fieldlabel[fieldname.indexOf('othercity')]).innerHTML+' ';
+		}
+		if(fieldname.indexOf('otherstate') > -1)
+		{
+			if(document.getElementById("dtlview_"+fieldlabel[fieldname.indexOf('otherstate')]))
+	                        mapParameter = mapParameter + document.getElementById("dtlview_"+fieldlabel[fieldname.indexOf('otherstate')]).innerHTML+' ';
+		}
+                if(fieldname.indexOf('othercountry') > -1)
+		{
+			if(document.getElementById("dtlview_"+fieldlabel[fieldname.indexOf('othercountry')]))
+				mapParameter = mapParameter + document.getElementById("dtlview_"+fieldlabel[fieldname.indexOf('othercountry')]).innerHTML+' ';
+		}
+                if(fieldname.indexOf('otherzip') > -1)
+		{
+			if(document.getElementById("dtlview_"+fieldlabel[fieldname.indexOf('otherzip')]))
+                        	mapParameter = mapParameter + document.getElementById("dtlview_"+fieldlabel[fieldname.indexOf('otherzip')]).innerHTML;
+		}
+        }
+	mapParameter = removeHTMLFormatting(mapParameter);
+	window.open('http://maps.google.com/maps?q='+mapParameter,'goolemap','height=450,width=700,resizable=no,titlebar,location,top=200,left=250');
+}

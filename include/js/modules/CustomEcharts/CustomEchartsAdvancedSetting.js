@@ -1,0 +1,169 @@
+var CustomEchartsAdvancedSetting = function(){
+    //高级设置的输入项显示设置
+    //图例类型  图例朝向不需要限制
+    //漏斗图--是否穿透 显示 其他的都不显示
+    this.funnel = {
+        "can_penetrate":"yes",//能否穿透
+        "xaxis_bottom_name":"no",//下X轴名称
+        "xaxis_name_rotate":"no",//X轴刻度旋转角度
+        "xaxis_top_name":"no",//上X轴名称
+        "yaxis_left_name":"no",//左Y轴名称
+        "yaxis_right_name":"no",//右Y轴名称
+        "limit":"no",//数据限制条数
+        "orderby_type":"no",//排序字段
+        "showPercent":"no",//显示百分比
+        "groupby_second":"no"//第二统计维度
+    }
+
+
+    //饼图--是否穿透 显示 是否显示百分比 显示 其他的都不显示
+    this.pie = {
+        "can_penetrate":"yes",//能否穿透
+        "xaxis_bottom_name":"no",//下X轴名称
+        "xaxis_name_rotate":"no",//X轴刻度旋转角度
+        "xaxis_top_name":"no",//上X轴名称
+        "yaxis_left_name":"no",//左Y轴名称
+        "yaxis_right_name":"no",//右Y轴名称
+        "limit":"no",//数据限制条数
+        "orderby_type":"no",//排序字段
+        "showPercent":"yes",//显示百分比
+        "groupby_second":"no"//第二统计维度
+    }
+    this.pie1 = {//嵌套饼图需要第二维度
+        "can_penetrate":"yes",//能否穿透
+        "xaxis_bottom_name":"no",//下X轴名称
+        "xaxis_name_rotate":"no",//X轴刻度旋转角度
+        "xaxis_top_name":"no",//上X轴名称
+        "yaxis_left_name":"no",//左Y轴名称
+        "yaxis_right_name":"no",//右Y轴名称
+        "limit":"no",//数据限制条数
+        "orderby_type":"no",//排序字段
+        "showPercent":"yes",//显示百分比
+        "groupby_second":"yes"//第二统计维度
+    }
+    //旭日图  都不显示
+    this.sunburst = {
+        "can_penetrate":"no",//能否穿透
+        "xaxis_bottom_name":"no",//下X轴名称
+        "xaxis_name_rotate":"no",//X轴刻度旋转角度
+        "xaxis_top_name":"no",//上X轴名称
+        "yaxis_left_name":"no",//左Y轴名称
+        "yaxis_right_name":"no",//右Y轴名称
+        "limit":"no",//数据限制条数
+        "orderby_type":"no",//排序字段
+        "showPercent":"no",//显示百分比
+        "groupby_second":"no",//第二统计维度
+        "legend_position":"no",//图例位置
+        "legend_type":"no",//图例
+        "legend_orient":"no",//图例
+        "yangshi_set":"no",//样式设置
+        "style_set_list":"no"//样式设置
+    }
+    //折线图 有右Y轴的
+    this.line1 = {
+        "can_penetrate":"no",//能否穿透
+        "xaxis_bottom_name":"yes",//下X轴名称
+        "xaxis_name_rotate":"yes",//X轴刻度旋转角度
+        "xaxis_top_name":"no",//上X轴名称
+        "yaxis_left_name":"yes",//左Y轴名称
+        "yaxis_right_name":"yes",//右Y轴名称
+        "limit":"yes",//数据限制条数
+        "orderby_type":"yes",//排序字段
+        "showPercent":"no",//显示百分比
+        "groupby_second":"no"//第二统计维度
+    }
+    //折线图  没有右Y轴的
+    this.line2 = {
+        "can_penetrate":"no",//能否穿透
+        "xaxis_bottom_name":"yes",//下X轴名称
+        "xaxis_name_rotate":"yes",//X轴刻度旋转角度
+        "xaxis_top_name":"no",//上X轴名称
+        "yaxis_left_name":"yes",//左Y轴名称
+        "yaxis_right_name":"no",//右Y轴名称
+        "limit":"yes",//数据限制条数
+        "orderby_type":"yes",//排序字段
+        "showPercent":"no",//显示百分比
+        "groupby_second":"no"//第二统计维度
+    }
+    // 柱状图 可以有右Y轴的
+    this.bar1 = {
+        "can_penetrate":"no",//能否穿透
+        "xaxis_bottom_name":"yes",//下X轴名称
+        "xaxis_name_rotate":"yes",//X轴刻度旋转角度
+        "xaxis_top_name":"no",//上X轴名称
+        "yaxis_left_name":"yes",//左Y轴名称
+        "yaxis_right_name":"yes",//右Y轴名称
+        "limit":"yes",//数据限制条数
+        "orderby_type":"yes",//排序字段
+        "showPercent":"no",//显示百分比
+        "groupby_second":"yes"//第二统计维度
+    }
+    //柱状图 没有右Y轴的
+    this.bar2 = {
+        "can_penetrate":"no",//能否穿透
+        "xaxis_bottom_name":"yes",//下X轴名称
+        "xaxis_name_rotate":"yes",//X轴刻度旋转角度
+        "xaxis_top_name":"no",//上X轴名称
+        "yaxis_left_name":"yes",//左Y轴名称
+        "yaxis_right_name":"no",//右Y轴名称
+        "limit":"yes",//数据限制条数
+        "orderby_type":"yes",//排序字段
+        "showPercent":"no",//显示百分比
+        "groupby_second":"yes"//第二统计维度
+    }
+    //条形图
+    this.strip = {
+        "can_penetrate":"no",//能否穿透
+        "xaxis_bottom_name":"yes",//下X轴名称
+        "xaxis_name_rotate":"no",//X轴刻度旋转角度
+        "xaxis_top_name":"yes",//上X轴名称
+        "yaxis_left_name":"yes",//左Y轴名称
+        "yaxis_right_name":"no",//右Y轴名称
+        "limit":"yes",//数据限制条数
+        "orderby_type":"yes",//排序字段
+        "showPercent":"no",//显示百分比
+        "groupby_second":"no"//第二统计维度
+    }
+    //获取显隐属性
+    this.getShowRes = function(name){
+        switch (name) {
+            case "line"://没有右Y轴的
+                this.showRes = this.line2;
+                break;
+            case "bar"://没有右Y轴的
+                this.showRes = this.bar2;
+                break;
+            case "multiple_line"://有右Y轴的
+                this.showRes = this.line1;
+                break;
+            case "pie"://空心饼图
+            case "solid_pie"://实心饼图
+            case "rose_pie"://玫瑰图
+                this.showRes = this.pie;
+                break;
+            case "nesting_pie"://嵌套饼图
+                this.showRes = this.pie1;
+                break;
+            case "funnel"://漏斗图不需要显示名称列
+            case "triangle":
+            case "bowls":
+                this.showRes = this.funnel;
+                break;
+            case "simple_strip":
+            case "multiple_strip":
+            case "stack_strip":
+                this.showRes = this.strip;
+                break;
+            case "multiple_dimension"://多维度散点图
+                this.showRes = this.bar2;
+                break;
+            case "simple_sunburst"://旭日图
+                this.showRes = this.sunburst;
+                break;
+            default:
+                this.showRes = this.bar1;
+                break;
+        }
+        return this.showRes;
+    }
+}

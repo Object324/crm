@@ -1,0 +1,118 @@
+/* gyq_11 */
+var audio;
+var showTime;
+function window_onload()
+{
+    if (window.HTMLAudioElement)
+    {
+        document.getElementById("btnPlay").disabled ="";
+        audio = document.getElementById("audio");
+        progress=document.getElementById("playPercent");
+        progress.onclick=progress_click;
+    }
+    else
+    {
+        document.getElementById("buttonDiv").style.display="none";
+    }
+}
+function btnPlay_onclick()
+{
+    audio = document.getElementById("audio");
+    if(audio.paused)
+        audio.play();
+    else
+        audio.pause();
+    audio.addEventListener('ended',audioEnded,false);
+    audio.addEventListener('play',audioPlay,false);
+    audio.addEventListener('pause',audioPause,false);
+    audio.addEventListener('timeupdate',updateProgress,false);
+}
+function audioEnded(ev)
+{
+    audio.currentTime=0;
+    this.pause();
+}
+function audioPlay(ev)
+{
+    var btnPlay=document.getElementById("btnPlay");
+    btnPlay.innerHTML="暂停";
+   /* document.getElementById("btnBackPlay").disabled="";
+    document.getElementById("btnForwardPlay").disabled="";*/
+    document.getElementById("btnRestart").disabled="";
+    document.getElementById("btnMute").disabled="";
+    document.getElementById("btnVolumeUp").disabled="";
+    document.getElementById("btnVolumeDown").disabled="";
+}
+function audioPause(ev)
+{
+    var btnPlay=document.getElementById("btnPlay");
+    btnPlay.innerHTML="播放";
+    document.getElementById("btnBackPlay").disabled="disabled";
+    document.getElementById("btnForwardPlay").disabled="disabled";
+    document.getElementById("btnRestart").disabled="disabled";
+    document.getElementById("btnMute").disabled="disabled";
+    document.getElementById("btnVolumeUp").disabled="disabled";
+    document.getElementById("btnVolumeDown").disabled="disabled";
+}
+function updateProgress()
+{
+    var value=Math.round((Math.floor(audio.currentTime)/Math.floor(audio.duration))*100,0);
+    var progress = document.getElementById('playPercent');
+    progress.value = value;
+    var showTime=document.getElementById("showTime");
+    if(!isNaN(audio.duration))
+        showTime.innerHTML=calcTime(Math.floor(audio.currentTime))+'/'+calcTime(Math.floor(audio.duration));
+}
+function calcTime(time)
+{
+    var hour;
+    var minute;
+    var second;
+    hour=String(parseInt(time/3600,10));
+    if (hour.length == 1)   hour   = '0' + hour;
+    minute=String(parseInt((time%3600)/60,10));
+    if (minute.length == 1)   minute   = '0' + minute;
+    second=String(parseInt(time%60,10));
+    if (second.length == 1)   second   = '0' + second;
+    return hour+":"+minute+":"+second;
+}
+function progress_click(evt)
+{
+    playPercent=document.getElementById("playPercent");
+    audio.currentTime = audio.duration * (evt.offsetX / playPercent.clientWidth);
+}
+function btnBackPlay_click()
+{
+    audio.currentTime -= 30.0;
+}
+function btnForwardPlay_click()
+{
+    audio.currentTime += 30.0;
+}
+function btnRestart_click()
+{
+    audio.currentTime=0;
+}
+function setMute()
+{
+    if(!audio.muted)
+    {
+        audio.muted=true;
+        document.getElementById("btnMute").innerHTML="取消静音";
+    }
+    else
+    {
+        audio.muted=false;
+        document.getElementById("btnMute").innerHTML="静音";
+    }
+}
+function VolumeUp()
+{
+    if(audio.volume<1)
+        audio.volume+=0.1;
+}
+function VolumeDown()
+{
+    if(audio.volume>0)
+        audio.volume-=0.1;
+}

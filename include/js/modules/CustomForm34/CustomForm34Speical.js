@@ -1,0 +1,1 @@
+//tabDetailFieldFormula.prototype.baseColumn='amount';

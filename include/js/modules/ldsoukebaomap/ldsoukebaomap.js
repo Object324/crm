@@ -1,0 +1,1 @@
+AjaxJSPage('ldsoukebao','include/js/modules/ldsoukebao/ldsoukebao.js');
