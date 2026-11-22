@@ -1,0 +1,52 @@
+<!DOCTYPE html><html><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><link type=favicon rel="shortcut icon" href=./static/favicon.ico><title>本地应用</title><meta name=viewport content="initial-scale=1,maximum-scale=1"><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=black><link rel=stylesheet href=./static/common/sm.min.css><link rel=stylesheet href=./static/common/weui-for-work.min.css><link rel=stylesheet href="./static/public.css?version=20240930"><link rel=stylesheet href=./static/common/swiper-bundle.min.css><style>body {font-family: tahoma,arial,'Hiragino Sans GB','Hiragino Sans GB W3','Microsoft Yahei',宋体;color: #39475B;}
+    .weui-mask {background: rgba(0,0,0,.4);}
+    .weui-mask, .weui-mask_transparent {z-index: 2000;}
+    .weui-dialog__bd {padding: .2em 1.6em .8em;}
+    .weui-toast {width: 6em;min-height: 6em;margin-left: -3em;}
+    .weui-toast .weui-toast__content {font-size:.75rem;}
+    .weui-icon_toast.weui-loading {margin: 15px 0 0;}
+    .weui-icon_toast {margin: 7px 0 0;}
+    .weui-picker__action {color:#4C84C4;}
+    .weui-picker__content {font-size:20px;}
+    .modal-inner .modal-text {max-height: 14rem;overflow: auto;}
+    .mapInfo {width:230px;font-size: .7rem;color: #999;text-align: center;}
+    .mapInfo img{width: 25px;height: 25px;vertical-align: middle;margin-top: -4px;}
+    .mapInfo_foot {margin: 0 !important;padding: 8px 20px;background-color: #F8F8F8;border-top: 1px solid #E4E6E9;}
+    .D_pbtnok, .D_pbtncancel {text-align: center;min-width: 60px;color: #467fdb;font-size: .8rem;}
+    .mapInfo p.center,.D_pbtncancel{color: #1A6CDA;font-size: .8rem;}</style><link href=./static/css/ldcrm.app.20240930.css rel=stylesheet></head><body><div id=app><app></app></div><script src=./static/common/vue.min.js></script><script src=./static/common/vue-router.min.js></script><script src=./static/common/vue-resource.min.js></script><script src=./static/common/jweixin-1.2.0.js></script><script src="./static/common/ld_app_url.js?version=20240930"></script><script src="./static/toolsHander.js?version=20240930"></script><script src=./static/cls_encryptyurl.js></script><script src=./static/crypto-js.min.js></script><script src=./static/common/zepto.min.js charset=utf-8></script><script src=./static/common/echarts/echarts.min.js></script><script src=./static/common/echarts/default.js></script><script src=./static/common/echarts/light.js></script><script src=./static/common/echarts/westeros.js></script><script src=./static/common/echarts/dark.js></script><script src=./static/common/echarts/purple-passion.js></script><script>// 关闭SUI的路由
+  $.config = {
+    router: false
+  };
+  var img_url = '../images/';
+  var appdemo = sessionStorage.getItem('appdemo');
+  if(appdemo == 'yes'){
+    var corpurl = sessionStorage.getItem('corpurl');
+    img_url = corpurl+'WeiXinApp/local/images/';
+  }
+  var js_url = '';
+  var lbsqqkey = 'T3CBZ-INP3X-5TD4Z-TZ3YE-AXBC5-6RBAU';
+  var fieldformulaobj = '';
+  var wx_loading = '';
+  var wx_actionsheet = '';
+  var wx_picker = '';
+  var wx_current_view = '';
+  var wx_alert = '';
+  var list_status = '';
+  var wx_confirm = '';
+  var wx_havepricestrategy = 'no';
+  var wx_havequickrelative = 'no';
+  var wx_pricestrategyData = [];
+  var wx_pricestrategy = '';
+  var WXPCShow = sessionStorage.getItem('WXPCShow');
+  var WXPCShowHome = sessionStorage.getItem('WXPCShowHome');
+  if(WXPCShow == 'yes' || WXPCShowHome == 'yes'){
+    loadStyles("./static/font.css");
+  }
+  // 动态加载css文件
+  function loadStyles(url) {
+      var link = document.createElement("link");
+      link.type = "text/css";
+      link.rel = "stylesheet";
+      link.href = url;
+      document.getElementsByTagName("head")[0].appendChild(link);
+  }</script><script src="./static/lingdang.js?version=20240930"></script><script src=./static/common/sm.min.js charset=utf-8></script><script src=./static/common/swiper-bundle.min.js></script><script type=text/javascript src=./static/js/ldcrm.manifest.20240930.js></script><script type=text/javascript src=./static/js/ldcrm.vendor.20240930.js></script><script type=text/javascript src=./static/js/ldcrm.app.20240930.js></script></body></html>

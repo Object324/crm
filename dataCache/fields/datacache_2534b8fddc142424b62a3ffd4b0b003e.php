@@ -1,0 +1,1 @@
+<?php exit;?>1795076902a:1:{i:1;a:2:{s:7:"columns";a:1:{i:0;a:4:{s:10:"columnname";s:50:"ld_contactrecordscf:cf_4646:cf_4646:跟进类型:V";s:10:"comparator";s:1:"e";s:5:"value";s:6:"电话";s:16:"column_condition";s:0:"";}}s:9:"condition";s:0:"";}}

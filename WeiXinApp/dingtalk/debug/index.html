@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html;charset=utf-8">
+<meta charset="gbk">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection"/>
+<meta content="yes" name="apple-touch-fullscreen"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+<link type="text/css" rel="stylesheet" href="stylesheets/style.css" />
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+<title>内部微应用测试版</title>
+
+</head>
+<!--ub.loggerjs.js-->
+<body >
+<script type="text/javascript" src="http://71mis.cn/weixin/zepto.min.js"></script>
+<script type="text/javascript" src="https://g.alicdn.com/dingding/dingtalk-jsapi/2.7.13/dingtalk.open.js"></script>
+<script type="text/javascript" src="http://51mis.com/kfbcrm/ui/js/jquery.min.js"></script>
+<script type="text/javascript" src="http://51mis.com/kfbcrm/WeiXinApp/dingtalk/debug/ub.loggerjs.js"></script>
+
+<button id="tongxunlu">通讯录选人</button>
+<button id="openLink">链接跳转</button>
+<button id="cebianlan">打开侧边栏</button>
+<button id="location">获取位置</button>
+<button id="spaceId">上传到钉盘</button>
+<button id="mapview">获取位置</button>
+<button id="scan">扫码</button>
+<button id="dir">选取钉盘目录</button>
+<button id="saveFile">附件预览</button>
+<button id="uploadImg">上传图片</button>
+
+
+<script type="text/javascript">
+	//程序入口
+    var _config = new Object();
+    var code_url = 'http://www.51mis.com/kfbcrm/WeiXinApp/dingtalk/debug/event.php';
+    $.ajaxSettings.async = false;
+    $.get(code_url, {
+        action: 'isvConfig'
+    },function (response) {
+        var result_obj = eval("(" + response + ")") ? eval("(" + response + ")") : json.parse(response);
+        if(result_obj.code < 0){
+            this.popPromptBox(result_obj.msg);//弹出框提示
+            return;
+        }else{
+            _config.agentId = result_obj.result.agentId;
+            _config.corpId = result_obj.result.corpId;
+            _config.timeStamp = result_obj.result.timeStamp;
+            _config.nonceStr = result_obj.result.nonceStr;
+            _config.signature = result_obj.result.signature;
+            alert('得到后台返回的config'+JSON.stringify(_config));
+        }
+    });
+    //鉴权
+	dd.config({
+		agentId : _config.agentId,
+		corpId : _config.corpId,
+		timeStamp : _config.timeStamp,
+		nonceStr : _config.nonceStr,
+		signature : _config.signature,
+		jsApiList : [
+		    'biz.cspace.chooseSpaceDir',
+            'biz.cspace.saveFile',
+            'biz.cspace.preview',
+            'biz.util.uploadAttachment'
+        ]
+	});
+    $.ajaxSettings.async = true;
+	alert("鉴权通过0938:"+_config.corpId);
+	$(document).ready(function () {
+	    //图片上传
+        $("#uploadImg").click(function () {
+            alert('上传图片');
+            $.get(code_url, {
+                action: 'get_custom_space',
+                userid:'yanqing'
+            },function (response) {
+                var result_obj = eval("(" + response + ")") ? eval("(" + response + ")") : json.parse(response);
+                if(result_obj.code < 0){
+                    this.popPromptBox(result_obj.msg);//弹出框提示
+                    return;
+                }else {
+                    var spaceid = result_obj.result.spaceid;
+                    dd.biz.util.uploadAttachment({
+                        image:{multiple:true,compress:false,max:9,spaceId: spaceid},
+                        types:["photo","camera"],//PC端支持["photo","file","space"]
+                        onSuccess : function(result) {
+                            alert(JSON.stringify(result))
+                            //onSuccess将在文件上传成功之后调用
+                        },
+                        onFail : function(err) {
+                            alert(JSON.stringify(err))
+                        }
+                    });
+                }
+            });
+        });
+	    //附件预览
+        $("#saveFile").click(function () {
+            alert('附件预览');
+            var file_url = 'http://51mis.com/kfbcrm/storage/2019/September/17/Contacts_123_643174806.docx';
+            var file_name = 'Contacts_123_643174806.docx';
+            dd.biz.cspace.saveFile({
+                corpId:_config.corpId,
+                // 文件在第三方服务器地址， 也可为通过服务端接口上传文件得到的media_id，详见参数说明
+                url:file_url,
+                name:file_name,
+                onSuccess: function(data) {
+                    var file_data = data['data'][0];
+                    dd.biz.cspace.preview({
+                        corpId:_config.corpId,
+                        spaceId:file_data['spaceId'],
+                        fileId:file_data['fileId'],
+                        fileName:file_data['fileName'],
+                        fileSize:file_data['fileSize'],
+                        fileType:file_data['fileType'],
+                        onSuccess: function() {
+                            //无，直接在native显示文件详细信息
+                        },
+                        onFail: function(err) {
+                            // 无，直接在native页面显示具体的错误
+                        }
+                    });
+                },
+                onFail: function(err) {
+                    alert(JSON.stringify(err));
+                }
+            });
+        });
+		$("#tongxunlu").click(function () {
+			dd.biz.contact.complexPicker({
+				title:"测试标题",            //标题
+				corpId:"ding027f45142432fbd135c2f4657eb6378f",              //企业的corpId
+				multiple:true,            //是否多选
+				limitTips:"超出了",          //超过限定人数返回提示
+				maxUsers:1000,            //最大可选人数
+				pickedUsers:[],            //已选用户
+				pickedDepartments:[],          //已选部门
+				disabledUsers:[],            //不可选用户
+				disabledDepartments:[],        //不可选部门
+				requiredUsers:[],            //必选用户（不可取消选中状态）
+				requiredDepartments:[],        //必选部门（不可取消选中状态）
+				//appId:158,              //微应用的Id
+				permissionType:"xxx",          //可添加权限校验，选人权限，目前只有GLOBAL这个参数
+				responseUserOnly:false,        //返回人，或者返回人和部门
+				startWithDepartmentId:0 ,   //仅支持0和-1
+				onSuccess: function(result) {
+					alert(JSON.stringify(result))
+
+				},
+				onFail : function(err) {
+					alert(JSON.stringify(err))
+				}
+			});
+		});
+
+		//获取位置
+        $("#mapview").click(function () {
+            dd.biz.map.view({
+                latitude: 39.903578, // 纬度
+                longitude: 116.473565, // 经度
+                title: "北京国家广告产业园" // 地址/POI名称
+            });
+        });
+        //扫码
+        $("#scan").click(function () {
+            dd.biz.util.scan({
+                type: "all" , // type 为 all、qrCode、barCode，默认是all。
+                onSuccess: function(data) {
+                    alert(JSON.stringify(data))
+                    //onSuccess将在扫码成功之后回调
+                    /* data结构
+                      { 'text': String}
+                    */
+                },
+                onFail : function(err) {
+                    alert("扫码取消")
+                }
+            })
+        });
+        //选取钉盘目录
+        $("#dir").click(function () {
+            dd.biz.cspace.chooseSpaceDir({
+                corpId:"dingc7fcc1bcfe6c1876",
+                onSuccess: function(data) {
+                    alert(JSON.stringify(data))
+                    /* data结构
+                    {"data":
+                       [
+                       {
+                       "spaceId": "" //被选中的空间id
+                       "path": "", // 被选中的文件夹路径
+                       "dirId": "", //被选中的文件夹id
+                       }
+                       ]
+                    }
+                    */
+                },
+                onFail: function(err) {
+                    alert(JSON.stringify(err));
+                }
+            });
+        });
+        // // 退到后台的事件监听(webview)
+        // document.addEventListener('pause', function(e) {
+        //     e.preventDefault();
+        //     alert("退到后台")
+        //     console.log('事件：pause')
+        // }, false);
+        //
+        // // 页面被唤醒的事件监听(webview)
+        // document.addEventListener('resume', function(e) {
+        //     e.preventDefault();
+        //     alert("页面被唤醒")
+        //     console.log('事件：resume')
+        // }, false);
+        //
+        //
+        // //返回按钮点击的事件监听(android)
+        // document.addEventListener('backbutton', function(e) {
+        //     e.preventDefault();
+        //     dd.device.notification.alert({
+        //         message: '哎呀，你不小心点到返回键啦!',
+        //         title: '...警告...'
+        //     });
+        // }, false);
+        //
+        // // 网络连接成功的事件监听
+        // document.addEventListener('online', function(e) {
+        //     e.preventDefault();
+        //     alert("网络连接成功")
+        //     console.log('事件：online')
+        // }, false);
+        //
+        // // 网络连接断开的事件监听
+        // document.addEventListener('offline', function(e) {
+        //     e.preventDefault();
+        //     alert("网络断开")
+        //     console.log('事件：offline')
+        // }, false);
+
+		$("#openLink").click(function () {
+			dd.biz.util.openLink({
+				url:"https://aflow.dingtalk.com/dingtalk/mobile/homepage.htm?showmenu=false&dd_share=false&corpid=ding027f45142432fbd135c2f4657eb6378f#/upcoming?swfrom=work_homepage",//要打开链接的地址
+				onSuccess : function(result) {
+					/**/
+				},
+				onFail : function(err) {}
+			})
+		});
+		$("#cebianlan").click(function () {
+			dd.biz.util.openSlidePanel({
+				url: 'https://aflow.dingtalk.com/dingtalk/mobile/homepage.htm?showmenu=false&dd_share=false&corpid=ding027f45142432fbd135c2f4657eb6378f#/upcoming?swfrom=work_homepage', //打开侧边栏的url
+				title: 'title', //侧边栏顶部标题
+				onSuccess : function(result) {
+					alert(JSON.stringify(result))
+					/*
+                         调用biz.navigation.quit接口进入onSuccess, result为调用biz.navigation.quit传入的数值
+                     */
+				},
+				onFail : function() {
+
+					/*
+                        tips:点击右上角上角关闭按钮会进入onFail
+                     */
+				}
+			})
+		});
+		$("#location").click(function () {
+            dd.device.geolocation.get({
+                targetAccuracy : 200,
+                coordinate : 1,
+                withReGeocode : true,
+                useCache:true, //默认是true，如果需要频繁获取地理位置，请设置false
+                onSuccess : function(result) {
+                    alert(JSON.stringify(result))
+                  
+                },
+                onFail : function(err) {
+                    alert(JSON.stringify(err))
+                }
+            });
+        });
+		$("#spaceId").click(function () {
+            dd.biz.util.uploadAttachment({
+                image:{multiple:true,compress:false,max:9,spaceId: "1704693239"},
+                space:{corpId:"ding027f45142432fbd135c2f4657eb6378f",spaceId:"1704693239",isCopy:1 , max:9},
+                file:{spaceId:"1704693239",max:1},
+                types:["photo","camera","file","space"],//PC端支持["photo","file","space"]
+                onSuccess : function(result) {
+                    alert(JSON.stringify(result));
+                    console.log(JSON.stringify(result))
+                },
+                onFail : function(err) {
+                    alert(JSON.stringify(err))
+                }
+            });
+
+        })
+
+
+
+	});
+	dd.error(function(err) {
+		alert('dd error: ' + JSON.stringify(err));
+	});
+
+</script>
+
+
+ 
+</body>
+
+
+
+
+
+
+
+<script>
+
+
+</script>
+
+
+</html>
+

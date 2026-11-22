@@ -1,0 +1,1 @@
+<?php exit;?>1795068524a:5:{i:0;s:49:"ld_reminds:content:content:Reminds_提醒内容:V";i:1;s:47:"ld_reminds:reltab:reltab:Reminds_相关模块:V";i:2;s:55:"ld_reminds:related_to:related_to:Reminds_相关对象:V";i:3;s:53:"ld_reminds:date_time:date_time:Reminds_提醒时间:V";i:5;s:52:"ld_crmentity:smcreatorid:creator:Reminds_发送人:V";}

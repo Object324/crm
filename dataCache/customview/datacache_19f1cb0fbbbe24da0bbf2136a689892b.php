@@ -1,0 +1,1 @@
+<?php exit;?>1795077223a:1:{i:1;a:2:{s:7:"columns";a:1:{i:0;a:4:{s:10:"columnname";s:61:"ld_purchaseorder:postatus:postatus:PurchaseOrder_fieldlabel:V";s:10:"comparator";s:1:"k";s:5:"value";s:9:"已作废";s:16:"column_condition";s:0:"";}}s:9:"condition";s:0:"";}}

@@ -1,0 +1,1 @@
+<?php exit;?>1795075295a:1:{i:1;a:2:{s:7:"columns";a:1:{i:0;a:4:{s:10:"columnname";s:49:"ld_customform24scf:cf_7715:cf_7715:发货方式:V";s:10:"comparator";s:1:"e";s:5:"value";s:6:"物流";s:16:"column_condition";s:0:"";}}s:9:"condition";s:0:"";}}

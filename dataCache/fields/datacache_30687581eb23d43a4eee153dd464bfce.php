@@ -1,0 +1,1 @@
+<?php exit;?>1795068515a:1:{i:17;a:2:{i:0;a:4:{s:13:"basicsearchid";s:2:"59";s:10:"comparator";s:1:"e";s:5:"value";s:12:"服务合同";s:10:"columnname";s:7:"cf_3667";}i:1;a:4:{s:13:"basicsearchid";s:2:"60";s:10:"comparator";s:1:"e";s:5:"value";s:12:"服务合同";s:10:"columnname";s:7:"cf_3667";}}}

@@ -1,0 +1,1 @@
+<?php exit;?>1795077229a:1:{i:1;a:2:{s:7:"columns";a:1:{i:0;a:4:{s:10:"columnname";s:52:"ld_purchaseordercf:cf_7702:cf_7702:是否签合同:V";s:10:"comparator";s:1:"e";s:5:"value";s:3:"是";s:16:"column_condition";s:0:"";}}s:9:"condition";s:0:"";}}

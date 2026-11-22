@@ -1,0 +1,1 @@
+<?php exit;?>1795072873a:1:{i:1;a:2:{s:7:"columns";a:1:{i:0;a:4:{s:10:"columnname";s:70:"ld_customform11scf:cf_7954:cf_7954:是否借出设备转销售出库:V";s:10:"comparator";s:1:"e";s:5:"value";s:3:"是";s:16:"column_condition";s:0:"";}}s:9:"condition";s:0:"";}}

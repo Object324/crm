@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>HTML5 Document Audio Player</title>
+      <script>
+	  
+	function getUrlParam(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+		var r = window.location.search.substr(1).match(reg); //匹配目标参数
+		if (r != null) return (r[2]); return null; //返回参数值
+	}	  
+    function AudioPlay(element)
+    {
+		/*document.getElementById('sourceplay').setAttribute("src","13862149888_103204.wav")
+        audio_player.play();*/
+		var playfile=getUrlParam('playfile');//"13862149888_103204.wav";
+        ////BUG20240919-16
+        playfile = decodeURIComponent(playfile);
+		//alert(playfile);
+		var strhtml='	<audio controls id="audio_player" > <source src="../'+playfile+'" id="sourceplay" ></audio>';
+		document.getElementById('lingdang').innerHTML=strhtml;
+		audio_player.play();
+	
+    }
+    function AudioStop(element)
+    {
+        audio_player.pause();
+    }
+    </script>
+</head>
+<body>
+   <div  id="lingdang">
+	
+   
+   </div>
+	
+	<input type="button" onclick="AudioPlay(this)" value="播放">
+<script>
+window.onload=function(){
+
+AudioPlay('');
+//audio_player.play();
+}
+</script>
+</body>
+</html>

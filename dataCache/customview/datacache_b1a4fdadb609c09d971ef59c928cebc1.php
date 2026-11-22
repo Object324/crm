@@ -1,0 +1,1 @@
+<?php exit;?>1795075005a:1:{i:1;a:2:{s:7:"columns";a:1:{i:0;a:4:{s:10:"columnname";s:59:"ld_salesorder:createdtime:createdtime:SalesOrder_fieldlabel";s:10:"comparator";s:9:"thismonth";s:5:"value";s:39:"2026-11-01 00:00:00,2026-11-30 23:59:59";s:16:"column_condition";s:0:"";}}s:9:"condition";s:0:"";}}

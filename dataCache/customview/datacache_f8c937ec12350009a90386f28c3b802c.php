@@ -1,0 +1,1 @@
+<?php exit;?>1795072251a:1:{i:1;a:2:{s:7:"columns";a:1:{i:0;a:4:{s:10:"columnname";s:61:"ld_salesorder:signed_data:signed_data:SalesOrder_fieldlabel:D";s:10:"comparator";s:1:"h";s:5:"value";s:10:"2024-01-01";s:16:"column_condition";s:0:"";}}s:9:"condition";s:0:"";}}

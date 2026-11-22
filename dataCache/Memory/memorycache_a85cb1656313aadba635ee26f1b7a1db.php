@@ -1,0 +1,1 @@
+<?php exit;?>1581667114a:9:{s:9:"db_server";s:9:"127.0.0.1";s:7:"db_port";s:6:":33306";s:11:"db_username";s:4:"root";s:11:"db_password";s:0:"";s:7:"db_name";s:5:"ldcrm";s:7:"db_type";s:6:"mysqli";s:9:"db_status";s:4:"true";s:11:"db_hostname";s:15:"127.0.0.1:33306";s:7:"log_sql";b:0;}

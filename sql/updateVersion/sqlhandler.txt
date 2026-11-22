@@ -1,0 +1,886 @@
+ALTER TABLE ld_users MODIFY COLUMN `real_name` varchar(255) AFTER `last_name`;
+
+DELETE FROM ld_systems_deploy WHERE description='设置是否启用电子名片功能' AND deploy_type<>270;
+SET @roottype=7;
+SET @seq=(SELECT sequence FROM ld_systems_deploy WHERE deploy_type=199);
+update ld_systems_deploy set sequence=sequence+1 where sequence>@seq and roottype=@roottype;
+INSERT INTO ld_systems_deploy(deploy_value,deploy_type,description,setype,sequence,roottype,inputtype,presence,inputvalue)
+SELECT 1,270,'设置是否启用电子名片功能',"",@seq+1,@roottype,'select',0,'[{"value":"0","text":"YES"},{"value":"1","text":"NO"},{"sql":""}]' FROM DUAL
+WHERE NOT EXISTS (SELECT 1 FROM ld_systems_deploy WHERE deploy_type=270);insert into ld_tranlabel(languagetype,trantable,tabid,relateid,fieldlabel)
+select 'zh','ld_systems_deploy',270,270,'设置是否启用电子名片功能'
+from dual where not EXISTS(select 1 from ld_tranlabel  where languagetype = 'zh'
+and trantable ='ld_systems_deploy' and tabid = 270 and relateid=270);
+insert into ld_tranlabel(languagetype,trantable,tabid,relateid,fieldlabel)
+select 'en','ld_systems_deploy',270,270,'Set whether to enable electronic business card function'
+from dual where not EXISTS(select 1 from ld_tranlabel  where languagetype = 'en'
+and trantable ='ld_systems_deploy' and tabid = 270 and relateid=270);DELETE FROM ld_modtracker_basic WHERE crmid NOT IN (SELECT crmid FROM ld_crmentity);
+DELETE FROM ld_modtracker_detail WHERE id NOT IN (SELECT id FROM ld_modtracker_basic);
+-- 2021-02-26
+
+
+UPDATE ld_cvcolumnlist 
+SET columnname=REPLACE(columnname,'absamount','cf_1308')
+WHERE cvid IN (SELECT cvid FROM ld_customview WHERE entitytype='Potentials') 
+	AND columnname LIKE '%cf_1308%'
+	AND columnname LIKE '%absamount%';
+
+UPDATE ld_tabwithproductview 
+SET `columns`=REPLACE(`columns`,'absamount','cf_1308')
+WHERE cvid IN (SELECT cvid FROM ld_customview WHERE entitytype='Potentials') 
+	AND `columns` LIKE '%cf_1308%'
+	AND `columns` LIKE '%absamount%';update ld_homestuffdetailcondition set columns='ld_troubletickets:createdtime:createdtime:HelpDesk_fieldlabel:DT' where columns='ld_troubletickets:createdtime:createdtime:HelpDesk_fieldlabel:D';
+update ld_homestuffdetailcondition set columns='ld_troubletickets:approvestatus:approvestatus:HelpDesk_fieldlabel:V' where columns='ld_troubletickets:approvestatus:approvestatus:Leads_fieldlabel:V';select tabid into @tabid from ld_tab where name='leads';
+update ld_field set allowedit='no' where tabid=@tabid and columnname='status';update ld_desk set fieldlabel = '全局查找' where languagetype = 'zh' and labelbol = 'QUICKFIND' and Labeltype = 'fixedstr';
+update ld_desk set fieldlabel = 'Global search' where languagetype = 'en' and labelbol = 'QUICKFIND' and Labeltype = 'fixedstr';UPDATE ld_field SET defaultvalue='未入库' WHERE defaultvalue='已入库' AND columnname='salesbackstatus' AND tablename='ld_salesback';-- 2021-03-05
+
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','Allownewordinarycustomers','允许新建“普通客户”','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='Allownewordinarycustomers' and Labeltype='fixedstr' and languagetype='zh');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','Allownewordinarycustomers','Allow new ordinary customers','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='Allownewordinarycustomers' and Labeltype='fixedstr' and languagetype='en');call AddColumn('ld_account_public','is_commonaccount_create','varchar','50',NULL);alter table ld_account_public alter is_commonaccount_create set default 'yes';
+update ld_account_public set is_commonaccount_create = 'yes' where is_commonaccount_create is NULL;SET @disable_triggers=NULL;
+UPDATE ld_field_seq SET id=(SELECT MAX(fieldid) FROM ld_field);
+UPDATE ld_blocks_seq SET id=(SELECT MAX(blockid) FROM ld_blocks);
+UPDATE ld_relatedlists_seq SET id=(SELECT MAX(relation_id) FROM ld_relatedlists);
+UPDATE ld_customview_seq SET id = (SELECT MAX(cvid) FROM ld_customview);
+UPDATE ld_links_seq SET id=(SELECT MAX(linkid) FROM ld_links);
+UPDATE ld_picklist_dependency_seq SET id=(SELECT MAX(id) FROM ld_picklist_dependency);
+UPDATE ld_crmentity_seq SET id=(SELECT MAX(crmid) FROM ld_crmentity);
+UPDATE ld_approve_seq SET id=(SELECT MAX(id) FROM ld_approve);
+UPDATE ld_approvestep_seq SET id=(SELECT MAX(id) FROM ld_approvestep);
+UPDATE ld_autotask_seq SET id = (SELECT MAX(autotaskid) FROM ld_autotask);
+UPDATE ld_currency_info_seq SET id=(SELECT MAX(id) FROM ld_currency_info);
+UPDATE ld_users_seq SET id=(SELECT MAX(id) FROM ld_users);
+UPDATE ld_tabdetailfield_seq SET id=(SELECT MAX(tabdetailfieldid) FROM ld_tabdetailfield);
+UPDATE ld_customreport_info_seq SET id=(SELECT MAX(report_id) FROM ld_customreport_info);
+UPDATE ld_producttoolfield_seq SET id=(SELECT MAX(producttoolfieldid) FROM ld_producttoolfield);
+UPDATE ld_settings_field_seq SET id=(SELECT MAX(fieldid) FROM ld_settings_field);
+UPDATE ld_workreport_field_seq SET id=(SELECT MAX(id) FROM ld_workreport_field);UPDATE ld_version SET old_version='V8.4.0',current_version='V8.4.0',remark='V8.4.0-20210305',wx_version='V8.4.0';select cvid into @cvid from ld_customview where entitytype = 'Accounts' and viewname = '今日待联系' and customcategory = 'ALLACCOUNT';
+update ld_cvadvfilter set columnname = 'ld_account:lastcontactdate:lastcontactdate:Accounts_fieldlabel:DT' where cvid =@cvid and columnname = 'ld_account:lastcontactdate:lastcontactdate:Accounts_fieldlabel:D';call Del_ForeignKey('ld_parenttabrel', 'ld_parenttabrel_ibfk_1');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','Allownewordinarycustomers','允许新建“普通客户”','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='Allownewordinarycustomers' and Labeltype='fixedstr' and languagetype='zh');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','Allownewordinarycustomers','Allow new ordinary customers','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='Allownewordinarycustomers' and Labeltype='fixedstr' and languagetype='en');call AddColumn('ld_account_public','is_commonaccount_create','varchar','50',NULL);alter table ld_account_public alter is_commonaccount_create set default 'yes';
+update ld_account_public set is_commonaccount_create = 'yes' where is_commonaccount_create is NULL;insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','Allownewordinarycustomers','允许新建“普通客户”','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='Allownewordinarycustomers' and Labeltype='fixedstr' and languagetype='zh');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','Allownewordinarycustomers','Allow new ordinary customers','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='Allownewordinarycustomers' and Labeltype='fixedstr' and languagetype='en');call AddColumn('ld_account_public','is_commonaccount_create','varchar','50',NULL);
+alter table ld_account_public alter is_commonaccount_create set default 'yes';
+update ld_account_public set is_commonaccount_create = 'yes' where is_commonaccount_create is NULL;select blockid into @blockid from ld_settings_field where `name`='LBL_BACKUP_SET';
+select sequence into @sequence from ld_settings_field where `name`='LBL_BACKUP_SET';
+
+select fieldid into @fieldid  from ld_settings_field where blockid=@blockid and `name`='LBL_RESTOREDATABASE';
+
+update ld_settings_field set sequence=sequence+2 where sequence >@sequence and ifnull(@fieldid,0)<=0 ;
+
+update ld_settings_field_seq set id=@maxfieldid+1 where not exists(select 1 from ld_settings_field where  blockid=@blockid and `name`='LBL_RESTOREDATABASE');
+select max(fieldid) into @maxfieldid from ld_settings_field ;
+insert into ld_settings_field(fieldid,blockid,`name`,description,linkto,sequence,active)
+select @maxfieldid+1,@blockid,'LBL_RESTOREDATABASE','LBL_RESTOREDATABASE','index.php?module=Settings&action=RestoreDataBase&parenttab=Settings',@sequence+1,0
+from dual where not exists(select 1 from ld_settings_field where  blockid=@blockid and `name`='LBL_RESTOREDATABASE');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','RestoreDataBaseDemo','恢复行业账套','fixedstr' from dual 
+where not exists(select  1 from ld_desk where languagetype='zh' and labelbol='RestoreDataBaseDemo' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','RestoreDataBaseDemo','Restore industry demo','fixedstr' from dual 
+where not exists(select  1 from ld_desk where languagetype='en' and labelbol='RestoreDataBaseDemo' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','LBL_RESTOREDATABASE','行业账套恢复','fixedstr' from dual 
+where not exists(select  1 from ld_desk where languagetype='zh' and labelbol='LBL_RESTOREDATABASE' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','LBL_RESTOREDATABASE','Restore industry demo','fixedstr' from dual 
+where not exists(select  1 from ld_desk where languagetype='en' and labelbol='LBL_RESTOREDATABASE' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','BackUpBeforeResotreDemo','恢复行业演示账套，使用前请做好备份','fixedstr' from dual 
+where not exists(select  1 from ld_desk where languagetype='zh' and labelbol='BackUpBeforeResotreDemo' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','BackUpBeforeResotreDemo','Please back up the current database first','fixedstr' from dual 
+where not exists(select  1 from ld_desk where languagetype='en' and labelbol='BackUpBeforeResotreDemo' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','Industry','所属行业','fixedstr' from dual 
+where not exists(select  1 from ld_desk where languagetype='zh' and labelbol='Industry' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','Industry','industry','fixedstr' from dual 
+where not exists(select  1 from ld_desk where languagetype='en' and labelbol='Industry' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','IncludeDemoData','含演示数据','fixedstr' from dual 
+where not exists(select  1 from ld_desk where languagetype='zh' and labelbol='IncludeDemoData' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','IncludeDemoData','Include demo data','fixedstr' from dual 
+where not exists(select  1 from ld_desk where languagetype='en' and labelbol='IncludeDemoData' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','WithoutDemoData','无演示数据','fixedstr' from dual 
+where not exists(select  1 from ld_desk where languagetype='zh' and labelbol='WithoutDemoData' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','WithoutDemoData','Without demo data','fixedstr' from dual 
+where not exists(select  1 from ld_desk where languagetype='en' and labelbol='WithoutDemoData' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','MakeSureBackUp','恢复行业账套将重置账套模板，<span style="color:red">现有数据会全部丢失</span>。请确认是否已经做好备份？','fixedstr' from dual 
+where not exists(select  1 from ld_desk where languagetype='zh' and labelbol='MakeSureBackUp' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','MakeSureBackUp','After restoring the industry demo, all existing data will be lost. Make sure the backup is done！','fixedstr' from dual 
+where not exists(select  1 from ld_desk where languagetype='en' and labelbol='MakeSureBackUp' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','HadBackUp','已备份，立即恢复','fixedstr' from dual 
+where not exists(select  1 from ld_desk where languagetype='zh' and labelbol='HadBackUp' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','HadBackUp','Backed up','fixedstr' from dual 
+where not exists(select  1 from ld_desk where languagetype='en' and labelbol='HadBackUp' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','NoneBackUp','未备份，立即备份','fixedstr' from dual 
+where not exists(select  1 from ld_desk where languagetype='zh' and labelbol='NoneBackUp' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','NoneBackUp','No backup','fixedstr' from dual 
+where not exists(select  1 from ld_desk where languagetype='en' and labelbol='NoneBackUp' and labeltype='fixedstr');CREATE TABLE if not exists `ld_industrydemo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `industry_zh` varchar(100) DEFAULT NULL,
+  `industry_en` varchar(100) DEFAULT NULL,
+  `datasql_path` varchar(255) DEFAULT NULL,
+  `templatefile_path` varchar(255) DEFAULT NULL,
+  `suit_crmversion` varchar(50) DEFAULT NULL,
+  `sequence` smallint(6) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;CREATE TABLE if not exists `ld_industryhistory` (
+  `id` int(19) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(50) DEFAULT NULL,
+  `createdtime` datetime DEFAULT NULL,
+  `datasql_path` varchar(100) DEFAULT NULL,
+  `demodata` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','RestoreDataBase','恢复账套','fixedstr' from dual 
+where not exists(select  1 from ld_desk where languagetype='zh' and labelbol='RestoreDataBase' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','RestoreDataBase','Restore','fixedstr' from dual 
+where not exists(select  1 from ld_desk where languagetype='en' and labelbol='RestoreDataBase' and labeltype='fixedstr');CALL AddDownloadPrivewButtonForAllModules();
+DROP PROCEDURE if EXISTS `AddDownloadPrivewProfileByTabid`;
+DROP PROCEDURE if EXISTS `AddDownloadPrivewButtonForAllModules`;CREATE TABLE IF NOT EXISTS `ld_publicannouncementscf` (
+  `publicannouncementid` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`publicannouncementid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;select count(1) into @cnt from ld_publicannouncementscf;
+insert into ld_publicannouncementscf(publicannouncementid)
+select publicannouncementid from ld_publicannouncement where @cnt = 0;create table if not exists `ld_customreport` (
+  `report_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `report_name` varchar(255) DEFAULT NULL,
+  `report_desc` text,
+  `report_type` varchar(255) DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `sequence` tinyint(4) DEFAULT NULL,
+  `mainmodule` varchar(255) DEFAULT NULL,
+  `createdtime` datetime DEFAULT NULL,
+  `modify_time` datetime DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `modify_id` int(11) DEFAULT NULL,
+  `limit` int(11) DEFAULT NULL,
+  `orderby` varchar(255) DEFAULT NULL,
+  `orderby_type` varchar(255) DEFAULT NULL,
+   `smcreatorid` int(11) DEFAULT '1',
+  PRIMARY KEY (`report_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8mb4;create table if not exists `ld_customreport_chartset` (
+  `report_id` int(11) NOT NULL,
+  `title` text,
+  `chart_type` varchar(255) DEFAULT NULL,
+  `xAxis` text,
+  `yAxis` text,
+  `legend` text,
+  `tooltip` text,
+  `toolbox` text,
+  PRIMARY KEY (`report_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;create table if not exists `ld_customreport_cvadvfilter` (
+  `report_id` int(11) NOT NULL,
+  `columnindex` int(11) DEFAULT NULL,
+  `groupid` int(11) DEFAULT NULL,
+  `columns` varchar(255) DEFAULT NULL,
+  `comparator` varchar(255) DEFAULT NULL,
+  `value` varchar(255) DEFAULT NULL,
+  `columncondition` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;create table if not exists `ld_customreport_cvadvfilter_grouping` (
+  `report_id` int(11) NOT NULL,
+  `groupid` int(11) DEFAULT NULL,
+  `group_condition` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;create table if not exists `ld_customreport_group` (
+  `group_id` int(11) NOT NULL AUTO_INCREMENT,
+  `report_id` int(11) DEFAULT NULL,
+  `groupbytype` varchar(255) DEFAULT NULL,
+  `columns` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`group_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=259 DEFAULT CHARSET=utf8mb4;create table if not exists `ld_customreport_total_column` (
+  `report_id` int(11) NOT NULL,
+  `column_id` int(11) NOT NULL AUTO_INCREMENT,
+  `total_type` varchar(255) DEFAULT NULL,
+  `columns` varchar(255) DEFAULT NULL,
+  `sequence` int(11) DEFAULT NULL,
+  `chart_column_type` varchar(255) DEFAULT NULL,
+  `color` varchar(255) DEFAULT NULL,
+  `chart_column_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`column_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=364 DEFAULT CHARSET=utf8mb4;call AddColumn('ld_customreport_total_column','yaxisindex','int','11','0');
+call AddColumn('ld_customreport','smcreatorid','int','11','0');
+call AddColumn('ld_customreport','stat_approach','varchar','255','0');
+call AddColumn('ld_customreport_group','sequence','int','11','0');
+call AddColumn('ld_customreport_group','bigtype','varchar','255','0');insert into ld_desk (languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','ContactTimesRanking','跟进频次排行榜','fixedstr' from dual
+where not exists(select 1 from ld_desk where languagetype='zh' and labelbol='ContactTimesRanking' and Labeltype='fixedstr');insert into ld_desk (languagetype,labelbol,fieldlabel,labeltype)
+select 'en','ContactTimesRanking','Contact Times Ranking','fixedstr' from dual
+where not exists(select 1 from ld_desk where languagetype='en' and labelbol='ContactTimesRanking' and Labeltype='fixedstr');update ld_field set bigtype='fileattachment' where uitype=1109;select wx_sequence into @wx_sequence from ld_dashboard_app where name='Returnamount';
+update ld_dashboard_app set wx_sequence=wx_sequence+2 where wx_sequence>@wx_sequence;
+update ld_dashboard_app set home_sequence=home_sequence+1 where home_sequence>0;
+select home_sequence into @home_sequence from ld_dashboard_app where name='Returnamount';
+insert into ld_dashboard_app(name,labelbol,modulenames,wx_sequence,image,presence,wx_presence,home_presence,home_sequence)
+select 'ContactTimesRanking','ContactTimesRanking','',@wx_sequence+1,'dashboard_6',0,1,'',@home_sequence+1 from dual  
+where not exists(select 1 from ld_dashboard_app where name='ContactTimesRanking');select block_id into @block_id from ld_mobile_report_parent_tab where parenttab_label='rank';
+select id into @tabid from ld_dashboard_app where name='ContactTimesRanking';
+insert into ld_mobile_report_tab_rel(block_id,tabid,sequence,tab_tablename)
+select @block_id,@tabid,6,'ld_tab' from dual
+where not EXISTS(select 1 from ld_mobile_report_tab_rel where @block_id=@block_id and tabid=@tabid and tab_tablename='ld_tab');-- 2021-03-12
+
+update ld_homestuffdetailcondition set columns='ld_troubletickets:createdtime:createdtime:HelpDesk_fieldlabel:DT' where columns='ld_troubletickets:createdtime:createdtime:HelpDesk_fieldlabel:D';update ld_homestuffdetailcondition set columns='ld_troubletickets:approvestatus:approvestatus:HelpDesk_fieldlabel:V' where columns='ld_troubletickets:approvestatus:approvestatus:Leads_fieldlabel:V';select tabid into @tabid from ld_tab where name='leads';
+update ld_field set allowedit='no' where tabid=@tabid and columnname='status';update ld_desk set fieldlabel = '全局查找' where languagetype = 'zh' and labelbol = 'QUICKFIND' and Labeltype = 'fixedstr';
+update ld_desk set fieldlabel = 'Global search' where languagetype = 'en' and labelbol = 'QUICKFIND' and Labeltype = 'fixedstr';select cvid into @cvid from ld_customview where entitytype = 'Accounts' and viewname = '今日待联系' and customcategory = 'ALLACCOUNT';
+update ld_cvadvfilter set columnname = 'ld_account:lastcontactdate:lastcontactdate:Accounts_fieldlabel:DT' where cvid =@cvid and columnname = 'ld_account:lastcontactdate:lastcontactdate:Accounts_fieldlabel:D';CALL Del_ForeignKey('ld_parenttabrel', 'ld_parenttabrel_ibfk_1');-- 2021-03-15
+
+SET @disable_triggers=NULL;
+UPDATE ld_field_seq SET id=(SELECT MAX(fieldid) FROM ld_field);
+UPDATE ld_blocks_seq SET id=(SELECT MAX(blockid) FROM ld_blocks);
+UPDATE ld_relatedlists_seq SET id=(SELECT MAX(relation_id) FROM ld_relatedlists);
+UPDATE ld_customview_seq SET id = (SELECT MAX(cvid) FROM ld_customview);
+UPDATE ld_links_seq SET id=(SELECT MAX(linkid) FROM ld_links);
+UPDATE ld_picklist_dependency_seq SET id=(SELECT MAX(id) FROM ld_picklist_dependency);
+UPDATE ld_crmentity_seq SET id=(SELECT MAX(crmid) FROM ld_crmentity);
+UPDATE ld_approve_seq SET id=(SELECT MAX(id) FROM ld_approve);
+UPDATE ld_approvestep_seq SET id=(SELECT MAX(id) FROM ld_approvestep);
+UPDATE ld_autotask_seq SET id = (SELECT MAX(autotaskid) FROM ld_autotask);
+UPDATE ld_currency_info_seq SET id=(SELECT MAX(id) FROM ld_currency_info);
+UPDATE ld_users_seq SET id=(SELECT MAX(id) FROM ld_users);
+UPDATE ld_tabdetailfield_seq SET id=(SELECT MAX(tabdetailfieldid) FROM ld_tabdetailfield);
+UPDATE ld_customreport_info_seq SET id=(SELECT MAX(report_id) FROM ld_customreport_info);
+UPDATE ld_producttoolfield_seq SET id=(SELECT MAX(producttoolfieldid) FROM ld_producttoolfield);
+UPDATE ld_settings_field_seq SET id=(SELECT MAX(fieldid) FROM ld_settings_field);
+UPDATE ld_workreport_field_seq SET id=(SELECT MAX(id) FROM ld_workreport_field);UPDATE ld_version SET old_version='V8.4.1',current_version='V8.4.1',remark='V8.4.1-20210315',wx_version='V8.4.1';select tabid into @tabid from ld_tab where name='salesorder';
+update ld_field set typeofdata='N~O~25,2' where columnname='purchasecost' and tabid=@tabid;update ld_relatedlists set type='' ,related_coltable='' where  `name`='get_singin' and label='Singin';select tabid into @tabid from ld_tab where `name`='Project';
+select tabid  into @related_tabid from  ld_tab where `name`='singin';
+select presence into @presence from ld_option_module where tabid=@related_tabid and option_tabid=@tabid;
+select max(relation_id) into @relation_id from ld_relatedlists;
+select max(sequence) into @maxsequence from ld_relatedlists where tabid=@tabid;
+update ld_relatedlists_seq set id=@relation_id+1 where not exists(select 1 from ld_relatedlists where tabid=@tabid and related_tabid=@related_tabid); 
+insert into ld_relatedlists(relation_id,tabid,related_tabid,`name`,label,presence,wx_presence,wx_sequence,sequence)
+select @relation_id+1,@tabid,@related_tabid,'get_singin','Singin',@presence,@presence,@maxsequence+1,@maxsequence+1 from dual 
+where not exists(select 1 from ld_relatedlists where tabid=@tabid and related_tabid=@related_tabid);call AddColumn('ld_servicecontracts','kis_id','varchar','200',NULL);
+call AddColumn('ld_servicecontracts','kis_no','varchar','200',NULL);
+ALTER TABLE ld_servicecontracts  MODIFY COLUMN `kis_id` varchar(200) NULL DEFAULT null;-- 2021-03-19
+
+SET @disable_triggers=NULL;
+UPDATE ld_field_seq SET id=(SELECT MAX(fieldid) FROM ld_field);
+UPDATE ld_blocks_seq SET id=(SELECT MAX(blockid) FROM ld_blocks);
+UPDATE ld_relatedlists_seq SET id=(SELECT MAX(relation_id) FROM ld_relatedlists);
+UPDATE ld_customview_seq SET id = (SELECT MAX(cvid) FROM ld_customview);
+UPDATE ld_links_seq SET id=(SELECT MAX(linkid) FROM ld_links);
+UPDATE ld_picklist_dependency_seq SET id=(SELECT MAX(id) FROM ld_picklist_dependency);
+UPDATE ld_crmentity_seq SET id=(SELECT MAX(crmid) FROM ld_crmentity);
+UPDATE ld_approve_seq SET id=(SELECT MAX(id) FROM ld_approve);
+UPDATE ld_approvestep_seq SET id=(SELECT MAX(id) FROM ld_approvestep);
+UPDATE ld_autotask_seq SET id = (SELECT MAX(autotaskid) FROM ld_autotask);
+UPDATE ld_currency_info_seq SET id=(SELECT MAX(id) FROM ld_currency_info);
+UPDATE ld_users_seq SET id=(SELECT MAX(id) FROM ld_users);
+UPDATE ld_tabdetailfield_seq SET id=(SELECT MAX(tabdetailfieldid) FROM ld_tabdetailfield);
+UPDATE ld_customreport_info_seq SET id=(SELECT MAX(report_id) FROM ld_customreport_info);
+UPDATE ld_producttoolfield_seq SET id=(SELECT MAX(producttoolfieldid) FROM ld_producttoolfield);
+UPDATE ld_settings_field_seq SET id=(SELECT MAX(fieldid) FROM ld_settings_field);
+UPDATE ld_workreport_field_seq SET id=(SELECT MAX(id) FROM ld_workreport_field);UPDATE ld_version SET old_version='V8.4.2.0',current_version='V8.4.2.0',remark='V8.4.2.0-20210315',wx_version='V8.4.2.0';insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','SubmitOpinions','提交意见','fixedstr' from dual
+where not exists(select 1 from ld_desk where languagetype='zh' and labelbol='SubmitOpinions' and labeltype='fixedstr');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','SubmitOpinions','Submit opinions','fixedstr' from dual
+where not exists(select 1 from ld_desk where languagetype='en' and labelbol='SubmitOpinions' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','DuplicateCheckShowsHyperlink','查重字段显示超链接','fixedstr' from dual
+where not exists(select 1 from ld_desk where languagetype='zh' and labelbol='DuplicateCheckShowsHyperlink' and labeltype='fixedstr');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','DuplicateCheckShowsHyperlink','The duplicate check field shows the hyperlink','fixedstr' from dual
+where not exists(select 1 from ld_desk where languagetype='en' and labelbol='DuplicateCheckShowsHyperlink' and labeltype='fixedstr');SET @maxtabid=(SELECT MAX(tabid) FROM ld_tab);
+SET @maxtseq=(SELECT MAX(tabsequence) FROM ld_tab);
+INSERT INTO ld_tab(tabid,`name`,presence,tabsequence,tablabel,printtab,description)
+SELECT @maxtabid+1,'CustomEcharts',5,@maxtseq+1,'CustomEcharts',1,'CustomEcharts' FROM DUAL
+WHERE NOT EXISTS (SELECT 1 FROM ld_tab WHERE `name`='CustomEcharts');
+
+select max(sequence) into @sequence from ld_parenttabrel where parenttabid=5;
+insert into ld_parenttabrel (parenttabid,tabid,sequence,tab_tablename) select 5,@maxtabid+1,@sequence+1,'ld_tab' from dual where not exists(select 1 from ld_parenttabrel where tabid=@maxtabid+1 and tab_tablename='ld_tab');
+
+SET @tabid=(SELECT tabid FROM ld_tab WHERE `name`='CustomEcharts');
+INSERT INTO ld_tranlabel(languagetype,trantable,tabid,relateid,fieldlabel)
+SELECT 'zh','ld_tab',@tabid,@tabid,'自定义统计图' FROM DUAL
+WHERE NOT EXISTS (SELECT 1 FROM ld_tranlabel WHERE tabid=@tabid AND relateid=@tabid AND languagetype='zh' AND trantable='ld_tab');
+INSERT INTO ld_tranlabel(languagetype,trantable,tabid,relateid,fieldlabel)
+SELECT 'en','ld_tab',@tabid,@tabid,'CustomEcharts' FROM DUAL
+WHERE NOT EXISTS (SELECT 1 FROM ld_tranlabel WHERE tabid=@tabid AND relateid=@tabid AND languagetype='en' AND trantable='ld_tab');
+
+INSERT INTO ld_modtracker_tabs(tabid,visible)
+SELECT @tabid,1 FROM DUAL
+WHERE NOT EXISTS (SELECT 1 FROM ld_modtracker_tabs WHERE tabid=@tabid);
+
+SET @i=0;
+INSERT INTO ld_profileallpermission(tabid,operation,sequence)
+SELECT @tabid,actionid,(@i:=@i+1) FROM ld_actionmapping
+WHERE NOT EXISTS (SELECT 1 FROM ld_profileallpermission WHERE tabid=@tabid) AND actionname IN ('index','Detailview','Create','EditView',
+'Delete','Copy','Allocate','Share','Import','Export','ChangeCreator','CustomView');update ld_tab set presence=0 where name="CustomEcharts";
+select tabsequence into @tabsequence from ld_tab  where name="Customreport";
+update ld_tab set tabsequence=tabsequence+1 where tabsequence>@tabsequence;
+update ld_tab set tabsequence=@tabsequence+1 where name="CustomEcharts";
+
+SET @i=0;
+update ld_tab set tabsequence=(@i:=@i+1) order by tabsequence;
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','CustomEcharts','自定义统计图','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='CustomEcharts' and Labeltype='fixedstr' and languagetype='zh');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','CustomEcharts','Custom Echarts','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='CustomEcharts' and Labeltype='fixedstr' and languagetype='en');-- 2021-03-24
+
+UPDATE ld_systems_deploy SET deploy_value=0 WHERE deploy_type=270 AND NOT EXISTS (SELECT 1 FROM ld_loginhistory);
+
+SET @cvid=(SELECT cvid FROM ld_customview WHERE entitytype='Attachment' AND viewname='相册选择' LIMIT 1);
+UPDATE ld_customview SET viewname='选择相册' WHERE cvid=@cvid;
+SET @cvid=(SELECT cvid FROM ld_customview WHERE entitytype='Attachment' AND viewname='选择相册' LIMIT 1);
+UPDATE ld_cvadvfilter SET `value`='选择相册' WHERE cvid=@cvid AND `value`='相册选择';UPDATE ld_systems_deploy SET deploy_value=2 WHERE deploy_type=51;               
+
+UPDATE ld_desk SET fieldlabel='Shows the hyperlink' WHERE labelbol= 'DuplicateCheckShowsHyperlink' AND Labeltype='fixedstr' AND languagetype='en';
+UPDATE ld_desk SET fieldlabel='显示超链接' WHERE labelbol= 'DuplicateCheckShowsHyperlink' AND Labeltype='fixedstr' AND languagetype='zh';INSERT INTO ld_systems_deploy ( `deploy_value`, `deploy_type`, `description`, `setype`, `sequence`, `roottype`, `inputtype`, `presence`, `inputvalue`)
+SELECT 0, 280, '显示超链接', '', 1, NULL, NULL, 1, NULL  FROM DUAL
+WHERE NOT EXISTS (SELECT 1 FROM ld_systems_deploy WHERE deploy_type=280);insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','menustyle','菜单风格','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='menustyle' and Labeltype='fixedstr' and languagetype='zh');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','menustyle','Menu style','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='menustyle' and Labeltype='fixedstr' and languagetype='en');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','lightcolorversion','浅色版','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='lightcolorversion' and Labeltype='fixedstr' and languagetype='zh');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','lightcolorversion','Light color version','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='lightcolorversion' and Labeltype='fixedstr' and languagetype='en');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','darkversion','深色版','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='darkversion' and Labeltype='fixedstr' and languagetype='zh');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','darkversion','Dark version','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='darkversion' and Labeltype='fixedstr' and languagetype='en');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','custom1','自定义','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='custom1' and Labeltype='fixedstr' and languagetype='zh');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','custom1','Custom','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='custom1' and Labeltype='fixedstr' and languagetype='en');call AddColumn('ld_organizationdetails','menustyle','varchar','50',NULL);
+update ld_organizationdetails set menustyle='dark',menuback_color='#18223d',menuhover_color='#2490f8' WHERE IFNULL(menustyle,'')<>'dark';insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','MENUBACKGROUNDCOLOR','菜单背景色','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='MENUBACKGROUNDCOLOR' and Labeltype='fixedstr' and languagetype='zh');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','MENUBACKGROUNDCOLOR','Menu background color','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='MENUBACKGROUNDCOLOR' and Labeltype='fixedstr' and languagetype='en');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','MENUSELECTBACKGROUNDCOLOR','菜单选中背景色','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='MENUSELECTBACKGROUNDCOLOR' and Labeltype='fixedstr' and languagetype='zh');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','MENUSELECTBACKGROUNDCOLOR','Menu select background color','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='MENUSELECTBACKGROUNDCOLOR' and Labeltype='fixedstr' and languagetype='en');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','RESTORETHEDEFAULT','恢复默认','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='RESTORETHEDEFAULT' and Labeltype='fixedstr' and languagetype='zh');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','RESTORETHEDEFAULT','Restore the default','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='RESTORETHEDEFAULT' and Labeltype='fixedstr' and languagetype='en');SET @tabid=(SELECT tabid FROM ld_tab WHERE `name`='CustomEcharts');
+update ld_tranlabel set fieldlabel="自定义统计图表" where languagetype="zh" and  tabid=@tabid;-- 2021-03-26
+
+SET @tabid=(SELECT tabid FROM ld_tab WHERE `name`='CustomEcharts');
+delete from ld_profileallpermission where tabid=@tabid;
+SET @i=0;
+INSERT INTO ld_profileallpermission(tabid,operation,sequence)
+SELECT @tabid,actionid,(@i:=@i+1) FROM ld_actionmapping
+WHERE NOT EXISTS (SELECT 1 FROM ld_profileallpermission WHERE tabid=@tabid) AND actionname IN
+    ('index','Create','Delete','Allocate');update ld_producttoolfield set datarange='permit' where columnname='productname'  and (datarange is null or datarange='');call AddColumn('ld_templatesstuff','source','varchar','255','home');call AddColumn('ld_customreport','approveallocatetype','int','11','0');
+create table if not exists `ld_customecharts2user` (
+	`report_id` int(11) DEFAULT NULL,
+  `userid` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;call AddColumn('ld_producttoolfield','savedatabase','varchar','50','yes');alter table ld_producttoolfield alter savedatabase set default 'yes';
+update ld_producttoolfield set savedatabase = 'yes' where savedatabase is NULL;
+update ld_producttoolfield set savedatabase = 'no' where (edit_permission = 1 or input_type = 1);
+update ld_producttoolfield set savedatabase = 'yes' where input_type = 2;call AddColumn('ld_tabdetailfield','savedatabase','varchar','50','yes');alter table ld_tabdetailfield alter savedatabase set default 'yes';
+update ld_tabdetailfield set savedatabase = 'yes' where savedatabase is NULL;
+update ld_tabdetailfield set savedatabase = 'no' where edit_permission = 1;
+update ld_tabdetailfield set savedatabase = 'yes' where input_type = 2;CREATE TABLE IF NOT EXISTS `ld_related_detailfield` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `modulename` varchar(50) DEFAULT NULL,
+  `trigger_columnname` varchar(50) DEFAULT NULL,
+  `effect_columnname` varchar(50) DEFAULT NULL,
+  `curmodule_columninfo` varchar(50) DEFAULT NULL,
+  `fromvalue_type` varchar(50) DEFAULT 'column',
+  `fromvalue_info` text,
+  `frommodule` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;call AddColumn('ld_customreport_total_column','yaxisindex','int','11','0');
+call AddColumn('ld_customreport','smcreatorid','int','11','0');
+call AddColumn('ld_customreport','stat_approach','varchar','255','0');
+call AddColumn('ld_customreport_group','sequence','int','11','0');
+call AddColumn('ld_customreport_group','bigtype','varchar','255','0');
+call AddColumn('ld_customreport','show_athome','varchar','255','0');delete from ld_setscoperhigher where modulename="CustomEcharts";CALL AddColumn('ld_option_module','withdetail','varchar',20,'yes');update ld_option_module set withdetail='yes' where withdetail is null or withdetail='';CALL AddColumn('ld_option_module','strictsourcebillcolums','varchar',255,'');select tabid into @out_tabid from ld_tab where name='OutboundOrder';
+select tabid into @in_tabid from ld_tab where name='Stock';
+select case when deploy_value=1 then '' else 'quantity' end  into @strictsourcebillcolums from 
+ld_systems_deploy where deploy_type=10 and presence=0;
+update ld_option_module set strictsourcebillcolums=@strictsourcebillcolums
+where exists(select  1 from ld_systems_deploy where deploy_type=10 and presence=0)
+and (tabid=@out_tabid or tabid=@in_tabid);update ld_systems_deploy set presence=1 where deploy_type=10;insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','AutoWithProductDetail','自动带出源单产品管理分录','fixedstr' from dual 
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='AutoWithProductDetail' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','AutoWithProductDetail','Automatically bring out the source document product management entry','fixedstr' from dual 
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='AutoWithProductDetail' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','StrictSourceBillColumn','严格参照源单（{columnname}不允许超出源单）','fixedstr' from dual 
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='StrictSourceBillColumn' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','StrictSourceBillColumn','Strictly according to the original order （{columnname} amount is not allowed to exceed the tax-inclusive amount of the order ）','fixedstr' from dual 
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='StrictSourceBillColumn' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','StrictSourceBillColumn','严格参照源单（{columnname}不允许超出源单）','fixedstr' from dual 
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='StrictSourceBillColumn' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','LineTipStrictSourceBillColumn','每行{productnamelabel}{columnname}不允许超出源单或者出现源单外的{productnamelabel}','fixedstr' from dual 
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='LineTipStrictSourceBillColumn' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','LineTipStrictSourceBillColumn','The {columnname} of each line product is not allowed to exceed the {columnname} of the order and foreign products are not allowed to appear','fixedstr' from dual 
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='LineTipStrictSourceBillColumn' and labeltype='fixedstr');insert into ld_systems_deploy(deploy_value,deploy_type,description,sequence,inputtype,presence,inputvalue)
+select '',279,'设置严格参照源单的字段',1,'select',1 ,'[{"value":"quantity","text":"StrictSourceBillColumn"},{"value":"tax_amount","text":"StrictSourceBillColumn"},{"sql":""}]'
+from dual where not exists(select 1 from ld_systems_deploy where deploy_type=279);update  ld_option_module INNER JOIN ld_tabdetailfield
+on ld_tabdetailfield.tabid=ld_option_module.tabid
+set withdetail='no';insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','SaveBillStrictSourceTip','<span style="color:black;line-height:40px;height:40px">单据没有严格参照源单录入数据，请修改之后，重新保存，其中：</span><br>####第{n}行{productname}####录入:{columnname_deskvalue}->实际:{columnname_dbvalue},####','fixedstr' from dual 
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='SaveBillStrictSourceTip' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','SaveBillStrictSourceTip','<span style="color:black;line-height:40px;height:40px">单据没有严格参照源单录入数据，请修改之后，重新保存，其中：</span><br>，其中####第{n}行{productname}####录入:{columnname_deskvalue}->实际:{columnname_dbvalue},####','fixedstr' from dual 
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='SaveBillStrictSourceTip' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','SaveBillStrictSourceNotEmptyTip','第{n}行,请严格参照源单,不能录入源单以外的产品','fixedstr' from dual 
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='SaveBillStrictSourceNotEmptyTip' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','SaveBillStrictSourceNotEmptyTip','第{n}行,请严格参照源单,不能录入源单以外的产品','fixedstr' from dual 
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='SaveBillStrictSourceNotEmptyTip' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','StrictReferenceSourceBill','请严格参照源单录入数据','jspop' from dual 
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='StrictReferenceSourceBill' and labeltype='jspop');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','StrictReferenceSourceBill','请严格参照源单录入数据','jspop' from dual 
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='StrictReferenceSourceBill' and labeltype='jspop');-- 2021-03-31
+
+
+update ld_producttoolfield set allowhide='no' where columnname='paperquantity';CALL Del_ForeignKey('ld_parenttabrel', 'ld_parenttabrel_ibfk_2');update ld_systems_deploy set presence=1,roottype=0 where deploy_type=10;update ld_systems_deploy set presence=0,roottype='' where deploy_type=279;-- 2021-04-02
+
+SET @disable_triggers=NULL;
+UPDATE ld_field_seq SET id=(SELECT MAX(fieldid) FROM ld_field);
+UPDATE ld_blocks_seq SET id=(SELECT MAX(blockid) FROM ld_blocks);
+UPDATE ld_relatedlists_seq SET id=(SELECT MAX(relation_id) FROM ld_relatedlists);
+UPDATE ld_customview_seq SET id = (SELECT MAX(cvid) FROM ld_customview);
+UPDATE ld_links_seq SET id=(SELECT MAX(linkid) FROM ld_links);
+UPDATE ld_picklist_dependency_seq SET id=(SELECT MAX(id) FROM ld_picklist_dependency);
+UPDATE ld_crmentity_seq SET id=(SELECT MAX(crmid) FROM ld_crmentity);
+UPDATE ld_approve_seq SET id=(SELECT MAX(id) FROM ld_approve);
+UPDATE ld_approvestep_seq SET id=(SELECT MAX(id) FROM ld_approvestep);
+UPDATE ld_autotask_seq SET id = (SELECT MAX(autotaskid) FROM ld_autotask);
+UPDATE ld_currency_info_seq SET id=(SELECT MAX(id) FROM ld_currency_info);
+UPDATE ld_users_seq SET id=(SELECT MAX(id) FROM ld_users);
+UPDATE ld_tabdetailfield_seq SET id=(SELECT MAX(tabdetailfieldid) FROM ld_tabdetailfield);
+UPDATE ld_customreport_info_seq SET id=(SELECT MAX(report_id) FROM ld_customreport_info);
+UPDATE ld_producttoolfield_seq SET id=(SELECT MAX(producttoolfieldid) FROM ld_producttoolfield);
+UPDATE ld_settings_field_seq SET id=(SELECT MAX(fieldid) FROM ld_settings_field);
+UPDATE ld_workreport_field_seq SET id=(SELECT MAX(id) FROM ld_workreport_field);UPDATE ld_version SET old_version='V8.4.2.1',current_version='V8.4.2.1',remark='V8.4.2.1-20210402',wx_version='V8.4.2.1';CALL ldcrm_addcustomform_61to100();
+DROP PROCEDURE IF EXISTS `ldcrm_addcustomform_61to100`;
+DROP PROCEDURE IF EXISTS `ldcrm_add_approveforbill`;
+DROP PROCEDURE IF EXISTS `ldcrm_add_attachments_filename_bymodule`;
+DROP PROCEDURE IF EXISTS `ldcrm_add_cvcolumnlist_wx`;
+DROP PROCEDURE IF EXISTS `ldcrm_add_module_withoutdetail`;CALL ldcrm_addcustomform_61to100();
+DROP PROCEDURE IF EXISTS `ldcrm_addcustomform_61to100`;
+DROP PROCEDURE IF EXISTS `ldcrm_add_approveforbill`;
+DROP PROCEDURE IF EXISTS `ldcrm_add_attachments_filename_bymodule`;
+DROP PROCEDURE IF EXISTS `ldcrm_add_cvcolumnlist_wx`;
+DROP PROCEDURE IF EXISTS `ldcrm_add_module_withoutdetail`;CALL AddDownloadPrivewButtonForAllModules();
+DROP PROCEDURE if EXISTS `AddDownloadPrivewProfileByTabid`;
+DROP PROCEDURE if EXISTS `AddDownloadPrivewButtonForAllModules`;UPDATE ld_desk SET fieldlabel='自动带出所选源单的分录明细' WHERE labelbol='AutoWithProductDetail' AND languagetype='zh';
+UPDATE ld_desk SET fieldlabel='控制“{columnname}”不允许超出源单' WHERE labelbol='StrictSourceBillColumn' AND languagetype='zh';
+UPDATE ld_desk SET fieldlabel='The {columnname} amount is not allowed to exceed the tax-inclusive amount of the order' WHERE labelbol='StrictSourceBillColumn' AND languagetype='en';update ld_desk set fieldlabel="电子名片" where labelbol="CARDQRCODE" and languagetype="zh";
+update ld_desk set fieldlabel="Electronic business card" where labelbol="CARDQRCODE" and languagetype="en";
+update ld_desk set fieldlabel="Electronic business card" where labelbol="CARDQRCODEELECTRIC" and languagetype="en";update ld_organizationdetails set menustyle='dark',menuback_color='#18223d',menuhover_color='#2490f8' WHERE IFNULL(menustyle,'')='';update ld_tabdetailfield set savedatabase = 'yes' where columnname in ('source_total','due_date','received_amount');-- 2021-04-06
+
+SET @module='Expense';
+SET @select_module='BusinessApply';
+
+SET @tabid=(SELECT tabid FROM ld_tab WHERE `name`=@module LIMIT 1);
+SET @select_tabid=(SELECT tabid FROM ld_tab WHERE `name`=@select_module LIMIT 1);
+SET @select_seq=(SELECT COUNT(1) FROM ld_option_module WHERE tabid=@tabid);
+SET @select_tabseq=(SELECT tabsequence FROM ld_tab WHERE `name`=@select_module);
+INSERT INTO ld_option_module(tabid,option_tabid,presence,approve_demand,sequence,table_sequence,datarang,fieldname,maxrowsshow)
+SELECT @tabid,@select_tabid,0,0,@select_seq+1,@select_tabseq,'all',NULL,5 FROM DUAL
+WHERE NOT EXISTS (SELECT 1 FROM ld_option_module WHERE tabid=@tabid AND option_tabid=@select_tabid);SET @module='BusinessApply';
+SET @related_module='Expense';
+SET @actions='add';
+SET @datatype='datacategory_sql';
+SET @relatedcoltable='expensedetail.entitytypeid';
+SET @tabid=(SELECT tabid FROM ld_tab WHERE `name`=@module);
+SET @rel_tabid=(SELECT tabid FROM ld_tab WHERE `name`=@related_module);
+SET @relation_id=(SELECT MAX(relation_id) FROM ld_relatedlists);
+SET @seq=(SELECT MAX(sequence) FROM ld_relatedlists WHERE tabid=@tabid);
+INSERT INTO ld_relatedlists(relation_id,tabid,related_tabid,`name`,sequence,label,presence,actions,type,related_coltable)
+SELECT @relation_id+1,@tabid,@rel_tabid,CONCAT('get_',LOWER(@related_module)),@seq+1,@related_module,0,@actions,@datatype,@relatedcoltable FROM DUAL
+WHERE NOT EXISTS (SELECT 1 FROM ld_relatedlists WHERE tabid=@tabid AND label=@related_module);
+
+UPDATE ld_relatedlists_seq SET id=(SELECT MAX(relation_id) FROM ld_relatedlists);SET @myactionid=(SELECT actionid FROM ld_actionmapping WHERE actionname='DownloadSelected' LIMIT 1);
+CALL lingdang_add_profileallpermission(@myactionid);
+
+SET @myactionid=(SELECT actionid FROM ld_actionmapping WHERE actionname='Advance' LIMIT 1);
+CALL lingdang_add_profileallpermission(@myactionid);
+DROP PROCEDURE IF EXISTS `lingdang_add_profile2standardpermissions`;
+DROP PROCEDURE if EXISTS `lingdang_add_profileallpermission`;CALL lingdang_reset_profileallpermission();
+DROP PROCEDURE if EXISTS `lingdang_reset_profileallpermission`;
+DROP PROCEDURE IF EXISTS `lingdang_reset_profile2standardpermissions`;CALL ldcrm_relatedaccount_forcustomform();
+DROP PROCEDURE IF EXISTS `ldcrm_relatedaccount_forcustomform`;CALL ldcrm_reset_orgshare_forcustomform();
+DROP PROCEDURE IF EXISTS `ldcrm_reset_orgshare_forcustomform`;update ld_tabdetailfield set savedatabase = 'yes' where columnname in ('source_total','due_date','received_amount');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','key_word','关键词','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='key_word' and Labeltype='fixedstr' and languagetype='zh');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','key_word','Keywords','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='key_word' and Labeltype='fixedstr' and languagetype='en');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','relationship','关系','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='relationship' and Labeltype='fixedstr' and languagetype='zh');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','relationship','relationship','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='relationship' and Labeltype='fixedstr' and languagetype='en');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','statisticalGraphics','统计图','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='statisticalGraphics' and Labeltype='fixedstr' and languagetype='zh');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','statisticalGraphics','statistical graphics','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='statisticalGraphics' and Labeltype='fixedstr' and languagetype='en');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','base','基础','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='base' and Labeltype='fixedstr' and languagetype='zh');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','base','base','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='base' and Labeltype='fixedstr' and languagetype='en');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','data','数据','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='data' and Labeltype='fixedstr' and languagetype='zh');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','data','data','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='data' and Labeltype='fixedstr' and languagetype='en');-- 2021-04-09
+
+SET @disable_triggers=NULL;
+UPDATE ld_field_seq SET id=(SELECT MAX(fieldid) FROM ld_field);
+UPDATE ld_blocks_seq SET id=(SELECT MAX(blockid) FROM ld_blocks);
+UPDATE ld_relatedlists_seq SET id=(SELECT MAX(relation_id) FROM ld_relatedlists);
+UPDATE ld_customview_seq SET id = (SELECT MAX(cvid) FROM ld_customview);
+UPDATE ld_links_seq SET id=(SELECT MAX(linkid) FROM ld_links);
+UPDATE ld_picklist_dependency_seq SET id=(SELECT MAX(id) FROM ld_picklist_dependency);
+UPDATE ld_crmentity_seq SET id=(SELECT MAX(crmid) FROM ld_crmentity);
+UPDATE ld_approve_seq SET id=(SELECT MAX(id) FROM ld_approve);
+UPDATE ld_approvestep_seq SET id=(SELECT MAX(id) FROM ld_approvestep);
+UPDATE ld_autotask_seq SET id = (SELECT MAX(autotaskid) FROM ld_autotask);
+UPDATE ld_currency_info_seq SET id=(SELECT MAX(id) FROM ld_currency_info);
+UPDATE ld_users_seq SET id=(SELECT MAX(id) FROM ld_users);
+UPDATE ld_tabdetailfield_seq SET id=(SELECT MAX(tabdetailfieldid) FROM ld_tabdetailfield);
+UPDATE ld_customreport_info_seq SET id=(SELECT MAX(report_id) FROM ld_customreport_info);
+UPDATE ld_producttoolfield_seq SET id=(SELECT MAX(producttoolfieldid) FROM ld_producttoolfield);
+UPDATE ld_settings_field_seq SET id=(SELECT MAX(fieldid) FROM ld_settings_field);
+UPDATE ld_workreport_field_seq SET id=(SELECT MAX(id) FROM ld_workreport_field);UPDATE ld_version SET old_version='V8.4.2.2',current_version='V8.4.2.2',remark='V8.4.2.2-20210409',wx_version='V8.4.2.2';SET @add_actionname='FileReadHistory';
+SET @max_actionid=(SELECT MAX(actionid) FROM ld_actionmapping);
+INSERT INTO ld_actionmapping(actionid,actionname,securitycheck,actionlabel)
+SELECT @max_actionid+1,@add_actionname,0,UPPER(@add_actionname) FROM DUAL
+WHERE NOT EXISTS (SELECT 1 FROM ld_actionmapping WHERE actionname=@add_actionname);SET @my_actionid=(SELECT actionid FROM ld_actionmapping WHERE actionname='FileReadHistory' LIMIT 1);
+CALL lingdang_add_profileallpermission(@my_actionid);
+DROP PROCEDURE if EXISTS `lingdang_add_profileallpermission`;
+DROP PROCEDURE IF EXISTS `lingdang_add_profile2standardpermissions`;CREATE TABLE IF NOT EXISTS `ld_fileoperationlog`(
+   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+   `tabid` int(11) DEFAULT NULL,
+   `newfile_name` varchar(100) DEFAULT NULL COMMENT '同附件表',
+   `operator` varchar(255) DEFAULT NULL COMMENT '操作人（当前登录角色用户的id）',
+   `operating_type` varchar(25) DEFAULT NULL COMMENT '操作类型 download preview',
+   `operating_time` timestamp NULL COMMENT '操作时间',
+   `created_at` timestamp  DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+   PRIMARY KEY ( `id` )
+)ENGINE=InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET=utf8;insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','Frequency','次数','fixedstr' from dual
+where not exists(select 1 from ld_desk where languagetype='zh' and labelbol='Frequency' and labeltype='fixedstr');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','Frequency','Frequency','fixedstr' from dual
+where not exists(select 1 from ld_desk where languagetype='en' and labelbol='Frequency' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','DownloadOperationLog','下载操作日志','fixedstr' from dual
+where not exists(select 1 from ld_desk where languagetype='zh' and labelbol='DownloadOperationLog' and labeltype='fixedstr');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','DownloadOperationLog','Download operation log','fixedstr' from dual
+where not exists(select 1 from ld_desk where languagetype='en' and labelbol='DownloadOperationLog' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','PreviewOperationLog','预览操作日志','fixedstr' from dual
+where not exists(select 1 from ld_desk where languagetype='zh' and labelbol='PreviewOperationLog' and labeltype='fixedstr');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','PreviewOperationLog','Preview operation log','fixedstr' from dual
+where not exists(select 1 from ld_desk where languagetype='en' and labelbol='PreviewOperationLog' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','OperationTotalNumber','操作总次数','fixedstr' from dual
+where not exists(select 1 from ld_desk where languagetype='zh' and labelbol='OperationTotalNumber' and labeltype='fixedstr');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','OperationTotalNumber','Total number of operations','fixedstr' from dual
+where not exists(select 1 from ld_desk where languagetype='en' and labelbol='OperationTotalNumber' and labeltype='fixedstr');UPDATE ld_desk SET fieldlabel='下载和预览次数' WHERE labelbol='FileReadHistory' AND languagetype='zh';
+-- 2021-04-12
+
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','qrcodetype','二维码类型','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='qrcodetype' and Labeltype='fixedstr' and languagetype='zh');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','qrcodetype','Qr code type','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='qrcodetype' and Labeltype='fixedstr' and languagetype='en');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','contentcode','内容码','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='contentcode' and Labeltype='fixedstr' and languagetype='zh');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','contentcode','content code','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='contentcode' and Labeltype='fixedstr' and languagetype='en');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','linkcode','链接码','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='linkcode' and Labeltype='fixedstr' and languagetype='zh');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','linkcode','link code','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='linkcode' and Labeltype='fixedstr' and languagetype='en');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','Contentcustomization','内容定制','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='Contentcustomization' and Labeltype='fixedstr' and languagetype='zh');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','Contentcustomization','Content customization','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='Contentcustomization' and Labeltype='fixedstr' and languagetype='en');CALl AddColumn('ld_customreport_chartset','show_percent','VARCHAR','50','no');CREATE TABLE IF NOT EXISTS `ld_qrcode_template` (
+  `qrcodetemplateid` int(19) NOT NULL AUTO_INCREMENT,
+  `template_content` text DEFAULT NULL,
+  `fieldid` int(11) DEFAULT NULL,
+  `qrcode_type` varchar(50) DEFAULT NULL,
+  `replacespacevalue` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`qrcodetemplateid`)
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','SOCIALPROMOTIONQRCODE','二维码','jspop' from dual
+where not exists(select 1 from ld_desk where labelbol='SOCIALPROMOTIONQRCODE' and Labeltype='jspop' and languagetype='zh');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','SOCIALPROMOTIONQRCODE','Qr code','jspop' from dual
+where not exists(select 1 from ld_desk where labelbol='SOCIALPROMOTIONQRCODE' and Labeltype='jspop' and languagetype='en');insert into ld_systems_deploy(deploy_value,deploy_type,description,inputtype,presence,inputvalue)
+select 'AutoGivenBillSourceBalance','321', '自动带出源单剩余数量或金额','select',1,'[{"value":"quantity","text":""},{"value":"tax_amount","text":""},{"sql":""}]' from dual 
+where not exists(select 1 from ld_systems_deploy where deploy_type=321);insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','AutoGivenBillSourceBalance','自动带出源单剩余','fixedstr' from dual 
+where not exists(select 1 from ld_desk where languagetype='zh' and labelbol='AutoGivenBillSourceBalance' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','AutoGivenBillSourceBalance','Automatically bring out the source document remaining','fixedstr' from dual 
+where not exists(select 1 from ld_desk where languagetype='en' and labelbol='AutoGivenBillSourceBalance' and labeltype='fixedstr');CALL AddColumn('ld_option_module','autobalancevalue','varchar',255,'');select tabid into @tabid  from ld_tab where name='OutboundOrder';
+select tabid into @option_tabid from ld_tab where name='SalesOrder';
+update ld_option_module set autobalancevalue='quantity' where tabid=@tabid and option_tabid=@option_tabid and ( autobalancevalue is null or autobalancevalue='');
+select tabid into @option_tabid from ld_tab where name='ServiceContracts';
+update ld_option_module set autobalancevalue='quantity' where tabid=@tabid and option_tabid=@option_tabid and ( autobalancevalue is null or autobalancevalue='');
+select tabid into @option_tabid from ld_tab where name='Invoice';
+update ld_option_module set autobalancevalue='quantity' where tabid=@tabid and option_tabid=@option_tabid and ( autobalancevalue is null or autobalancevalue='');
+select tabid into @option_tabid from ld_tab where name='Stock';
+update ld_option_module set autobalancevalue='quantity' where tabid=@tabid and option_tabid=@option_tabid and ( autobalancevalue is null or autobalancevalue='');select tabid into @tabid  from ld_tab where name='Stock';
+select tabid into @option_tabid from ld_tab where name='PurchaseOrder';
+update ld_option_module set autobalancevalue='quantity' where tabid=@tabid and option_tabid=@option_tabid and ( autobalancevalue is null or autobalancevalue='');
+select tabid into @option_tabid from ld_tab where name='PurchaseInvoice';
+update ld_option_module set autobalancevalue='quantity' where tabid=@tabid and option_tabid=@option_tabid and ( autobalancevalue is null or autobalancevalue='');select tabid into @tabid  from ld_tab where name='Invoice';
+select tabid into @option_tabid from ld_tab where name='SalesOrder';
+update ld_option_module set autobalancevalue='quantity' where tabid=@tabid and option_tabid=@option_tabid and ( autobalancevalue is null or autobalancevalue='');
+select tabid into @option_tabid from ld_tab where name='ServiceContracts';
+update ld_option_module set autobalancevalue='quantity' where tabid=@tabid and option_tabid=@option_tabid and ( autobalancevalue is null or autobalancevalue='');
+select tabid into @option_tabid from ld_tab where name='OutboundOrder';
+update ld_option_module set autobalancevalue='quantity' where tabid=@tabid and option_tabid=@option_tabid and ( autobalancevalue is null or autobalancevalue='');select tabid into @tabid  from ld_tab where name='PurchaseInvoice';
+select tabid into @option_tabid from ld_tab where name='PurchaseOrder';
+update ld_option_module set autobalancevalue='quantity' where tabid=@tabid and option_tabid=@option_tabid and ( autobalancevalue is null or autobalancevalue='');
+select tabid into @option_tabid from ld_tab where name='Stock';
+update ld_option_module set autobalancevalue='quantity' where tabid=@tabid and option_tabid=@option_tabid and ( autobalancevalue is null or autobalancevalue='');-- 2021-04-13
+
+select tabid into @tabid from ld_tab where name='salesorder';
+update ld_field set typeofdata='N~O~25,2' where columnname='purchasecost' and tabid=@tabid;UPDATE ld_field SET bigtype='date' WHERE uitype=5 AND IFNULL(bigtype,'')<>'date';
+UPDATE ld_field SET bigtype='picklist' WHERE uitype=15 AND IFNULL(bigtype,'')<>'picklist';
+UPDATE ld_field SET bigtype='datetime' WHERE uitype=86 AND IFNULL(bigtype,'')<>'datetime';
+
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','LBL_WORKFLOWCUSTOMIZATION_SET','工作流程定制','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='LBL_WORKFLOWCUSTOMIZATION_SET' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','LBL_WORKFLOWCUSTOMIZATION_SET','工作流程定制','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='LBL_WORKFLOWCUSTOMIZATION_SET' and labeltype='fixedstr');select blockid into @blockid from ld_settings_blocks where label = 'LBL_PARAMETER_SETTINGS';
+select sequence into @sequence from ld_settings_field where blockid = @blockid and `name` = 'LBL_AUTOMATICREMINDS_SET';
+update ld_settings_field set sequence = sequence + 100 where blockid = @blockid and sequence >= @sequence;
+select max(fieldid) + 1 into @fieldid from ld_settings_field;
+insert into ld_settings_field(fieldid,blockid,`name`,iconpath,description,linkto,sequence,active)
+select @fieldid,@blockid,'LBL_WORKFLOWCUSTOMIZATION_SET','migrate.png','LBL_WORKFLOWCUSTOMIZATION_SET','index.php?module=Settings&action=WorkflowCustomizationList&parenttab=Settings',@sequence+1,0 from  DUAL
+where not exists(select 1 from ld_settings_field where blockid = @blockid and `name` = 'LBL_WORKFLOWCUSTOMIZATION_SET');
+update ld_settings_field_seq set id = (select max(fieldid) from ld_settings_field);
+SET @i=0;
+update ld_settings_field set sequence=(@i:=@i+1) where blockid = @blockid order by sequence;insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','LBL_WORKFLOWCUSTOMIZATION_SET','工作流程定制','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='LBL_WORKFLOWCUSTOMIZATION_SET' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','LBL_WORKFLOWCUSTOMIZATION_SET','工作流程定制','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='LBL_WORKFLOWCUSTOMIZATION_SET' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','WorkflowName','流程名称','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='WorkflowName' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','WorkflowName','Workflow Name','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='WorkflowName' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','TriggerTime','触发点','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='TriggerTime' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','TriggerTime','Trigger Time','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='TriggerTime' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','CreateWorkflowCustomization','新建工作流程','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='CreateWorkflowCustomization' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','CreateWorkflowCustomization','Create WorkflowCustomization','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='CreateWorkflowCustomization' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','WorkflowTrigger','触发器','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='WorkflowTrigger' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','WorkflowTrigger','Workflow Trigger','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='WorkflowTrigger' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','UpdatedIncludesCreation','编辑（包含新增）','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='UpdatedIncludesCreation' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','UpdatedIncludesCreation','Updated(Includes Creation)','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='UpdatedIncludesCreation' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','Onlyfirsttimeconditonsaremet','第一次满足触发条件时','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='Onlyfirsttimeconditonsaremet' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','Onlyfirsttimeconditonsaremet','Only first time conditons are met','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='Onlyfirsttimeconditonsaremet' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','Everytimeconditonsareme','每一次满足触发条件时','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='Everytimeconditonsareme' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','Everytimeconditonsareme','Every time conditons are me','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='Everytimeconditonsareme' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','ApprovalNode','审批节点','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='ApprovalNode' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','ApprovalNode','Approval Node','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='ApprovalNode' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','Rejected','审批拒绝','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='Rejected' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','Rejected','Rejected','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='Rejected' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','Dismissed1','审批驳回','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='Dismissed1' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','Dismissed1','Dismissed','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='Dismissed1' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','WorkflowActions','工作流操作','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='WorkflowActions' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','WorkflowActions','Workflow Actions','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='WorkflowActions' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','AddAction','添加操作','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='AddAction' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','AddAction','Add Action','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='AddAction' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','CallAPI','调用API','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='CallAPI' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','CallAPI','Call API','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='CallAPI' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','ActionTitle','操作描述','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='ActionTitle' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','ActionTitle','Action Title','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='ActionTitle' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','FieldVariables','字段变量','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='FieldVariables' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','FieldVariables','Field Variables','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='FieldVariables' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','SystemVariables','系统变量','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='SystemVariables' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','SystemVariables','System Variables','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='SystemVariables' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','ErpCode','ERP内码','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='ErpCode' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','ErpCode','Erp Code','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='ErpCode' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','CurrentTime','当前时间','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='CurrentTime' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','CurrentTime','Current Time','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='CurrentTime' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','Atleastoneapprovalnodemustbeselected','至少得选择一个审批节点！','jspop' from dual
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='Atleastoneapprovalnodemustbeselected' and labeltype='jspop');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','Atleastoneapprovalnodemustbeselected','At least one approval node must be selected!','jspop' from dual
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='Atleastoneapprovalnodemustbeselected' and labeltype='jspop');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','Pleaseaddworkflowoperation','请添加工作流操作！','jspop' from dual
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='Pleaseaddworkflowoperation' and labeltype='jspop');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','Pleaseaddworkflowoperation','Please add workflow operation!','jspop' from dual
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='Pleaseaddworkflowoperation' and labeltype='jspop');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','loginmobile','登陆手机号码','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='loginmobile' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','loginmobile','Login mobile','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='loginmobile' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','loginpassword','登陆密码','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='zh' and labelbol='loginpassword' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','loginpassword','Login password','fixedstr' from dual
+where not exists(select 1 from ld_desk where  languagetype='en' and labelbol='loginpassword' and labeltype='fixedstr');CREATE TABLE IF NOT EXISTS`ld_workflow` (
+  `id` int(11) NOT NULL,
+  `tabid` int(11) DEFAULT NULL,
+  `name` varchar(200) DEFAULT NULL,
+  `status` varchar(20) DEFAULT NULL,
+  `description` text,
+  `triggertime` varchar(50) DEFAULT NULL,
+  `repeatmode` varchar(50) DEFAULT NULL,
+  `approvalnode` varchar(50) DEFAULT NULL,
+  `deleted` int(1) DEFAULT '0',
+  `createdtime` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;CREATE TABLE IF NOT EXISTS `ld_workflow_actions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `workflow_id` int(11) DEFAULT NULL,
+  `action_title` text,
+  `action_type` varchar(20) DEFAULT NULL,
+  `api_url` text,
+  `api_jsondata` text,
+  `status` varchar(20) DEFAULT 'Active',
+  `createdtime` datetime DEFAULT NULL,
+  `deleted` int(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;CREATE TABLE IF NOT EXISTS`ld_workflow_api` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `api_name` varchar(255) DEFAULT NULL,
+  `api_url` text,
+  `client_id` varchar(50) DEFAULT NULL,
+  `client_secret` text,
+  `username` varchar(50) DEFAULT NULL,
+  `password` varchar(50) DEFAULT NULL,
+  `orgid` varchar(50) DEFAULT NULL,
+  `dbname` varchar(100) DEFAULT NULL,
+  `db_description` varchar(100) DEFAULT NULL,
+  `description` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;CREATE TABLE IF NOT EXISTS`ld_workflow_seq` (
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;insert into ld_workflow_seq(id)
+select 0 from DUAL where not exists(select 1 from ld_workflow_seq where id <= 0);-- 2021-04-15
+
+CALL AddColumn('ld_fileoperationlog','crmid','int','19',0);insert into ld_systems_deploy(deploy_value,deploy_type,description,inputtype,presence,inputvalue)
+select '3','322', '设置系统登陆时密码连续输错次数','select',1,'[{"value":"3","text":"PwdErrorAllowTimes"}]' from dual 
+where not exists(select 1 from ld_systems_deploy where deploy_type=322);insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','PwdErrorAllowTimes','设置系统登陆时密码连续输错{n}次后，不允许登陆的限制时长（为空表示不限制时长，允许登陆）','fixedstr' from dual 
+where not exists(select 1 from ld_desk where languagetype='zh' and labelbol='PwdErrorAllowTimes' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','PwdErrorAllowTimes','Set the time limit for not allowed to log in if the password is continuous incorrectly typed for {n} times during system login (empty means no time limit and allowed to log in)','fixedstr' from dual 
+where not exists(select 1 from ld_desk where languagetype='en' and labelbol='PwdErrorAllowTimes' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','UserEmpty','空','fixedstr' from dual 
+where not exists(select 1 from ld_desk where languagetype='zh' and labelbol='UserEmpty' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','UserEmpty','Empty','fixedstr' from dual 
+where not exists(select 1 from ld_desk where languagetype='en' and labelbol='UserEmpty' and labeltype='fixedstr');insert into ld_systems_deploy(deploy_value,deploy_type,description,inputtype,presence,inputvalue)
+select '0','323', '设置系统登陆时密码连续输错时间限制','select',1,'[{"value":"0","text":"UserEmpty"},{"value":"30","text":"30"},{"value":"60","text":"60"},{"value":"90","text":"90"}]' from dual 
+where not exists(select 1 from ld_systems_deploy where deploy_type=323);insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','UnlockSuccess','解锁成功！','fixedstr' from dual 
+where not exists(select 1 from ld_desk where languagetype='zh' and labelbol='UnlockSuccess' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','UnlockSuccess','Unlocking succeeded！','fixedstr' from dual 
+where not exists(select 1 from ld_desk where languagetype='en' and labelbol='UnlockSuccess' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','LoginControl','登录控制','fixedstr' from dual 
+where not exists(select 1 from ld_desk where languagetype='zh' and labelbol='LoginControl' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','LoginControl','Login to control','fixedstr' from dual 
+where not exists(select 1 from ld_desk where languagetype='en' and labelbol='LoginControl' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','UnlockUserAccount','解锁账号','fixedstr' from dual 
+where not exists(select 1 from ld_desk where languagetype='zh' and labelbol='UnlockUserAccount' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','UnlockUserAccount','Unlock the account','fixedstr' from dual 
+where not exists(select 1 from ld_desk where languagetype='en' and labelbol='UnlockUserAccount' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','UnLock','解锁','fixedstr' from dual 
+where not exists(select 1 from ld_desk where languagetype='zh' and labelbol='UnLock' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','UnLock','UnLock','fixedstr' from dual 
+where not exists(select 1 from ld_desk where languagetype='en' and labelbol='UnLock' and labeltype='fixedstr');update ld_systems_deploy  set roottype=0 where deploy_type=90 or deploy_type=73 ;CREATE TABLE if not exists  `ld_loginerror` (
+  `id` int(19) NOT NULL AUTO_INCREMENT,
+  `logintime` datetime DEFAULT NULL,
+  `userid` int(19) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','AdminUnlockUser','您的密码连续输错{n}次已锁定，请联系管理员解锁账号或{minute}分钟后重试！','fixedstr' from  dual 
+where not exists(select 1 from ld_desk where languagetype='zh' and labelbol='AdminUnlockUser' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','AdminUnlockUser','Your password continuous input error {n} times has been locked. Please contact the admin to unlock your account or try again in {minute} minutes！','fixedstr' from  dual 
+where not exists(select 1 from ld_desk where languagetype='en' and labelbol='AdminUnlockUser' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','UnLockTheAccount','解除锁定账号','fixedstr' from  dual 
+where not exists(select 1 from ld_desk where languagetype='zh' and labelbol='UnLockTheAccount' and labeltype='fixedstr');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','UnLockTheAccount','Unlock the account','fixedstr' from  dual 
+where not exists(select 1 from ld_desk where languagetype='en' and labelbol='UnLockTheAccount' and labeltype='fixedstr');update ld_tabdetailfield set savedatabase='yes' where columnname='total';-- 2021-04-16
+
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','mobileDetailCode','移动端单据详情码','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='mobileDetailCode' and Labeltype='fixedstr' and languagetype='zh');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','mobileDetailCode','Mobile terminal document detail code','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='mobileDetailCode' and Labeltype='fixedstr' and languagetype='en');insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','useCrmScan','使用CRM扫一扫功能','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='useCrmScan' and Labeltype='fixedstr' and languagetype='zh');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','useCrmScan','Using CRM scan function','fixedstr' from dual
+where not exists(select 1 from ld_desk where labelbol='useCrmScan' and Labeltype='fixedstr' and languagetype='en');CALL AddColumn('ld_users','pwd_checkcondition','varchar',20,'yes');update ld_users set pwd_checkcondition='yes' where pwd_checkcondition is null or  pwd_checkcondition='';CALL AddColumn('ld_tabshare','viewuserduty','varchar','100',0);CALL AddColumn('ld_tabshare','viewuserremark','text','',0);insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'zh','Duty','职责','fixedstr' from dual where not exists(select 1 from ld_desk where languagetype='zh' and labelbol='duty' and labeltype='fixedstr');
+insert into ld_desk(languagetype,labelbol,fieldlabel,labeltype)
+select 'en','Duty','Duty','fixedstr' from dual where not exists(select 1 from ld_desk where languagetype='en' and labelbol='duty' and labeltype='fixedstr');CALL ldcrm_add_teamownerid();
+DROP PROCEDURE IF EXISTS `ldcrm_add_teamownerid`;
+-- 2021-04-19
+
+UPDATE ld_field SET allowhide='yes' WHERE columnname='team_memberid' AND uitype=154;
+
+SET @disable_triggers=NULL;
+UPDATE ld_field_seq SET id=(SELECT MAX(fieldid) FROM ld_field);
+UPDATE ld_blocks_seq SET id=(SELECT MAX(blockid) FROM ld_blocks);
+UPDATE ld_relatedlists_seq SET id=(SELECT MAX(relation_id) FROM ld_relatedlists);
+UPDATE ld_customview_seq SET id = (SELECT MAX(cvid) FROM ld_customview);
+UPDATE ld_links_seq SET id=(SELECT MAX(linkid) FROM ld_links);
+UPDATE ld_picklist_dependency_seq SET id=(SELECT MAX(id) FROM ld_picklist_dependency);
+UPDATE ld_crmentity_seq SET id=(SELECT MAX(crmid) FROM ld_crmentity);
+UPDATE ld_approve_seq SET id=(SELECT MAX(id) FROM ld_approve);
+UPDATE ld_approvestep_seq SET id=(SELECT MAX(id) FROM ld_approvestep);
+UPDATE ld_autotask_seq SET id = (SELECT MAX(autotaskid) FROM ld_autotask);
+UPDATE ld_currency_info_seq SET id=(SELECT MAX(id) FROM ld_currency_info);
+UPDATE ld_users_seq SET id=(SELECT MAX(id) FROM ld_users);
+UPDATE ld_tabdetailfield_seq SET id=(SELECT MAX(tabdetailfieldid) FROM ld_tabdetailfield);
+UPDATE ld_customreport_info_seq SET id=(SELECT MAX(report_id) FROM ld_customreport_info);
+UPDATE ld_producttoolfield_seq SET id=(SELECT MAX(producttoolfieldid) FROM ld_producttoolfield);
+UPDATE ld_settings_field_seq SET id=(SELECT MAX(fieldid) FROM ld_settings_field);
+UPDATE ld_workreport_field_seq SET id=(SELECT MAX(id) FROM ld_workreport_field);
